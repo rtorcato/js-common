@@ -156,10 +156,12 @@ verify-release:
     GIT_COMMITTER_EMAIL: "ci@example.com"
   script:
   - apk add --no-cache git # Install git
-  - git config --global user.name "GitLab CI"
-  - git config --global user.email "ci@example.com"
-  - pnpm install
-  - npx semantic-release --no-ci --dryrun
+  - git config --global user.name "GitLab CI" # Configure git user
+  - git config --global user.email "ci@example.com" # Configure git user
+  - pnpm install # Install dependencies
+  - git fetch --unshallow || true # Ensure we have a full git history
+  - git pull origin main --ff-only || true # Ensure we are on the latest main branch
+  - npx semantic-release --no-ci --dryrun # Run semantic-release in dry run mode to verify release
 
 ####################################################
 
@@ -186,11 +188,11 @@ publish:
   - apk add --no-cache git # Install git
   - git tag -l | xargs git tag -d # Clean up local tags
   - git fetch --prune --tags # Fetch remote tags
-  - git config --global user.name "GitLab CI"
-  - git config --global user.email "ci@example.com"
-  - pnpm install
-  - git fetch --unshallow || true
-  - git pull origin main --ff-only || true
-  - npx semantic-release --no-ci
+  - git config --global user.name "GitLab CI" # Configure git user
+  - git config --global user.email "ci@example.com" # Configure git user
+  - pnpm install # Install dependencies
+  - git fetch --unshallow || true # Ensure we have a full git history
+  - git pull origin main --ff-only || true # Ensure we are on the latest main branch
+  - npx semantic-release --no-ci # Publish the package
 
 ####################################################
