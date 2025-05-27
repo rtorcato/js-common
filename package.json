@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/js-common",
-  "version": "1.0.13",
+  "version": "0.0.0-development",
   "description": "JavaScript and TypeScript common code",
   "type": "module",
   "main": "dist/index.js",
