@@ -221,7 +221,7 @@
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@rtorcato/js-tooling": "^1.0.12",
+    "@rtorcato/js-tooling": "^1.0.17",
     "@types/luxon": "^3.6.2",
     "@types/node": "^22.15.21",
     "cross-env": "^7.0.3",
