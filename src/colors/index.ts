@@ -1,11 +1,13 @@
 /**
- * Random color generator
+ * Generates a random hex color string.
  *
- * @export
- * @return {*}
+ * @returns {string} A string representing a random color in hexadecimal format (e.g., `#a1b2c3`).
  */
-export function randomColor() {
-	return `#${Math.floor(Math.random() * 16777215).toString(16)}`
+export function randomColor(): string {
+	const color = Math.floor(Math.random() * 0xffffff)
+		.toString(16)
+		.padStart(6, '0') // ensures it's 6 characters
+	return `#${color}`
 }
 
 /**
