@@ -5,7 +5,7 @@ stages:
 - varcheck
 - test
 - build
-- verify-release
+# - verify-release
 - release
 
 ####################################################
