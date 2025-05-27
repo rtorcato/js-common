@@ -189,6 +189,8 @@ publish:
   - git config --global user.name "GitLab CI"
   - git config --global user.email "ci@example.com"
   - pnpm install
+  - git fetch --unshallow || true
+  - git pull origin main --ff-only || true
   - npx semantic-release --no-ci
 
 ####################################################
