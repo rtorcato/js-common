@@ -197,7 +197,7 @@ publish:
   - rm -f .npmrc || true # Deletes the .npmrc in your current working directory
   - rm -f ~/.npmrc || true # Remove existing .npmrc if it exists
   # 🔐 Inject dynamic .npmrc for auth
-  - echo "@rtorcato/js-tooling:registry=https://gitlab.com/api/v4/projects/69645966/packages/npm/" > ~/.npmrc
+  - echo "@rtorcato/js-common:registry=https://gitlab.com/api/v4/projects/69645966/packages/npm/" > ~/.npmrc
   - echo "//gitlab.com/api/v4/projects/69645966/packages/npm/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
   - npx semantic-release --no-ci # Publish the package
 
