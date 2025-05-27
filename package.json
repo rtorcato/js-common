@@ -1,0 +1,267 @@
+{
+  "name": "@rtorcato/js-common",
+  "version": "1.0.13",
+  "description": "JavaScript and TypeScript common code",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "UNLICENSED",
+  "keywords": [
+    "common",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Richard Torcato",
+  "sideEffects": false,
+  "scripts": {
+    "build-dev": "rimraf ./dist && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "build-prod": "rimraf ./dist && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "prepublishOnly1": "npm run build-prod",
+    "==================== Common ====================": "",
+    "lint": "pnpm exec biome lint .",
+    "format": "pnpm exec biome format .",
+    "check:fix": "pnpm exec biome check --fix",
+    "check": "pnpm exec biome check .",
+    "prepare": "husky",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "coverage": "vitest run --coverage",
+    "commit": "cz",
+    "================================================": ""
+  },
+  "files": [
+    "CHANGELOG.md",
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./abortController": {
+      "import": "./dist/abortController/index.js",
+      "types": "./dist/abortController/index.d.ts"
+    },
+    "./arrays": {
+      "import": "./dist/arrays/index.js",
+      "types": "./dist/arrays/index.d.ts"
+    },
+    "./boolean": {
+      "import": "./dist/boolean/index.js",
+      "types": "./dist/boolean/index.d.ts"
+    },
+    "./colors": {
+      "import": "./dist/colors/index.js",
+      "types": "./dist/colors/index.d.ts"
+    },
+    "./console": {
+      "import": "./dist/console/index.js",
+      "types": "./dist/console/index.d.ts"
+    },
+    "./crypto": {
+      "import": "./dist/crypto/index.js",
+      "types": "./dist/crypto/index.d.ts"
+    },
+    "./currency": {
+      "import": "./dist/currency/index.js",
+      "types": "./dist/currency/index.d.ts"
+    },
+    "./date": {
+      "import": "./dist/date/index.js",
+      "types": "./dist/date/index.d.ts"
+    },
+    "./datetime": {
+      "import": "./dist/datetime/index.js",
+      "types": "./dist/datetime/index.d.ts"
+    },
+    "./emails": {
+      "import": "./dist/emails/index.js",
+      "types": "./dist/emails/index.d.ts"
+    },
+    "./env": {
+      "import": "./dist/env/index.js",
+      "types": "./dist/env/index.d.ts"
+    },
+    "./errors": {
+      "import": "./dist/errors/index.js",
+      "types": "./dist/errors/index.d.ts"
+    },
+    "./events": {
+      "import": "./dist/events/index.js",
+      "types": "./dist/events/index.d.ts"
+    },
+    "./fetch": {
+      "import": "./dist/fetch/index.js",
+      "types": "./dist/fetch/index.d.ts"
+    },
+    "./file": {
+      "import": "./dist/file/index.js",
+      "types": "./dist/file/index.d.ts"
+    },
+    "./functions": {
+      "import": "./dist/functions/index.js",
+      "types": "./dist/functions/index.d.ts"
+    },
+    "./geometry": {
+      "import": "./dist/geometry/index.js",
+      "types": "./dist/geometry/index.d.ts"
+    },
+    "./html": {
+      "import": "./dist/html/index.js",
+      "types": "./dist/html/index.d.ts"
+    },
+    "./i18n": {
+      "import": "./dist/i18n/index.js",
+      "types": "./dist/i18n/index.d.ts"
+    },
+    "./interval": {
+      "import": "./dist/interval/index.js",
+      "types": "./dist/interval/index.d.ts"
+    },
+    "./json": {
+      "import": "./dist/json/index.js",
+      "types": "./dist/json/index.d.ts"
+    },
+    "./logger": {
+      "import": "./dist/logger/index.js",
+      "types": "./dist/logger/index.d.ts"
+    },
+    "./logging": {
+      "import": "./dist/logging/index.js",
+      "types": "./dist/logging/index.d.ts"
+    },
+    "./maps": {
+      "import": "./dist/maps/index.js",
+      "types": "./dist/maps/index.d.ts"
+    },
+    "./math": {
+      "import": "./dist/math/index.js",
+      "types": "./dist/math/index.d.ts"
+    },
+    "./mime-types": {
+      "import": "./dist/mime-types/index.js",
+      "types": "./dist/mime-types/index.d.ts"
+    },
+    "./node": {
+      "import": "./dist/node/index.js",
+      "types": "./dist/node/index.d.ts"
+    },
+    "./numbers": {
+      "import": "./dist/numbers/index.js",
+      "types": "./dist/numbers/index.d.ts"
+    },
+    "./objects": {
+      "import": "./dist/objects/index.js",
+      "types": "./dist/objects/index.d.ts"
+    },
+    "./os": {
+      "import": "./dist/os/index.js",
+      "types": "./dist/os/index.d.ts"
+    },
+    "./process": {
+      "import": "./dist/process/index.js",
+      "types": "./dist/process/index.d.ts"
+    },
+    "./promises": {
+      "import": "./dist/promises/index.js",
+      "types": "./dist/promises/index.d.ts"
+    },
+    "./random": {
+      "import": "./dist/random/index.js",
+      "types": "./dist/random/index.d.ts"
+    },
+    "./regex": {
+      "import": "./dist/regex/index.js",
+      "types": "./dist/regex/index.d.ts"
+    },
+    "./security": {
+      "import": "./dist/security/index.js",
+      "types": "./dist/security/index.d.ts"
+    },
+    "./sets": {
+      "import": "./dist/sets/index.js",
+      "types": "./dist/sets/index.d.ts"
+    },
+    "./sleep": {
+      "import": "./dist/sleep/index.js",
+      "types": "./dist/sleep/index.d.ts"
+    },
+    "./strings": {
+      "import": "./dist/strings/index.js",
+      "types": "./dist/strings/index.d.ts"
+    },
+    "./system": {
+      "import": "./dist/system/index.js",
+      "types": "./dist/system/index.d.ts"
+    },
+    "./time": {
+      "import": "./dist/time/index.js",
+      "types": "./dist/time/index.d.ts"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts"
+    },
+    "./url": {
+      "import": "./dist/url/index.js",
+      "types": "./dist/url/index.d.ts"
+    },
+    "./uuid": {
+      "import": "./dist/uuid/index.js",
+      "types": "./dist/uuid/index.d.ts"
+    },
+    "./validation": {
+      "import": "./dist/validation/index.js",
+      "types": "./dist/validation/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@rtorcato/js-tooling": "^1.0.12",
+    "@types/luxon": "^3.6.2",
+    "@types/node": "^22.15.21",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.4",
+    "esbuild-node-externals": "^1.18.0",
+    "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
+    "lint-staged": "^16.0.0",
+    "rimraf": "6.0.1",
+    "semantic-release": "^24.2.5",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "3.1.4"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "luxon": "^3.6.1",
+    "pino": "^9.7.0",
+    "short-uuid": "^5.2.0",
+    "uuid": "^11.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md}": [
+      "pnpm exec biome lint",
+      "pnpm exec biome format",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://gitlab.com/api/v4/projects/69645966/packages/npm/"
+  }
+}
