@@ -3,6 +3,8 @@
 echo "🔍 Running pre-commit checks..."
 # npx lint-staged
 
+echo "🧹 Running typecheck (pnpm run typecheck)..."
+pnpm run typecheck
 echo "🧹 Running lint (pnpm run check)..."
 pnpm run check
 CHECK_STATUS=$?
