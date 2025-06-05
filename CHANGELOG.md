@@ -1,3 +1,10 @@
+## [1.0.9](https://gitlab.com/rtorcato/js-common/compare/v1.0.8...v1.0.9) (2025-06-05)
+
+
+### Bug Fixes
+
+* update with checkEnv ([6c16c65](https://gitlab.com/rtorcato/js-common/commit/6c16c65a97b6b972d24e11afd2d633cb6a3394e9))
+
 ## [1.0.8](https://gitlab.com/rtorcato/js-common/compare/v1.0.7...v1.0.8) (2025-05-28)
 
 
