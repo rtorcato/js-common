@@ -1,3 +1,5 @@
+import { z } from 'zod/v4'
+
 /**
  * Retrieves the value of an environment variable by its key.
  *
@@ -53,3 +55,40 @@ export const isTest = (): boolean => {
 export const getNodeEnv = (): string => {
 	return process.env.NODE_ENV || 'development'
 }
+
+/**
+ *
+ * Validates the environment variables against a Zod schema.
+ * Throws an error if any required variables are missing or invalid.
+ * @param {z.ZodObject<T>} EnvSchema - The Zod schema to validate against.
+ * @param {Record<string, string | undefined>} buildEnv - The environment variables to validate, defaults to `process.env`.
+ * @throws {Error} If validation fails, an error with a message listing missing variables is thrown.
+ */
+export default function checkEnv<T extends z.ZodRawShape>(
+	EnvSchema: z.ZodObject<T>,
+	buildEnv: Record<string, string | undefined> = process.env
+) {
+	try {
+		EnvSchema.parse(buildEnv)
+	} catch (error) {
+		if (error instanceof z.ZodError) {
+			let message = 'Missing required values in .env:\n'
+			message += Object.keys(z.flattenError(error).fieldErrors).join('\n')
+			const e = new Error(message)
+			e.stack = ''
+			throw e
+		}
+	}
+}
+
+/**
+ * Schema for validating the root environment variables.
+ * It includes NODE_ENV, LOG_LEVEL, and PORT with their respective types and defaults.
+ */
+export const RootApiEnvSchema = z.object({
+	NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+	LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
+	PORT: z.number().default(3000),
+})
+
+export type RootApiEnvSchema = z.infer<typeof RootApiEnvSchema>
