@@ -64,12 +64,12 @@ export const getNodeEnv = (): string => {
  * @param {Record<string, string | undefined>} buildEnv - The environment variables to validate, defaults to `process.env`.
  * @throws {Error} If validation fails, an error with a message listing missing variables is thrown.
  */
-export default function checkEnv<T extends z.ZodRawShape>(
+export function checkEnv<T extends z.ZodRawShape>(
 	EnvSchema: z.ZodObject<T>,
 	buildEnv: Record<string, string | undefined> = process.env
 ) {
 	try {
-		EnvSchema.parse(buildEnv)
+		return EnvSchema.parse(buildEnv)
 	} catch (error) {
 		if (error instanceof z.ZodError) {
 			let message = 'Missing required values in .env:\n'
@@ -78,6 +78,7 @@ export default function checkEnv<T extends z.ZodRawShape>(
 			e.stack = ''
 			throw e
 		}
+		throw error
 	}
 }
 
@@ -88,7 +89,7 @@ export default function checkEnv<T extends z.ZodRawShape>(
 export const RootApiEnvSchema = z.object({
 	NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 	LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
-	PORT: z.number().default(3000),
+	PORT: z.coerce.number().default(3000),
 })
 
 export type RootApiEnvSchema = z.infer<typeof RootApiEnvSchema>
