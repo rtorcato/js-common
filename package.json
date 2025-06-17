@@ -201,6 +201,10 @@
       "import": "./dist/time/index.js",
       "types": "./dist/time/index.d.ts"
     },
+    "./try": {
+      "import": "./dist/try/index.js",
+      "types": "./dist/try/index.d.ts"
+    },
     "./types": {
       "types": "./dist/types/index.d.ts"
     },
