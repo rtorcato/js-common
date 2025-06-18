@@ -1,3 +1,12 @@
+## [1.0.12-dev.1](https://gitlab.com/rtorcato/js-common/compare/v1.0.11...v1.0.12-dev.1) (2025-06-18)
+
+
+### Bug Fixes
+
+* added dev branch to CI ([e084686](https://gitlab.com/rtorcato/js-common/commit/e0846860a22f72f7f43c0da697b75653d3f0dc6b))
+* added dev branch to CI ([c57d492](https://gitlab.com/rtorcato/js-common/commit/c57d49232b510ffbf4210de85b162162ee63cf4c))
+* update packages and add fix for biome sorting ([5a5bc68](https://gitlab.com/rtorcato/js-common/commit/5a5bc68f8f417f6e417bca64fd33a02d1f18bdb3))
+* update packages and add fix for biome sorting ([30c2b6b](https://gitlab.com/rtorcato/js-common/commit/30c2b6bcf09632e5e5e804da3cbaab67e5ba7a23))
 
 ## [1.0.11-dev.1](https://gitlab.com/rtorcato/js-common/compare/v1.0.10...v1.0.11-dev.1) (2025-06-18)
 
