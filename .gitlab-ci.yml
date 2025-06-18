@@ -31,7 +31,7 @@ workflow:
   # - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
   #   when: always
   # Only run pipeline for specific branches
-  - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "release" || $CI_COMMIT_BRANCH == "ci-testing"'
+  - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH == "release" || $CI_COMMIT_BRANCH == "ci-testing"'
     when: always
 
 ####################################################
