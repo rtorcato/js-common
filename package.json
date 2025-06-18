@@ -239,6 +239,7 @@
     "vitest": "3.2.4"
   },
   "dependencies": {
+    "biome": "^0.3.3",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "luxon": "^3.6.1",
