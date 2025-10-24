@@ -7,7 +7,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "js-common": "dist/cli/index.cjs"
+    "js-common": "dist/cli/index.mjs"
   },
   "license": "MIT",
   "keywords": [
@@ -28,7 +28,7 @@
   "scripts": {
     "build-dev": "rimraf ./dist && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && npm run build-cli",
     "build-prod": "rimraf ./dist && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && npm run build-cli",
-    "build-cli": "esbuild src/cli/index.ts --bundle --platform=node --format=cjs --outfile=dist/cli/index.cjs.tmp && echo '#!/usr/bin/env node' > dist/cli/index.cjs && cat dist/cli/index.cjs.tmp >> dist/cli/index.cjs && rm dist/cli/index.cjs.tmp && chmod +x dist/cli/index.cjs",
+    "build-cli": "tsc src/cli/cli.ts --outDir dist/cli --target ES2022 --module ES2022 --moduleResolution bundler --allowImportingTsExtensions false --esModuleInterop --skipLibCheck && mv dist/cli/cli.js dist/cli/temp.mjs && echo '#!/usr/bin/env node' > dist/cli/index.mjs && cat dist/cli/temp.mjs >> dist/cli/index.mjs && rm dist/cli/temp.mjs && chmod +x dist/cli/index.mjs",
     "prepublishOnly1": "npm run build-prod",
     "==================== Common ====================": "",
     "lint": "pnpm exec biome lint .",
@@ -245,6 +245,9 @@
     "@semantic-release/github": "^12.0.0",
     "@semantic-release/npm": "^13.1.1",
     "@semantic-release/release-notes-generator": "^14.1.0",
+    "@types/chalk-animation": "^1.6.3",
+    "@types/figlet": "^1.7.0",
+    "@types/inquirer": "^9.0.9",
     "@types/luxon": "^3.7.1",
     "@types/node": "^24.9.1",
     "cross-env": "^10.1.0",
@@ -258,10 +261,16 @@
     "vitest": "^4.0.3"
   },
   "dependencies": {
+    "chalk": "^5.6.2",
+    "chalk-animation": "^2.0.3",
     "commander": "^14.0.1",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
+    "figlet": "^1.9.3",
+    "gradient-string": "^3.0.0",
+    "inquirer": "^12.10.0",
     "luxon": "^3.7.2",
+    "nanospinner": "^1.2.2",
     "pino": "^10.1.0",
     "short-uuid": "^5.2.0",
     "uuid": "^13.0.0",

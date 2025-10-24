@@ -1,74 +1,204 @@
+import chalk from 'chalk'
+import chalkAnimation from 'chalk-animation'
 import { program } from 'commander'
+import figlet from 'figlet'
+import gradient from 'gradient-string'
+import inquirer from 'inquirer'
 import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-// Handle both ESM and CommonJS environments
-let currentDir: string
-try {
-	// ESM
-	currentDir = dirname(fileURLToPath(import.meta.url))
-} catch {
-	// CommonJS fallback
-	currentDir = __dirname
-}
-
-// Import utility functions
-import { daysBetween, today } from '../date/index.js'
-import { nowIso } from '../datetime/index.js'
-import { fileExists, getFileExtension } from '../file/index.js'
-import { capitalize, padZero, toTitleCase } from '../formatting/index.js'
-import { getNodeMajorVersion } from '../node/index.js'
-import { average, clamp, getRandomInt, roundTo, sum } from '../numbers/index.js'
-import { getProcessId, getProcessUptime, isCI } from '../process/index.js'
-import { generateSecureToken, isStrongPassword } from '../security/index.js'
-import { nowTime } from '../time/index.js'
-import { isValidUrl } from '../url/index.js'
+// Get current directory for ESM
+const currentDir = dirname(fileURLToPath(import.meta.url))
 
 // Get package version
 const packageJson = JSON.parse(readFileSync(resolve(currentDir, '../../package.json'), 'utf-8'))
 
 program
 	.name('js-common')
-	.description('CLI utilities from @rtorcato/js-common')
+	.description(chalk.cyan('✨ CLI utilities from @rtorcato/js-common'))
 	.version(packageJson.version)
 
-// Date & Time commands
-const dateCmd = program.command('date').description('Date and time utilities')
+// Function categories for list and interactive mode
+const functionCategories = {
+	date: {
+		name: '📅 Date & Time',
+		functions: [
+			{ name: 'today', description: "Get today's date (YYYY-MM-DD)" },
+			{ name: 'now', description: 'Get current timestamp' },
+			{ name: 'between', description: 'Calculate days between dates' },
+		],
+	},
+	math: {
+		name: '🔢 Mathematical',
+		functions: [
+			{ name: 'sum', description: 'Calculate sum of numbers' },
+			{ name: 'avg', description: 'Calculate average of numbers' },
+			{ name: 'random', description: 'Generate random number' },
+			{ name: 'round', description: 'Round to decimal places' },
+			{ name: 'clamp', description: 'Clamp between min/max' },
+		],
+	},
+	text: {
+		name: '📝 Text Formatting',
+		functions: [
+			{ name: 'capitalize', description: 'Capitalize first letter' },
+			{ name: 'title', description: 'Convert to title case' },
+			{ name: 'pad', description: 'Pad with leading zeros' },
+		],
+	},
+	file: {
+		name: '📁 File Operations',
+		functions: [
+			{ name: 'exists', description: 'Check if file exists' },
+			{ name: 'ext', description: 'Get file extension' },
+		],
+	},
+	security: {
+		name: '🔒 Security',
+		functions: [
+			{ name: 'password', description: 'Check password strength' },
+			{ name: 'token', description: 'Generate secure token' },
+		],
+	},
+	validate: {
+		name: '✅ Validation',
+		functions: [{ name: 'url', description: 'Validate URL format' }],
+	},
+	system: {
+		name: '💻 System Info',
+		functions: [
+			{ name: 'pid', description: 'Get process ID' },
+			{ name: 'uptime', description: 'Get process uptime' },
+			{ name: 'ci', description: 'Check CI environment' },
+			{ name: 'node-version', description: 'Get Node.js version' },
+		],
+	},
+}
+
+// List all functions
+program.option('-l, --list', 'List all available functions').hook('preAction', (thisCommand) => {
+	const options = thisCommand.opts()
+	if (options['list']) {
+		console.log(chalk.cyan('\n✨ Available Functions:\n'))
+
+		Object.entries(functionCategories).forEach(([key, category]) => {
+			console.log(chalk.bold(category.name))
+			category.functions.forEach((func) => {
+				console.log(
+					chalk.gray(`  js-common ${key} ${func.name}`) + chalk.dim(` - ${func.description}`)
+				)
+			})
+			console.log()
+		})
+
+		console.log(
+			chalk.yellow('💡 Use ') +
+				chalk.green('js-common interactive') +
+				chalk.yellow(' for interactive mode')
+		)
+		console.log(
+			chalk.yellow('💡 Use ') +
+				chalk.green('js-common <command> --help') +
+				chalk.yellow(' for detailed help\n')
+		)
+		process.exit(0)
+	}
+})
+
+// Interactive mode
+program
+	.command('interactive')
+	.alias('i')
+	.description('🎮 Interactive mode with guided prompts')
+	.action(async () => {
+		// Welcome animation
+		const title = figlet.textSync('JS Common', { font: 'Small' })
+		console.log(gradient.pastel.multiline(title))
+
+		const rainbow = chalkAnimation.rainbow('\n✨ Welcome to JS Common Interactive Mode! ✨\n')
+		await new Promise((resolve) => setTimeout(resolve, 1000))
+		rainbow.stop()
+
+		try {
+			const { category } = await inquirer.prompt([
+				{
+					type: 'list',
+					name: 'category',
+					message: chalk.cyan('What would you like to do?'),
+					choices: Object.entries(functionCategories).map(([key, cat]) => ({
+						name: cat.name,
+						value: key,
+					})),
+				},
+			])
+
+			const selectedCategory = functionCategories[category as keyof typeof functionCategories]
+			const { functionName } = await inquirer.prompt([
+				{
+					type: 'list',
+					name: 'functionName',
+					message: chalk.cyan(`Choose a ${selectedCategory.name} function:`),
+					choices: selectedCategory.functions.map((func) => ({
+						name: `${func.name} - ${func.description}`,
+						value: func.name,
+					})),
+				},
+			])
+
+			console.log(chalk.green(`\n🚀 You can run this command:`))
+			console.log(chalk.yellow(`js-common ${category} ${functionName} [arguments]`))
+			console.log(
+				chalk.gray(`\nFor detailed usage, run: js-common ${category} ${functionName} --help\n`)
+			)
+		} catch (error) {
+			if (error && typeof error === 'object' && 'isTtyError' in error) {
+				console.log(chalk.red('\n❌ Interactive mode requires a TTY terminal'))
+			} else {
+				console.log(chalk.red('\n❌ Something went wrong in interactive mode'))
+			}
+			process.exit(1)
+		}
+	})
+
+// Date commands
+const dateCmd = program.command('date').description('📅 Date and time utilities')
 
 dateCmd
 	.command('today')
-	.description("Get today's date in YYYY-MM-DD format")
+	.description("Get today's date (YYYY-MM-DD)")
 	.action(() => {
-		console.log(today())
+		// TODO: Implement today() function
+		console.log(new Date().toISOString().split('T')[0])
 	})
 
 dateCmd
 	.command('now')
 	.description('Get current timestamp')
 	.option('-i, --iso', 'ISO format')
-	.option('-t, --time', 'Time only (HH:MM:SS)')
-	.action((options: { iso?: boolean; time?: boolean }) => {
+	.option('-t, --time', 'Time only')
+	.action((options) => {
 		if (options.iso) {
-			console.log(nowIso())
+			console.log(new Date().toISOString())
 		} else if (options.time) {
-			console.log(nowTime())
+			console.log(new Date().toTimeString())
 		} else {
-			console.log(new Date().toLocaleString())
+			console.log(Date.now())
 		}
 	})
 
 dateCmd
-	.command('between <date1> <date2>')
-	.description('Calculate days between two dates (YYYY-MM-DD format)')
+	.command('between')
+	.description('Calculate days between dates')
+	.argument('<date1>', 'First date (YYYY-MM-DD)')
+	.argument('<date2>', 'Second date (YYYY-MM-DD)')
 	.action((date1: string, date2: string) => {
-		try {
-			const days = daysBetween(date1, date2)
-			console.log(days)
-		} catch (_error) {
-			console.error('Error: Invalid date format. Use YYYY-MM-DD')
-			process.exit(1)
-		}
+		// TODO: Implement daysBetween function
+		const d1 = new Date(date1)
+		const d2 = new Date(date2)
+		const timeDiff = Math.abs(d2.getTime() - d1.getTime())
+		const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
+		console.log(`${daysDiff} days`)
 	})
 
 // Math commands
