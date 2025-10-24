@@ -1,12 +1,17 @@
-#!/usr/bin/env node
-
 import { program } from 'commander'
 import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+// Handle both ESM and CommonJS environments
+let currentDir: string
+try {
+	// ESM
+	currentDir = dirname(fileURLToPath(import.meta.url))
+} catch {
+	// CommonJS fallback
+	currentDir = __dirname
+}
 
 // Import utility functions
 import { daysBetween, today } from '../date/index.js'
@@ -21,7 +26,7 @@ import { nowTime } from '../time/index.js'
 import { isValidUrl } from '../url/index.js'
 
 // Get package version
-const packageJson = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf-8'))
+const packageJson = JSON.parse(readFileSync(resolve(currentDir, '../../package.json'), 'utf-8'))
 
 program
 	.name('js-common')

@@ -7,5 +7,5 @@
     "declarationMap": true, // (optional) Generate sourcemaps for d.ts files
     "outDir": "dist" // Output directory for build
   },
-  "exclude": ["dist", "node_modules", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
+  "exclude": ["dist", "node_modules", "src/cli", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
 }
