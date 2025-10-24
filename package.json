@@ -6,6 +6,9 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "js-common": "dist/cli/index.js"
+  },
   "license": "MIT",
   "keywords": [
     "common",
@@ -250,6 +253,7 @@
     "vitest": "^4.0.3"
   },
   "dependencies": {
+    "commander": "^14.0.1",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "luxon": "^3.7.2",

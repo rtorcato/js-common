@@ -11,7 +11,27 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 npm install @rtorcato/js-common
 ```
 
-## Usage
+## CLI Usage
+
+This package includes a command-line interface for many utilities:
+
+```bash
+# Install globally to use the CLI
+npm install -g @rtorcato/js-common
+
+# Or use with npx
+npx @rtorcato/js-common --help
+
+# Examples
+npx @rtorcato/js-common date today
+npx @rtorcato/js-common math sum 1 2 3 4 5
+npx @rtorcato/js-common text capitalize "hello world"
+npx @rtorcato/js-common security token
+```
+
+See [CLI.md](./CLI.md) for complete CLI documentation.
+
+## Library Usage
 
 ```typescript
 // Import specific modules
