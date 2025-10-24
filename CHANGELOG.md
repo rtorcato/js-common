@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/rtorcato/js-common/compare/v1.3.0...v1.3.1) (2025-10-24)
+
+
+### Bug Fixes
+
+* Correct import paths in CLI for proper TypeScript compilation ([24221d5](https://github.com/rtorcato/js-common/commit/24221d5622fa70dabe78166c7266c825686466ab))
+
 # [1.3.0](https://github.com/rtorcato/js-common/compare/v1.2.0...v1.3.0) (2025-10-24)
 
 
