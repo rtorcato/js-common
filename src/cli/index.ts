@@ -8,6 +8,16 @@ import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+// Import utility functions
+import { daysBetween, today } from '../date/index.js'
+import { fileExists, getFileExtension } from '../file/index.js'
+import { capitalize, padZero, toTitleCase } from '../formatting/index.js'
+import { getNodeMajorVersion } from '../node/index.js'
+import { average, clamp, getRandomInt, roundTo, sum } from '../numbers/index.js'
+import { getProcessId, getProcessUptime, isCI } from '../process/index.js'
+import { generateSecureToken, isStrongPassword } from '../security/index.js'
+import { isValidUrl } from '../url/index.js'
+
 // Get current directory for ESM
 const currentDir = dirname(fileURLToPath(import.meta.url))
 
@@ -168,8 +178,7 @@ dateCmd
 	.command('today')
 	.description("Get today's date (YYYY-MM-DD)")
 	.action(() => {
-		// TODO: Implement today() function
-		console.log(new Date().toISOString().split('T')[0])
+		console.log(today())
 	})
 
 dateCmd
@@ -193,12 +202,13 @@ dateCmd
 	.argument('<date1>', 'First date (YYYY-MM-DD)')
 	.argument('<date2>', 'Second date (YYYY-MM-DD)')
 	.action((date1: string, date2: string) => {
-		// TODO: Implement daysBetween function
-		const d1 = new Date(date1)
-		const d2 = new Date(date2)
-		const timeDiff = Math.abs(d2.getTime() - d1.getTime())
-		const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
-		console.log(`${daysDiff} days`)
+		try {
+			const days = daysBetween(date1, date2)
+			console.log(days)
+		} catch (_error) {
+			console.error('Error: Invalid date format. Use YYYY-MM-DD')
+			process.exit(1)
+		}
 	})
 
 // Math commands
