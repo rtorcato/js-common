@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/rtorcato/js-common/compare/v1.3.1...v1.4.0) (2025-10-24)
+
+
+### Features
+
+* Enable TypeScript type definitions for package consumers ([70eb162](https://github.com/rtorcato/js-common/commit/70eb162bb556164432762f382470ff28a3ec0251))
+
 ## [1.3.1](https://github.com/rtorcato/js-common/compare/v1.3.0...v1.3.1) (2025-10-24)
 
 
