@@ -1,7 +1,6 @@
 {
   "extends": "@rtorcato/js-tooling/typescript/base",
   "compilerOptions": {
-    "baseUrl": ".",
     "lib": ["ES2022", "DOM"],
     "rootDir": "./src",
     "paths": {
