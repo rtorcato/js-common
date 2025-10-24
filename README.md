@@ -76,6 +76,28 @@ import { today } from '@rtorcato/js-common/date'
 import { sum, average } from '@rtorcato/js-common/numbers'
 ```
 
+### 🎯 **TypeScript Support**
+
+This package is built with TypeScript and includes complete type definitions out of the box:
+
+- ✅ **Full type safety** - All functions have accurate TypeScript types
+- ✅ **Generic support** - Functions like `unique<T>()` preserve your data types  
+- ✅ **JSDoc integration** - Rich documentation in your IDE
+- ✅ **Tree-shakable** - Import only what you need with perfect type inference
+
+```typescript
+// TypeScript automatically infers types
+const numbers = [1, 2, 3, 4, 5]
+const result: number = sum(numbers)  // ✅ Type: number
+
+const users = [{ name: 'John' }, { name: 'Jane' }]
+const uniqueUsers = unique(users)    // ✅ Type: { name: string }[]
+
+// IDE shows full documentation and type hints
+import { today } from '@rtorcato/js-common/date'
+//      ^ JSDoc: Returns today's date as YYYY-MM-DD string
+```
+
 ## Available Modules
 
 ### 📅 **Date & Time**

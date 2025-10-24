@@ -29,7 +29,7 @@
     "build-dev": "rimraf ./dist && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && npm run build-cli",
     "build-prod": "rimraf ./dist && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && npm run build-cli",
     "build-cli": "tsc src/cli/cli.ts --outDir dist/cli --target ES2022 --module ES2022 --moduleResolution bundler --allowImportingTsExtensions false --esModuleInterop --skipLibCheck && mv dist/cli/cli.js dist/cli/temp.mjs && echo '#!/usr/bin/env node' > dist/cli/index.mjs && cat dist/cli/temp.mjs >> dist/cli/index.mjs && rm dist/cli/temp.mjs && chmod +x dist/cli/index.mjs",
-    "prepublishOnly1": "npm run build-prod",
+    "prepublishOnly": "npm run build-prod",
     "==================== Common ====================": "",
     "lint": "pnpm exec biome lint .",
     "format": "pnpm exec biome format .",
