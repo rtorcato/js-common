@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/rtorcato/js-common/compare/v1.2.0...v1.3.0) (2025-10-24)
+
+
+### Features
+
+* Add modern interactive CLI with developer integration ([8ffb144](https://github.com/rtorcato/js-common/commit/8ffb144dfb9b1c13a6a40df7c2dee98623c8a936))
+
 # [1.2.0](https://github.com/rtorcato/js-common/compare/v1.1.0...v1.2.0) (2025-10-24)
 
 
