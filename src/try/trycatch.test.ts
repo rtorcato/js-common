@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { isSuccess, tryCatch } from './trycatch'
 import type { Result } from './trycatch'
+import { isSuccess, tryCatch } from './trycatch'
 
 describe('tryCatch', () => {
 	it('should return Success when the function resolves', async () => {

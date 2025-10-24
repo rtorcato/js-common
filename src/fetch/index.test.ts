@@ -29,7 +29,7 @@ describe('fetch module', () => {
 				if (options && options.signal) {
 					options.signal.addEventListener('abort', () => {
 						const err = new Error('aborted')
-						// @ts-ignore
+						// @ts-expect-error
 						err.name = 'AbortError'
 						reject(err)
 					})

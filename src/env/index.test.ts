@@ -1,6 +1,4 @@
-import { describe, expect, it } from 'vitest'
-import { beforeEach } from 'vitest'
-import { afterAll } from 'vitest'
+import { afterAll, beforeEach, describe, expect, it } from 'vitest'
 import { getENV, getNodeEnv, isDev, isProd, isTest } from './index'
 
 describe('env module', () => {

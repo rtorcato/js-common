@@ -13,12 +13,12 @@
  * MIT Licensed
  */
 
+import type { FileExtension, MimeType } from './db.js'
 /**
  * Module dependencies.
  * @private
  */
 import { mimeTypes as mimeDB } from './db.js'
-import type { FileExtension, MimeType } from './db.js'
 
 export * from './db.js'
 

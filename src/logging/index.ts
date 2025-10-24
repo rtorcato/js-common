@@ -52,7 +52,6 @@ export function captureConsole(callback: (type: string, ...args: any[]) => void)
 	}
 	// biome-ignore lint/complexity/noForEach: <explanation>
 	;(['log', 'info', 'warn', 'error'] as const).forEach((type) => {
-		// @ts-ignore
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		console[type] = (...args: any[]) => {
 			callback(type, ...args)

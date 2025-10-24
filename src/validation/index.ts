@@ -8,12 +8,12 @@ export function isDefined<T>(value: T | null | undefined): value is T {
 }
 
 /**
- * Checks if a value is a string.
- * @param value The value to check.
- * @returns {boolean}
+ * Check if a value is a string.
+ * @param value - The value to check.
+ * @returns `true` if the value is a string, `false` otherwise.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Type guard function needs any to check runtime types
 export function isString(value: any): value is string {
 	return typeof value === 'string'
 }
@@ -24,7 +24,7 @@ export function isString(value: any): value is string {
  * @returns {boolean}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Type guard function needs any to check runtime types
 export function isNumber(value: any): value is number {
 	return typeof value === 'number' && !Number.isNaN(value)
 }
@@ -35,7 +35,7 @@ export function isNumber(value: any): value is number {
  * @returns {boolean}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Type guard function needs any to check runtime types
 export function isBoolean(value: any): value is boolean {
 	return typeof value === 'boolean'
 }
@@ -46,7 +46,7 @@ export function isBoolean(value: any): value is boolean {
  * @returns {boolean}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Type guard function needs any to check runtime types
 export function isArray(value: any): value is any[] {
 	return Array.isArray(value)
 }
@@ -57,7 +57,7 @@ export function isArray(value: any): value is any[] {
  * @returns {boolean}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Type guard function needs any to check runtime types
 export function isObject(value: any): value is object {
 	return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
