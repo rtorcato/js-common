@@ -9,14 +9,14 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 // Import utility functions
-import { daysBetween, today } from '../date/index.js'
-import { fileExists, getFileExtension } from '../file/index.js'
-import { capitalize, padZero, toTitleCase } from '../formatting/index.js'
-import { getNodeMajorVersion } from '../node/index.js'
-import { average, clamp, getRandomInt, roundTo, sum } from '../numbers/index.js'
-import { getProcessId, getProcessUptime, isCI } from '../process/index.js'
-import { generateSecureToken, isStrongPassword } from '../security/index.js'
-import { isValidUrl } from '../url/index.js'
+import { daysBetween, today } from '../date/index'
+import { fileExists, getFileExtension } from '../file/index'
+import { capitalize, padZero, toTitleCase } from '../formatting/index'
+import { getNodeMajorVersion } from '../node/index'
+import { average, clamp, getRandomInt, roundTo, sum } from '../numbers/index'
+import { getProcessId, getProcessUptime, isCI } from '../process/index'
+import { generateSecureToken, isStrongPassword } from '../security/index'
+import { isValidUrl } from '../url/index'
 
 // Get current directory for ESM
 const currentDir = dirname(fileURLToPath(import.meta.url))
