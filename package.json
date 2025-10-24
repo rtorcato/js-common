@@ -232,7 +232,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.8.1",
-    "@rtorcato/js-tooling": "^1.0.9",
+    "@rtorcato/js-tooling": "^1.0.6",
     "@semantic-release/changelog": "^6.0.3",
     "@types/luxon": "^3.6.2",
     "@types/node": "^22.15.23",
