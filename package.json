@@ -6,13 +6,21 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "keywords": [
     "common",
     "typescript",
     "javascript"
   ],
   "author": "Richard Torcato",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtorcato/js-common.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rtorcato/js-common/issues"
+  },
+  "homepage": "https://github.com/rtorcato/js-common#readme",
   "sideEffects": false,
   "scripts": {
     "build-dev": "rimraf ./dist && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json",
@@ -265,6 +273,6 @@
     }
   },
   "publishConfig": {
-    "registry": "https://gitlab.com/api/v4/projects/69645966/packages/npm/"
+    "access": "public"
   }
 }

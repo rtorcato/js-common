@@ -1,4 +1,4 @@
-import { z } from 'zod/v4'
+import { z } from 'zod'
 
 /**
  * Retrieves the value of an environment variable by its key.
@@ -73,7 +73,7 @@ export function checkEnv<T extends z.ZodRawShape>(
 	} catch (error) {
 		if (error instanceof z.ZodError) {
 			let message = 'Missing required values in .env:\n'
-			message += Object.keys(z.flattenError(error).fieldErrors).join('\n')
+			message += Object.keys(error.flatten().fieldErrors).join('\n')
 			const e = new Error(message)
 			e.stack = ''
 			throw e

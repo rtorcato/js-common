@@ -1,24 +1,72 @@
 # js-common
 
-a set of common node/js functions to be used in all projects
+[![npm version](https://badge.fury.io/js/%40rtorcato%2Fjs-common.svg)](https://badge.fury.io/js/%40rtorcato%2Fjs-common)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
 
+## Installation
 
-## Getting started
+```bash
+npm install @rtorcato/js-common
+```
 
-run `. ./setup.sh` to grab NPM_TOKEN from .env
+## Usage
 
-## tags
+```typescript
+// Import specific modules
+import { formatDate } from '@rtorcato/js-common/date';
+import { validateEmail } from '@rtorcato/js-common/emails';
+import { generateUUID } from '@rtorcato/js-common/uuid';
 
-`git fetch --prune --tags`
-`git tag -l 'v1.0.*' | xargs -n 1 git push origin --delete`
-`git tag -l | xargs -I {} git push origin --delete {}`
-`git tag -l | xargs git tag -d`
+// Or import everything
+import * as jsCommon from '@rtorcato/js-common';
+```
 
-  # Publish js-common
-@rtorcato/js-common:registry=https://gitlab.com/api/v4/projects/69645966/packages/npm/
-//gitlab.com/api/v4/projects/69645966/packages/npm/:_authToken=${NPM_TOKEN}
+## Available Modules
 
-# Install js-tooling
-@rtorcato/js-tooling:registry=https://gitlab.com/api/v4/projects/60855075/packages/npm/
-//gitlab.com/api/v4/projects/60855075/packages/npm/:_authToken=${NPM_TOKEN}
+This library provides utilities for:
+
+- **Arrays** - Array manipulation utilities
+- **Boolean** - Boolean operations and validations
+- **Colors** - Color manipulation and conversion
+- **Console** - Enhanced console utilities
+- **Crypto** - Cryptographic functions
+- **Currency** - Currency formatting and conversion
+- **Date/DateTime** - Date and time utilities
+- **Emails** - Email validation and utilities
+- **Events** - Event handling utilities
+- **Fetch** - HTTP request utilities
+- **Functions** - Function utilities and helpers
+- **JSON** - JSON parsing and validation
+- **Math** - Mathematical operations
+- **Numbers** - Number formatting and validation
+- **Promises** - Promise utilities and helpers
+- **Strings** - String manipulation utilities
+- **UUID** - UUID generation and validation
+- **Validation** - Data validation utilities
+- And many more...
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run tests
+pnpm test
+
+# Build the project
+pnpm run build-prod
+
+# Lint and format
+pnpm run check:fix
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
