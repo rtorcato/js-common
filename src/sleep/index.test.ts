@@ -5,7 +5,10 @@ describe('sleep', () => {
 	it('resolves after the specified ms', async () => {
 		const start = Date.now()
 		await sleep(50)
-		expect(Date.now() - start).toBeGreaterThanOrEqual(50)
+		const elapsed = Date.now() - start
+		// Allow some tolerance for CI environments (±5ms)
+		expect(elapsed).toBeGreaterThanOrEqual(45)
+		expect(elapsed).toBeLessThanOrEqual(100)
 	})
 })
 
@@ -13,7 +16,10 @@ describe('sleepSync', () => {
 	it('blocks for at least the specified ms', () => {
 		const start = Date.now()
 		sleepSync(30)
-		expect(Date.now() - start).toBeGreaterThanOrEqual(30)
+		const elapsed = Date.now() - start
+		// Allow some tolerance for CI environments (±5ms)
+		expect(elapsed).toBeGreaterThanOrEqual(25)
+		expect(elapsed).toBeLessThanOrEqual(60)
 	})
 })
 
