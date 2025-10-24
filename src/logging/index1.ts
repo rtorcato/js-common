@@ -19,7 +19,6 @@
  * @param {...any[]} args
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const logWithTimestamp = (...args: any[]) => {
 	const timestamp = new Date().toISOString()
 	console.log(`[${timestamp}]`, ...args)
@@ -32,7 +31,6 @@ export const logWithTimestamp = (...args: any[]) => {
  * @param {...any[]} args
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const warn = (...args: any[]) => {
 	console.warn('\x1b[33m%s\x1b[0m', ...args)
 }
@@ -44,7 +42,6 @@ export const warn = (...args: any[]) => {
  * @param {...any[]} args
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const error = (...args: any[]) => {
 	console.error('\x1b[31m%s\x1b[0m', ...args)
 }
@@ -56,7 +53,6 @@ export const error = (...args: any[]) => {
  * @param {...any[]} args
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const info = (...args: any[]) => {
 	console.info('\x1b[34m%s\x1b[0m', ...args)
 }

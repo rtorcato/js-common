@@ -4,7 +4,6 @@
  * @returns {boolean}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function isPlainObject(value: any): value is Record<string, any> {
 	return Object.prototype.toString.call(value) === '[object Object]'
 }
@@ -18,12 +17,9 @@ export function isPlainObject(value: any): value is Record<string, any> {
 export function deepMerge<T extends object, U extends object>(target: T, source: U): T & U {
 	const result = { ...target } as T & U
 	for (const key in source) {
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		if (isPlainObject(source[key]) && isPlainObject((result as any)[key])) {
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			;(result as any)[key] = deepMerge((result as any)[key], source[key])
 		} else {
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			;(result as any)[key] = source[key]
 		}
 	}

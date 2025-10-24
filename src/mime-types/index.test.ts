@@ -8,7 +8,6 @@ describe('mime-types module', () => {
 		expect(lookup('file.json')).toBe('application/json')
 		expect(lookup('file.unknownext')).toBe(false)
 		expect(lookup('')).toBe(false)
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		expect(lookup(undefined as any)).toBe(false)
 	})
 

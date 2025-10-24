@@ -46,7 +46,6 @@ export function matchAll(str: string, pattern: string | RegExp): RegExpMatchArra
 export function replaceAllRegex(
 	str: string,
 	pattern: string | RegExp,
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	replacement: string | ((substring: string, ...args: any[]) => string)
 ): string {
 	const regex =
@@ -56,7 +55,6 @@ export function replaceAllRegex(
 					pattern.source,
 					pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`
 				)
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	return str.replace(regex, replacement as any)
 }
 

@@ -4,12 +4,9 @@
  * @returns {Function}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic function wrapper needs any for flexible parameters
 export function once<T extends (...args: any[]) => any>(fn: T): T {
 	let called = false
-	// biome-ignore lint/suspicious/noExplicitAny: Result can be any type returned by wrapped function
 	let result: any
-	// biome-ignore lint/suspicious/noExplicitAny: Function wrapper needs any for flexible this context
 	return function (this: any, ...args: any[]) {
 		if (!called) {
 			called = true
@@ -26,10 +23,8 @@ export function once<T extends (...args: any[]) => any>(fn: T): T {
  * @returns {Function}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic function wrapper needs any for flexible parameters
 export function debounce<T extends (...args: any[]) => void>(fn: T, wait: number): T {
 	let timeout: ReturnType<typeof setTimeout> | undefined
-	// biome-ignore lint/suspicious/noExplicitAny: Function wrapper needs any for flexible this context
 	return function (this: any, ...args: any[]) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => fn.apply(this, args), wait)
@@ -43,10 +38,8 @@ export function debounce<T extends (...args: any[]) => void>(fn: T, wait: number
  * @returns {Function}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic function wrapper needs any for flexible parameters
 export function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
 	let last = 0
-	// biome-ignore lint/suspicious/noExplicitAny: Function wrapper needs any for flexible this context
 	return function (this: any, ...args: any[]) {
 		const now = Date.now()
 		if (now - last >= wait) {

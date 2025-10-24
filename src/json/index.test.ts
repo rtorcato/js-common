@@ -16,7 +16,6 @@ describe('json module', () => {
 	})
 
 	it('safeJsonStringify returns fallback on error', () => {
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		const circular: any = {}
 		circular.self = circular
 		expect(safeJsonStringify(circular, 'oops')).toBe('oops')

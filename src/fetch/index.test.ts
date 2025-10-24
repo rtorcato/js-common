@@ -3,7 +3,6 @@ import * as fetchUtils from './index'
 
 // Mock fetch for all tests
 const mockFetch = vi.fn()
-// biome-ignore lint/suspicious/noExplicitAny: Mock fetch needs any type for testing
 globalThis.fetch = mockFetch as any
 
 describe('fetch module', () => {

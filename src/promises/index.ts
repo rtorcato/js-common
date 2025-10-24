@@ -13,7 +13,6 @@ export function delay(ms: number): Promise<void> {
  * @returns {Promise<[any, T | undefined]>}
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function to<T>(promise: Promise<T>): Promise<[any, T | undefined]> {
 	try {
 		const result = await promise
@@ -33,7 +32,6 @@ export async function to<T>(promise: Promise<T>): Promise<[any, T | undefined]> 
 export function withTimeout<T>(
 	promise: Promise<T>,
 	ms: number,
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	error: any = new Error('Timeout')
 ): Promise<T> {
 	return Promise.race([promise, new Promise<T>((_, reject) => setTimeout(() => reject(error), ms))])

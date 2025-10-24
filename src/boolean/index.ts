@@ -5,7 +5,6 @@
  * @returns The boolean representation.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Function converts any value to boolean
 export function toBoolean(value: any): boolean {
 	if (typeof value === 'boolean') return value
 	if (typeof value === 'string') {
@@ -25,7 +24,6 @@ export function toBoolean(value: any): boolean {
  * @returns True if the value is a boolean, false otherwise.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Type guard function needs any to check runtime types
 export function isBoolean(value: any): value is boolean {
 	return typeof value === 'boolean'
 }

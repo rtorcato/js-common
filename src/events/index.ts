@@ -24,7 +24,6 @@ export function on<K extends keyof HTMLElementEventMap>(
  * @returns {boolean} True if not canceled.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Event detail can be any type of data
 export function emit(target: EventTarget, type: string, detail?: any): boolean {
 	return target.dispatchEvent(new CustomEvent(type, { detail }))
 }

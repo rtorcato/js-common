@@ -46,7 +46,6 @@ export function mergeMaps<K, V>(...maps: Map<K, V>[]): Map<K, V> {
  * @returns {Map<string, any>} The resulting map.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function objectToMap<T extends object>(obj: T): Map<string, any> {
 	return new Map(Object.entries(obj))
 }

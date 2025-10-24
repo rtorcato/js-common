@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { getCwd, getProcessId, getProcessPlatform, getProcessUptime, isCI } from './index'
 
 describe('process utils', () => {
@@ -48,13 +48,9 @@ describe('process utils', () => {
 			BUILD_NUMBER: process.env.BUILD_NUMBER,
 			RUN_ID: process.env.RUN_ID,
 		}
-		// biome-ignore lint/performance/noDelete: <explanation>
 		delete process.env.CI
-		// biome-ignore lint/performance/noDelete: <explanation>
 		delete process.env.CONTINUOUS_INTEGRATION
-		// biome-ignore lint/performance/noDelete: <explanation>
 		delete process.env.BUILD_NUMBER
-		// biome-ignore lint/performance/noDelete: <explanation>
 		delete process.env.RUN_ID
 		expect(isCI()).toBe(false)
 		Object.assign(process.env, origs)

@@ -42,7 +42,6 @@ export function info(message: string): void {
  * @returns {() => void} Restore function.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function captureConsole(callback: (type: string, ...args: any[]) => void): () => void {
 	const orig = {
 		log: console.log,
@@ -50,9 +49,7 @@ export function captureConsole(callback: (type: string, ...args: any[]) => void)
 		warn: console.warn,
 		error: console.error,
 	}
-	// biome-ignore lint/complexity/noForEach: <explanation>
 	;(['log', 'info', 'warn', 'error'] as const).forEach((type) => {
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		console[type] = (...args: any[]) => {
 			callback(type, ...args)
 			orig[type](...args)

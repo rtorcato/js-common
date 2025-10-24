@@ -5,7 +5,6 @@
  * @returns The parsed object or the fallback value.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic default type for flexible JSON parsing
 export function safeJsonParse<T = any>(str: string, fallback: T | null = null): T | null {
 	try {
 		return JSON.parse(str) as T
@@ -21,7 +20,6 @@ export function safeJsonParse<T = any>(str: string, fallback: T | null = null): 
  * @returns The JSON string or the fallback value.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: Function accepts any value for JSON stringification
 export function safeJsonStringify(value: any, fallback: string | null = null): string | null {
 	try {
 		return JSON.stringify(value)

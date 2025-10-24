@@ -9,10 +9,9 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
-      "!**/.pnpm-store",
+      "!**/node_modules",
       "!**/package.json",
       "!**/tsconfig*.json",
-      "!**/node_modules",
       "!**/dist",
       "!**/coverage",
       "!**/.git",
@@ -34,6 +33,17 @@
       },
       "complexity": {
         "useLiteralKeys": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noTemplateCurlyInString": "off"
+      }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "off"
       }
     }
   },

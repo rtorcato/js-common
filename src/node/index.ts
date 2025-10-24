@@ -53,7 +53,6 @@ export const isNode = (): boolean => {
  * const optionalModule = requireOptional('some-module');
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function requireOptional(moduleName: string): any | undefined {
 	try {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires

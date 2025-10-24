@@ -46,7 +46,6 @@ export function isLinux(): boolean {
  */
 export function isIOS(): boolean {
 	if (typeof window !== 'undefined') {
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		return /iPad|iPhone|iPod/.test(window.navigator.userAgent) && !(window as any).MSStream
 	}
 	return false
