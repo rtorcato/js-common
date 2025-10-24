@@ -31,7 +31,7 @@ export function unique<T>(arr: T[]): T[] {
  * @returns A new flattened array.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Function accepts arrays of any type for flattening
 export function flatten<T>(arr: any[]): T[] {
 	return arr.flat()
 }

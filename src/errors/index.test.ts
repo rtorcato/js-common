@@ -30,7 +30,7 @@ describe('errors module', () => {
 	})
 
 	it('getErrorMessage falls back to String(error) if not serializable', () => {
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		// biome-ignore lint/suspicious/noExplicitAny: Test needs any type for circular reference
 		const circular: any = {}
 		circular.self = circular
 		expect(getErrorMessage(circular)).toMatch('[object Object]')

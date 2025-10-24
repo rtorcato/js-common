@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
 	formatDateTimeLocal,
-	getIsoWeek,
-	getIsoWeekInfo,
 	getTimezoneOffset,
 	nowIso,
 	parseIsoDateTime,

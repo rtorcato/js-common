@@ -3,7 +3,7 @@ import * as fetchUtils from './index'
 
 // Mock fetch for all tests
 const mockFetch = vi.fn()
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Mock fetch needs any type for testing
 globalThis.fetch = mockFetch as any
 
 describe('fetch module', () => {
@@ -25,11 +25,10 @@ describe('fetch module', () => {
 		// Simulate fetch that rejects when aborted
 		mockFetch.mockImplementation((_url, options) => {
 			return new Promise((_resolve, reject) => {
-				// biome-ignore lint/complexity/useOptionalChain: <explanation>
+				// biome-ignore lint/complexity/useOptionalChain: Test needs explicit check for better readability
 				if (options && options.signal) {
 					options.signal.addEventListener('abort', () => {
 						const err = new Error('aborted')
-						// @ts-expect-error
 						err.name = 'AbortError'
 						reject(err)
 					})

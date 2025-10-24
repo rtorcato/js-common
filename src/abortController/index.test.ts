@@ -24,7 +24,7 @@ describe('abortPromise', () => {
 
 describe('withAbort', () => {
 	it('resolves if promise resolves before abort', async () => {
-		const { controller, signal } = createAbortController()
+		const { signal } = createAbortController()
 		const p = new Promise((resolve) => setTimeout(() => resolve('ok'), 10))
 		await expect(withAbort(p, signal)).resolves.toBe('ok')
 	})

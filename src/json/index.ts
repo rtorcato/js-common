@@ -2,10 +2,10 @@
  * Safely parses a JSON string, returning a fallback value if parsing fails.
  * @param {string} str - The JSON string to parse.
  * @param {any} [fallback=null] - The value to return if parsing fails.
- * @returns {any} The parsed object or the fallback value.
+ * @returns The parsed object or the fallback value.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Generic default type for flexible JSON parsing
 export function safeJsonParse<T = any>(str: string, fallback: T | null = null): T | null {
 	try {
 		return JSON.parse(str) as T
@@ -18,10 +18,10 @@ export function safeJsonParse<T = any>(str: string, fallback: T | null = null): 
  * Safely stringifies a value to JSON, returning a fallback value if stringification fails.
  * @param {any} value - The value to stringify.
  * @param {string} [fallback=null] - The value to return if stringification fails.
- * @returns {string | null} The JSON string or the fallback value.
+ * @returns The JSON string or the fallback value.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Function accepts any value for JSON stringification
 export function safeJsonStringify(value: any, fallback: string | null = null): string | null {
 	try {
 		return JSON.stringify(value)

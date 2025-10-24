@@ -41,7 +41,7 @@ export function getErrorMessage(error: unknown): string {
  * @param message The error message to throw if the condition is false.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Assertion function needs any type for flexible conditions
 export function assert(condition: any, message: string): asserts condition {
 	if (!condition) {
 		throw new Error(message)
