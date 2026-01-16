@@ -108,7 +108,8 @@ jobs:
         # Create simple benchmark script
         cat > benchmark.mjs << 'EOF'
         import { performance } from 'perf_hooks'
-        import { unique, chunk, groupBy } from './dist/index.js'
+        import { unique, chunk } from './dist/arrays/index.js'
+        import { camelCase, capitalize } from './dist/strings/index.js'
         
         function benchmark(name, fn, iterations = 10000) {
           const start = performance.now()
@@ -123,11 +124,7 @@ jobs:
         
         // Test data
         const largeArray = Array.from({ length: 1000 }, (_, i) => i % 100)
-        const users = Array.from({ length: 100 }, (_, i) => ({
-          id: i,
-          name: `User ${i}`,
-          group: i % 5
-        }))
+        const testStrings = ['hello world', 'foo-bar-baz', 'some_test_string']
         
         console.log("## 🚀 Performance Benchmarks")
         console.log("")
@@ -135,7 +132,10 @@ jobs:
         // Array utilities
         benchmark("unique(1000 items)", () => unique(largeArray))
         benchmark("chunk(1000 items, 10)", () => chunk(largeArray, 10))
-        benchmark("groupBy(100 objects)", () => groupBy(users, 'group'))
+        
+        // String utilities
+        benchmark("camelCase", () => testStrings.forEach(s => camelCase(s)))
+        benchmark("capitalize", () => testStrings.forEach(s => capitalize(s)))
         EOF
         
         node benchmark.mjs >> $GITHUB_STEP_SUMMARY
