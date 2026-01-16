@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/rtorcato/js-common/compare/v1.4.2...v1.5.0) (2026-01-16)
+
+
+### Features
+
+* **currency:** add lazy loading and new features ([e9369a8](https://github.com/rtorcato/js-common/commit/e9369a8af5355cea9d348c94776037158680f30d))
+
 ## [1.4.2](https://github.com/rtorcato/js-common/compare/v1.4.1...v1.4.2) (2026-01-16)
 
 
