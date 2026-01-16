@@ -1,4 +1,4 @@
-import * as shortid from 'short-uuid'
+import shortid from 'short-uuid'
 import {
 	NIL as NIL_UUID,
 	parse as uuidParse,
@@ -6,7 +6,11 @@ import {
 	validate as uuidValidate,
 	version as uuidVersion,
 	v4 as uuidv4,
+	v7 as uuidv7,
 } from 'uuid'
+
+// Create a translator for short UUID conversions
+const translator = shortid()
 
 /**
  * Generates a UUID v4 string.
@@ -17,11 +21,53 @@ export const getUUID = (): string => {
 }
 
 /**
+ * Generates a UUID v7 string (time-ordered).
+ * UUID v7 embeds a Unix timestamp, making them sortable and ideal for database primary keys.
+ * @returns {string} A new UUID v7 string.
+ *
+ * @example
+ * ```typescript
+ * getUUIDv7() // '018e5e2c-7c0a-7000-8000-0e02b2c3d479'
+ * ```
+ */
+export const getUUIDv7 = (): string => {
+	return uuidv7()
+}
+
+/**
  * Generates a short UUID string using short-uuid.
  * @returns {string} A new short UUID string.
  */
 export const getShortUUID = (): string => {
-	return shortid.generate()
+	return translator.new()
+}
+
+/**
+ * Converts a standard UUID to a short UUID.
+ * @param uuid The standard UUID string.
+ * @returns {string} The short UUID string.
+ *
+ * @example
+ * ```typescript
+ * toShortUUID('f47ac10b-58cc-4372-a567-0e02b2c3d479') // 'mhvXdrZT4jP5T8vBxuvm75'
+ * ```
+ */
+export const toShortUUID = (uuid: string): string => {
+	return translator.fromUUID(uuid)
+}
+
+/**
+ * Converts a short UUID back to a standard UUID.
+ * @param short The short UUID string.
+ * @returns {string} The standard UUID string.
+ *
+ * @example
+ * ```typescript
+ * fromShortUUID('mhvXdrZT4jP5T8vBxuvm75') // 'f47ac10b-58cc-4372-a567-0e02b2c3d479'
+ * ```
+ */
+export const fromShortUUID = (short: string): string => {
+	return translator.toUUID(short)
 }
 
 /**
@@ -37,6 +83,39 @@ export const isUUID = (id: string): boolean => uuidValidate(id)
  * @returns {boolean} True if valid UUID v4, false otherwise.
  */
 export const isUUIDv4 = (id: string): boolean => uuidValidate(id) && uuidVersion(id) === 4
+
+/**
+ * Checks if a UUID is the nil UUID (all zeros).
+ * @param id The UUID string to check.
+ * @returns {boolean} True if nil UUID, false otherwise.
+ *
+ * @example
+ * ```typescript
+ * isNilUUID('00000000-0000-0000-0000-000000000000') // true
+ * isNilUUID('f47ac10b-58cc-4372-a567-0e02b2c3d479') // false
+ * ```
+ */
+export const isNilUUID = (id: string): boolean => id === NIL_UUID
+
+/**
+ * Gets the version number of a UUID.
+ * @param id The UUID string.
+ * @returns {number} The UUID version (1, 4, 7, etc.), or 0 for nil UUID.
+ * @throws {Error} If the UUID is invalid.
+ *
+ * @example
+ * ```typescript
+ * getUUIDVersion('f47ac10b-58cc-4372-a567-0e02b2c3d479') // 4
+ * getUUIDVersion('018e5e2c-7c0a-7000-8000-0e02b2c3d479') // 7
+ * getUUIDVersion('00000000-0000-0000-0000-000000000000') // 0
+ * ```
+ */
+export const getUUIDVersion = (id: string): number => {
+	if (!uuidValidate(id)) {
+		throw new Error('Invalid UUID')
+	}
+	return uuidVersion(id)
+}
 
 /**
  * Returns the nil UUID (all zeros).
