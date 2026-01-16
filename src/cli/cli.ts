@@ -395,7 +395,7 @@ mathCmd
 	.description('Calculate sum of numbers')
 	.argument('<numbers...>', 'Numbers to sum')
 	.action((numbers: string[]) => {
-		const nums = numbers.map(Number).filter((n) => !isNaN(n))
+		const nums = numbers.map(Number).filter((n) => !Number.isNaN(n))
 		console.log(nums.reduce((a, b) => a + b, 0))
 	})
 
@@ -404,7 +404,7 @@ mathCmd
 	.description('Calculate average of numbers')
 	.argument('<numbers...>', 'Numbers to average')
 	.action((numbers: string[]) => {
-		const nums = numbers.map(Number).filter((n) => !isNaN(n))
+		const nums = numbers.map(Number).filter((n) => !Number.isNaN(n))
 		console.log(nums.reduce((a, b) => a + b, 0) / nums.length)
 	})
 
