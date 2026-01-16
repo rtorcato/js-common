@@ -234,7 +234,7 @@ export function parseCurrencyString(value: string): { amount: number; currency: 
 
 	// Try to find currency code (e.g., "USD", "EUR")
 	const codeMatch = value.match(/\b([A-Z]{3})\b/)
-	if (codeMatch && codeMatch[1]) {
+	if (codeMatch?.[1]) {
 		const amount = parsePrice(value)
 		if (amount !== null) {
 			return { amount, currency: codeMatch[1] }
