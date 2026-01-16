@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/rtorcato/js-common/compare/v1.4.1...v1.4.2) (2026-01-16)
+
+
+### Bug Fixes
+
+* update benchmark imports to use correct module paths ([0713f23](https://github.com/rtorcato/js-common/commit/0713f23f03826546718f6d7667aea09bf14b26ce))
+
 ## [1.4.1](https://github.com/rtorcato/js-common/compare/v1.4.0...v1.4.1) (2026-01-16)
 
 
