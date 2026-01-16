@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/rtorcato/js-common/compare/v1.5.0...v1.6.0) (2026-01-16)
+
+
+### Bug Fixes
+
+* added dev branch to CI ([751f124](https://github.com/rtorcato/js-common/commit/751f124d48e40452c43f70ce05239f220bd30c63))
+* update packages and add fix for biome sorting ([0ed384c](https://github.com/rtorcato/js-common/commit/0ed384cfed2e4b285752a8e22f59aebd8ccb19c9))
+
+
+### Features
+
+* **uuid:** add v7, version detection, and short UUID conversion ([d304168](https://github.com/rtorcato/js-common/commit/d304168206152b125ffb2269c1c0cc448f266d76))
+
 # [1.5.0](https://github.com/rtorcato/js-common/compare/v1.4.2...v1.5.0) (2026-01-16)
 
 
