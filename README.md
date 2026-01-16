@@ -33,13 +33,13 @@ This package includes a command-line interface for many utilities:
 npm install -g @rtorcato/js-common
 
 # Or use with npx
-npx @rtorcato/js-common --help
+npx @rtorcato/js-common@latest --help
 
 # Examples
-npx @rtorcato/js-common date today
-npx @rtorcato/js-common math sum 1 2 3 4 5
-npx @rtorcato/js-common text capitalize "hello world"
-npx @rtorcato/js-common security token
+npx @rtorcato/js-common@latest date today
+npx @rtorcato/js-common@latest math sum 1 2 3 4 5
+npx @rtorcato/js-common@latest text capitalize "hello world"
+npx @rtorcato/js-common@latest system node-version
 ```
 
 See [CLI.md](./CLI.md) for complete CLI documentation.

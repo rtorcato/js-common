@@ -45,7 +45,6 @@ export const currencies = [
 	'BGN',
 	'RON',
 	'HRK',
-	'BRL',
 	'COP',
 	'CRC',
 	'XCD',

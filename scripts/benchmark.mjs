@@ -3,9 +3,9 @@
  * Run with: node scripts/benchmark.mjs
  */
 
-import { performance } from 'node:perf_hooks'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { performance } from 'node:perf_hooks'
 
 // Import utilities (adjust path as needed)
 const packagePath = join(process.cwd(), 'dist/index.js')
