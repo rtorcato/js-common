@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/rtorcato/js-common/compare/v1.4.0...v1.4.1) (2026-01-16)
+
+
+### Bug Fixes
+
+* add build step to performance benchmarks job ([e3a9020](https://github.com/rtorcato/js-common/commit/e3a9020d17d6cf00feb95055c7d483cd190ca30d))
+* add vitest coverage-istanbul dependency ([498b6fb](https://github.com/rtorcato/js-common/commit/498b6fbd41bc262ea00bb42d0bc2c97e4393f13c))
+
 # [1.4.0](https://github.com/rtorcato/js-common/compare/v1.3.1...v1.4.0) (2026-01-16)
 
 
