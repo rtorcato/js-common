@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 General Discussion
+    url: https://github.com/rtorcato/js-common/discussions/categories/general
+    about: Ask questions, share ideas, or discuss the library
+  - name: 🚀 Feature Ideas
+    url: https://github.com/rtorcato/js-common/discussions/categories/ideas
+    about: Propose new utilities or enhancements
+  - name: 🔧 Show and Tell
+    url: https://github.com/rtorcato/js-common/discussions/categories/show-and-tell
+    about: Share projects using js-common
+  - name: 📚 Documentation
+    url: https://github.com/rtorcato/js-common#readme
+    about: Read the documentation first

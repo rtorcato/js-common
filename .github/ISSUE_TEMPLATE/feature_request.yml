@@ -1,0 +1,120 @@
+name: 🚀 Feature Request
+description: Suggest an idea for this project
+title: '[Feature] '
+labels: [ 'enhancement', 'needs-triage' ]
+assignees: [ 'rtorcato' ]
+body:
+- type: textarea
+  id: feature
+  attributes:
+    label: 🚀 Feature Request
+    description: A clear and concise description of the feature you'd like to see.
+    placeholder: Describe the feature.
+  validations:
+    required: true
+
+- type: textarea
+  id: motivation
+  attributes:
+    label: 💡 Motivation
+    description: Why is this feature needed? What problem does it solve?
+    placeholder: Explain the motivation for this feature.
+  validations:
+    required: false
+
+- type: textarea
+  id: detailed_description
+  attributes:
+    label: 📝 Detailed Description
+    description: Provide a detailed description and proposed API (code examples encouraged).
+    placeholder: |
+      // Example of how you'd like to use this feature
+      import { newFunction } from '@rtorcato/js-common/module'
+      const result = newFunction(input)
+      // Expected behavior and return type
+  validations:
+    required: false
+
+- type: textarea
+  id: alternative_approaches
+  attributes:
+    label: 🔄 Alternative Approaches
+    description: Have you considered any alternative solutions or features?
+    placeholder: Describe alternatives.
+  validations:
+    required: false
+
+- type: textarea
+  id: implementation_ideas
+  attributes:
+    label: 🏗️ Implementation Ideas
+    description: If you have ideas on how this could be implemented, share them here.
+    placeholder: Implementation ideas.
+  validations:
+    required: false
+
+- type: checkboxes
+  id: module_location
+  attributes:
+    label: 📦 Module Location
+    description: Where would this feature fit?
+    options:
+    - "New module: /src/new-module/"
+    - "Existing module: /src/existing-module/"
+    - "Utility addition to (specify module below)"
+
+- type: checkboxes
+  id: dependencies
+  attributes:
+    label: 📦 Dependencies
+    description: Does this feature require new dependencies?
+    options:
+    - label: Zero dependencies (preferred)
+    - label: Requires new dependency (justify below)
+
+- type: textarea
+  id: examples_use_cases
+  attributes:
+    label: 📚 Examples & Use Cases
+    description: Provide code examples and use cases.
+    placeholder: |
+      ```typescript
+      // Use Case 1: Basic usage
+      const example1 = newFunction('input')
+      ```
+  validations:
+    required: false
+
+- type: textarea
+  id: context
+  attributes:
+    label: 🌍 Context
+    description: Any additional context, frequency, or current workarounds.
+    placeholder: Web dev, Node.js, CLI, etc.
+  validations:
+    required: false
+
+- type: checkboxes
+  id: acceptance_criteria
+  attributes:
+    label: ✅ Acceptance Criteria
+    options:
+    - label: Function is tree-shakeable
+    - label: Full TypeScript support with generics
+    - label: Comprehensive unit tests
+    - label: JSDoc documentation
+    - label: Performance considerations addressed
+    - label: Follows existing code patterns
+
+- type: checkboxes
+  id: checklist
+  attributes:
+    label: Checklist
+    options:
+    - label: I have searched existing issues and discussions
+    - label: I have provided concrete use cases
+    - label: I have considered the API design
+    - label: This fits within the library's scope and philosophy
+    - label: I would be willing to contribute to the implementation
+
+alternative_approaches: ""

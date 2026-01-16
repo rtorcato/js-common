@@ -1,0 +1,183 @@
+# Performance Monitoring Workflow
+
+name: 📊 Performance Monitoring
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'src/**'
+      - 'package.json'
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  bundle-size:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Build production
+      run: pnpm run build-prod
+      
+    - name: Analyze bundle size
+      run: |
+        echo "## 📦 Bundle Size Analysis" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Main bundle size
+        MAIN_SIZE=$(stat -f%z dist/index.js 2>/dev/null || stat -c%s dist/index.js)
+        echo "**Main Bundle**: ${MAIN_SIZE} bytes" >> $GITHUB_STEP_SUMMARY
+        
+        # Individual module sizes
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Module Sizes" >> $GITHUB_STEP_SUMMARY
+        echo "| Module | Size (bytes) |" >> $GITHUB_STEP_SUMMARY
+        echo "|--------|-------------|" >> $GITHUB_STEP_SUMMARY
+        
+        for file in dist/*.js; do
+          if [ -f "$file" ]; then
+            name=$(basename "$file" .js)
+            size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
+            echo "| $name | $size |" >> $GITHUB_STEP_SUMMARY
+          fi
+        done
+        
+    - name: Bundle size limit check
+      run: |
+        MAIN_SIZE=$(stat -f%z dist/index.js 2>/dev/null || stat -c%s dist/index.js)
+        MAX_SIZE=50000  # 50KB limit
+        
+        if [ "$MAIN_SIZE" -gt "$MAX_SIZE" ]; then
+          echo "❌ Bundle size ($MAIN_SIZE bytes) exceeds limit ($MAX_SIZE bytes)"
+          exit 1
+        else
+          echo "✅ Bundle size within limits: $MAIN_SIZE bytes"
+        fi
+
+  performance-benchmarks:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Run benchmarks
+      run: |
+        # Create simple benchmark script
+        cat > benchmark.mjs << 'EOF'
+        import { performance } from 'perf_hooks'
+        import { unique, chunk, groupBy } from './dist/index.js'
+        
+        function benchmark(name, fn, iterations = 10000) {
+          const start = performance.now()
+          for (let i = 0; i < iterations; i++) {
+            fn()
+          }
+          const end = performance.now()
+          const avg = (end - start) / iterations
+          console.log(`${name}: ${avg.toFixed(4)}ms per operation`)
+          return avg
+        }
+        
+        // Test data
+        const largeArray = Array.from({ length: 1000 }, (_, i) => i % 100)
+        const users = Array.from({ length: 100 }, (_, i) => ({
+          id: i,
+          name: `User ${i}`,
+          group: i % 5
+        }))
+        
+        console.log("## 🚀 Performance Benchmarks")
+        console.log("")
+        
+        // Array utilities
+        benchmark("unique(1000 items)", () => unique(largeArray))
+        benchmark("chunk(1000 items, 10)", () => chunk(largeArray, 10))
+        benchmark("groupBy(100 objects)", () => groupBy(users, 'group'))
+        EOF
+        
+        node benchmark.mjs >> $GITHUB_STEP_SUMMARY
+        
+  coverage-report:
+    name: Test Coverage
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Run tests with coverage
+      run: pnpm run coverage
+      
+    - name: Coverage summary
+      run: |
+        echo "## 📊 Test Coverage" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Extract coverage from vitest output
+        if [ -f coverage/coverage-summary.json ]; then
+          node -e "
+            const fs = require('fs');
+            const coverage = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
+            const total = coverage.total;
+            console.log('| Metric | Coverage |');
+            console.log('|--------|----------|');
+            console.log('| Lines | ' + total.lines.pct + '% |');
+            console.log('| Functions | ' + total.functions.pct + '% |');
+            console.log('| Branches | ' + total.branches.pct + '% |');
+            console.log('| Statements | ' + total.statements.pct + '% |');
+          " >> $GITHUB_STEP_SUMMARY
+        fi

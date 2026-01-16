@@ -1,0 +1,145 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve
+title: '[Bug] '
+labels: ['bug', 'needs-triage']
+assignees: ['rtorcato']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 🐛 Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 🔍 Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Import module: `import { functionName } from '@rtorcato/js-common/module'`
+        2. Call function: `functionName(parameters)`
+        3. Observe behavior: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ Expected Behavior
+      description: A clear description of what you expected to happen.
+      placeholder: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: 📸 Actual Behavior
+      description: What actually happened? Include error messages, unexpected output, etc.
+      placeholder: What actually happened?
+    validations:
+      required: true
+
+  - type: input
+    id: package-version
+    attributes:
+      label: Package Version
+      description: Which version of @rtorcato/js-common are you using?
+      placeholder: "1.4.0"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      description: Which version of Node.js are you using?
+      placeholder: "18.17.0"
+    validations:
+      required: true
+
+  - type: input
+    id: typescript-version
+    attributes:
+      label: TypeScript Version
+      description: Which version of TypeScript are you using? (if applicable)
+      placeholder: "5.2.0"
+
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: Which operating system are you using?
+      options:
+        - macOS
+        - Windows
+        - Linux (Ubuntu)
+        - Linux (Other)
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: Package Manager
+      description: Which package manager are you using?
+      options:
+        - npm
+        - pnpm
+        - yarn
+        - bun
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-sample
+    attributes:
+      label: 📋 Code Sample
+      description: Please provide a minimal reproducible example
+      placeholder: |
+        ```typescript
+        // Minimal reproducible example
+        import { functionName } from '@rtorcato/js-common/module'
+
+        const result = functionName(/* parameters */)
+        console.log(result) // Expected: X, Actual: Y
+        ```
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📚 Additional Context
+      description: Any additional context, screenshots, or information that might be helpful.
+
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: 🔍 Possible Solution
+      description: If you have ideas on how to fix this, please share them here.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to make sure this is not a duplicate
+          required: true
+        - label: I have provided a minimal reproducible example
+          required: true
+        - label: I have included my environment details
+          required: true
+        - label: I have checked the documentation and this is not expected behavior
+          required: true

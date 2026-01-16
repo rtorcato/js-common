@@ -1,0 +1,64 @@
+---
+name: 📚 Documentation Issue
+description: Report issues with documentation, examples, or README
+title: '[Docs] '
+labels: [ 'documentation', 'needs-triage' ]
+assignees: [ 'rtorcato' ]
+body:
+- type: textarea
+  id: issue
+  attributes:
+    label: 📚 Documentation Issue
+    description: Describe what's wrong or missing in the documentation.
+    placeholder: Please describe the issue.
+  validations:
+    required: true
+
+- type: checkboxes
+  id: location
+  attributes:
+    label: 📍 Location
+    description: Where is the documentation issue?
+    options:
+    - label: README.md
+    - label: CLI.md
+    - label: JSDoc comments
+    - label: TypeScript definitions
+    - label: Code examples
+    - label: Other (specify below)
+
+- type: textarea
+  id: current
+  attributes:
+    label: 🔍 Current Documentation
+    description: What does the current documentation say? Copy/paste or link to relevant section.
+    placeholder: Current documentation excerpt or link.
+  validations:
+    required: false
+
+- type: textarea
+  id: suggestion
+  attributes:
+    label: ✅ Suggested Improvement
+    description: What should the documentation say instead? Provide specific suggestions.
+    placeholder: Your suggested improvement.
+  validations:
+    required: false
+
+- type: textarea
+  id: context
+  attributes:
+    label: 📝 Additional Context
+    description: Any additional context about why this documentation issue is problematic.
+    placeholder: Additional context.
+  validations:
+    required: false
+
+- type: checkboxes
+  id: checklist
+  attributes:
+    label: Checklist
+    options:
+    - label: I have checked the latest version of the documentation
+    - label: I have provided specific suggestions for improvement
+    - label: This is about documentation, not a bug in the actual code

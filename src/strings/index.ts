@@ -1,15 +1,36 @@
 /**
  * Converts a string to Title Case (capitalizes the first letter of each word).
- * @param str The string to convert.
- * @returns The title-cased string.
+ * 
+ * @example
+ * ```typescript
+ * titleCase('hello world') // 'Hello World'
+ * titleCase('javaScript is awesome') // 'Javascript Is Awesome'
+ * titleCase('UPPER CASE TEXT') // 'Upper Case Text'
+ * titleCase('mixed-case_string') // 'Mixed-case_string'
+ * ```
+ * 
+ * @param str The string to convert to title case
+ * @returns The title-cased string
+ * @category String Utilities
  */
 export function titleCase(str: string): string {
 	return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase())
 }
+
 /**
  * Capitalizes the first letter of a string.
- * @param str The string to capitalize.
- * @returns The capitalized string.
+ * 
+ * @example
+ * ```typescript
+ * capitalize('hello') // 'Hello'
+ * capitalize('WORLD') // 'WORLD'
+ * capitalize('') // ''
+ * capitalize('a') // 'A'
+ * ```
+ * 
+ * @param str The string to capitalize
+ * @returns The capitalized string
+ * @category String Utilities
  */
 export function capitalize(str: string): string {
 	return str.length === 0 ? '' : (str[0]?.toUpperCase() ?? '') + str.slice(1)
@@ -17,8 +38,20 @@ export function capitalize(str: string): string {
 
 /**
  * Converts a string to camelCase.
- * @param str The string to convert.
- * @returns The camelCased string.
+ * Removes hyphens, underscores, and spaces while capitalizing following letters.
+ * 
+ * @example
+ * ```typescript
+ * camelCase('hello world') // 'helloWorld'
+ * camelCase('hello-world') // 'helloWorld'
+ * camelCase('hello_world') // 'helloWorld'
+ * camelCase('Hello World') // 'helloWorld'
+ * camelCase('API_KEY_NAME') // 'aPIKEYNAME'
+ * ```
+ * 
+ * @param str The string to convert to camelCase
+ * @returns The camelCased string
+ * @category String Utilities
  */
 export function camelCase(str: string): string {
 	return str
@@ -28,8 +61,20 @@ export function camelCase(str: string): string {
 
 /**
  * Converts a string to kebab-case.
- * @param str The string to convert.
- * @returns The kebab-cased string.
+ * Converts camelCase and spaces/underscores to hyphen-separated lowercase.
+ * 
+ * @example
+ * ```typescript
+ * kebabCase('helloWorld') // 'hello-world'
+ * kebabCase('Hello World') // 'hello-world'
+ * kebabCase('hello_world') // 'hello-world'
+ * kebabCase('APIKeyName') // 'a-p-i-key-name'
+ * kebabCase('camelCaseString') // 'camel-case-string'
+ * ```
+ * 
+ * @param str The string to convert to kebab-case
+ * @returns The kebab-cased string
+ * @category String Utilities
  */
 export function kebabCase(str: string): string {
 	return str

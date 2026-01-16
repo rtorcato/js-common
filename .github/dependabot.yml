@@ -1,0 +1,44 @@
+# Automated dependency updates with Dependabot
+# https://docs.github.com/en/code-security/dependabot
+
+version: 2
+updates:
+# Enable version updates for npm/pnpm
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+    day: "monday"
+    time: "10:00"
+  open-pull-requests-limit: 5
+  assignees:
+  - "rtorcato"
+  commit-message:
+    prefix: "deps"
+    include: "scope"
+  # Group updates to reduce PR noise
+  groups:
+    development-dependencies:
+      patterns:
+      - "@types/*"
+      - "*eslint*"
+      - "*prettier*"
+      - "vitest*"
+      - "typescript"
+      - "@rtorcato/js-tooling"
+      - "biome"
+      - "husky"
+      - "lint-staged"
+    production-dependencies:
+      exclude-patterns:
+      - "@types/*"
+
+# Monitor GitHub Actions
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "monthly"
+  commit-message:
+    prefix: "ci"
+  assignees:
+  - "rtorcato"
