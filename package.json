@@ -251,7 +251,7 @@
     "@types/figlet": "^1.7.0",
     "@types/inquirer": "^9.0.9",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^24.9.1",
+    "@types/node": "^25.0.9",
     "@vitest/coverage-istanbul": "^4.0.17",
     "cross-env": "^10.1.0",
     "esbuild": "^0.25.11",
