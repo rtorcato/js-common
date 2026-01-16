@@ -1,3 +1,18 @@
+# [1.4.0](https://github.com/rtorcato/js-common/compare/v1.3.1...v1.4.0) (2026-01-16)
+
+
+### Bug Fixes
+
+* resolve lint errors for unused variables and isNaN usage ([e47b644](https://github.com/rtorcato/js-common/commit/e47b644d4e15b134aaeb2583bc8d97ea1e51e6bb))
+* trigger release for lint and template fixes ([51888fd](https://github.com/rtorcato/js-common/commit/51888fdf6d0d063a6e605e248e214d895125ce2b))
+* update CodeQL workflow to v4 and fix invalid query pack ([15c4868](https://github.com/rtorcato/js-common/commit/15c4868e4f1d23eaaf79cd5fc3c427ed81193c72))
+* update performance workflow with correct pnpm setup order ([908fb60](https://github.com/rtorcato/js-common/commit/908fb60e25f4416b91f0bad4dc77ae66ce81894f))
+
+
+### Features
+
+* Enable TypeScript type definitions for package consumers ([70eb162](https://github.com/rtorcato/js-common/commit/70eb162bb556164432762f382470ff28a3ec0251))
+
 ## [1.3.1](https://github.com/rtorcato/js-common/compare/v1.3.0...v1.3.1) (2025-10-24)
 
 
