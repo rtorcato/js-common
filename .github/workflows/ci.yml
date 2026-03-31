@@ -101,7 +101,7 @@ jobs:
     commitlint:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]
-        if: needs.check-skip.outputs.should-skip != 'true' && github.event_name == 'pull_request'
+        if: needs.check-skip.outputs.should-skip != 'true' && github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
         steps:
             - name: 📦 Checkout repository
               uses: actions/checkout@v4
