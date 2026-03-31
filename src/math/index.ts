@@ -1,2 +1,1 @@
-export { add, subtract } from './math'
-export { sum } from './sum'
+export { add, subtract, multiply, divide } from './math'

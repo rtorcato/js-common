@@ -57,10 +57,11 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pi
 }
 
 /**
- * Deep clones a plain object or array.
- * @param obj The object or array to clone.
- * @returns {any}
+ * Deep clones a value using the native structuredClone algorithm.
+ * Correctly handles Date, Map, Set, ArrayBuffer, and circular references.
+ * @param obj The value to clone.
+ * @returns A deep clone of the value.
  */
 export function deepClone<T>(obj: T): T {
-	return JSON.parse(JSON.stringify(obj))
+	return structuredClone(obj)
 }

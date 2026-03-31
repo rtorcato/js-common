@@ -1,12 +1,8 @@
 /**
- * Pads a single-digit number with a leading zero and returns it as a string.
- *
- * @param val - The number to pad.
- * @returns The number as a string, padded with a leading zero if it is less than 10.
- *
- * @example
- * padNumberToString(5); // returns "05"
- * padNumberToString(12); // returns "12"
+ * Returns a random integer between min and max (inclusive).
+ * @param min The minimum value (inclusive).
+ * @param max The maximum value (inclusive).
+ * @returns A random integer.
  */
 export function getRandomInt(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1)) + min
@@ -100,4 +96,22 @@ export function average(numbers: number[]): number {
  */
 export function mod(n: number, m: number): number {
 	return ((n % m) + m) % m
+}
+
+/**
+ * Returns the smallest value in an array of numbers.
+ * @param numbers The array of numbers.
+ * @returns The minimum value.
+ */
+export function min(numbers: number[]): number {
+	return Math.min(...numbers)
+}
+
+/**
+ * Returns the largest value in an array of numbers.
+ * @param numbers The array of numbers.
+ * @returns The maximum value.
+ */
+export function max(numbers: number[]): number {
+	return Math.max(...numbers)
 }

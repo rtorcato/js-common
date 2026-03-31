@@ -3,10 +3,10 @@
  * @returns {string} The language code (e.g., 'en', 'fr').
  */
 export function detectLanguage(defaultLang: string = 'en'): string {
-	if (typeof process !== 'undefined' && navigator.language) {
+	if (typeof navigator !== 'undefined' && navigator.language) {
 		return navigator.language.split('-')[0] || defaultLang
 	}
-	if (process?.env['LANG']) {
+	if (typeof process !== 'undefined' && process.env['LANG']) {
 		return ((process.env['LANG'] as string | undefined) ?? 'en').split('_')[0] || defaultLang
 	}
 	return defaultLang
