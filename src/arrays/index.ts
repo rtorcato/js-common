@@ -143,3 +143,32 @@ export function shuffle<T>(arr: T[]): T[] {
 	}
 	return a
 }
+
+/**
+ * Groups array elements by a key derived from each element.
+ *
+ * @example
+ * ```typescript
+ * groupBy([1, 2, 3, 4], n => n % 2 === 0 ? 'even' : 'odd')
+ * // { odd: [1, 3], even: [2, 4] }
+ *
+ * groupBy([{ type: 'a' }, { type: 'b' }, { type: 'a' }], x => x.type)
+ * // { a: [{ type: 'a' }, { type: 'a' }], b: [{ type: 'b' }] }
+ * ```
+ *
+ * @param arr The array to group
+ * @param fn Function that returns the group key for each element
+ * @returns An object mapping keys to arrays of elements
+ * @category Array Utilities
+ */
+export function groupBy<T>(
+	arr: T[],
+	fn: (item: T) => string | number
+): Record<string | number, T[]> {
+	return arr.reduce<Record<string | number, T[]>>((acc, item) => {
+		const key = fn(item)
+		if (!acc[key]) acc[key] = []
+		acc[key].push(item)
+		return acc
+	}, {})
+}

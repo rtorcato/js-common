@@ -9,25 +9,6 @@ export function padZero(value: string | number, length: number = 2): string {
 }
 
 /**
- * Capitalizes the first character of a string.
- * @param str The string to capitalize.
- * @returns The capitalized string.
- */
-export function capitalize(str: string): string {
-	if (!str) return ''
-	return str[0]?.toUpperCase() + str.slice(1)
-}
-
-/**
- * Converts a string to title case (first letter of each word capitalized).
- * @param str The string to convert.
- * @returns The title-cased string.
- */
-export function toTitleCase(str: string): string {
-	return str.replace(/\w\S*/g, (txt) => (txt[0]?.toUpperCase() ?? '') + txt.slice(1).toLowerCase())
-}
-
-/**
  * Formats a number with thousands separators.
  * @param num The number to format.
  * @param locale Optional locale string (default: 'en-US').

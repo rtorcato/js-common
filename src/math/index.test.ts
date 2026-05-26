@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { add, subtract } from './math'
-import { sum } from './sum'
+import { add, divide, multiply, subtract } from './math'
 
 describe('math module', () => {
 	it('add adds two numbers', () => {
@@ -15,9 +14,15 @@ describe('math module', () => {
 		expect(subtract(10, 0)).toBe(10)
 	})
 
-	it('sum adds two numbers', () => {
-		expect(sum(1, 2)).toBe(3)
-		expect(sum(-1, 1)).toBe(0)
-		expect(sum(0, 0)).toBe(0)
+	it('multiply multiplies two numbers', () => {
+		expect(multiply(2, 3)).toBe(6)
+		expect(multiply(-2, 3)).toBe(-6)
+		expect(multiply(0, 5)).toBe(0)
+	})
+
+	it('divide divides two numbers', () => {
+		expect(divide(6, 2)).toBe(3)
+		expect(divide(5, 2)).toBe(2.5)
+		expect(divide(0, 5)).toBe(0)
 	})
 })

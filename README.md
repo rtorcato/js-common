@@ -1,5 +1,7 @@
 # js-common
 
+![js-common banner](./banner.png)
+
 [![npm version](https://badge.fury.io/js/%40rtorcato%2Fjs-common.svg)](https://badge.fury.io/js/%40rtorcato%2Fjs-common)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
@@ -15,7 +17,7 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - 🔧 **TypeScript** - Full type safety and IntelliSense
 - 🖥️ **CLI included** - Use utilities from command line
 - 📚 **Modular** - Import individual modules
-- ⚡ **Zero dependencies** - Core library has no external deps
+- ⚡ **Utility modules have no dependencies** - CLI features use optional packages isolated to the `cli` subpath
 - 🧪 **Well tested** - Comprehensive test coverage
 
 ## Installation
@@ -176,7 +178,7 @@ js-common: 277 bytes (full) / ~50-200 bytes (individual modules)
 ### 🛠️ **Modern Development**
 - Built with **TypeScript** for excellent DX
 - **ESM-first** with CommonJS compatibility
-- **Zero dependencies** in core library
+- **No dependencies in utility modules** — CLI packages (chalk, commander, etc.) are isolated to the `cli` subpath
 - Comprehensive **test coverage**
 
 ## Development
