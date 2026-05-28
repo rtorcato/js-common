@@ -1,0 +1,36 @@
+---
+title: js-common
+description: A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
+template: splash
+hero:
+  tagline: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.
+  image:
+    file: ../../assets/banner.png
+  actions:
+    - text: Get started
+      link: /js-common/guides/installation/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/rtorcato/js-common
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components'
+
+## Why js-common?
+
+<CardGrid stagger>
+	<Card title="Ultra-lightweight" icon="rocket">
+		Main bundle is only ~277 bytes. Individual modules add ~50–200 bytes each.
+	</Card>
+	<Card title="Tree-shakeable" icon="seti:folder">
+		Named subpath exports — import only what you need.
+	</Card>
+	<Card title="TypeScript-first" icon="seti:typescript">
+		Strict types, generics preserved, JSDoc-rich in your IDE.
+	</Card>
+	<Card title="CLI included" icon="seti:powershell">
+		Run utilities directly from your terminal via `npx @rtorcato/js-common`.
+	</Card>
+</CardGrid>

@@ -7,8 +7,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Bundle Size](https://img.shields.io/badge/Bundle%20Size-277%20bytes-green.svg)](https://bundlejs.com/?q=@rtorcato/js-common)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Docs](https://img.shields.io/badge/docs-rtorcato.github.io%2Fjs--common-blue.svg)](https://rtorcato.github.io/js-common/)
 
 A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
+
+📘 **Documentation:** <https://rtorcato.github.io/js-common/>
 
 ## ✨ Features
 
@@ -205,6 +208,20 @@ pnpm run check:fix
 # Type checking
 pnpm run typecheck
 ```
+
+## Documentation site
+
+The full documentation site lives in [`apps/doc`](./apps/doc) and is built with [Astro Starlight](https://starlight.astro.build/). It auto-deploys to GitHub Pages on every push to `main` that touches `apps/doc/**`.
+
+```bash
+# Run the docs locally (http://localhost:4321/js-common)
+pnpm --filter @rtorcato/js-common-docs dev
+
+# Build the static site
+pnpm --filter @rtorcato/js-common-docs build
+```
+
+Live site: <https://rtorcato.github.io/js-common/>
 
 ## Contributing
 
