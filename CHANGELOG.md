@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/rtorcato/js-common/compare/v1.6.0...v1.7.0) (2026-01-16)
+
+
+### Features
+
+* **strings:** add 12 new string utility functions ([03df6fc](https://github.com/rtorcato/js-common/commit/03df6fc4168c1343be47434a2b4c842be394f61c))
+
 # [1.6.0](https://github.com/rtorcato/js-common/compare/v1.5.0...v1.6.0) (2026-01-16)
 
 
