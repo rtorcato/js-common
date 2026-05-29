@@ -19,8 +19,7 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
   - Fix: add `"engines": { "node": ">=18" }` to `package.json`.
 - [ ] **No `.nvmrc`.** Contributors won't auto-switch Node.
   - Fix: add `.nvmrc` matching CI (Node 22).
-- [ ] **Dead `lint-staged` + `husky.hooks` config in `package.json`.** The actual `.husky/pre-commit` runs `pnpm typecheck && pnpm check` directly, bypassing lint-staged.
-  - Fix: either wire lint-staged in (faster commits) or remove the unused `lint-staged` and `husky.hooks` blocks.
+- [x] **Dead `lint-staged` + `husky.hooks` config in `package.json`.** Resolved: removed the unused `lint-staged` and `husky.hooks` blocks plus the `lint-staged` devDependency; `.husky/pre-commit` keeps its current full-repo `pnpm typecheck && pnpm check` flow.
 
 ## 3. Code organization
 
@@ -33,12 +32,9 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 
 ## 4. Tests & coverage
 
-- [ ] **`src/cli/` has no tests.**
-  - Fix: smoke test that the binary builds, prints `--help`, and exits 0.
-- [ ] **`src/types/` and `src/tests/` have no tests.** `types/` is type-only (OK); `tests/` looks like fixtures.
-  - Fix: rename `src/tests/` to `__fixtures__` or move fixtures into the modules that use them.
-- [ ] **No explicit coverage thresholds.** `vitest.config.mjs` only extends the shared tooling config.
-  - Fix: add explicit thresholds (e.g., 80% lines/branches/functions/statements) so regressions fail CI.
+- [x] **`src/cli/` has no tests.** Resolved: `src/cli/cli.test.ts` spawns the built `dist/cli/index.mjs` and asserts `--version`, `--help`, and `date today` each exit 0 with expected output.
+- [x] **`src/tests/` looks like fixtures.** Resolved: the lone trivial placeholder was deleted and the directory removed. `src/types/` remains type-only by design.
+- [x] **No explicit coverage thresholds.** Resolved: `vitest.config.mjs` now sets `lines: 85`, `statements: 85`, `functions: 95`, `branches: 70` — a no-regression floor under today's measured coverage (89.8 / 89.74 / 97.41 / 73.79).
 - [ ] **No coverage badge in README.**
 
 ## 5. Documentation
@@ -67,5 +63,3 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 - `src/formatting/` — unexported (§1)
 - `CLAUDE.md` — stale `obects` note (§1)
 - `SECURITY.md` — incorrect "no runtime deps" claim (§5)
-- `vitest.config.mjs` — coverage thresholds (§4)
-- `.husky/pre-commit` — lint-staged dead code (§2)

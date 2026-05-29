@@ -261,7 +261,6 @@
     "husky": "^9.1.7",
     "jsdom": "^29.0.1",
     "knip": "^6.14.2",
-    "lint-staged": "^16.2.6",
     "rimraf": "^6.0.1",
     "semantic-release": "^25.0.1",
     "typescript": "^6.0.2",
@@ -287,18 +286,6 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,json,md}": [
-      "pnpm exec biome lint",
-      "pnpm exec biome format",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
     }
   },
   "publishConfig": {
