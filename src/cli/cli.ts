@@ -1,9 +1,9 @@
+import { Separator, checkbox, select } from '@inquirer/prompts'
 import chalk from 'chalk'
 import chalkAnimation from 'chalk-animation'
 import { program } from 'commander'
 import figlet from 'figlet'
 import gradient from 'gradient-string'
-import inquirer from 'inquirer'
 import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -132,25 +132,20 @@ program
 		try {
 			// Main interactive loop
 			while (true) {
-				const { category } = await inquirer.prompt([
-					{
-						type: 'list',
-						name: 'category',
-						message: chalk.cyan('What would you like to do?'),
-						choices: Object.entries(functionCategories)
-							.reduce((acc, [key, cat], index) => {
-								acc.push({ name: cat.name, value: key })
-								// Add separator after each item except the last one
-								if (index < Object.entries(functionCategories).length - 1) {
-									acc.push(new inquirer.Separator(' '))
-								}
-								return acc
-							}, [] as any[])
-							.concat([new inquirer.Separator(' '), { name: chalk.red('❌ Exit'), value: 'exit' }]),
-						pageSize: 17, // Show more items to accommodate separators and exit option
-						loop: false, // Don't loop at the end
-					},
-				])
+				const category = await select<string>({
+					message: chalk.cyan('What would you like to do?'),
+					choices: Object.entries(functionCategories)
+						.reduce((acc, [key, cat], index) => {
+							acc.push({ name: cat.name, value: key })
+							if (index < Object.entries(functionCategories).length - 1) {
+								acc.push(new Separator(' '))
+							}
+							return acc
+						}, [] as any[])
+						.concat([new Separator(' '), { name: chalk.red('❌ Exit'), value: 'exit' }]),
+					pageSize: 17,
+					loop: false,
+				})
 
 				// Handle exit selection
 				if (category === 'exit') {
@@ -162,29 +157,24 @@ program
 
 				// Function selection loop
 				while (true) {
-					const { functionName } = await inquirer.prompt([
-						{
-							type: 'list',
-							name: 'functionName',
-							message: chalk.cyan(`Choose a ${selectedCategory.name} function:`),
-							choices: selectedCategory.functions
-								.reduce((acc, func, index) => {
-									acc.push({ name: `${func.name} - ${func.description}`, value: func.name })
-									// Add separator after each item except the last one
-									if (index < selectedCategory.functions.length - 1) {
-										acc.push(new inquirer.Separator(' '))
-									}
-									return acc
-								}, [] as any[])
-								.concat([
-									new inquirer.Separator(' '),
-									{ name: chalk.gray('⬅️  Back to categories'), value: 'back' },
-									{ name: chalk.red('❌ Exit'), value: 'exit' },
-								]),
-							pageSize: 12, // Show more items to accommodate back/exit options
-							loop: false, // Don't loop at the end
-						},
-					])
+					const functionName = await select<string>({
+						message: chalk.cyan(`Choose a ${selectedCategory.name} function:`),
+						choices: selectedCategory.functions
+							.reduce((acc, func, index) => {
+								acc.push({ name: `${func.name} - ${func.description}`, value: func.name })
+								if (index < selectedCategory.functions.length - 1) {
+									acc.push(new Separator(' '))
+								}
+								return acc
+							}, [] as any[])
+							.concat([
+								new Separator(' '),
+								{ name: chalk.gray('⬅️  Back to categories'), value: 'back' },
+								{ name: chalk.red('❌ Exit'), value: 'exit' },
+							]),
+						pageSize: 12,
+						loop: false,
+					})
 
 					// Handle navigation options
 					if (functionName === 'exit') {
@@ -225,25 +215,20 @@ program
 		console.log(gradient.pastel('\n🔧 Function Integration Helper\n'))
 
 		try {
-			const { category } = await inquirer.prompt([
-				{
-					type: 'list',
-					name: 'category',
-					message: chalk.cyan('Which category of utilities do you need?'),
-					choices: Object.entries(functionCategories)
-						.reduce((acc, [key, cat], index) => {
-							acc.push({ name: cat.name, value: key })
-							// Add separator after each item except the last one
-							if (index < Object.entries(functionCategories).length - 1) {
-								acc.push(new inquirer.Separator(' '))
-							}
-							return acc
-						}, [] as any[])
-						.concat([new inquirer.Separator(' '), { name: chalk.red('❌ Exit'), value: 'exit' }]),
-					pageSize: 17, // Show more items to accommodate separators and exit option
-					loop: false, // Don't loop at the end
-				},
-			])
+			const category = await select<string>({
+				message: chalk.cyan('Which category of utilities do you need?'),
+				choices: Object.entries(functionCategories)
+					.reduce((acc, [key, cat], index) => {
+						acc.push({ name: cat.name, value: key })
+						if (index < Object.entries(functionCategories).length - 1) {
+							acc.push(new Separator(' '))
+						}
+						return acc
+					}, [] as any[])
+					.concat([new Separator(' '), { name: chalk.red('❌ Exit'), value: 'exit' }]),
+				pageSize: 17,
+				loop: false,
+			})
 
 			// Handle exit selection
 			if (category === 'exit') {
@@ -252,20 +237,16 @@ program
 			}
 
 			const selectedCategory = functionCategories[category as keyof typeof functionCategories]
-			const { functions } = await inquirer.prompt([
-				{
-					type: 'checkbox',
-					name: 'functions',
-					message: chalk.cyan(`Select ${selectedCategory.name} functions to add:`),
-					choices: selectedCategory.functions.map((func) => ({
-						name: `${func.name} - ${func.description}`,
-						value: func.name,
-						checked: false,
-					})),
-					pageSize: 10, // Show more items at once
-					loop: false, // Don't loop at the end
-				},
-			])
+			const functions = await checkbox<string>({
+				message: chalk.cyan(`Select ${selectedCategory.name} functions to add:`),
+				choices: selectedCategory.functions.map((func) => ({
+					name: `${func.name} - ${func.description}`,
+					value: func.name,
+					checked: false,
+				})),
+				pageSize: 10,
+				loop: false,
+			})
 
 			if (functions.length === 0) {
 				console.log(chalk.yellow('\n📝 No functions selected. Exiting...\n'))
