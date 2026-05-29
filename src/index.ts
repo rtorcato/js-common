@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-export const testPackage = () => {
-	console.log('test')
-	return 'testPackage'
-}
+// Intentionally empty. `@rtorcato/js-common` is consumed via subpath
+// exports (e.g. `@rtorcato/js-common/date`) to keep bundles tiny.
+export {}

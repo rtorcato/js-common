@@ -4,20 +4,13 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 
 ## 1. Bugs (likely broken in the published package)
 
-- [ ] **`./logger` export points to a nonexistent file.** `package.json` exports `./logger` → `./dist/logger/index.js`, but `src/logger/` contains only `logger.ts` and `logger.test.ts` — no `index.ts`. The build cannot produce `dist/logger/index.js`, so any consumer importing `@rtorcato/js-common/logger` will get a module-not-found error.
-  - Fix: add `src/logger/index.ts` that re-exports from `./logger`.
-- [ ] **`build-cli` script builds the wrong file.** `package.json` invokes `tsc src/cli/cli.ts …`, but there is also a newer `src/cli/index.ts` (per file dates and content). One of these is dead.
-  - Fix: pick the canonical entry, delete the other, align `build-cli` accordingly.
-- [ ] **`src/index.ts` is a `testPackage` stub.** This is the package's main entry (the `.` export). It only `console.log`s `'test'` and returns a string.
-  - Fix: replace with an intentional curated re-export, an empty module with a comment, or remove `.` from `exports` entirely.
-- [ ] **`src/logging/index1.ts` is dead.** Obsolete duplicate of `index.ts`.
-  - Fix: delete.
-- [ ] **CLAUDE.md claims `src/obects/` typo exists; it does not.** The directory is correctly named `src/objects/`.
-  - Fix: remove the stale note from `CLAUDE.md` so future contributors/agents stop trying to preserve a non-existent typo.
-- [ ] **`src/helloworld/` looks like dead code.** Not in `package.json` exports, not referenced elsewhere.
-  - Fix: confirm unused, delete.
-- [ ] **`src/formatting/` is not in `exports`.** Either intentional dead code or a forgotten export.
-  - Fix: add an `exports` entry or remove the directory.
+- [x] **`./logger` export points to a nonexistent file.** Resolved: `src/logger/index.ts` now re-exports from `./logger`.
+- [x] **`build-cli` script builds the wrong file.** Resolved: `src/cli/index.ts` deleted; `cli.ts` is canonical.
+- [x] **`src/index.ts` is a `testPackage` stub.** Resolved: replaced with an empty module + comment explaining the subpath-import convention.
+- [x] **`src/logging/index1.ts` is dead.** Resolved: deleted.
+- [x] **CLAUDE.md claims `src/obects/` typo exists; it does not.** Resolved: stale note removed.
+- [x] **`src/helloworld/` looks like dead code.** Resolved: deleted.
+- [x] **`src/formatting/` is not in `exports`.** Resolved: added `"./formatting"` entry.
 
 ## 2. Packaging / install footprint
 
@@ -56,10 +49,8 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 - [ ] **No API reference site.** Optional, larger lift.
   - Fix (if pursued): TypeDoc → `docs/` published to GitHub Pages.
 - [ ] **CLAUDE.md is stale** about the `obects` typo (covered in §1).
-- [ ] **`CLI.md`** isn't linked from the README's CLI section.
-  - Fix: add a "See [CLI.md](./CLI.md) for the full reference" pointer.
-- [ ] **`SECURITY.md` claims "no runtime dependencies"** — false. `chalk`, `commander`, `date-fns`, `luxon`, `pino`, `uuid`, `zod`, etc. are all runtime `dependencies`.
-  - Fix: correct the statement.
+- [x] **`CLI.md`** is now linked from the README's CLI section.
+- [x] **`SECURITY.md` claims "no runtime dependencies"** — Resolved: corrected to "Minimal Runtime Dependencies" with the actual list.
 
 ## 6. Nice-to-haves
 
