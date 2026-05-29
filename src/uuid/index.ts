@@ -1,4 +1,4 @@
-import shortid from 'short-uuid'
+import { createTranslator } from 'short-uuid'
 import {
 	NIL as NIL_UUID,
 	parse as uuidParse,
@@ -9,8 +9,7 @@ import {
 	v7 as uuidv7,
 } from 'uuid'
 
-// Create a translator for short UUID conversions
-const translator = shortid()
+const translator = createTranslator()
 
 /**
  * Generates a UUID v4 string.
@@ -39,7 +38,7 @@ export const getUUIDv7 = (): string => {
  * @returns {string} A new short UUID string.
  */
 export const getShortUUID = (): string => {
-	return translator.new()
+	return translator.generate()
 }
 
 /**
