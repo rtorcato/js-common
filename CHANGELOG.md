@@ -1,3 +1,11 @@
+## [1.7.1](https://github.com/rtorcato/js-common/compare/v1.7.0...v1.7.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* **deps:** migrate to short-uuid v6 and inquirer v13 ([#38](https://github.com/rtorcato/js-common/issues/38)) ([cceae68](https://github.com/rtorcato/js-common/commit/cceae68f08a8e88e0511879b800516046ed27a88))
+* resolve bugs, remove duplicates, and add missing utilities ([43dfc85](https://github.com/rtorcato/js-common/commit/43dfc850e105490279cdca746b53be1dbbfe6355))
+
 # [1.7.0](https://github.com/rtorcato/js-common/compare/v1.6.0...v1.7.0) (2026-01-16)
 
 
