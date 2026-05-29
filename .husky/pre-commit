@@ -1,7 +1,6 @@
 
 
 echo "🔍 Running pre-commit checks..."
-# npx lint-staged
 
 echo "🧹 Running typecheck (pnpm run typecheck)..."
 pnpm run typecheck
@@ -17,8 +16,5 @@ else
 fi
 
 pnpm exec biome format .
-# If you later enable lint-staged
-# echo "🎯 Running lint-staged..."
-# npx lint-staged
 
 echo "🎉 Pre-commit checks passed successfully!"
