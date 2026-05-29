@@ -1,3 +1,11 @@
+## [1.8.1](https://github.com/rtorcato/js-common/compare/v1.8.0...v1.8.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* **deps:** move CLI deps to optionalDependencies ([52d1e9f](https://github.com/rtorcato/js-common/commit/52d1e9feda9ae86dc705f103678024cfb9772c68))
+* publishing bugs and dead-code cleanup ([30b8d69](https://github.com/rtorcato/js-common/commit/30b8d693d6dfcdc4b6044438318f7d5cbaca0e86))
+
 # [1.8.0](https://github.com/rtorcato/js-common/compare/v1.7.1...v1.8.0) (2026-05-29)
 
 
