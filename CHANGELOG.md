@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/rtorcato/js-common/compare/v1.7.1...v1.8.0) (2026-05-29)
+
+
+### Features
+
+* **docs:** Astro Starlight site on GitHub Pages ([5139f6d](https://github.com/rtorcato/js-common/commit/5139f6d0d6652e54b3e6daa5ed77dcd67d7e59dc))
+
 ## [1.7.1](https://github.com/rtorcato/js-common/compare/v1.7.0...v1.7.1) (2026-05-29)
 
 
