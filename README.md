@@ -5,8 +5,7 @@
 [![npm version](https://badge.fury.io/js/%40rtorcato%2Fjs-common.svg)](https://badge.fury.io/js/%40rtorcato%2Fjs-common)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![Bundle Size](https://img.shields.io/badge/Bundle%20Size-277%20bytes-green.svg)](https://bundlejs.com/?q=@rtorcato/js-common)
-[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.0.0-brightgreen.svg)](https://nodejs.org/)
 [![Docs](https://img.shields.io/badge/docs-rtorcato.github.io%2Fjs--common-blue.svg)](https://rtorcato.github.io/js-common/)
 
 A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
@@ -15,12 +14,11 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 
 ## ✨ Features
 
-- 🚀 **Ultra-lightweight** - Only 277 bytes main bundle
-- 📦 **Tree-shakeable** - Import only what you need
+- 📦 **Tree-shakeable** - Import only what you need via subpath exports
 - 🔧 **TypeScript** - Full type safety and IntelliSense
-- 🖥️ **CLI included** - Use utilities from command line
-- 📚 **Modular** - Import individual modules
-- ⚡ **Utility modules have no dependencies** - CLI features use optional packages isolated to the `cli` subpath
+- 🖥️ **CLI included** - Optional binary for use in scripts and terminals
+- 📚 **Modular** - One module per concern, ~40 subpaths
+- ⚡ **Minimal runtime deps** - Only `date-fns`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 - 🧪 **Well tested** - Comprehensive test coverage
 
 ## Installation
@@ -68,15 +66,7 @@ console.log(generateUUID()) // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
 
 ### Bundle Size Impact
 
-The main library bundle is only **277 bytes**! Individual module imports are even smaller:
-
-```typescript
-// This adds ~50 bytes to your bundle
-import { today } from '@rtorcato/js-common/date'
-
-// This adds ~100 bytes to your bundle  
-import { sum, average } from '@rtorcato/js-common/numbers'
-```
+Each module is shipped as its own subpath export so bundlers only include what you import. Individual modules range from ~100 bytes (e.g. `sleep`) to ~2 KB (e.g. `currency`) when minified. Measure against your own bundle with [bundlejs.com](https://bundlejs.com/?q=@rtorcato/js-common/numbers).
 
 ### 🎯 **TypeScript Support**
 
@@ -157,7 +147,7 @@ import { sleep } from '@rtorcato/js-common/sleep'
 
 ## Requirements
 
-- **Node.js** >= 18.0.0
+- **Node.js** >= 22.0.0 (enforced via the `engines` field)
 - **TypeScript** >= 5.0.0 (for TypeScript projects)
 
 ## Why This Library?
@@ -168,17 +158,10 @@ Unlike larger utility libraries, js-common is designed for modern applications:
 - **Tree-shakeable** - Only import what you use
 - **CLI included** - Use utilities in scripts and terminal
 
-### 📦 **Bundle Size Comparison**
-```
-lodash: ~70KB (full) / ~25KB (common functions)
-ramda: ~60KB (full) / ~15KB (common functions)
-js-common: 277 bytes (full) / ~50-200 bytes (individual modules)
-```
-
 ### 🛠️ **Modern Development**
 - Built with **TypeScript** for excellent DX
-- **ESM-first** with CommonJS compatibility
-- **No dependencies in utility modules** — CLI packages (chalk, commander, etc.) are isolated to the `cli` subpath
+- **ESM-only**, native subpath exports
+- **Minimal runtime deps** — CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only fetched when you opt in to the CLI
 - Comprehensive **test coverage**
 
 ## Development
@@ -204,6 +187,9 @@ pnpm run check:fix
 
 # Type checking
 pnpm run typecheck
+
+# Run micro-benchmarks (scripts/benchmark.mjs)
+pnpm run benchmark
 ```
 
 ## Documentation site
