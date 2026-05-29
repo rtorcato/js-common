@@ -59,9 +59,6 @@ import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
 import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
 import { capitalize, toTitleCase } from '@rtorcato/js-common/formatting'
 
-// 📦 Or import everything (larger bundle)
-import * as jsCommon from '@rtorcato/js-common'
-
 // Example usage
 console.log(today()) // "2025-10-24"
 console.log(sum([1, 2, 3, 4, 5])) // 15

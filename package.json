@@ -116,6 +116,10 @@
       "import": "./dist/file/index.js",
       "types": "./dist/file/index.d.ts"
     },
+    "./formatting": {
+      "import": "./dist/formatting/index.js",
+      "types": "./dist/formatting/index.d.ts"
+    },
     "./functions": {
       "import": "./dist/functions/index.js",
       "types": "./dist/functions/index.d.ts"

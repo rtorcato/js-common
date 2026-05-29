@@ -36,7 +36,7 @@ We take security seriously. If you discover a security vulnerability, please rep
 
 This library follows security best practices:
 
-- ✅ **No Runtime Dependencies**: Core utilities have zero dependencies
+- ✅ **Minimal Runtime Dependencies**: Library utilities depend on a small, audited set (`date-fns`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`). CLI-only packages (`chalk`, `commander`, `inquirer`, `figlet`, …) are isolated to the `cli` subpath.
 - ✅ **Type Safety**: Full TypeScript support prevents many runtime errors
 - ✅ **Secure Defaults**: Crypto functions use strong algorithms (SHA-256, etc.)
 - ✅ **Input Validation**: Validation utilities help prevent injection attacks
