@@ -14,8 +14,7 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 
 ## 2. Packaging / install footprint
 
-- [ ] **Heavy CLI deps are runtime `dependencies`.** `chalk`, `chalk-animation`, `commander`, `figlet`, `gradient-string`, `inquirer`, `nanospinner` are only used by the CLI but get installed for every library consumer. README's "277 bytes main bundle" claim is misleading against a multi-MB install.
-  - Fix: move CLI-only deps to `optionalDependencies` (with graceful CLI degradation) or split the CLI into its own package.
+- [x] **Heavy CLI deps are runtime `dependencies`.** Resolved: `chalk`, `chalk-animation`, `commander`, `figlet`, `gradient-string`, `@inquirer/prompts` moved to `optionalDependencies`. Unused `inquirer` and `nanospinner` removed entirely. The CLI binary now wraps its dynamic import in a try/catch that prints `npm install -g @rtorcato/js-common` if any optional dep is missing.
 - [ ] **No `engines` field.** README says Node ≥ 18; CI uses Node 22; nothing is enforced at install time.
   - Fix: add `"engines": { "node": ">=18" }` to `package.json`.
 - [ ] **No `.nvmrc`.** Contributors won't auto-switch Node.
@@ -44,8 +43,7 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 
 ## 5. Documentation
 
-- [ ] **README "277 bytes" badge** is misleading once you account for runtime deps and the fact that the main entry is currently a stub.
-  - Fix: re-measure after the root module is fixed, or drop the badge.
+- [x] **README "277 bytes" badge** Resolved: badge dropped; bundle-size language reframed around per-module bundlejs measurement.
 - [ ] **No API reference site.** Optional, larger lift.
   - Fix (if pursued): TypeDoc → `docs/` published to GitHub Pages.
 - [ ] **CLAUDE.md is stale** about the `obects` typo (covered in §1).
@@ -55,7 +53,7 @@ Living checklist of issues, gaps, and improvements for `@rtorcato/js-common`. It
 ## 6. Nice-to-haves
 
 - [ ] **`.editorconfig`** for editors that don't read `biome.json`.
-- [ ] **`benchmark` script** is wired in `package.json` but `scripts/benchmark.mjs` isn't documented in README or CONTRIBUTORS.
+- [x] **`benchmark` script** Resolved: documented in README Development section.
 - [ ] **`.github/workflows/performance.yml`** — confirm it actually runs on PRs and gates something meaningful; otherwise remove.
 
 ## Key file references
