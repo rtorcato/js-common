@@ -13,14 +13,13 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 
 📘 **Documentation:** <https://rtorcato.github.io/js-common/>
 
-## ✨ Features
+## Features
 
-- 📦 **Tree-shakeable** - Import only what you need via subpath exports
-- 🔧 **TypeScript** - Full type safety and IntelliSense
-- 🖥️ **CLI included** - Optional binary for use in scripts and terminals
-- 📚 **Modular** - One module per concern, ~40 subpaths
-- ⚡ **Minimal runtime deps** - Only `date-fns`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
-- 🧪 **Well tested** - Comprehensive test coverage
+- **Tree-shakeable** — import only what you need via subpath exports
+- **TypeScript** — full type definitions, JSDoc on every public API
+- **CLI included** — optional binary for use in scripts and terminals
+- **Modular** — one module per concern, 46 subpaths
+- **Minimal runtime deps** — only `date-fns`, `date-fns-tz`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 
 ## Installation
 
@@ -51,7 +50,7 @@ See [CLI.md](./CLI.md) for complete CLI documentation.
 ## Library Usage
 
 ```typescript
-// 🎯 Import specific modules (recommended for tree-shaking)
+// Import specific modules (recommended for tree-shaking)
 import { formatDate, today, daysBetween } from '@rtorcato/js-common/date'
 import { validateEmail, isValidEmail } from '@rtorcato/js-common/emails'
 import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
@@ -59,7 +58,7 @@ import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
 import { capitalize, toTitleCase } from '@rtorcato/js-common/formatting'
 
 // Example usage
-console.log(today()) // "2025-10-24"
+console.log(today()) // "2026-05-29"
 console.log(sum([1, 2, 3, 4, 5])) // 15
 console.log(capitalize('hello world')) // "Hello world"
 console.log(generateUUID()) // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
@@ -69,101 +68,92 @@ console.log(generateUUID()) // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
 
 Each module is shipped as its own subpath export so bundlers only include what you import. Individual modules range from ~100 bytes (e.g. `sleep`) to ~2 KB (e.g. `currency`) when minified. Measure against your own bundle with [bundlejs.com](https://bundlejs.com/?q=@rtorcato/js-common/numbers).
 
-### 🎯 **TypeScript Support**
-
-This package is built with TypeScript and includes complete type definitions out of the box:
-
-- ✅ **Full type safety** - All functions have accurate TypeScript types
-- ✅ **Generic support** - Functions like `unique<T>()` preserve your data types  
-- ✅ **JSDoc integration** - Rich documentation in your IDE
-- ✅ **Tree-shakable** - Import only what you need with perfect type inference
-
-```typescript
-// TypeScript automatically infers types
-const numbers = [1, 2, 3, 4, 5]
-const result: number = sum(numbers)  // ✅ Type: number
-
-const users = [{ name: 'John' }, { name: 'Jane' }]
-const uniqueUsers = unique(users)    // ✅ Type: { name: string }[]
-
-// IDE shows full documentation and type hints
-import { today } from '@rtorcato/js-common/date'
-//      ^ JSDoc: Returns today's date as YYYY-MM-DD string
-```
-
 ## Available Modules
 
-### 📅 **Date & Time**
+### Date & Time
 ```typescript
 import { today, formatDate, daysBetween, isLeapYear } from '@rtorcato/js-common/date'
 import { nowIso, formatDateTimeLocal, unixTimestamp } from '@rtorcato/js-common/datetime'
 import { nowTime, parseTime, secondsBetween } from '@rtorcato/js-common/time'
+import { runInterval, clearIntervalById } from '@rtorcato/js-common/interval'
 ```
 
-### 🔢 **Numbers & Math**
+### Numbers & Math
 ```typescript
 import { sum, average, roundTo, clamp, getRandomInt } from '@rtorcato/js-common/numbers'
 import { add, subtract, multiply, divide } from '@rtorcato/js-common/math'
+import { randomInt, randomFloat, randomBool, randomElement } from '@rtorcato/js-common/random'
 ```
 
-### 📝 **Text & Strings**
+### Text & Strings
 ```typescript
 import { capitalize, toTitleCase, padZero } from '@rtorcato/js-common/formatting'
 import { slugify, truncate, removeEmojis } from '@rtorcato/js-common/strings'
+import { escapeHtml, unescapeHtml, stripHtmlTags } from '@rtorcato/js-common/html'
+import { escapeRegExp, matchAll, replaceAllRegex } from '@rtorcato/js-common/regex'
+import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/i18n'
 ```
 
-### 🔐 **Security & Validation**
+### Security & Validation
 ```typescript
 import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/security'
 import { isValidEmail, validateEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
 import { isString, isNumber, isArray, isObject } from '@rtorcato/js-common/validation'
+import { toBoolean, isBoolean, xor } from '@rtorcato/js-common/boolean'
 ```
 
-### 🗂️ **Data Structures**
+### Data Structures
 ```typescript
 import { flatten, unique, chunk, groupBy } from '@rtorcato/js-common/arrays'
 import { deepMerge, pick, omit, deepClone } from '@rtorcato/js-common/objects'
 import { safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
+import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-common/maps'
+import { union, intersection, difference, isSubset } from '@rtorcato/js-common/sets'
 ```
 
-### 🔄 **Async & Control Flow**
+### Async & Control Flow
 ```typescript
 import { delay, timeout, retry } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
+import { tryCatch } from '@rtorcato/js-common/try'
+import { createAbortController, withAbort, abortAfter } from '@rtorcato/js-common/abortController'
+import { createCustomError, getErrorMessage, assert } from '@rtorcato/js-common/errors'
 ```
 
-### 🌈 **And More...**
-- **Colors** - Color manipulation and conversion
-- **Console** - Enhanced console utilities  
-- **Crypto** - Cryptographic functions
-- **Currency** - Currency formatting and conversion
-- **Events** - Event handling utilities
-- **Fetch** - HTTP request utilities
-- **File** - File system utilities
-- **UUID** - UUID generation and validation
-- **Process** - Process and environment utilities
-- **Geometry** - 2D geometry calculations
+### System & Process
+```typescript
+import { getENV, isDev, isProd, getNodeEnv, checkEnv } from '@rtorcato/js-common/env'
+import { getOsPlatform, getOsArch, getHomeDir } from '@rtorcato/js-common/os'
+import { getNodeMajorVersion, isNode, requireOptional } from '@rtorcato/js-common/node'
+import { getProcessId, getCwd, exitProcess, isCI } from '@rtorcato/js-common/process'
+import { isMacOs, isWindows, isLinux, getPlatform } from '@rtorcato/js-common/system'
+import { disableConsole, clearConsole } from '@rtorcato/js-common/console'
+```
+
+### Logging
+```typescript
+import { logger } from '@rtorcato/js-common/logger'                   // pino-based
+import { info, warn, error, captureConsole } from '@rtorcato/js-common/logging'
+```
+
+### Other
+- `colors` — color manipulation and conversion
+- `crypto` — cryptographic helpers
+- `currency` — currency formatting and conversion
+- `events` — event emitter utilities
+- `fetch` — HTTP request helpers
+- `file` — file system helpers
+- `geometry` — 2D geometry calculations
+- `mime-types` — MIME-type lookup
+- `uuid` — UUID generation and validation
+- `types` — shared TypeScript type definitions (types-only export)
 
 ## Requirements
 
 - **Node.js** >= 22.0.0 (enforced via the `engines` field)
 - **TypeScript** >= 5.0.0 (for TypeScript projects)
-
-## Why This Library?
-
-### 🎯 **Focused & Lightweight**
-Unlike larger utility libraries, js-common is designed for modern applications:
-- **Tiny bundle size** - Won't bloat your application
-- **Tree-shakeable** - Only import what you use
-- **CLI included** - Use utilities in scripts and terminal
-
-### 🛠️ **Modern Development**
-- Built with **TypeScript** for excellent DX
-- **ESM-only**, native subpath exports
-- **Minimal runtime deps** — CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only fetched when you opt in to the CLI
-- Comprehensive **test coverage**
 
 ## Development
 
