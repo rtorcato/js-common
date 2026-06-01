@@ -5,7 +5,7 @@
  * @returns The boolean representation.
  */
 
-export function toBoolean(value: any): boolean {
+export function toBoolean(value: unknown): boolean {
 	if (typeof value === 'boolean') return value
 	if (typeof value === 'string') {
 		const v = value.trim().toLowerCase()
@@ -24,7 +24,7 @@ export function toBoolean(value: any): boolean {
  * @returns True if the value is a boolean, false otherwise.
  */
 
-export function isBoolean(value: any): value is boolean {
+export function isBoolean(value: unknown): value is boolean {
 	return typeof value === 'boolean'
 }
 

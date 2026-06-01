@@ -24,7 +24,7 @@ export function on<K extends keyof HTMLElementEventMap>(
  * @returns {boolean} True if not canceled.
  */
 
-export function emit(target: EventTarget, type: string, detail?: any): boolean {
+export function emit(target: EventTarget, type: string, detail?: unknown): boolean {
 	return target.dispatchEvent(new CustomEvent(type, { detail }))
 }
 

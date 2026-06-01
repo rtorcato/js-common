@@ -22,10 +22,13 @@ pnpm check:fix           # biome check --fix (lint + format + autofix)
 - Tabs for indentation, 100-character line width
 - Single quotes, semicolons only as needed (ASI), trailing commas: es5
 - `noExplicitAny`, `noInferrableTypes`, `useLiteralKeys` are all **off** — these are intentional
+- Prefer `export function foo()` over `export const foo = () =>` for module-level exports (the established convention across `src/`)
 
 ## Adding a New Module
 
 Every new module in `src/` must also be registered in the `exports` field of `package.json` for tree-shaking to work. Follow the existing pattern of named subpath exports (e.g. `"./strings"`, `"./date"`).
+
+The `./types` subpath is intentionally types-only — it has no `import` field, only `types`. Do not "fix" this; `src/types/` ships `.d.ts` declarations with no runtime code.
 
 ## Commits & PRs
 

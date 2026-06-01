@@ -13,7 +13,7 @@ export function isDefined<T>(value: T | null | undefined): value is T {
  * @returns `true` if the value is a string, `false` otherwise.
  */
 
-export function isString(value: any): value is string {
+export function isString(value: unknown): value is string {
 	return typeof value === 'string'
 }
 
@@ -23,7 +23,7 @@ export function isString(value: any): value is string {
  * @returns {boolean}
  */
 
-export function isNumber(value: any): value is number {
+export function isNumber(value: unknown): value is number {
 	return typeof value === 'number' && !Number.isNaN(value)
 }
 
@@ -33,7 +33,7 @@ export function isNumber(value: any): value is number {
  * @returns {boolean}
  */
 
-export function isBoolean(value: any): value is boolean {
+export function isBoolean(value: unknown): value is boolean {
 	return typeof value === 'boolean'
 }
 
@@ -43,7 +43,7 @@ export function isBoolean(value: any): value is boolean {
  * @returns {boolean}
  */
 
-export function isArray(value: any): value is any[] {
+export function isArray(value: unknown): value is unknown[] {
 	return Array.isArray(value)
 }
 
@@ -53,7 +53,7 @@ export function isArray(value: any): value is any[] {
  * @returns {boolean}
  */
 
-export function isObject(value: any): value is object {
+export function isObject(value: unknown): value is object {
 	return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 

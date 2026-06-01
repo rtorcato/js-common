@@ -165,6 +165,12 @@ jobs:
       - name: Run tests with coverage
         run: pnpm run coverage
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: false
+
       - name: Coverage summary
         run: |
           echo "## 📊 Test Coverage" >> $GITHUB_STEP_SUMMARY

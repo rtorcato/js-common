@@ -42,7 +42,11 @@ export function info(message: string): void {
  * @returns {() => void} Restore function.
  */
 
-export function captureConsole(callback: (type: string, ...args: any[]) => void): () => void {
+export type ConsoleLevel = 'log' | 'info' | 'warn' | 'error'
+
+export function captureConsole(
+	callback: (type: ConsoleLevel, ...args: unknown[]) => void
+): () => void {
 	const orig = {
 		log: console.log,
 		info: console.info,
@@ -50,7 +54,7 @@ export function captureConsole(callback: (type: string, ...args: any[]) => void)
 		error: console.error,
 	}
 	;(['log', 'info', 'warn', 'error'] as const).forEach((type) => {
-		console[type] = (...args: any[]) => {
+		console[type] = (...args: unknown[]) => {
 			callback(type, ...args)
 			orig[type](...args)
 		}

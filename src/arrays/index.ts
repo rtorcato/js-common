@@ -67,8 +67,8 @@ export function unique<T>(arr: T[]): T[] {
  * @returns A new flattened array
  * @category Array Utilities
  */
-export function flatten<T>(arr: any[]): T[] {
-	return arr.flat()
+export function flatten<T>(arr: readonly (T | T[])[]): T[] {
+	return arr.flat() as T[]
 }
 
 /**
