@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { assert, createCustomError, getErrorMessage, isErrorName, tryCatch } from './index'
+import { assert, createCustomError, getErrorMessage, isErrorName, tryWithFallback } from './index'
 
 describe('errors module', () => {
 	it('createCustomError creates an Error with custom name and message', () => {
@@ -43,24 +43,24 @@ describe('errors module', () => {
 		expect(() => assert(false, 'fail')).toThrow('fail')
 	})
 
-	it('tryCatch returns result if no error', async () => {
-		const result = await tryCatch(() => 42, 0)
+	it('tryWithFallback returns result if no error', async () => {
+		const result = await tryWithFallback(() => 42, 0)
 		expect(result).toBe(42)
 	})
 
-	it('tryCatch returns fallback if error thrown', async () => {
-		const result = await tryCatch(() => {
+	it('tryWithFallback returns fallback if error thrown', async () => {
+		const result = await tryWithFallback(() => {
 			throw new Error('fail')
 		}, 123)
 		expect(result).toBe(123)
 	})
 
-	it('tryCatch works with async functions', async () => {
-		const result = await tryCatch(async () => {
+	it('tryWithFallback works with async functions', async () => {
+		const result = await tryWithFallback(async () => {
 			throw new Error('fail')
 		}, 'fallback')
 		expect(result).toBe('fallback')
-		const ok = await tryCatch(async () => 'ok', 'bad')
+		const ok = await tryWithFallback(async () => 'ok', 'bad')
 		expect(ok).toBe('ok')
 	})
 })

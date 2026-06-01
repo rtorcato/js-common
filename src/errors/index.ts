@@ -41,7 +41,7 @@ export function getErrorMessage(error: unknown): string {
  * @param message The error message to throw if the condition is false.
  */
 
-export function assert(condition: any, message: string): asserts condition {
+export function assert(condition: unknown, message: string): asserts condition {
 	if (!condition) {
 		throw new Error(message)
 	}
@@ -49,16 +49,16 @@ export function assert(condition: any, message: string): asserts condition {
 
 /**
  * Wraps a function and catches errors, returning a fallback value if an error occurs.
+ * Use this only when the fallback is genuinely safe and the error can be ignored.
+ * For typed error handling, prefer `tryCatch` from `@rtorcato/js-common/try`.
  * @param fn The function to wrap.
  * @param fallback The fallback value to return on error.
  *
  * @example
- * const result = await tryCatch(async () => {
- *   // some code that might throw
- *   return await fetchData();
- * }, []);
- * // result will be [] if fetchData throws an error*/
-export async function tryCatch<T>(fn: () => Promise<T> | T, fallback: T): Promise<T> {
+ * const result = await tryWithFallback(async () => fetchData(), [])
+ * // result will be [] if fetchData throws
+ */
+export async function tryWithFallback<T>(fn: () => Promise<T> | T, fallback: T): Promise<T> {
 	try {
 		return await fn()
 	} catch {
