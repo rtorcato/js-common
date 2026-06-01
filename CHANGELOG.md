@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/rtorcato/js-common/compare/v1.8.1...v2.0.0) (2026-06-01)
+
+
+* refactor!: maintenance sweep + rename errors.tryCatch ([#47](https://github.com/rtorcato/js-common/issues/47)) ([9bd28a6](https://github.com/rtorcato/js-common/commit/9bd28a68b7566806169812ffed5ccb649d30e6c3))
+
+
+### Bug Fixes
+
+* **ci:** env-var commit message in check-skip ([#48](https://github.com/rtorcato/js-common/issues/48)) ([1037b0c](https://github.com/rtorcato/js-common/commit/1037b0c31c377bbc80eda57cbe3e411579437685)), closes [#47](https://github.com/rtorcato/js-common/issues/47)
+
+
+### BREAKING CHANGES
+
+* `tryCatch` from `@rtorcato/js-common/errors` is
+renamed to `tryWithFallback`. For Result-pattern error handling,
+import `tryCatch` from `@rtorcato/js-common/try` instead.
+
 ## [1.8.1](https://github.com/rtorcato/js-common/compare/v1.8.0...v1.8.1) (2026-05-29)
 
 
