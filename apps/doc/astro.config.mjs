@@ -33,6 +33,7 @@ export default defineConfig({
 						{ label: 'Introduction', slug: 'index' },
 						{ label: 'Installation', slug: 'guides/installation' },
 						{ label: 'Quick start', slug: 'guides/quick-start' },
+						{ label: 'Migrating to 2.x', slug: 'guides/migration' },
 					],
 				},
 				{
