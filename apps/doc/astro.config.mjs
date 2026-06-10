@@ -11,9 +11,10 @@ export default defineConfig({
 			title: 'js-common',
 			description:
 				'A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.',
+			customCss: ['./src/styles/stitch.css'],
 			logo: {
-				src: './src/assets/banner.png',
-				replacesTitle: false,
+				src: './src/assets/logo.png',
+				alt: 'js-common',
 			},
 			social: [
 				{
