@@ -1,4 +1,7 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
-  "extends": ["@rtorcato/js-tooling/biome"]
+  "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
+  "extends": ["@rtorcato/js-tooling/biome"],
+  "files": {
+    "includes": ["!**/.claude", "!**/.stitch-import"]
+  }
 }
