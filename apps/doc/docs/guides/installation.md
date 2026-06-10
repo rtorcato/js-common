@@ -1,6 +1,7 @@
 ---
 title: Installation
 description: Install @rtorcato/js-common from npm.
+sidebar_position: 1
 ---
 
 `@rtorcato/js-common` is published on npm and works with any modern Node.js runtime.

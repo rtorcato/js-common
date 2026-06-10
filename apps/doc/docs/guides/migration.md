@@ -1,6 +1,7 @@
 ---
 title: Migrating to 2.x
 description: Upgrading from 1.x to 2.x.
+sidebar_position: 3
 ---
 
 The only breaking change in 2.0 is a rename in the `errors` module.

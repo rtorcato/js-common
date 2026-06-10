@@ -1,8 +1,7 @@
 ---
 title: Module overview
 description: All subpath modules exported by @rtorcato/js-common.
-sidebar:
-  order: 1
+sidebar_position: 1
 ---
 
 Every module is exported under its own subpath so bundlers can tree-shake unused code:

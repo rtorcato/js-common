@@ -3,6 +3,6 @@
   "root": false,
   "extends": ["@rtorcato/js-tooling/biome"],
   "files": {
-    "includes": ["!**/.astro", "!**/dist", "!**/node_modules", "!**/*.astro"]
+    "includes": ["!**/.docusaurus", "!**/build", "!**/node_modules"]
   }
 }

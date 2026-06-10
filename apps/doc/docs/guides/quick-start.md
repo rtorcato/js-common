@@ -1,6 +1,7 @@
 ---
 title: Quick start
 description: Import a module and call a utility in under a minute.
+sidebar_position: 2
 ---
 
 Import named functions from a subpath export to keep your bundle tiny.

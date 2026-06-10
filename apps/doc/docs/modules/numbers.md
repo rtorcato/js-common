@@ -1,8 +1,7 @@
 ---
 title: Numbers
 description: Numeric utilities — sum, average, clamp, random.
-sidebar:
-  order: 3
+sidebar_position: 3
 ---
 
 ```ts

@@ -39,13 +39,13 @@ jobs:
             - name: 📦 Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: 🏗️ Build Astro site
+            - name: 🏗️ Build Docusaurus site
               run: pnpm --filter @rtorcato/js-common-docs build
 
             - name: 📤 Upload Pages artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: apps/doc/dist
+                  path: apps/doc/build
 
     deploy:
         needs: build

@@ -1,8 +1,7 @@
 ---
 title: Strings
 description: String utilities — slugify, truncate, casing.
-sidebar:
-  order: 4
+sidebar_position: 4
 ---
 
 ```ts

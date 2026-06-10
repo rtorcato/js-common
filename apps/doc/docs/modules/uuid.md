@@ -1,8 +1,7 @@
 ---
 title: UUID
 description: Generate and validate UUIDs.
-sidebar:
-  order: 5
+sidebar_position: 5
 ---
 
 ```ts

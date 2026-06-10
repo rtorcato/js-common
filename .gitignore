@@ -17,7 +17,7 @@ logs/
 dist/
 build/
 out/
-.astro/
+.docusaurus/
 tsconfig*.tsbuildinfo
 
 # System files

@@ -1,6 +1,7 @@
 ---
 title: Using the CLI
 description: Run js-common utilities from your terminal.
+sidebar_position: 4
 ---
 
 The package ships a `js-common` binary that exposes many utilities as commands.

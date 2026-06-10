@@ -1,8 +1,7 @@
 ---
 title: Date
 description: Date utilities — today, formatting, day math.
-sidebar:
-  order: 2
+sidebar_position: 2
 ---
 
 ```ts
