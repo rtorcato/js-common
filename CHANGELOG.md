@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/rtorcato/js-common/compare/v2.0.0...v2.0.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* **build:** ship .d.ts files in published tarball ([946cd8a](https://github.com/rtorcato/js-common/commit/946cd8a27ba52923cbcf857d996f52590d9008d5))
+
 # [2.0.0](https://github.com/rtorcato/js-common/compare/v1.8.1...v2.0.0) (2026-06-01)
 
 
