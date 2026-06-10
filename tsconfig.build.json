@@ -2,10 +2,15 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false, // Emit output files
-    "emitDeclarationOnly": true, // Emit JS and .d.ts files
+    "emitDeclarationOnly": true, // Emit only .d.ts files (JS is built by esbuild)
     "declaration": true, // Generate .d.ts files
-    "declarationMap": true, // (optional) Generate sourcemaps for d.ts files
-    "outDir": "dist" // Output directory for build
+    "declarationMap": true, // Generate sourcemaps for .d.ts files
+    "outDir": "dist", // Output directory for build
+    // Disable incremental for one-shot builds. The base tsconfig enables it,
+    // but `build-prod` only `rimraf`s ./dist — leaving the tsbuildinfo behind.
+    // When prepublishOnly re-runs build-prod, tsc sees the stale buildinfo and
+    // emits zero .d.ts files, producing a typeless tarball. See #53.
+    "incremental": false
   },
   "exclude": ["dist", "node_modules", "src/cli", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
 }

@@ -26,8 +26,8 @@
   "homepage": "https://github.com/rtorcato/js-common#readme",
   "sideEffects": false,
   "scripts": {
-    "build-dev": "rimraf ./dist && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && npm run build-cli",
-    "build-prod": "rimraf ./dist && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && npm run build-cli",
+    "build-dev": "rimraf ./dist tsconfig.build.tsbuildinfo && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && node scripts/copy-types.mjs && npm run build-cli",
+    "build-prod": "rimraf ./dist tsconfig.build.tsbuildinfo && cross-env NODE_ENV=production node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && node scripts/copy-types.mjs && npm run build-cli",
     "build-cli": "tsc src/cli/bootstrap.ts src/cli/cli.ts --ignoreConfig --types node --outDir dist/cli --target ES2022 --module ES2022 --moduleResolution bundler --allowImportingTsExtensions false --esModuleInterop --skipLibCheck && echo '#!/usr/bin/env node' > dist/cli/index.mjs && cat dist/cli/bootstrap.js >> dist/cli/index.mjs && rm dist/cli/bootstrap.js && mv dist/cli/cli.js dist/cli/cli.mjs && sed -i.bak \"s|'./cli.js'|'./cli.mjs'|g\" dist/cli/index.mjs && rm dist/cli/index.mjs.bak && chmod +x dist/cli/index.mjs",
     "prepublishOnly": "npm run build-prod",
     "==================== Common ====================": "",
