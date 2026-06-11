@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/rtorcato/js-common/compare/v2.0.1...v2.1.0) (2026-06-11)
+
+
+### Features
+
+* **docs:** full API reference via TypeDoc ([337eb2c](https://github.com/rtorcato/js-common/commit/337eb2c43122685a5fa8321865112800e67c404c))
+
 ## [2.0.1](https://github.com/rtorcato/js-common/compare/v2.0.0...v2.0.1) (2026-06-10)
 
 
