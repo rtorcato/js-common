@@ -5,7 +5,7 @@ import { themes as prismThemes } from 'prism-react-renderer'
 const config: Config = {
 	title: 'js-common',
 	tagline: 'Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.',
-	favicon: 'img/logo.svg',
+	favicon: 'img/favicon.svg',
 
 	url: 'https://rtorcato.github.io',
 	baseUrl: '/js-common/',
@@ -101,24 +101,24 @@ const config: Config = {
 			respectPrefersColorScheme: true,
 		},
 		navbar: {
-			// Text wordmark (gold "common") + v2.x pill is rendered via the HTML
-			// navbar item below — leave title/logo empty so they don't double up.
+			// The wordmark "js-common" with gold "common" is baked into the SVG logo
+			// (light + dark variants), so title stays empty to avoid a duplicate text label.
 			title: '',
+			logo: {
+				alt: 'js-common',
+				src: 'img/logo.svg',
+				srcDark: 'img/logo-dark.svg',
+				width: 118,
+				height: 26,
+			},
 			items: [
-				{
-					type: 'html',
-					position: 'left',
-					value:
-						'<a class="jc-wordmark" href="/js-common/">js-<span class="jc-wordmark-accent">common</span><span class="jc-wordmark-version">v2.x</span></a>',
-				},
 				{ type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/modules/overview', position: 'left', label: 'Modules' },
 				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
 					href: 'https://github.com/rtorcato/js-common',
+					label: 'GitHub',
 					position: 'right',
-					className: 'header-github-link',
-					'aria-label': 'GitHub repository',
 				},
 			],
 		},
