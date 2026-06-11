@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/rtorcato/js-common/compare/v2.4.0...v2.5.0) (2026-06-11)
+
+
+### Features
+
+* **docs:** wordmark, icons, install tabs ([#64](https://github.com/rtorcato/js-common/issues/64)) ([2b01b58](https://github.com/rtorcato/js-common/commit/2b01b58a7c7404069d9ad1da4d2e17d933365136)), closes [#62](https://github.com/rtorcato/js-common/issues/62)
+
 # [2.4.0](https://github.com/rtorcato/js-common/compare/v2.3.0...v2.4.0) (2026-06-11)
 
 
