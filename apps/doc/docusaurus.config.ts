@@ -35,12 +35,6 @@ const config: Config = {
 					sidebarPath: './sidebars.ts',
 					routeBasePath: '/',
 					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/doc/',
-					lastVersion: 'current',
-					versions: {
-						current: {
-							label: '2.x',
-						},
-					},
 				},
 				blog: false,
 				theme: {
@@ -102,10 +96,6 @@ const config: Config = {
 					sidebarId: 'docs',
 					position: 'left',
 					label: 'Docs',
-				},
-				{
-					type: 'docsVersionDropdown',
-					position: 'right',
 				},
 				{
 					href: 'https://github.com/rtorcato/js-common',

@@ -6,7 +6,13 @@ const sidebars: SidebarsConfig = {
 			type: 'category',
 			label: 'Start here',
 			collapsed: false,
-			items: ['index', 'guides/installation', 'guides/quick-start', 'guides/migration'],
+			items: [
+				'index',
+				'guides/installation',
+				'guides/quick-start',
+				'guides/tree-shaking',
+				'guides/migration',
+			],
 		},
 		{
 			type: 'category',

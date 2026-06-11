@@ -12,9 +12,9 @@ Goal: an excellent docs site at https://rtorcato.github.io/js-common/. Items rou
 - [x] **Full-text search.** `@easyops-cn/docusaurus-search-local` indexes every page (including API ref) at build time. No external service.
 - [ ] **Module overview prose, not just tables.** Each module page opens with 2–3 sentences explaining *when* to reach for it and the design choices (e.g. why `arrays.unique` uses `Set` semantics, not deep equality).
 - [ ] **"See also" cross-links between related modules** (e.g. `date` ↔ `datetime` ↔ `time`; `arrays` ↔ `objects` ↔ `sets`).
-- [ ] **Tree-shaking / import-pattern guidance.** A short page (or callout per module) showing the subpath import vs root import and explaining the bundle implications.
+- [x] **Tree-shaking / import-pattern guidance.** `guides/tree-shaking` covers subpath vs root imports, why the root entry is empty by design, real per-module sizes, bundler verification, and the types-only subpath.
 - [ ] **Recipes / cookbook section.** Task-oriented pages: "format a date for a user's locale", "debounce a search input", "safely parse untrusted JSON" — each pulls from multiple modules and is what readers actually arrive Googling for.
-- [ ] **Versioned docs actually populated.** `docusaurus.config.ts` declares `versions: { current: { label: '2.x' } }` but there's no 1.x snapshot — either cut a `1.x` version or remove the versioning UI until it's real.
+- [x] **Versioned docs cleaned up.** Removed the misleading `versions` config and `docsVersionDropdown` navbar item — when a 1.x snapshot is genuinely needed, `docusaurus docs:version 1.x` is one command away.
 - [x] **Changelog page in the nav.** `scripts/sync-changelog.mjs` mirrors the root `CHANGELOG.md` into `apps/doc/docs/changelog.md` as a prebuild step. Semantic-release still owns the canonical file; the synced copy is gitignored.
 - [ ] **Polish: OG/social card images, custom 404, logo, favicon.** Default favicon is `img/logo.svg` — confirm it actually renders and add `og:image` metadata for shared links.
 - [ ] **Migration page surfacing.** `guides/migration` exists; add an inline callout from the homepage hero for anyone landing on 2.x docs from a 1.x context.
