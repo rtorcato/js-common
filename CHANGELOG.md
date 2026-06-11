@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/rtorcato/js-common/compare/v2.2.0...v2.3.0) (2026-06-11)
+
+
+### Features
+
+* **docs:** apply dark + gold theme redesign ([#62](https://github.com/rtorcato/js-common/issues/62)) ([47b2aeb](https://github.com/rtorcato/js-common/commit/47b2aeb32a6723698336a9756d9c0028a5941f25))
+
 # [2.2.0](https://github.com/rtorcato/js-common/compare/v2.1.0...v2.2.0) (2026-06-11)
 
 
