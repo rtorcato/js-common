@@ -22,4 +22,4 @@ Goal: an excellent docs site at https://rtorcato.github.io/js-common/. Items rou
 
 ## CI / Infrastructure
 
-- [ ] **Bump GitHub Actions runners to Node 24.** `docs.yml` (and likely `ci.yml`, `performance.yml`, `security.yml`) use `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-artifact@v4`, `pnpm/action-setup@v4` — all running on Node 20, which GitHub Actions will force to Node 24 on **2026-06-16**. Bump the action versions (or set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`) before then.
+- [x] **GitHub Actions bumped to Node 24-ready releases.** All 4 workflows now use `actions/checkout@v6`, `actions/setup-node@v6`, `pnpm/action-setup@v6`, plus `actions/upload-pages-artifact@v5` and `actions/deploy-pages@v5` in `docs.yml`. Ahead of the 2026-06-16 Node 20 deprecation.
