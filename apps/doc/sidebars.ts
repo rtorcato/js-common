@@ -33,6 +33,11 @@ const sidebars: SidebarsConfig = {
 				},
 			],
 		},
+		{
+			type: 'category',
+			label: 'Releases',
+			items: ['changelog'],
+		},
 	],
 }
 

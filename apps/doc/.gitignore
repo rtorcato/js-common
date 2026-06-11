@@ -7,6 +7,9 @@ build/
 # typedoc-generated API reference (regenerated on build)
 docs/api/
 
+# synced from root CHANGELOG.md on build
+docs/changelog.md
+
 # dependencies
 node_modules/
 

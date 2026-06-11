@@ -72,6 +72,17 @@ const config: Config = {
 				},
 			},
 		],
+		[
+			'@easyops-cn/docusaurus-search-local',
+			{
+				hashed: true,
+				indexDocs: true,
+				indexBlog: false,
+				docsRouteBasePath: '/',
+				highlightSearchTermsOnTargetPage: true,
+				searchBarShortcutHint: false,
+			},
+		],
 	],
 
 	themeConfig: {
