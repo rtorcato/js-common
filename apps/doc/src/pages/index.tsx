@@ -2,18 +2,104 @@ import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
-import type { ReactElement } from 'react'
+import { type ReactElement, useEffect, useState } from 'react'
 import styles from './index.module.css'
+
+/* ------------------------------------------------------------------ */
+/* Icons                                                               */
+/* ------------------------------------------------------------------ */
+
+type IconKey = 'gauge' | 'layers' | 'brackets' | 'terminal' | 'copy' | 'check'
+
+type IconProps = {
+	icon: IconKey
+	title: string
+	className?: string
+	size?: number
+}
+
+function Icon({ icon, title, className, size = 22 }: IconProps): ReactElement {
+	return (
+		<svg
+			className={className}
+			width={size}
+			height={size}
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth={1.6}
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			role="img"
+		>
+			<title>{title}</title>
+			{ICONS[icon]}
+		</svg>
+	)
+}
+
+const ICONS: Record<IconKey, ReactElement> = {
+	gauge: (
+		<>
+			<path d="M12 14l4-4" />
+			<path d="M3.5 17a9 9 0 0 1 17 0" />
+			<circle cx="12" cy="14" r="1.2" fill="currentColor" />
+		</>
+	),
+	layers: (
+		<>
+			<path d="m12 3 9 5-9 5-9-5z" />
+			<path d="m3 13 9 5 9-5M3 17l9 5 9-5" />
+		</>
+	),
+	brackets: (
+		<>
+			<path d="m9 8-5 4 5 4" />
+			<path d="m15 8 5 4-5 4" />
+		</>
+	),
+	terminal: (
+		<>
+			<rect x="3" y="4" width="18" height="16" rx="2" />
+			<path d="M7 9l3 3-3 3M13 15h4" />
+		</>
+	),
+	copy: (
+		<>
+			<rect x="9" y="9" width="11" height="11" rx="2" />
+			<path d="M5 15V6a2 2 0 0 1 2-2h9" />
+		</>
+	),
+	check: <path d="M5 12l5 5L20 7" />,
+}
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
 
-const PILLARS = [
-	{ title: 'Ultra-lightweight', desc: '~277 B core bundle; 50–200 B per module.' },
-	{ title: 'Tree-shakeable', desc: 'Named subpath exports — ship only what you import.' },
-	{ title: 'TypeScript-first', desc: 'Strict types, generics preserved, JSDoc-rich in your IDE.' },
-	{ title: 'CLI included', desc: 'Run utilities from your terminal via npx.' },
+type Pillar = {
+	title: string
+	desc: string
+	icon: IconKey
+}
+
+const PILLARS: Pillar[] = [
+	{ title: 'Ultra-lightweight', desc: '~277 B core bundle; 50–200 B per module.', icon: 'gauge' },
+	{
+		title: 'Tree-shakeable',
+		desc: 'Named subpath exports — ship only what you import.',
+		icon: 'layers',
+	},
+	{
+		title: 'TypeScript-first',
+		desc: 'Strict types, generics preserved, JSDoc-rich in your IDE.',
+		icon: 'brackets',
+	},
+	{
+		title: 'CLI included',
+		desc: 'Run utilities from your terminal via npx.',
+		icon: 'terminal',
+	},
 ]
 
 type Category = {
@@ -80,6 +166,18 @@ const CATEGORIES: Category[] = [
 	},
 ]
 
+const PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'] as const
+type PackageManager = (typeof PACKAGE_MANAGERS)[number]
+
+const INSTALL_CMDS: Record<PackageManager, string> = {
+	npm: 'npm i @rtorcato/js-common',
+	pnpm: 'pnpm add @rtorcato/js-common',
+	yarn: 'yarn add @rtorcato/js-common',
+	bun: 'bun add @rtorcato/js-common',
+}
+
+const PM_STORAGE_KEY = 'jc-pkg-manager'
+
 const HERO_CODE = `import {
   isEmpty,
   toKebabCase,
@@ -96,6 +194,70 @@ toKebabCase('Hello World')
 /* ------------------------------------------------------------------ */
 /* Sections                                                            */
 /* ------------------------------------------------------------------ */
+
+function InstallPill(): ReactElement {
+	const [pm, setPm] = useState<PackageManager>('npm')
+	const [copied, setCopied] = useState(false)
+
+	useEffect(() => {
+		const stored = window.localStorage.getItem(PM_STORAGE_KEY)
+		if (stored && (PACKAGE_MANAGERS as readonly string[]).includes(stored)) {
+			setPm(stored as PackageManager)
+		}
+	}, [])
+
+	function selectPm(next: PackageManager) {
+		setPm(next)
+		try {
+			window.localStorage.setItem(PM_STORAGE_KEY, next)
+		} catch {
+			// localStorage may be unavailable — ignore.
+		}
+	}
+
+	async function onCopy() {
+		try {
+			await navigator.clipboard.writeText(INSTALL_CMDS[pm])
+			setCopied(true)
+			setTimeout(() => setCopied(false), 1600)
+		} catch {
+			// Clipboard may be unavailable (e.g., insecure context) — ignore.
+		}
+	}
+
+	return (
+		<div className={styles.installGroup}>
+			<div className={styles.pmTabs} role="tablist" aria-label="Package manager">
+				{PACKAGE_MANAGERS.map((name) => (
+					<button
+						key={name}
+						type="button"
+						role="tab"
+						aria-selected={pm === name}
+						className={clsx(styles.pmTab, pm === name && styles.pmTabActive)}
+						onClick={() => selectPm(name)}
+					>
+						{name}
+					</button>
+				))}
+			</div>
+			<div className={styles.install}>
+				<span className={styles.installPrompt} aria-hidden>
+					$
+				</span>
+				<code className={styles.installCmd}>{INSTALL_CMDS[pm]}</code>
+				<button
+					type="button"
+					className={styles.installCopy}
+					onClick={onCopy}
+					aria-label={copied ? 'Copied' : 'Copy install command'}
+				>
+					<Icon icon={copied ? 'check' : 'copy'} title={copied ? 'Copied' : 'Copy'} size={16} />
+				</button>
+			</div>
+		</div>
+	)
+}
 
 function Hero(): ReactElement {
 	const banner = useBaseUrl('/img/banner.png')
@@ -130,7 +292,7 @@ function Hero(): ReactElement {
 					>
 						Get Started →
 					</Link>
-					<code className={styles.install}>npm i @rtorcato/js-common</code>
+					<InstallPill />
 				</div>
 			</div>
 		</header>
@@ -157,6 +319,9 @@ function Pillars(): ReactElement {
 			<div className={styles.pillarGrid}>
 				{PILLARS.map((p) => (
 					<div key={p.title} className={styles.pillar}>
+						<div className={styles.pillarIcon}>
+							<Icon icon={p.icon} title={p.title} size={20} className={styles.pillarIconSvg} />
+						</div>
 						<div className={styles.pillarTitle}>{p.title}</div>
 						<div className={styles.pillarDesc}>{p.desc}</div>
 					</div>
