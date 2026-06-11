@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/rtorcato/js-common/compare/v2.3.0...v2.4.0) (2026-06-11)
+
+
+### Features
+
+* **docs:** v2 polish — favicon + button + slug ([#63](https://github.com/rtorcato/js-common/issues/63)) ([3b23a0b](https://github.com/rtorcato/js-common/commit/3b23a0bab493366d1b17601403d5bfe29c5176b0))
+
 # [2.3.0](https://github.com/rtorcato/js-common/compare/v2.2.0...v2.3.0) (2026-06-11)
 
 
