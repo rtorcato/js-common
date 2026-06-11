@@ -36,9 +36,9 @@ export function stripHtmlTags(str: string): string {
 }
 
 /**
- * Converts a plain text string to a simple HTML paragraph (\n to <br>).
+ * Converts a plain text string to a simple HTML paragraph (newlines become `<br>` tags).
  * @param str The plain text string.
- * @returns The HTML string with <br> tags.
+ * @returns The HTML string with `<br>` tags.
  */
 export function textToHtml(str: string): string {
 	return str.replace(/\n/g, '<br>')

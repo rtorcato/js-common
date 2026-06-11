@@ -45,7 +45,7 @@ export function formatDateI18n(
 /**
  * Simple translation function using a dictionary object.
  * @param key The translation key.
- * @param dict The dictionary object (e.g., { en: { hello: 'Hello' }, fr: { hello: 'Bonjour' } }).
+ * @param dict The dictionary object (e.g., `{ en: { hello: 'Hello' }, fr: { hello: 'Bonjour' } }`).
  * @param lang The language code (optional, defaults to detected language).
  * @returns {string}
  */

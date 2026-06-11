@@ -16,6 +16,7 @@ const config: Config = {
 	onBrokenLinks: 'warn',
 
 	markdown: {
+		format: 'detect',
 		hooks: {
 			onBrokenMarkdownLinks: 'warn',
 		},
@@ -46,6 +47,30 @@ const config: Config = {
 					customCss: './src/css/custom.css',
 				},
 			} satisfies Preset.Options,
+		],
+	],
+
+	plugins: [
+		[
+			'docusaurus-plugin-typedoc',
+			{
+				entryPoints: ['../../src/*/index.ts'],
+				entryPointStrategy: 'expand',
+				exclude: ['../../src/cli/**', '../../src/types/**'],
+				tsconfig: '../../tsconfig.json',
+				out: 'docs/api',
+				readme: 'none',
+				includeVersion: false,
+				excludePrivate: true,
+				excludeInternal: true,
+				excludeExternals: true,
+				sort: ['source-order'],
+				hidePageTitle: false,
+				hideBreadcrumbs: false,
+				sidebar: {
+					autoConfiguration: false,
+				},
+			},
 		],
 	],
 

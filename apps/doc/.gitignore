@@ -1,6 +1,11 @@
 # build output
 dist/
 .astro/
+.docusaurus/
+build/
+
+# typedoc-generated API reference (regenerated on build)
+docs/api/
 
 # dependencies
 node_modules/
