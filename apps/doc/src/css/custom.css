@@ -107,86 +107,100 @@
 	color: var(--jc-heading);
 }
 
-/* ---------- Wordmark (HTML navbar item) ---------- */
-.jc-wordmark {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	margin-right: 16px;
-	font-weight: 800;
-	font-size: 18px;
-	letter-spacing: -0.03em;
-	color: var(--jc-heading);
-	text-decoration: none;
+/* ---------- Backgrounds (dark-mode panels were inconsistent) ---------- */
+html,
+body,
+#__docusaurus,
+.main-wrapper {
+	background: var(--ifm-background-color);
 }
-.jc-wordmark:hover {
-	text-decoration: none;
-	color: var(--jc-heading);
-}
-.jc-wordmark-accent {
-	color: var(--jc-gold);
-}
-.jc-wordmark-version {
-	display: inline-flex;
-	align-items: center;
-	height: 20px;
-	padding: 0 7px;
-	background: var(--jc-gold-soft);
-	border: 1px solid var(--jc-gold-border);
-	border-radius: 999px;
-	font: 600 11px var(--ifm-font-family-monospace);
-	color: var(--jc-gold);
-	letter-spacing: 0;
-}
-
-/* ---------- GitHub icon-only link ---------- */
-.header-github-link {
-	width: 32px;
-	height: 32px;
-	padding: 0;
-	margin: 0 4px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	color: var(--jc-text);
-}
-.header-github-link:hover {
-	color: var(--jc-gold);
-	opacity: 1;
-}
-.header-github-link::before {
-	content: "";
-	width: 22px;
-	height: 22px;
-	background-color: currentColor;
-	-webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.03c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.71 1.26 3.37.97.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.21-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.4-5.26 5.69.41.35.78 1.04.78 2.1v3.11c0 .31.21.66.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z'/></svg>");
-	mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.03c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.71 1.26 3.37.97.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.21-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.4-5.26 5.69.41.35.78 1.04.78 2.1v3.11c0 .31.21.66.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z'/></svg>");
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-	-webkit-mask-position: center;
-	mask-position: center;
-	-webkit-mask-size: contain;
-	mask-size: contain;
+.theme-doc-sidebar-container {
+	background: var(--ifm-background-color);
+	/* biome-ignore lint/complexity/noImportantStyles: Docusaurus inlines a border-color we need to override */
+	border-right: 1px solid var(--jc-border) !important;
 }
 
 /* ---------- Sidebar ---------- */
 .menu {
 	font-size: 14px;
+	background: transparent;
+	padding: 16px 12px;
 }
-.menu__link--active {
+.menu__list .menu__list {
+	padding-left: 8px;
+}
+.menu__link {
+	border-radius: 8px;
+	color: var(--jc-muted);
+	line-height: 1.4;
+}
+.menu__link:hover {
+	background: var(--jc-surface2);
+	color: var(--jc-heading);
+}
+/* Leaf active item: gold text on a soft gold wash, no boxy border. */
+.menu__link--active:not(.menu__link--sublist) {
 	color: var(--jc-gold);
 	background: var(--jc-gold-soft);
-	border-left: 2px solid var(--jc-gold);
-	border-radius: 7px;
-}
-.theme-doc-sidebar-item-category > .menu__list-item-collapsible .menu__link {
 	font-weight: 600;
+}
+/* Category headers: plain, gold only when active. */
+.menu__list-item-collapsible .menu__link {
+	font-weight: 600;
+	color: var(--jc-heading);
+	background: transparent;
+}
+.menu__list-item-collapsible .menu__link--active {
+	color: var(--jc-gold);
+	background: transparent;
+}
+.menu__list-item-collapsible:hover {
+	background: var(--jc-surface2);
+	border-radius: 8px;
+}
+.menu__caret:hover {
+	background: transparent;
 }
 
 /* ---------- Table of contents ---------- */
 .table-of-contents__link--active {
 	color: var(--jc-gold);
 	font-weight: 600;
+}
+.table-of-contents .table-of-contents__link:hover {
+	color: var(--jc-heading);
+}
+
+/* ---------- Footer (replace default Docusaurus slate) ---------- */
+.footer,
+.footer--dark {
+	--ifm-footer-background-color: var(--jc-bg2);
+	--ifm-footer-color: var(--jc-muted);
+	--ifm-footer-link-color: var(--jc-muted);
+	--ifm-footer-title-color: var(--jc-faint);
+	background: var(--jc-bg2);
+	border-top: 1px solid var(--jc-border);
+}
+.footer__title {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--jc-faint);
+}
+.footer__link-item {
+	color: var(--jc-muted);
+}
+.footer__link-item:hover {
+	color: var(--jc-gold);
+	text-decoration: none;
+}
+.footer__copyright {
+	color: var(--jc-faint);
+	font-size: 13px;
+}
+.footer__col {
+	font-size: 14px;
 }
 
 /* ---------- Code ---------- */
