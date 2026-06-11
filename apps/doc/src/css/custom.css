@@ -1,27 +1,162 @@
 /**
- * Custom CSS for js-common docs.
- * Docusaurus uses Infima (https://infima.dev/) — override its CSS variables here.
+ * js-common — Docusaurus theme.
+ * Dark navy + gold identity matching the README banner.
+ * Fonts: Geist + Geist Mono via @import below (preconnects in docusaurus.config.ts).
  */
 
+/* ---------- Fonts ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap");
+
+/* ---------- Light (default) ---------- */
 :root {
-	--ifm-color-primary: #2e8555;
-	--ifm-color-primary-dark: #29784c;
-	--ifm-color-primary-darker: #277148;
-	--ifm-color-primary-darkest: #205d3b;
-	--ifm-color-primary-light: #33925d;
-	--ifm-color-primary-lighter: #359962;
-	--ifm-color-primary-lightest: #3cad6e;
-	--ifm-code-font-size: 95%;
-	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+	--ifm-color-primary: #9a6f00;
+	--ifm-color-primary-dark: #8a6300;
+	--ifm-color-primary-darker: #825d00;
+	--ifm-color-primary-darkest: #6b4d00;
+	--ifm-color-primary-light: #aa7b00;
+	--ifm-color-primary-lighter: #b28100;
+	--ifm-color-primary-lightest: #c99200;
+
+	--ifm-font-family-base: "Geist", system-ui, -apple-system, sans-serif;
+	--ifm-font-family-monospace: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+	--ifm-heading-font-weight: 800;
+	--ifm-code-font-size: 92%;
+
+	--ifm-background-color: #ffffff;
+	--ifm-background-surface-color: #ffffff;
+	--ifm-navbar-background-color: rgba(255, 255, 255, 0.8);
+	--ifm-heading-color: #0a0e16;
+	--ifm-font-color-base: #374253;
+	--ifm-link-color: #9a6f00;
+	--ifm-toc-border-color: rgba(12, 18, 28, 0.1);
+	--ifm-code-background: #f3f6f9;
+	--docusaurus-highlighted-code-line-bg: rgba(244, 186, 47, 0.14);
+
+	/* js-common custom tokens */
+	--jc-gold: #9a6f00;
+	--jc-gold-fill: #f4ba2f;
+	--jc-on-gold: #0a0e16;
+	--jc-bg: #ffffff;
+	--jc-bg2: #f6f8fb;
+	--jc-surface: #ffffff;
+	--jc-surface2: #f3f6f9;
+	--jc-code-bg: #f3f6f9;
+	--jc-border: rgba(12, 18, 28, 0.1);
+	--jc-border2: rgba(12, 18, 28, 0.16);
+	--jc-heading: #0a0e16;
+	--jc-text: #374253;
+	--jc-muted: #5b6675;
+	--jc-faint: #8a95a5;
+	--jc-gold-soft: rgba(244, 186, 47, 0.16);
+	--jc-gold-border: rgba(244, 186, 47, 0.5);
+	--jc-shadow: 0 22px 50px -26px rgba(20, 28, 44, 0.3);
 }
 
+/* ---------- Dark (matches the prototype) ---------- */
 [data-theme="dark"] {
-	--ifm-color-primary: #25c2a0;
-	--ifm-color-primary-dark: #21af90;
-	--ifm-color-primary-darker: #1fa588;
-	--ifm-color-primary-darkest: #1a8870;
-	--ifm-color-primary-light: #29d5b0;
-	--ifm-color-primary-lighter: #32d8b4;
-	--ifm-color-primary-lightest: #4fddbf;
-	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+	--ifm-color-primary: #f4ba2f;
+	--ifm-color-primary-dark: #f0ae0f;
+	--ifm-color-primary-darker: #e4a40b;
+	--ifm-color-primary-darkest: #bb870a;
+	--ifm-color-primary-light: #f6c44f;
+	--ifm-color-primary-lighter: #f7c95f;
+	--ifm-color-primary-lightest: #f9d68a;
+
+	--ifm-background-color: #0a0e16;
+	--ifm-background-surface-color: #111824;
+	--ifm-navbar-background-color: rgba(10, 14, 22, 0.72);
+	--ifm-heading-color: #ffffff;
+	--ifm-font-color-base: #dfe5ee;
+	--ifm-link-color: #f4ba2f;
+	--ifm-toc-border-color: rgba(255, 255, 255, 0.08);
+	--ifm-code-background: #0d131d;
+	--docusaurus-highlighted-code-line-bg: rgba(244, 186, 47, 0.12);
+
+	--jc-gold: #f4ba2f;
+	--jc-gold-fill: #f4ba2f;
+	--jc-on-gold: #0a0e16;
+	--jc-bg: #0a0e16;
+	--jc-bg2: #0b101a;
+	--jc-surface: #111824;
+	--jc-surface2: #0d131d;
+	--jc-code-bg: #0c111b;
+	--jc-border: rgba(255, 255, 255, 0.08);
+	--jc-border2: rgba(255, 255, 255, 0.14);
+	--jc-heading: #ffffff;
+	--jc-text: #dfe5ee;
+	--jc-muted: #94a1b4;
+	--jc-faint: #647184;
+	--jc-gold-soft: rgba(244, 186, 47, 0.12);
+	--jc-gold-border: rgba(244, 186, 47, 0.34);
+	--jc-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	border-bottom: 1px solid var(--jc-border);
+	box-shadow: none;
+}
+.navbar__title,
+.navbar__brand b {
+	font-weight: 800;
+	letter-spacing: -0.03em;
+}
+.navbar__link--active {
+	color: var(--jc-heading);
+}
+
+/* ---------- Sidebar ---------- */
+.menu {
+	font-size: 14px;
+}
+.menu__link--active {
+	color: var(--jc-gold);
+	background: var(--jc-gold-soft);
+	border-left: 2px solid var(--jc-gold);
+	border-radius: 7px;
+}
+.theme-doc-sidebar-item-category > .menu__list-item-collapsible .menu__link {
+	font-weight: 600;
+}
+
+/* ---------- Table of contents ---------- */
+.table-of-contents__link--active {
+	color: var(--jc-gold);
+	font-weight: 600;
+}
+
+/* ---------- Code ---------- */
+.theme-code-block,
+pre[class*="language-"] {
+	border: 1px solid var(--jc-border);
+	border-radius: 12px;
+	/* biome-ignore lint/complexity/noImportantStyles: Prism applies inline backgrounds we need to override */
+	background: var(--jc-code-bg) !important;
+}
+code {
+	font-family: var(--ifm-font-family-monospace);
+}
+
+/* ---------- Buttons ---------- */
+.button--primary {
+	background: var(--jc-gold-fill);
+	border-color: var(--jc-gold-fill);
+	color: var(--jc-on-gold);
+	font-weight: 700;
+}
+.button--primary:hover {
+	background: #f6c44f;
+	border-color: #f6c44f;
+	color: var(--jc-on-gold);
+}
+.button--secondary {
+	background: transparent;
+	border-color: var(--jc-border2);
+	color: var(--jc-heading);
+}
+
+::selection {
+	background: rgba(244, 186, 47, 0.28);
 }
