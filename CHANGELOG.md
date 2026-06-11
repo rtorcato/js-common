@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/rtorcato/js-common/compare/v2.5.0...v2.6.0) (2026-06-11)
+
+
+### Features
+
+* **docs:** v3 — wordmark logo + shell ([#65](https://github.com/rtorcato/js-common/issues/65)) ([5f29b1a](https://github.com/rtorcato/js-common/commit/5f29b1a93408e5816fc7f465f2560aa8ca2ed9a1)), closes [#0b101](https://github.com/rtorcato/js-common/issues/0b101)
+
 # [2.5.0](https://github.com/rtorcato/js-common/compare/v2.4.0...v2.5.0) (2026-06-11)
 
 
