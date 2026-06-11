@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/rtorcato/js-common/compare/v2.1.0...v2.2.0) (2026-06-11)
+
+
+### Features
+
+* **docs:** search, changelog page, CI guardrail ([fd95637](https://github.com/rtorcato/js-common/commit/fd9563767e962116dc0e5bb9ad9a95c5f5ce4d8f))
+
 # [2.1.0](https://github.com/rtorcato/js-common/compare/v2.0.1...v2.1.0) (2026-06-11)
 
 
