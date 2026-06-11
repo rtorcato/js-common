@@ -2,6 +2,6 @@
   "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
   "extends": ["@rtorcato/js-tooling/biome"],
   "files": {
-    "includes": ["!**/.claude", "!**/.stitch-import", "!design_handoff_docusaurus_redesign"]
+    "includes": ["!**/.claude", "!**/.stitch-import", "!design_handoff_docusaurus_redesign*"]
   }
 }

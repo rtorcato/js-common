@@ -1,7 +1,6 @@
 ---
 title: js-common
 description: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.
-slug: /
 sidebar_position: 0
 ---
 

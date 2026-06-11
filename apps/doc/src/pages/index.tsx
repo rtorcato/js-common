@@ -176,10 +176,7 @@ function Categories(): ReactElement {
 						Nine focused categories. 46 modules. Import exactly what you need.
 					</p>
 				</div>
-				<Link
-					className={clsx('button button--secondary', styles.viewAll)}
-					to="/docs/modules/overview"
-				>
+				<Link className={styles.viewAll} to="/docs/modules/overview">
 					View all modules →
 				</Link>
 			</div>
