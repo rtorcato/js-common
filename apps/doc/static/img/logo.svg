@@ -1,13 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-	<rect width="64" height="64" rx="12" fill="#25c2a0" />
-	<text
-		x="50%"
-		y="50%"
-		text-anchor="middle"
-		dominant-baseline="central"
-		font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
-		font-weight="700"
-		font-size="28"
-		fill="#0d1117"
-	>js</text>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="js-common">
+  <rect width="32" height="32" rx="8" fill="#F4BA2F"></rect>
+  <path d="M13.2 8.5h2.45v9.04c0 2.83-1.36 4.06-3.66 4.06-1.3 0-2.32-.42-2.99-1.2l1.4-1.55c.36.46.78.76 1.36.76.74 0 1.2-.44 1.2-1.55V8.5h.24z" fill="#0A0E16"></path>
+  <path d="M18.7 19.1c.66.86 1.5 1.45 2.7 1.45.94 0 1.5-.4 1.5-1.04 0-.72-.5-.98-1.55-1.44l-.58-.25c-1.66-.7-2.76-1.58-2.76-3.45 0-1.72 1.31-3.02 3.36-3.02 1.46 0 2.5.5 3.25 1.83l-1.78 1.14c-.39-.7-.8-.97-1.47-.97-.67 0-1.1.43-1.1 1 0 .63.43.89 1.42 1.32l.58.25c1.95.84 3.06 1.69 3.06 3.6 0 2.06-1.62 3.19-3.8 3.19-2.13 0-3.5-1.02-4.18-2.34l1.86-1.08z" fill="#0A0E16"></path>
 </svg>
