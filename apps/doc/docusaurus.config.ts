@@ -27,13 +27,29 @@ const config: Config = {
 		locales: ['en'],
 	},
 
+	headTags: [
+		{
+			tagName: 'link',
+			attributes: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+		},
+		{
+			tagName: 'link',
+			attributes: {
+				rel: 'preconnect',
+				href: 'https://fonts.gstatic.com',
+				crossorigin: 'anonymous',
+			},
+		},
+	],
+
 	presets: [
 		[
 			'classic',
 			{
 				docs: {
 					sidebarPath: './sidebars.ts',
-					routeBasePath: '/',
+					// Moved from '/' to '/docs' so the marketing landing (src/pages/index.tsx) owns '/'.
+					routeBasePath: '/docs',
 					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/doc/',
 				},
 				blog: false,
@@ -72,7 +88,7 @@ const config: Config = {
 				hashed: true,
 				indexDocs: true,
 				indexBlog: false,
-				docsRouteBasePath: '/',
+				docsRouteBasePath: '/docs',
 				highlightSearchTermsOnTargetPage: true,
 				searchBarShortcutHint: false,
 			},
@@ -91,12 +107,9 @@ const config: Config = {
 				src: 'img/logo.svg',
 			},
 			items: [
-				{
-					type: 'docSidebar',
-					sidebarId: 'docs',
-					position: 'left',
-					label: 'Docs',
-				},
+				{ type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
+				{ to: '/docs/modules/overview', position: 'left', label: 'Modules' },
+				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
 					href: 'https://github.com/rtorcato/js-common',
 					label: 'GitHub',
@@ -108,23 +121,33 @@ const config: Config = {
 			style: 'dark',
 			links: [
 				{
-					title: 'Docs',
+					title: 'Documentation',
 					items: [
-						{ label: 'Installation', to: '/guides/installation' },
-						{ label: 'Quick start', to: '/guides/quick-start' },
-						{ label: 'Migrating to 2.x', to: '/guides/migration' },
+						{ label: 'Installation', to: '/docs/guides/installation' },
+						{ label: 'Quick start', to: '/docs/guides/quick-start' },
+						{ label: 'All modules', to: '/docs/modules/overview' },
+						{ label: 'API reference', to: '/docs/api' },
 					],
 				},
 				{
-					title: 'More',
+					title: 'Resources',
 					items: [
+						{ label: 'GitHub', href: 'https://github.com/rtorcato/js-common' },
+						{ label: 'npm', href: 'https://www.npmjs.com/package/@rtorcato/js-common' },
+						{ label: 'Migrating to 2.x', to: '/docs/guides/migration' },
+					],
+				},
+				{
+					title: 'Community',
+					items: [
+						{ label: 'Issues', href: 'https://github.com/rtorcato/js-common/issues' },
 						{
-							label: 'GitHub',
-							href: 'https://github.com/rtorcato/js-common',
+							label: 'Discussions',
+							href: 'https://github.com/rtorcato/js-common/discussions',
 						},
 						{
-							label: 'npm',
-							href: 'https://www.npmjs.com/package/@rtorcato/js-common',
+							label: 'License (MIT)',
+							href: 'https://github.com/rtorcato/js-common/blob/main/LICENSE',
 						},
 					],
 				},
@@ -132,8 +155,8 @@ const config: Config = {
 			copyright: `Copyright © ${new Date().getFullYear()} Richard Torcato. Built with Docusaurus.`,
 		},
 		prism: {
-			theme: prismThemes.github,
-			darkTheme: prismThemes.dracula,
+			theme: prismThemes.vsDark,
+			darkTheme: prismThemes.vsDark,
 			additionalLanguages: ['bash', 'json', 'typescript'],
 		},
 	} satisfies Preset.ThemeConfig,

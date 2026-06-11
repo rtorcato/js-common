@@ -54,7 +54,7 @@ single module's `dist/<name>/index.js`. For example:
 
 If your editor autocompletes `@rtorcato/js-common/...`, it will list every
 available subpath. The full list is also browsable in the
-[Modules](/modules/overview) section of this site.
+[Modules](/docs/modules/overview) section of this site.
 
 ## Bundle size in practice
 
