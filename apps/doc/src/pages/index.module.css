@@ -71,17 +71,88 @@
 .cta {
 	border-radius: 11px;
 }
+/* Install pill + package-manager tabs */
+.installGroup {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-start;
+}
+.pmTabs {
+	display: inline-flex;
+	gap: 4px;
+	padding: 4px;
+	background: var(--jc-surface2);
+	border: 1px solid var(--jc-border);
+	border-radius: 8px;
+}
+.pmTab {
+	height: 24px;
+	padding: 0 10px;
+	background: transparent;
+	border: 0;
+	border-radius: 5px;
+	font: 600 12px var(--ifm-font-family-monospace);
+	color: var(--jc-muted);
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		color 0.15s;
+}
+.pmTab:hover {
+	color: var(--jc-text);
+}
+.pmTabActive,
+.pmTabActive:hover {
+	background: var(--jc-gold-soft);
+	color: var(--jc-gold);
+}
 .install {
 	display: inline-flex;
 	align-items: center;
+	gap: 10px;
 	height: 48px;
-	padding: 0 18px;
+	padding: 0 8px 0 16px;
 	background: var(--jc-surface2);
 	border: 1px solid var(--jc-border);
 	border-radius: 11px;
 	font-family: var(--ifm-font-family-monospace);
 	font-size: 13.5px;
 	color: var(--jc-text);
+}
+.installPrompt {
+	color: var(--jc-faint);
+	user-select: none;
+}
+.installCmd {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	color: var(--jc-text);
+	font: inherit;
+}
+.installCopy {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin-left: 2px;
+	background: transparent;
+	border: 1px solid var(--jc-border);
+	border-radius: 8px;
+	color: var(--jc-muted);
+	cursor: pointer;
+	transition:
+		color 0.15s,
+		border-color 0.15s,
+		background 0.15s;
+}
+.installCopy:hover {
+	color: var(--jc-gold);
+	border-color: var(--jc-gold-border);
+	background: var(--jc-gold-soft);
 }
 
 /* Code window */
@@ -182,6 +253,22 @@
 	border: 1px solid var(--jc-border);
 	border-radius: 14px;
 }
+.pillarIcon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	margin-bottom: 14px;
+	background: var(--jc-gold-soft);
+	border: 1px solid var(--jc-gold-border);
+	border-radius: 10px;
+	color: var(--jc-gold);
+}
+.pillarIconSvg {
+	width: 20px;
+	height: 20px;
+}
 .pillarTitle {
 	font-weight: 700;
 	font-size: 15px;
@@ -273,6 +360,12 @@
 	}
 	.heroActions > * {
 		width: 100%;
+		justify-content: center;
+	}
+	.installGroup {
+		align-items: stretch;
+	}
+	.pmTabs {
 		justify-content: center;
 	}
 	.install {

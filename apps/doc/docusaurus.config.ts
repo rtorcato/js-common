@@ -90,7 +90,7 @@ const config: Config = {
 				indexBlog: false,
 				docsRouteBasePath: '/docs',
 				highlightSearchTermsOnTargetPage: true,
-				searchBarShortcutHint: false,
+				searchBarShortcutHint: true,
 			},
 		],
 	],
@@ -101,19 +101,24 @@ const config: Config = {
 			respectPrefersColorScheme: true,
 		},
 		navbar: {
-			title: 'js-common',
-			logo: {
-				alt: 'js-common',
-				src: 'img/logo.svg',
-			},
+			// Text wordmark (gold "common") + v2.x pill is rendered via the HTML
+			// navbar item below — leave title/logo empty so they don't double up.
+			title: '',
 			items: [
+				{
+					type: 'html',
+					position: 'left',
+					value:
+						'<a class="jc-wordmark" href="/js-common/">js-<span class="jc-wordmark-accent">common</span><span class="jc-wordmark-version">v2.x</span></a>',
+				},
 				{ type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/modules/overview', position: 'left', label: 'Modules' },
 				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
 					href: 'https://github.com/rtorcato/js-common',
-					label: 'GitHub',
 					position: 'right',
+					className: 'header-github-link',
+					'aria-label': 'GitHub repository',
 				},
 			],
 		},
