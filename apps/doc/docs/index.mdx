@@ -1,0 +1,106 @@
+---
+title: js-common
+description: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.
+sidebar_position: 0
+---
+
+import InstallTabs from '@site/src/components/InstallTabs'
+
+# js-common
+
+A focused set of TypeScript utilities for the everyday JavaScript/Node.js work almost every project repeats — date math, string formatting, array/object helpers, validation, UUIDs, retries, sleeps, currency, and so on. Each module ships as a separate subpath so your bundler only includes what you actually import.
+
+- **Ultra-lightweight** — main bundle ~277 B; individual modules ~50–200 B.
+- **Tree-shakeable** — named subpath exports; the root entry is intentionally empty.
+- **TypeScript-first** — strict types, generics preserved, JSDoc-rich in your IDE.
+- **CLI included** — `npx @rtorcato/js-common@latest --help` for terminal use.
+
+## Install
+
+<InstallTabs pkg="@rtorcato/js-common" />
+
+**Requirements:** Node.js ≥ 22. TypeScript ≥ 5.0 is optional but recommended — every public API ships with strict types and JSDoc.
+
+### Use globally (CLI)
+
+```bash
+npm install -g @rtorcato/js-common
+# or run ad-hoc without installing
+npx @rtorcato/js-common@latest --help
+```
+
+See the [CLI guide](./guides/cli.md) for available commands.
+
+## Quick start
+
+Import named functions from a subpath export to keep your bundle tiny:
+
+```ts
+import { today, daysBetween } from '@rtorcato/js-common/date'
+import { sum, average } from '@rtorcato/js-common/numbers'
+import { capitalize } from '@rtorcato/js-common/strings'
+import { generateUUID } from '@rtorcato/js-common/uuid'
+
+today()                                  // "2026-06-12"
+daysBetween('2026-01-01', '2026-06-12')  // 162
+sum([1, 2, 3, 4, 5])                     // 15
+average([10, 20, 30])                    // 20
+capitalize('hello world')                // "Hello world"
+generateUUID()                           // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+```
+
+Always import from a subpath — never from the package root:
+
+```ts
+// ✅ Adds ~50–200 bytes
+import { today } from '@rtorcato/js-common/date'
+
+// ❌ Root entry is empty by design — this resolves to nothing
+import { today } from '@rtorcato/js-common'
+```
+
+See [Tree-shaking & imports](./guides/tree-shaking.md) for the full explanation.
+
+## What's in the box
+
+- **45+ subpath modules**, one concern per module — see the [Module overview](./modules/overview.md).
+- **Strict TypeScript** — generics preserved end-to-end; `any` avoided in public APIs.
+- **JSDoc on every public function** — hover docs in VS Code, JetBrains, and Cursor.
+- **Minimal runtime deps** — only `date-fns`, `date-fns-tz`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI-only packages live in `optionalDependencies`.
+- **Tested** — Vitest with coverage; CI runs on every commit.
+
+### Highlights
+
+| Area | Subpath | Example helpers |
+| --- | --- | --- |
+| Dates & time | `date`, `datetime`, `time` | `today`, `daysBetween`, `formatRelative`, `nowIso`, `unixTimestamp` |
+| Numbers & math | `numbers`, `math`, `currency` | `sum`, `average`, `roundTo`, `clamp`, `formatCurrency` |
+| Strings | `strings`, `formatting`, `regex` | `slugify`, `truncate`, `capitalize`, `removeEmojis` |
+| Collections | `arrays`, `objects`, `sets`, `maps` | `unique`, `chunk`, `groupBy`, `deepMerge`, `pick`, `omit` |
+| Async | `promises`, `sleep`, `abortController`, `functions` | `retry`, `timeout`, `delay`, `debounce`, `throttle` |
+| Validation | `validation`, `emails`, `url`, `uuid` | `isValidEmail`, `isValidUrl`, `generateUUID` |
+| System | `env`, `os`, `node`, `process`, `system` | environment, platform, runtime info |
+| Other | `json`, `fetch`, `file`, `logger`, `security`, `i18n`, `html` | `safeJsonParse`, `isStrongPassword`, … |
+
+See the [full module overview](./modules/overview.md) for the complete list.
+
+## Design principles
+
+- **Small surface, no kitchen sink.** Each module covers one concern. If something needs a heavyweight dependency (locale-aware date formatting, IANA timezones, schema validation across HTTP boundaries), reach for a dedicated library (`date-fns`, `luxon`, `zod`).
+- **Subpath imports are the contract.** The package root re-exports nothing — you always import from `@rtorcato/js-common/<module>` so tree-shaking is automatic.
+- **Strict TS, no implicit `any` in public APIs.** Generic helpers preserve narrow types through the call.
+
+## Next steps
+
+- [**Tree-shaking & imports**](./guides/tree-shaking.md) — how the subpath exports work and how to verify.
+- [**CLI**](./guides/cli.md) — run utilities from your terminal.
+- [**Module overview**](./modules/overview.md) — every subpath with examples.
+- [**API reference**](./api) — auto-generated from the source.
+- [**Migrating to 2.x**](./guides/migration.md) — the only breaking change since 1.x.
+
+## Project
+
+- Source: [github.com/rtorcato/js-common](https://github.com/rtorcato/js-common)
+- npm: [@rtorcato/js-common](https://www.npmjs.com/package/@rtorcato/js-common)
+- License: [MIT](https://github.com/rtorcato/js-common/blob/main/LICENSE)
+- Issues: [GitHub Issues](https://github.com/rtorcato/js-common/issues)
