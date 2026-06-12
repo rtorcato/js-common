@@ -101,6 +101,49 @@
 .navbar__link--active {
 	color: var(--jc-heading);
 }
+/* The "js-common" wordmark is baked into the SVG logo — suppress any text
+   title Docusaurus might still render next to it (e.g. ghost "common" on mobile). */
+.navbar__title {
+	display: none;
+}
+/* Make sure the hamburger toggle stays visible on mobile and doesn't get
+   pushed off by the search box. */
+.navbar__toggle {
+	display: inline-flex;
+}
+
+/* ---------- Mobile navbar drawer ----------
+   The slide-in drawer that appears when the hamburger is tapped. Docusaurus
+   reuses .menu classes inside, so the sidebar styles below also apply — we
+   just need to make sure the drawer surface itself is solid and full-width. */
+.navbar-sidebar {
+	background: var(--ifm-background-color);
+	width: 88vw;
+	max-width: 320px;
+}
+.navbar-sidebar__brand {
+	background: var(--ifm-background-color);
+	border-bottom: 1px solid var(--jc-border);
+	box-shadow: none;
+}
+.navbar-sidebar__items {
+	background: var(--ifm-background-color);
+}
+.navbar-sidebar__item {
+	background: var(--ifm-background-color);
+}
+.navbar-sidebar__backdrop {
+	background: rgba(0, 0, 0, 0.5);
+}
+.navbar-sidebar__back {
+	color: var(--jc-muted);
+}
+.navbar-sidebar .menu {
+	padding: 12px 8px;
+}
+.navbar-sidebar .menu__link {
+	color: var(--jc-text);
+}
 /* Gold "common" wordmark (rendered via a type:'html' navbar item — see config) */
 .jc-wordmark {
 	display: flex;
