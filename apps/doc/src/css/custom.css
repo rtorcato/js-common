@@ -1,7 +1,7 @@
 /**
- * js-common — Docusaurus theme.
- * Dark navy + gold identity matching the README banner.
- * Fonts: Geist + Geist Mono via @import below (preconnects in docusaurus.config.ts).
+ * js-common — Docusaurus theme
+ * Drop in at src/css/custom.css (referenced from docusaurus.config presets).
+ * Fonts: add the Geist <link> preconnects from docusaurus.config.snippet.ts.
  */
 
 /* ---------- Fonts ---------- */
@@ -98,16 +98,27 @@
 	border-bottom: 1px solid var(--jc-border);
 	box-shadow: none;
 }
-.navbar__title,
-.navbar__brand b {
-	font-weight: 800;
-	letter-spacing: -0.03em;
-}
 .navbar__link--active {
 	color: var(--jc-heading);
 }
+/* Gold "common" wordmark (rendered via a type:'html' navbar item — see config) */
+.jc-wordmark {
+	display: flex;
+	align-items: center;
+	text-decoration: none !important;
+	font-weight: 800;
+	font-size: 18px;
+	letter-spacing: -0.03em;
+	margin-right: 6px;
+}
+.jc-wordmark .jc-js {
+	color: var(--jc-heading);
+}
+.jc-wordmark .jc-co {
+	color: var(--jc-gold);
+}
 
-/* ---------- Backgrounds (dark-mode panels were inconsistent) ---------- */
+/* ---------- Backgrounds (dark mode was off) ---------- */
 html,
 body,
 #__docusaurus,
@@ -116,7 +127,6 @@ body,
 }
 .theme-doc-sidebar-container {
 	background: var(--ifm-background-color);
-	/* biome-ignore lint/complexity/noImportantStyles: Docusaurus inlines a border-color we need to override */
 	border-right: 1px solid var(--jc-border) !important;
 }
 
@@ -138,13 +148,13 @@ body,
 	background: var(--jc-surface2);
 	color: var(--jc-heading);
 }
-/* Leaf active item: gold text on a soft gold wash, no boxy border. */
+/* leaf active item: gold text on a soft gold wash, no boxy border */
 .menu__link--active:not(.menu__link--sublist) {
 	color: var(--jc-gold);
 	background: var(--jc-gold-soft);
 	font-weight: 600;
 }
-/* Category headers: plain, gold only when active. */
+/* category headers: plain, gold only when active */
 .menu__list-item-collapsible .menu__link {
 	font-weight: 600;
 	color: var(--jc-heading);
@@ -171,7 +181,7 @@ body,
 	color: var(--jc-heading);
 }
 
-/* ---------- Footer (replace default Docusaurus slate) ---------- */
+/* ---------- Footer (was default slate) ---------- */
 .footer,
 .footer--dark {
 	--ifm-footer-background-color: var(--jc-bg2);
@@ -203,19 +213,127 @@ body,
 	font-size: 14px;
 }
 
-/* ---------- Code ---------- */
+/* ---------- Code ----------
+   Prism is vsDark in both light & dark mode (to match the navy aesthetic),
+   so fenced code blocks must stay dark in BOTH themes — otherwise the pale
+   vsDark tokens wash out on a light background. Inline code (the `code` pills)
+   keeps the themed --ifm-code-background and stays readable. */
 .theme-code-block,
+div[class*="codeBlockContainer"],
 pre[class*="language-"] {
 	border: 1px solid var(--jc-border);
 	border-radius: 12px;
-	/* biome-ignore lint/complexity/noImportantStyles: Prism applies inline backgrounds we need to override */
-	background: var(--jc-code-bg) !important;
+	background: #0c111b !important;
+}
+.theme-code-block code,
+pre[class*="language-"] code {
+	background: transparent !important;
+	color: #dfe5ee;
+}
+/* code block toolbar/title bar (when a title is set) */
+div[class*="codeBlockTitle"] {
+	background: #0a0e16 !important;
+	color: #94a1b4 !important;
+	border-bottom: 1px solid var(--jc-border);
+}
+/* in light mode give the dark block a touch more separation from the white page */
+[data-theme="light"] .theme-code-block,
+[data-theme="light"] div[class*="codeBlockContainer"],
+[data-theme="light"] pre[class*="language-"] {
+	border-color: rgba(12, 18, 28, 0.16);
+	box-shadow: 0 8px 24px -18px rgba(12, 18, 28, 0.5);
 }
 code {
 	font-family: var(--ifm-font-family-monospace);
 }
 
-/* ---------- Buttons ---------- */
+/* ---------- Markdown tables (e.g. Module overview) ----------
+   Match the design: rounded container, horizontal row dividers only
+   (no heavy cell gridlines), navy header. The subpath column (2nd) reads
+   as gold mono with no box; the highlights column (3rd) is quiet mono. */
+.markdown table,
+.theme-doc-markdown table,
+article table {
+	display: table;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 22px 0;
+	border: 1px solid var(--jc-border);
+	border-radius: 12px;
+	overflow: hidden;
+	font-size: 14px;
+}
+.markdown table thead,
+article table thead {
+	background: var(--jc-bg2);
+}
+.markdown table thead tr,
+article table thead tr {
+	border: none;
+	background: transparent;
+}
+.markdown table th,
+article table th {
+	text-align: left;
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--jc-faint);
+	border: none;
+	border-bottom: 1px solid var(--jc-border);
+	padding: 14px 18px;
+}
+/* zebra OFF, single navy surface; only horizontal dividers between rows */
+.markdown table tbody tr,
+article table tbody tr {
+	background: transparent !important;
+	border: none;
+}
+.markdown table td,
+article table td {
+	border: none;
+	border-bottom: 1px solid var(--jc-border);
+	padding: 13px 18px;
+	vertical-align: middle;
+	color: var(--jc-text);
+}
+.markdown table tbody tr:last-child td,
+article table tbody tr:last-child td {
+	border-bottom: none;
+}
+/* first column = category label */
+.markdown table td:first-child,
+article table td:first-child {
+	font-weight: 600;
+	color: var(--jc-heading);
+	white-space: nowrap;
+}
+/* inline code inside table cells: drop the boxy pill */
+.markdown table td code,
+.markdown table th code,
+article table td code {
+	background: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+	font-size: 13px;
+}
+/* 2nd column (Subpath) → gold mono */
+.markdown table td:nth-child(2) code,
+article table td:nth-child(2) code {
+	color: var(--jc-gold);
+}
+/* 3rd column (Highlights) → quiet mono, comma-separated reads cleanly */
+.markdown table td:nth-child(3),
+article table td:nth-child(3) {
+	color: var(--jc-muted);
+	line-height: 1.9;
+}
+.markdown table td:nth-child(3) code,
+article table td:nth-child(3) code {
+	color: var(--jc-muted);
+}
 .button--primary {
 	background: var(--jc-gold-fill);
 	border-color: var(--jc-gold-fill);
@@ -261,7 +379,6 @@ code {
 .footer,
 .footer--dark,
 [data-theme="dark"] .footer {
-	/* biome-ignore lint/complexity/noImportantStyles: Infima's footer--dark default would otherwise win */
 	background-color: #0b101a !important;
 	border-top: 1px solid var(--jc-border);
 }

@@ -4,5 +4,16 @@
   "extends": ["@rtorcato/js-tooling/biome"],
   "files": {
     "includes": ["!**/.docusaurus", "!**/build", "!**/node_modules"]
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["src/css/custom.css"],
+      "linter": {
+        "rules": {
+          "complexity": { "noImportantStyles": "off" },
+          "style": { "noDescendingSpecificity": "off" }
+        }
+      }
+    }
+  ]
 }

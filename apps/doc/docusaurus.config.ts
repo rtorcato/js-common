@@ -77,6 +77,10 @@ const config: Config = {
 				sort: ['source-order'],
 				hidePageTitle: false,
 				hideBreadcrumbs: false,
+				// One file per module instead of <module>/index.md + <module>/functions/*.md.
+				// Flattens the sidebar from "API Reference → module → index → functions → fn"
+				// down to "API Reference → module".
+				outputFileStrategy: 'modules',
 				sidebar: {
 					autoConfiguration: false,
 				},
@@ -128,8 +132,8 @@ const config: Config = {
 				{
 					title: 'Documentation',
 					items: [
-						{ label: 'Installation', to: '/docs/guides/installation' },
-						{ label: 'Quick start', to: '/docs/guides/quick-start' },
+						{ label: 'Install', to: '/docs#install' },
+						{ label: 'Quick start', to: '/docs#quick-start' },
 						{ label: 'All modules', to: '/docs/modules/overview' },
 						{ label: 'API reference', to: '/docs/api' },
 					],
@@ -146,10 +150,6 @@ const config: Config = {
 					title: 'Community',
 					items: [
 						{ label: 'Issues', href: 'https://github.com/rtorcato/js-common/issues' },
-						{
-							label: 'Discussions',
-							href: 'https://github.com/rtorcato/js-common/discussions',
-						},
 						{
 							label: 'License (MIT)',
 							href: 'https://github.com/rtorcato/js-common/blob/main/LICENSE',
