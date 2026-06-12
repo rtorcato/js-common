@@ -1,3 +1,10 @@
+## [2.8.1](https://github.com/rtorcato/js-common/compare/v2.8.0...v2.8.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **docs:** broken links + sidebar + module summaries ([#70](https://github.com/rtorcato/js-common/issues/70)) ([539923a](https://github.com/rtorcato/js-common/commit/539923addefa80c7564facce87d3664226d9fb75)), closes [#0a0e16](https://github.com/rtorcato/js-common/issues/0a0e16)
+
 # [2.8.0](https://github.com/rtorcato/js-common/compare/v2.7.0...v2.8.0) (2026-06-12)
 
 
