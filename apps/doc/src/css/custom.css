@@ -107,6 +107,59 @@
 .navbar > .navbar__title {
 	display: none;
 }
+
+/* ---------- Mobile drawer: collapse primary/secondary into one menu ----------
+   The primary→secondary "Back to main menu" UX is confusing here. We swizzle
+   theme/Navbar/MobileSidebar/PrimaryMenu (see src/theme/) to render the full
+   sidebar directly, and stub out SecondaryMenu so it never renders content.
+
+   On doc pages Docusaurus still flips its internal secondary state (the doc
+   plugin contributes a mobile-sidebar filler), which adds the
+   --show-secondary class — that class translates the primary menu off
+   screen, so we lock the transform here. (Separately, the swizzled
+   PrimaryMenu strips the `inert` attribute that Layout puts on the primary
+   item when secondary is "active" — `inert` made links unclickable.) */
+.navbar-sidebar__items,
+.navbar-sidebar__items.navbar-sidebar__items--show-secondary {
+	transform: translate3d(0, 0, 0) !important;
+}
+.navbar-sidebar__items > .navbar-sidebar__item:nth-child(2),
+.navbar-sidebar__back {
+	display: none !important;
+}
+/* Custom primary menu list — matches sidebar structure */
+.jc-mobile-menu {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 4px 0;
+	margin: 0;
+	list-style: none;
+}
+.jc-mobile-menu__link {
+	display: block;
+	padding: 12px 14px;
+	border-radius: 8px;
+	color: var(--jc-heading);
+	font-weight: 600;
+	font-size: 15px;
+	text-decoration: none;
+}
+.jc-mobile-menu__link:hover,
+.jc-mobile-menu__link:focus-visible {
+	background: var(--jc-surface2);
+	color: var(--jc-heading);
+	text-decoration: none;
+}
+.jc-mobile-menu__link--active {
+	background: var(--jc-gold-soft);
+	color: var(--jc-gold);
+}
+.jc-mobile-menu__external::after {
+	content: " ↗";
+	color: var(--jc-faint);
+	font-weight: 400;
+}
 /* Gold "common" wordmark (rendered via a type:'html' navbar item — see config) */
 .jc-wordmark {
 	display: flex;
