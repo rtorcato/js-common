@@ -1,0 +1,68 @@
+[
+  {
+    "name": "arrays",
+    "path": "dist/arrays/index.js",
+    "limit": "600 B",
+    "gzip": true
+  },
+  {
+    "name": "objects",
+    "path": "dist/objects/index.js",
+    "limit": "500 B",
+    "gzip": true
+  },
+  {
+    "name": "promises",
+    "path": "dist/promises/index.js",
+    "limit": "600 B",
+    "gzip": true
+  },
+  {
+    "name": "functions",
+    "path": "dist/functions/index.js",
+    "limit": "500 B",
+    "gzip": true
+  },
+  {
+    "name": "strings",
+    "path": "dist/strings/index.js",
+    "limit": "1500 B",
+    "gzip": true
+  },
+  {
+    "name": "numbers",
+    "path": "dist/numbers/index.js",
+    "limit": "600 B",
+    "gzip": true
+  },
+  {
+    "name": "try",
+    "path": "dist/try/index.js",
+    "limit": "400 B",
+    "gzip": true
+  },
+  {
+    "name": "validation",
+    "path": "dist/validation/index.js",
+    "limit": "500 B",
+    "gzip": true
+  },
+  {
+    "name": "errors",
+    "path": "dist/errors/index.js",
+    "limit": "400 B",
+    "gzip": true
+  },
+  {
+    "name": "uuid",
+    "path": "dist/uuid/index.js",
+    "limit": "4 kB",
+    "gzip": true
+  },
+  {
+    "name": "date",
+    "path": "dist/date/index.js",
+    "limit": "800 B",
+    "gzip": true
+  }
+]
