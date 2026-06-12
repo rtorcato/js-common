@@ -236,3 +236,32 @@ code {
 ::selection {
 	background: rgba(244, 186, 47, 0.28);
 }
+
+/* ============================================================
+   HARDENED DARK SURFACES
+   Infima's dark defaults are grey (#1b1b1d) and the footer is
+   slate. These explicit overrides force the navy palette even
+   if a default loads after this file.
+   ============================================================ */
+[data-theme="dark"] {
+	--ifm-background-color: #0a0e16;
+	--ifm-background-surface-color: #111824;
+	--ifm-navbar-background-color: rgba(10, 14, 22, 0.85);
+	--ifm-footer-background-color: #0b101a;
+}
+[data-theme="dark"],
+[data-theme="dark"] body,
+[data-theme="dark"] #__docusaurus,
+[data-theme="dark"] .main-wrapper,
+[data-theme="dark"] .navbar,
+[data-theme="dark"] main {
+	background-color: #0a0e16;
+}
+/* footer: navy in BOTH the dark theme and the footer--dark variant */
+.footer,
+.footer--dark,
+[data-theme="dark"] .footer {
+	/* biome-ignore lint/complexity/noImportantStyles: Infima's footer--dark default would otherwise win */
+	background-color: #0b101a !important;
+	border-top: 1px solid var(--jc-border);
+}

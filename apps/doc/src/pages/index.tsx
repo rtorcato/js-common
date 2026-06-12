@@ -2,14 +2,15 @@ import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
-import { type ReactElement, useEffect, useState } from 'react'
+import type { ReactElement } from 'react'
+import InstallTabs from '@site/src/components/InstallTabs'
 import styles from './index.module.css'
 
 /* ------------------------------------------------------------------ */
 /* Icons                                                               */
 /* ------------------------------------------------------------------ */
 
-type IconKey = 'gauge' | 'layers' | 'brackets' | 'terminal' | 'copy' | 'check'
+type IconKey = 'gauge' | 'layers' | 'brackets' | 'terminal'
 
 type IconProps = {
 	icon: IconKey
@@ -64,13 +65,6 @@ const ICONS: Record<IconKey, ReactElement> = {
 			<path d="M7 9l3 3-3 3M13 15h4" />
 		</>
 	),
-	copy: (
-		<>
-			<rect x="9" y="9" width="11" height="11" rx="2" />
-			<path d="M5 15V6a2 2 0 0 1 2-2h9" />
-		</>
-	),
-	check: <path d="M5 12l5 5L20 7" />,
 }
 
 /* ------------------------------------------------------------------ */
@@ -166,18 +160,6 @@ const CATEGORIES: Category[] = [
 	},
 ]
 
-const PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'] as const
-type PackageManager = (typeof PACKAGE_MANAGERS)[number]
-
-const INSTALL_CMDS: Record<PackageManager, string> = {
-	npm: 'npm i @rtorcato/js-common',
-	pnpm: 'pnpm add @rtorcato/js-common',
-	yarn: 'yarn add @rtorcato/js-common',
-	bun: 'bun add @rtorcato/js-common',
-}
-
-const PM_STORAGE_KEY = 'jc-pkg-manager'
-
 const HERO_CODE = `import {
   isEmpty,
   toKebabCase,
@@ -194,70 +176,6 @@ toKebabCase('Hello World')
 /* ------------------------------------------------------------------ */
 /* Sections                                                            */
 /* ------------------------------------------------------------------ */
-
-function InstallPill(): ReactElement {
-	const [pm, setPm] = useState<PackageManager>('npm')
-	const [copied, setCopied] = useState(false)
-
-	useEffect(() => {
-		const stored = window.localStorage.getItem(PM_STORAGE_KEY)
-		if (stored && (PACKAGE_MANAGERS as readonly string[]).includes(stored)) {
-			setPm(stored as PackageManager)
-		}
-	}, [])
-
-	function selectPm(next: PackageManager) {
-		setPm(next)
-		try {
-			window.localStorage.setItem(PM_STORAGE_KEY, next)
-		} catch {
-			// localStorage may be unavailable — ignore.
-		}
-	}
-
-	async function onCopy() {
-		try {
-			await navigator.clipboard.writeText(INSTALL_CMDS[pm])
-			setCopied(true)
-			setTimeout(() => setCopied(false), 1600)
-		} catch {
-			// Clipboard may be unavailable (e.g., insecure context) — ignore.
-		}
-	}
-
-	return (
-		<div className={styles.installGroup}>
-			<div className={styles.pmTabs} role="tablist" aria-label="Package manager">
-				{PACKAGE_MANAGERS.map((name) => (
-					<button
-						key={name}
-						type="button"
-						role="tab"
-						aria-selected={pm === name}
-						className={clsx(styles.pmTab, pm === name && styles.pmTabActive)}
-						onClick={() => selectPm(name)}
-					>
-						{name}
-					</button>
-				))}
-			</div>
-			<div className={styles.install}>
-				<span className={styles.installPrompt} aria-hidden>
-					$
-				</span>
-				<code className={styles.installCmd}>{INSTALL_CMDS[pm]}</code>
-				<button
-					type="button"
-					className={styles.installCopy}
-					onClick={onCopy}
-					aria-label={copied ? 'Copied' : 'Copy install command'}
-				>
-					<Icon icon={copied ? 'check' : 'copy'} title={copied ? 'Copied' : 'Copy'} size={16} />
-				</button>
-			</div>
-		</div>
-	)
-}
 
 function Hero(): ReactElement {
 	const banner = useBaseUrl('/img/banner.png')
@@ -292,7 +210,7 @@ function Hero(): ReactElement {
 					>
 						Get Started →
 					</Link>
-					<InstallPill />
+					<InstallTabs pkg="@rtorcato/js-common" />
 				</div>
 			</div>
 		</header>
