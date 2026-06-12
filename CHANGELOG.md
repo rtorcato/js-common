@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/rtorcato/js-common/compare/v2.6.0...v2.7.0) (2026-06-12)
+
+
+### Features
+
+* **docs:** v3 redesign — wordmark, install tabs, hardened dark surfaces ([#66](https://github.com/rtorcato/js-common/issues/66)) ([d44e1aa](https://github.com/rtorcato/js-common/commit/d44e1aaa709f7ebb490ff3963b8d6bfe4c6f880c)), closes [#0b101](https://github.com/rtorcato/js-common/issues/0b101)
+
 # [2.6.0](https://github.com/rtorcato/js-common/compare/v2.5.0...v2.6.0) (2026-06-11)
 
 
