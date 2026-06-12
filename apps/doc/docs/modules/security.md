@@ -11,6 +11,6 @@ import { generateSecureToken, isStrongPassword, sanitizeString } from '@rtorcato
 
 | Name | Summary |
 | --- | --- |
-| `generateSecureToken` | — |
+| `generateSecureToken` | Generates a cryptographically secure random token (hex string). |
 | `isStrongPassword` | Checks if a password is strong (min 8 chars, upper, lower, number, special char). |
 | `sanitizeString` | Sanitizes a string by removing script tags and event handlers. |

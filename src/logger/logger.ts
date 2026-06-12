@@ -1,6 +1,10 @@
 import pino from 'pino'
 import { isDev } from '../env'
 
+/**
+ * Pre-configured Pino logger — pretty-printed with colors in development, plain JSON
+ * at `info` level in production.
+ */
 export const logger = isDev()
 	? pino({
 			level: 'debug',

@@ -11,4 +11,4 @@ import { logger } from '@rtorcato/js-common/logger'
 
 | Name | Summary |
 | --- | --- |
-| `logger` | — |
+| `logger` | Pre-configured Pino logger — pretty-printed with colors in development, plain JSON at `info` level in production. |

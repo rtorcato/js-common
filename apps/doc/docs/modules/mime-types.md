@@ -11,10 +11,10 @@ import { FileExtension, MimeType, MimeValue } from '@rtorcato/js-common/mime-typ
 
 | Name | Summary |
 | --- | --- |
-| `FileExtension` | — |
-| `MimeType` | — |
-| `MimeValue` | — |
-| `extensions` | — |
-| `lookup` | Vendored version of mime-types that can run on the edge due to not using path.extname Also ported it to TypeScript cause it was easier than playing around with custom d.ts file Removed all the stuff we didn't use / /*! |
-| `mimeTypes` | — |
-| `types` | — |
+| `FileExtension` | Union of every file extension string (e.g. `'pdf'`, `'png'`) present in the MIME-type database. |
+| `MimeType` | Union of every MIME type string (e.g. `'application/json'`) present in the database. |
+| `MimeValue` | Metadata record for a given `MimeType` — its `source`, associated `extensions`, and `compressible` flag. |
+| `extensions` | Map from `MimeType` to its associated file extensions, populated from the database. |
+| `lookup` | Lookup the MIME type for a file path/extension. |
+| `mimeTypes` | Full MIME-type database keyed by `MimeType`, with `source`, `extensions`, and `compressible` metadata per entry. |
+| `types` | Map from `FileExtension` to its canonical `MimeType`, populated from the database. |

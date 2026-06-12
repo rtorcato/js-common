@@ -1,3 +1,5 @@
+import { randomBytes } from 'node:crypto'
+
 /**
  * Sanitizes a string by removing script tags and event handlers.
  * @param str The string to sanitize.
@@ -23,7 +25,6 @@ export function isStrongPassword(password: string): boolean {
  * @param length The number of bytes (not hex chars).
  * @returns A random hex string.
  */
-import { randomBytes } from 'node:crypto'
 export function generateSecureToken(length = 32): string {
 	return randomBytes(length).toString('hex')
 }

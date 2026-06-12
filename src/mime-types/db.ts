@@ -4616,9 +4616,15 @@ const mimeTypesInternal = {
 	},
 } as const
 
+/**
+ * Union of every file extension string (e.g. `'pdf'`, `'png'`) present in the MIME-type database.
+ */
 export type FileExtension =
 	(typeof mimeTypesInternal)[keyof typeof mimeTypesInternal]['extensions'][number]
 
+/**
+ * Union of every MIME type string (e.g. `'application/json'`) present in the database.
+ */
 export type MimeType = keyof typeof mimeTypesInternal
 
 type TypedMimeTypes = Record<
@@ -4630,6 +4636,14 @@ type TypedMimeTypes = Record<
 	}
 >
 
+/**
+ * Full MIME-type database keyed by `MimeType`, with `source`, `extensions`, and
+ * `compressible` metadata per entry.
+ */
 export const mimeTypes = mimeTypesInternal as unknown as TypedMimeTypes
 
+/**
+ * Metadata record for a given `MimeType` — its `source`, associated `extensions`, and
+ * `compressible` flag.
+ */
 export type MimeValue = (typeof mimeTypes)[MimeType]

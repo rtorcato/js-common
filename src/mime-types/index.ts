@@ -27,7 +27,14 @@ function extname(path: string) {
 	return index < 0 ? '' : path.substring(index)
 }
 
+/**
+ * Map from `MimeType` to its associated file extensions, populated from the database.
+ */
 export const extensions = {} as Record<MimeType, FileExtension[]>
+
+/**
+ * Map from `FileExtension` to its canonical `MimeType`, populated from the database.
+ */
 export const types = {} as Record<FileExtension, MimeType>
 
 // Populate the extensions/types maps
