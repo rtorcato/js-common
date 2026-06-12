@@ -116,7 +116,7 @@ const config: Config = {
 				height: 26,
 			},
 			items: [
-				{ to: '/docs', position: 'left', label: 'Docs' },
+				{ type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/modules/overview', position: 'left', label: 'Modules' },
 				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
@@ -150,6 +150,10 @@ const config: Config = {
 					title: 'Community',
 					items: [
 						{ label: 'Issues', href: 'https://github.com/rtorcato/js-common/issues' },
+						{
+							label: 'Discussions',
+							href: 'https://github.com/rtorcato/js-common/discussions',
+						},
 						{
 							label: 'License (MIT)',
 							href: 'https://github.com/rtorcato/js-common/blob/main/LICENSE',
