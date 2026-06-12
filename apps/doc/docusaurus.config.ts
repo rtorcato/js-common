@@ -132,8 +132,8 @@ const config: Config = {
 				{
 					title: 'Documentation',
 					items: [
-						{ label: 'Installation', to: '/docs/guides/installation' },
-						{ label: 'Quick start', to: '/docs/guides/quick-start' },
+						{ label: 'Installation', to: '/docs#install' },
+						{ label: 'Quick start', to: '/docs#quick-start' },
 						{ label: 'All modules', to: '/docs/modules/overview' },
 						{ label: 'API reference', to: '/docs/api' },
 					],
