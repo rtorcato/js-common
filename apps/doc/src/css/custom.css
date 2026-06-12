@@ -64,7 +64,7 @@
 
 	--ifm-background-color: #0a0e16;
 	--ifm-background-surface-color: #111824;
-	--ifm-navbar-background-color: rgba(10, 14, 22, 0.72);
+	--ifm-navbar-background-color: #0a0e16;
 	--ifm-heading-color: #ffffff;
 	--ifm-font-color-base: #dfe5ee;
 	--ifm-link-color: #f4ba2f;
@@ -93,43 +93,19 @@
 
 /* ---------- Navbar ---------- */
 .navbar {
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
 	border-bottom: 1px solid var(--jc-border);
 	box-shadow: none;
 }
 .navbar__link--active {
 	color: var(--jc-heading);
 }
-/* The "js-common" wordmark is baked into the SVG logo — suppress any text
-   title Docusaurus might still render next to it. */
-.navbar__title {
+/* The "js-common" wordmark is baked into the SVG logo. Hide any text title
+   Docusaurus may render next to it in the *top* navbar — but leave the title
+   inside the mobile drawer (.navbar-sidebar__brand) alone so the drawer's
+   brand row keeps its label. */
+.navbar > .navbar__inner .navbar__title,
+.navbar > .navbar__title {
 	display: none;
-}
-
-/* ---------- Mobile navbar drawer ----------
-   The slide-in drawer that appears when the hamburger is tapped on mobile.
-   Docusaurus already handles show/hide via position:fixed + transform and
-   hides the whole element at min-width: 997px. We only override surface
-   colors here — never display/visibility/width/position. */
-.navbar-sidebar,
-.navbar-sidebar__brand,
-.navbar-sidebar__items,
-.navbar-sidebar__item {
-	background-color: var(--ifm-background-color);
-}
-.navbar-sidebar__brand {
-	border-bottom: 1px solid var(--jc-border);
-	box-shadow: none;
-}
-.navbar-sidebar__backdrop {
-	background-color: rgba(0, 0, 0, 0.5);
-}
-.navbar-sidebar__back {
-	color: var(--jc-muted);
-}
-.navbar-sidebar .menu__link {
-	color: var(--jc-text);
 }
 /* Gold "common" wordmark (rendered via a type:'html' navbar item — see config) */
 .jc-wordmark {
@@ -394,7 +370,7 @@ article table td:nth-child(3) code {
 [data-theme="dark"] {
 	--ifm-background-color: #0a0e16;
 	--ifm-background-surface-color: #111824;
-	--ifm-navbar-background-color: rgba(10, 14, 22, 0.85);
+	--ifm-navbar-background-color: #0a0e16;
 	--ifm-footer-background-color: #0b101a;
 }
 [data-theme="dark"],
