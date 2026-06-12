@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/rtorcato/js-common/compare/v2.7.0...v2.8.0) (2026-06-12)
+
+
+### Features
+
+* **docs:** landing + footer design handoff ([#69](https://github.com/rtorcato/js-common/issues/69)) ([1e5a0d3](https://github.com/rtorcato/js-common/commit/1e5a0d3642033390c5c67cbf0df4a8116e40df76)), closes [#0a0e16](https://github.com/rtorcato/js-common/issues/0a0e16)
+
 # [2.7.0](https://github.com/rtorcato/js-common/compare/v2.6.0...v2.7.0) (2026-06-12)
 
 
