@@ -244,10 +244,9 @@ body,
 .footer,
 .footer--dark {
 	--ifm-footer-background-color: var(--jc-bg2);
-	--ifm-footer-color: var(--jc-muted);
-	--ifm-footer-link-color: var(--jc-muted);
+	--ifm-footer-color: var(--jc-text);
+	--ifm-footer-link-color: var(--jc-text);
 	--ifm-footer-title-color: var(--jc-faint);
-	background: var(--jc-bg2);
 	border-top: 1px solid var(--jc-border);
 }
 .footer__title {
@@ -258,7 +257,7 @@ body,
 	color: var(--jc-faint);
 }
 .footer__link-item {
-	color: var(--jc-muted);
+	color: var(--jc-text);
 }
 .footer__link-item:hover {
 	color: var(--jc-gold);
@@ -267,9 +266,17 @@ body,
 .footer__copyright {
 	color: var(--jc-faint);
 	font-size: 13px;
+	text-align: left;
 }
 .footer__col {
 	font-size: 14px;
+}
+/* Hide the external-link "↗" SVG Docusaurus auto-appends to footer href links —
+   the design uses clean text labels only. The class is CSS-module hashed
+   (iconExternalLink_<hash>), so we target by attribute prefix. */
+.footer__link-item svg,
+.footer__link-item [class*="iconExternalLink"] {
+	display: none;
 }
 
 /* ---------- Code ----------
@@ -434,10 +441,38 @@ article table td:nth-child(3) code {
 [data-theme="dark"] main {
 	background-color: #0a0e16;
 }
-/* footer: navy in BOTH the dark theme and the footer--dark variant */
-.footer,
-.footer--dark,
-[data-theme="dark"] .footer {
-	background-color: #0b101a !important;
+/* Footer follows the theme: soft grey panel in light mode, page-matching navy
+   in dark mode. Selectors are theme-scoped so the config's `style: 'dark'`
+   (which adds .footer--dark in BOTH modes) can't drag the light-mode footer
+   into a dark slate. */
+html[data-theme="light"] .footer,
+html[data-theme="light"] .footer--dark {
+	background-color: var(--jc-bg2) !important;
 	border-top: 1px solid var(--jc-border);
+}
+html[data-theme="light"] .footer__link-item {
+	color: var(--jc-text) !important;
+}
+html[data-theme="light"] .footer__title {
+	color: var(--jc-faint) !important;
+}
+html[data-theme="light"] .footer__copyright {
+	color: var(--jc-faint) !important;
+}
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .footer--dark {
+	background-color: #0a0e16 !important;
+	border-top: 1px solid var(--jc-border);
+}
+html[data-theme="dark"] .footer__link-item {
+	color: var(--jc-text) !important;
+}
+html[data-theme="dark"] .footer__title {
+	color: var(--jc-faint) !important;
+}
+html[data-theme="dark"] .footer__copyright {
+	color: var(--jc-faint) !important;
+}
+.footer__link-item:hover {
+	color: var(--jc-gold) !important;
 }

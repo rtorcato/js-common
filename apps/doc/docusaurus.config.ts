@@ -94,7 +94,7 @@ const config: Config = {
 				indexBlog: false,
 				docsRouteBasePath: '/docs',
 				highlightSearchTermsOnTargetPage: true,
-				searchBarShortcutHint: true,
+				searchBarShortcutHint: false,
 			},
 		],
 	],
@@ -132,8 +132,8 @@ const config: Config = {
 				{
 					title: 'Documentation',
 					items: [
-						{ label: 'Install', to: '/docs#install' },
-						{ label: 'Quick start', to: '/docs#quick-start' },
+						{ label: 'Installation', to: '/docs/guides/installation' },
+						{ label: 'Quick start', to: '/docs/guides/quick-start' },
 						{ label: 'All modules', to: '/docs/modules/overview' },
 						{ label: 'API reference', to: '/docs/api' },
 					],
@@ -150,10 +150,6 @@ const config: Config = {
 					title: 'Community',
 					items: [
 						{ label: 'Issues', href: 'https://github.com/rtorcato/js-common/issues' },
-						{
-							label: 'Discussions',
-							href: 'https://github.com/rtorcato/js-common/discussions',
-						},
 						{
 							label: 'License (MIT)',
 							href: 'https://github.com/rtorcato/js-common/blob/main/LICENSE',

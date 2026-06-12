@@ -39,37 +39,52 @@
 }
 .mobileHero {
 	display: none;
-	padding-top: 12px;
+	padding-top: 4px;
 }
-.mobileTitle {
-	margin: 0 0 16px;
-	font-size: 32px;
-	line-height: 1.12;
-	letter-spacing: -0.03em;
-	font-weight: 800;
-	color: var(--jc-heading);
+/* Full-bleed dark brand band: breaks out of the hero's 24px side padding,
+   same in light & dark mode, with vertical padding and no rounded corners.
+   Background matches the brand image's edge color so it's seamless. */
+.mobileBrandBand {
+	margin: 0 -24px 24px;
+	padding: 34px 24px;
+	background: #010813;
+	display: flex;
+	justify-content: center;
 }
-.mobileTagline {
-	margin: 0 0 24px;
-	font-size: 15.5px;
-	line-height: 1.6;
-	color: var(--jc-muted);
-}
-.gold {
-	color: var(--jc-gold);
-	font-weight: 600;
+.mobileBrand {
+	display: block;
+	width: 100%;
+	max-width: 440px;
+	height: auto;
 }
 
 .heroActions {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 22px;
+	margin-top: 32px;
+}
+.heroButtons {
+	display: flex;
 	flex-wrap: wrap;
-	gap: 16px;
+	gap: 14px;
 	justify-content: center;
-	align-items: flex-start;
-	margin-top: 30px;
 }
 .cta {
 	border-radius: 11px;
+}
+.ctaSecondary {
+	border-radius: 11px;
+	background: transparent;
+	border: 1px solid var(--jc-border2);
+	color: var(--jc-heading);
+	font-weight: 600;
+}
+.ctaSecondary:hover {
+	background: var(--jc-surface);
+	border-color: var(--jc-gold-border);
+	color: var(--jc-heading);
 }
 
 /* Code window */
@@ -137,24 +152,22 @@
 .viewAll {
 	display: inline-flex;
 	align-items: center;
-	height: 40px;
-	padding: 0 16px;
+	gap: 8px;
+	height: 42px;
+	padding: 0 18px;
 	background: transparent;
 	border: 1px solid var(--jc-gold-border);
-	border-radius: 11px;
+	border-radius: 10px;
 	color: var(--jc-gold);
 	font-weight: 600;
 	font-size: 14px;
+	white-space: nowrap;
 	text-decoration: none;
-	transition:
-		background 0.15s,
-		color 0.15s,
-		border-color 0.15s;
+	transition: background 0.15s;
 }
 .viewAll:hover {
-	background: var(--jc-gold-fill);
-	border-color: var(--jc-gold-fill);
-	color: var(--jc-on-gold);
+	background: var(--jc-gold-soft);
+	color: var(--jc-gold);
 	text-decoration: none;
 }
 
@@ -272,10 +285,11 @@
 	.mobileHero {
 		display: block;
 	}
-	.heroActions {
+	.heroButtons {
 		flex-direction: column;
+		width: 100%;
 	}
-	.heroActions > * {
+	.heroButtons > * {
 		width: 100%;
 		justify-content: center;
 	}
