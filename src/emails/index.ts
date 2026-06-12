@@ -38,11 +38,6 @@ export function getEmailDomain(email: string): string {
 	return parts.length === 2 ? (parts[1] ?? '') : ''
 }
 
-/**
- * Checks if an email address is from a free provider (e.g., gmail, yahoo, outlook).
- * @param email The email address.
- * @returns True if the email is from a free provider, false otherwise.
- */
 const freeProviders = [
 	'gmail.com',
 	'yahoo.com',
@@ -53,6 +48,12 @@ const freeProviders = [
 	'zoho.com',
 	'mail.com',
 ]
+
+/**
+ * Checks if an email address is from a free provider (e.g., gmail, yahoo, outlook).
+ * @param email The email address.
+ * @returns True if the email is from a free provider, false otherwise.
+ */
 export function isFreeEmailProvider(email: string): boolean {
 	return freeProviders.includes(getEmailDomain(email))
 }

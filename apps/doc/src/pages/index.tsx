@@ -209,7 +209,7 @@ function Hero(): ReactElement {
 					<div className={styles.heroButtons}>
 						<Link
 							className={clsx('button button--primary button--lg', styles.cta)}
-							to="/docs/guides/installation"
+							to="/docs#install"
 						>
 							Get Started →
 						</Link>

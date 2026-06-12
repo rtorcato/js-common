@@ -37,13 +37,15 @@ export function info(message: string): void {
 }
 
 /**
+ * One of the four standard console methods used by `captureConsole`.
+ */
+export type ConsoleLevel = 'log' | 'info' | 'warn' | 'error'
+
+/**
  * Captures all console output and returns a function to restore it.
  * @param callback Function to call with each log message.
  * @returns {() => void} Restore function.
  */
-
-export type ConsoleLevel = 'log' | 'info' | 'warn' | 'error'
-
 export function captureConsole(
 	callback: (type: ConsoleLevel, ...args: unknown[]) => void
 ): () => void {
