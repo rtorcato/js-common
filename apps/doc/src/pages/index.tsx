@@ -179,6 +179,7 @@ toKebabCase('Hello World')
 
 function Hero(): ReactElement {
 	const banner = useBaseUrl('/img/banner.png')
+	const heroBrand = useBaseUrl('/img/hero-brand.png')
 	return (
 		<header className={styles.hero}>
 			<div className={styles.heroGlow} aria-hidden />
@@ -194,22 +195,31 @@ function Hero(): ReactElement {
 
 				{/* Mobile: composed hero */}
 				<div className={styles.mobileHero}>
-					<h1 className={styles.mobileTitle}>Common JavaScript utilities for modern projects.</h1>
-					<p className={styles.mobileTagline}>
-						Tiny, tree-shakeable, TypeScript-first.
-						<br />
-						<span className={styles.gold}>Simple. Reusable. Reliable.</span>
-					</p>
+					<div className={styles.mobileBrandBand}>
+						<img
+							src={heroBrand}
+							alt="js-common — common JavaScript utilities and helpers for modern projects. Simple. Reusable. Reliable."
+							className={styles.mobileBrand}
+						/>
+					</div>
 					<CodeWindow />
 				</div>
 
 				<div className={styles.heroActions}>
-					<Link
-						className={clsx('button button--primary button--lg', styles.cta)}
-						to="/docs#install"
-					>
-						Get Started →
-					</Link>
+					<div className={styles.heroButtons}>
+						<Link
+							className={clsx('button button--primary button--lg', styles.cta)}
+							to="/docs/guides/installation"
+						>
+							Get Started →
+						</Link>
+						<Link
+							className={clsx('button button--lg', styles.ctaSecondary)}
+							to="/docs/modules/overview"
+						>
+							Browse modules
+						</Link>
+					</div>
 					<InstallTabs pkg="@rtorcato/js-common" />
 				</div>
 			</div>
