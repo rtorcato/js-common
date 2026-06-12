@@ -116,7 +116,7 @@ const config: Config = {
 				height: 26,
 			},
 			items: [
-				{ type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
+				{ to: '/docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/modules/overview', position: 'left', label: 'Modules' },
 				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
