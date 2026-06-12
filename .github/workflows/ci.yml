@@ -164,27 +164,27 @@ jobs:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]
         if: needs.check-skip.outputs.should-skip != 'true'
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: ['22', '24']
         steps:
             - name: 📦 Checkout repository
               uses: actions/checkout@v6
-
-            - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
-              with:
-                  node-version: '22'
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
               with:
                   version: latest
 
-            - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+            - name: 📦 Setup Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v6
               with:
-                  path: |
-                      ~/.pnpm-store
-                      node_modules
-                  key: ${{ needs.dependencies.outputs.cache-key }}
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'pnpm'
+
+            - name: 📦 Install dependencies
+              run: pnpm install --frozen-lockfile
 
             - name: 🧪 Run tests
               run: pnpm test
