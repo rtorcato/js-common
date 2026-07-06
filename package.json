@@ -244,9 +244,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.0",
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.3.1",
-    "@rtorcato/js-tooling": "^1.0.9",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@rtorcato/js-tooling": "^2.26.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -260,7 +260,7 @@
     "@types/node": "^24.9.1",
     "@vitest/coverage-istanbul": "^4.0.17",
     "cross-env": "^10.1.0",
-    "esbuild": "^0.27.4",
+    "esbuild": "^0.28.1",
     "fast-check": "^4.8.0",
     "husky": "^9.1.7",
     "jsdom": "^29.0.1",
@@ -277,14 +277,14 @@
     "luxon": "^3.7.2",
     "pino": "^10.1.0",
     "short-uuid": "^6.0.3",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.1",
     "zod": "^4.1.12"
   },
   "optionalDependencies": {
     "@inquirer/prompts": "^8.5.0",
     "chalk": "^5.6.2",
     "chalk-animation": "^2.0.3",
-    "commander": "^14.0.1",
+    "commander": "^15.0.0",
     "figlet": "^1.9.3",
     "gradient-string": "^3.0.0"
   },
