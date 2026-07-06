@@ -179,7 +179,7 @@ const config: Config = {
 							label: 'License (MIT)',
 							href: 'https://github.com/rtorcato/js-common/blob/main/LICENSE',
 						},
-						{ label: 'GitHub profile', href: GITHUB_PROFILE },
+						{ label: '@rtorcato', href: GITHUB_PROFILE },
 					],
 				},
 			],
