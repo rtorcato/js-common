@@ -1,11 +1,15 @@
 /**
  * js-common — Docusaurus theme
  * Drop in at src/css/custom.css (referenced from docusaurus.config presets).
- * Fonts: add the Geist <link> preconnects from docusaurus.config.snippet.ts.
+ *
+ * Consumes the shared @rtorcato base tokens (Geist font + navy surfaces) from
+ * js-tooling via _jt-tokens.css — the canonical source these --jt-* tokens were
+ * extracted from (refresh with `js-tooling copy docusaurus-theme-tokens`). The
+ * gold accent overrides below win.
  */
 
-/* ---------- Fonts ---------- */
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap");
+/* ---------- Shared base (fonts + --jt-* + --ifm surface tokens) ---------- */
+@import "./_jt-tokens.css";
 
 /* ---------- Light (default) ---------- */
 :root {

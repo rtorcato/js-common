@@ -19,12 +19,12 @@ The dev server runs at <http://localhost:4321/js-common>.
 
 ```bash
 pnpm --filter @rtorcato/js-common-docs build
-# output: apps/doc/dist
+# output: apps/docs/dist
 ```
 
 ## Deployment
 
-`.github/workflows/docs.yml` builds and publishes this site to GitHub Pages on every push to `main` that changes `apps/doc/**`. The first deploy requires enabling **Settings → Pages → Build and deployment → Source: GitHub Actions** on the repository.
+`.github/workflows/docs.yml` builds and publishes this site to GitHub Pages on every push to `main` that changes `apps/docs/**`. The first deploy requires enabling **Settings → Pages → Build and deployment → Source: GitHub Actions** on the repository.
 
 ## Structure
 
