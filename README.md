@@ -209,7 +209,7 @@ pnpm run benchmark
 
 ## Documentation site
 
-The full documentation site lives in [`apps/doc`](./apps/doc) and is built with [Astro Starlight](https://starlight.astro.build/). It auto-deploys to GitHub Pages on every push to `main` that touches `apps/doc/**`.
+The full documentation site lives in [`apps/docs`](./apps/docs) and is built with [Docusaurus](https://docusaurus.io/). It auto-deploys to GitHub Pages on every push to `main` that touches `apps/docs/**`.
 
 ```bash
 # Run the docs locally (http://localhost:4321/js-common)

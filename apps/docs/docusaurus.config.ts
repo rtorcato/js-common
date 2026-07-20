@@ -50,7 +50,7 @@ const config: Config = {
 					sidebarPath: './sidebars.ts',
 					// Moved from '/' to '/docs' so the marketing landing (src/pages/index.tsx) owns '/'.
 					routeBasePath: '/docs',
-					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/doc/',
+					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/docs/',
 				},
 				blog: false,
 				theme: {

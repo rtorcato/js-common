@@ -1,7 +1,7 @@
-// Generate module stub pages for apps/doc/docs/modules/.
+// Generate module stub pages for apps/docs/docs/modules/.
 //
 // For every subpath in package.json#exports (except '.' and './types'):
-//   - If apps/doc/docs/modules/<name>.md already exists, skip it (hand-written)
+//   - If apps/docs/docs/modules/<name>.md already exists, skip it (hand-written)
 //   - Otherwise, read src/<name>/index.ts (+ any local re-exports), pull out
 //     `export function`, `export const`, `export class`, `export type`,
 //     `export interface` names plus the first line of the JSDoc above each,
@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url'
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(here, '..')
 const pkg = JSON.parse(readFileSync(resolve(repoRoot, 'package.json'), 'utf8'))
-const docsDir = resolve(repoRoot, 'apps/doc/docs/modules')
+const docsDir = resolve(repoRoot, 'apps/docs/docs/modules')
 mkdirSync(docsDir, { recursive: true })
 
 const EXPORT_NAMED =
