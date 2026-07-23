@@ -1,3 +1,10 @@
+## [2.8.2](https://github.com/rtorcato/js-common/compare/v2.8.1...v2.8.2) (2026-07-23)
+
+
+### Bug Fixes
+
+* **release:** upgrade npm for OIDC trusted publishing ([#110](https://github.com/rtorcato/js-common/issues/110)) ([93db8b5](https://github.com/rtorcato/js-common/commit/93db8b56041e916c63c1e250312e8527df931cc4))
+
 ## [2.8.1](https://github.com/rtorcato/js-common/compare/v2.8.0...v2.8.1) (2026-06-12)
 
 
