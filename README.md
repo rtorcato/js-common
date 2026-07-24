@@ -76,7 +76,7 @@ See [CLI.md](./CLI.md) for complete CLI documentation.
 ```typescript
 // Import specific modules (recommended for tree-shaking)
 import { formatDate, today, daysBetween } from '@rtorcato/js-common/date'
-import { validateEmail, isValidEmail } from '@rtorcato/js-common/emails'
+import { isValidEmail, normalizeEmail } from '@rtorcato/js-common/emails'
 import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
 import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
 import { capitalize, toTitleCase } from '@rtorcato/js-common/formatting'
@@ -121,7 +121,7 @@ import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/
 ### Security & Validation
 ```typescript
 import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/security'
-import { isValidEmail, validateEmail } from '@rtorcato/js-common/emails'
+import { isValidEmail, maskEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
 import { isString, isNumber, isArray, isObject } from '@rtorcato/js-common/validation'
 import { toBoolean, isBoolean, xor } from '@rtorcato/js-common/boolean'
