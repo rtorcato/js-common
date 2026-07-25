@@ -64,6 +64,10 @@ const config: Config = {
 		[
 			'docusaurus-plugin-typedoc',
 			{
+				// Reorder each function's `#### Example` block above `#### Parameters`
+				// so readers see usage first (issue #96). Must re-list the default
+				// `typedoc-plugin-markdown` since setting `plugin` overrides it.
+				plugin: ['typedoc-plugin-markdown', `${__dirname}/typedoc-plugin-reorder-example.mjs`],
 				entryPoints: ['../../src/*/index.ts'],
 				entryPointStrategy: 'expand',
 				exclude: ['../../src/cli/**', '../../src/types/**'],
