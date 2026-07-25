@@ -231,6 +231,11 @@ Contributions are welcome! Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md) for 
 4. Run the test suite: `pnpm test`
 5. Submit a pull request
 
+## Related packages
+
+- [@rtorcato/browser-common](https://github.com/rtorcato/browser-common) — Browser Web API wrappers (clipboard, observers, storage, etc.)
+- [@rtorcato/js-tooling](https://github.com/rtorcato/js-tooling) — Project scaffolding for TypeScript libraries (Biome, Vitest, Husky, semantic-release)
+
 ## License
 
 MIT © [Richard Torcato](https://github.com/rtorcato)
