@@ -20,7 +20,7 @@ updates:
   # reference build. Drop this once typedoc 1.0 ships with TS 7 support.
   ignore:
   - dependency-name: "typescript"
-    update-types: ["version-update:semver-major"]
+    versions: [">=7"]
   # Group updates to reduce PR noise
   groups:
     development-dependencies:
