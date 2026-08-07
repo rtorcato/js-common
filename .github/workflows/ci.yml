@@ -57,7 +57,7 @@ jobs:
               run: echo "key=${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}" >> $GITHUB_OUTPUT
 
             - name: 📦 Cache dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -86,7 +86,7 @@ jobs:
               uses: pnpm/action-setup@v6
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -115,7 +115,7 @@ jobs:
               uses: pnpm/action-setup@v6
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -142,7 +142,7 @@ jobs:
               uses: pnpm/action-setup@v6
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -196,7 +196,7 @@ jobs:
               uses: pnpm/action-setup@v6
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -233,7 +233,7 @@ jobs:
               uses: pnpm/action-setup@v6
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -264,7 +264,7 @@ jobs:
               uses: pnpm/action-setup@v6
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
