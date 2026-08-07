@@ -42,24 +42,22 @@ jobs:
             cache-key: ${{ steps.cache-key.outputs.key }}
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Generate cache key
               id: cache-key
               run: echo "key=${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}" >> $GITHUB_OUTPUT
 
             - name: 📦 Cache dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -77,20 +75,18 @@ jobs:
         if: needs.check-skip.outputs.should-skip != 'true'
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -106,22 +102,20 @@ jobs:
         if: needs.check-skip.outputs.should-skip != 'true' && github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 0
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -137,20 +131,18 @@ jobs:
         if: needs.check-skip.outputs.should-skip != 'true'
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -170,15 +162,13 @@ jobs:
                 node-version: ['22', '24']
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Setup Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'pnpm'
@@ -195,20 +185,18 @@ jobs:
         if: needs.check-skip.outputs.should-skip != 'true'
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -234,20 +222,18 @@ jobs:
         if: needs.check-skip.outputs.should-skip != 'true'
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -263,24 +249,22 @@ jobs:
         if: needs.check-skip.outputs.should-skip != 'true' && github.ref == 'refs/heads/main' && github.event_name == 'push'
         steps:
             - name: 📦 Checkout repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 0
                   token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
             - name: 📦 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: "22"
                   registry-url: https://registry.npmjs.org
 
             - name: 📦 Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: latest
 
             - name: 📦 Restore dependencies cache
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.pnpm-store
@@ -295,9 +279,11 @@ jobs:
             - name: 🏗️ Build for release
               run: pnpm run build-prod
 
+            # OIDC trusted publishing needs npm CLI >= 11.5.1; the runner ships 10.x.
+            - name: 📦 Upgrade npm for OIDC trusted publishing
+              run: npm install -g npm@latest
+
             - name: 🚀 Run semantic-release
               env:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: npx semantic-release

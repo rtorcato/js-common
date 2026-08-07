@@ -1,4 +1,4 @@
-import { buildCode, getEntryPoints, getEntrypointFolders } from '@rtorcato/js-tooling/esbuild'
+import { buildCode, getEntryPoints, getEntrypointFolders } from '@rtorcato/repo-tooling/esbuild'
 
 const folders = await getEntrypointFolders('src')
 // Exclude CLI from library build - it's built separately

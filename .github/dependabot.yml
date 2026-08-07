@@ -25,7 +25,7 @@ updates:
       - "*prettier*"
       - "vitest*"
       - "typescript"
-      - "@rtorcato/js-tooling"
+      - "@rtorcato/repo-tooling"
       - "biome"
       - "husky"
       - "lint-staged"

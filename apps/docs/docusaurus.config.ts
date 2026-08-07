@@ -50,7 +50,7 @@ const config: Config = {
 					sidebarPath: './sidebars.ts',
 					// Moved from '/' to '/docs' so the marketing landing (src/pages/index.tsx) owns '/'.
 					routeBasePath: '/docs',
-					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/doc/',
+					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/docs/',
 				},
 				blog: false,
 				theme: {
@@ -150,7 +150,7 @@ const config: Config = {
 					title: 'Sibling projects',
 					items: [
 						{ label: 'browser-common', href: 'https://rtorcato.github.io/browser-common/' },
-						{ label: 'js-tooling', href: 'https://rtorcato.github.io/js-tooling/' },
+						{ label: 'repo-tooling', href: 'https://rtorcato.github.io/repo-tooling/' },
 						{ label: 'swift-common', href: 'https://rtorcato.github.io/swift-common/' },
 					],
 				},

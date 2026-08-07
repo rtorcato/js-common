@@ -2,7 +2,10 @@
 
 ![js-common banner](./banner.png)
 
+[![CI](https://github.com/rtorcato/js-common/actions/workflows/ci.yml/badge.svg)](https://github.com/rtorcato/js-common/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/%40rtorcato%2Fjs-common.svg)](https://badge.fury.io/js/%40rtorcato%2Fjs-common)
+[![npm downloads](https://img.shields.io/npm/dm/@rtorcato/js-common.svg)](https://www.npmjs.com/package/@rtorcato/js-common)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/@rtorcato/js-common)](https://bundlephobia.com/package/@rtorcato/js-common)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.0.0-brightgreen.svg)](https://nodejs.org/)
@@ -76,7 +79,7 @@ See [CLI.md](./CLI.md) for complete CLI documentation.
 ```typescript
 // Import specific modules (recommended for tree-shaking)
 import { formatDate, today, daysBetween } from '@rtorcato/js-common/date'
-import { validateEmail, isValidEmail } from '@rtorcato/js-common/emails'
+import { isValidEmail, normalizeEmail } from '@rtorcato/js-common/emails'
 import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
 import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
 import { capitalize, toTitleCase } from '@rtorcato/js-common/formatting'
@@ -121,7 +124,7 @@ import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/
 ### Security & Validation
 ```typescript
 import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/security'
-import { isValidEmail, validateEmail } from '@rtorcato/js-common/emails'
+import { isValidEmail, maskEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
 import { isString, isNumber, isArray, isObject } from '@rtorcato/js-common/validation'
 import { toBoolean, isBoolean, xor } from '@rtorcato/js-common/boolean'
@@ -209,7 +212,7 @@ pnpm run benchmark
 
 ## Documentation site
 
-The full documentation site lives in [`apps/doc`](./apps/doc) and is built with [Astro Starlight](https://starlight.astro.build/). It auto-deploys to GitHub Pages on every push to `main` that touches `apps/doc/**`.
+The full documentation site lives in [`apps/docs`](./apps/docs) and is built with [Docusaurus](https://docusaurus.io/). It auto-deploys to GitHub Pages on every push to `main` that touches `apps/docs/**`.
 
 ```bash
 # Run the docs locally (http://localhost:4321/js-common)
@@ -230,6 +233,11 @@ Contributions are welcome! Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md) for 
 3. Make your changes with tests
 4. Run the test suite: `pnpm test`
 5. Submit a pull request
+
+## Related packages
+
+- [@rtorcato/browser-common](https://github.com/rtorcato/browser-common) — Browser Web API wrappers (clipboard, observers, storage, etc.)
+- [@rtorcato/repo-tooling](https://github.com/rtorcato/repo-tooling) — Project scaffolding for TypeScript libraries (Biome, Vitest, Husky, semantic-release)
 
 ## License
 
