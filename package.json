@@ -258,7 +258,7 @@
     "@types/chalk-animation": "^1.6.3",
     "@types/figlet": "^1.7.0",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^24.9.1",
+    "@types/node": "^26.1.2",
     "@vitest/coverage-v8": "^4.0.17",
     "cross-env": "^10.1.0",
     "esbuild": "^0.27.4",
@@ -269,7 +269,7 @@
     "rimraf": "^6.0.1",
     "semantic-release": "^25.0.1",
     "size-limit": "^12.1.0",
-    "typescript": "^6.0.2",
+    "typescript": "^5.9.3",
     "vitest": "^4.0.17"
   },
   "dependencies": {
