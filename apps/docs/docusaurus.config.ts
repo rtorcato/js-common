@@ -2,6 +2,21 @@ import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
 
+// The @rtorcato open-source family. Surfaced as a navbar "Projects" dropdown
+// (Docusaurus renders navbar items in the mobile menu too) and in the footer,
+// so every sibling site cross-links to the rest. Keep in sync across repos.
+const GITHUB_PROFILE = 'https://github.com/rtorcato'
+const PROJECT_FAMILY = [
+	{ label: 'js-common', href: 'https://rtorcato.github.io/js-common/' },
+	{ label: 'api-common', href: 'https://rtorcato.github.io/api-common/' },
+	{ label: 'browser-common', href: 'https://rtorcato.github.io/browser-common/' },
+	{ label: 'db-common', href: 'https://rtorcato.github.io/db-common/' },
+	{ label: 'cf-common', href: 'https://rtorcato.github.io/cf-common/' },
+	{ label: 'react-common', href: 'https://github.com/rtorcato/react-common' },
+	{ label: 'swift-common', href: 'https://rtorcato.github.io/swift-common/' },
+	{ label: 'repo-tooling', href: 'https://rtorcato.github.io/repo-tooling/' },
+]
+
 const config: Config = {
 	title: 'js-common',
 	tagline: 'Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.',
@@ -64,6 +79,10 @@ const config: Config = {
 		[
 			'docusaurus-plugin-typedoc',
 			{
+				// Reorder each function's `#### Example` block above `#### Parameters`
+				// so readers see usage first (issue #96). Must re-list the default
+				// `typedoc-plugin-markdown` since setting `plugin` overrides it.
+				plugin: ['typedoc-plugin-markdown', `${__dirname}/typedoc-plugin-reorder-example.mjs`],
 				entryPoints: ['../../src/*/index.ts'],
 				entryPointStrategy: 'expand',
 				exclude: ['../../src/cli/**', '../../src/types/**'],
@@ -120,6 +139,12 @@ const config: Config = {
 				{ to: '/docs/modules/overview', position: 'left', label: 'Modules' },
 				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
+					type: 'dropdown',
+					label: 'Projects',
+					position: 'left',
+					items: [{ label: 'All on GitHub →', href: GITHUB_PROFILE }, ...PROJECT_FAMILY],
+				},
+				{
 					href: 'https://github.com/rtorcato/js-common',
 					label: 'GitHub',
 					position: 'right',
@@ -147,12 +172,8 @@ const config: Config = {
 					],
 				},
 				{
-					title: 'Sibling projects',
-					items: [
-						{ label: 'browser-common', href: 'https://rtorcato.github.io/browser-common/' },
-						{ label: 'repo-tooling', href: 'https://rtorcato.github.io/repo-tooling/' },
-						{ label: 'swift-common', href: 'https://rtorcato.github.io/swift-common/' },
-					],
+					title: 'Projects',
+					items: PROJECT_FAMILY,
 				},
 				{
 					title: 'Community',
@@ -162,6 +183,7 @@ const config: Config = {
 							label: 'License (MIT)',
 							href: 'https://github.com/rtorcato/js-common/blob/main/LICENSE',
 						},
+						{ label: '@rtorcato', href: GITHUB_PROFILE },
 					],
 				},
 			],
