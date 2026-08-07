@@ -310,10 +310,10 @@ const SIBLINGS: Sibling[] = [
 		dest: 'Docs',
 	},
 	{
-		name: '@rtorcato/js-tooling',
+		name: '@rtorcato/repo-tooling',
 		tagline:
 			'Shared Biome, TypeScript, Vitest and semantic-release presets that power the @rtorcato/* family.',
-		href: 'https://rtorcato.github.io/js-tooling/',
+		href: 'https://rtorcato.github.io/repo-tooling/',
 		dest: 'Docs',
 	},
 	{

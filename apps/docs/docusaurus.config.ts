@@ -14,7 +14,7 @@ const PROJECT_FAMILY = [
 	{ label: 'cf-common', href: 'https://rtorcato.github.io/cf-common/' },
 	{ label: 'react-common', href: 'https://github.com/rtorcato/react-common' },
 	{ label: 'swift-common', href: 'https://rtorcato.github.io/swift-common/' },
-	{ label: 'js-tooling', href: 'https://rtorcato.github.io/js-tooling/' },
+	{ label: 'repo-tooling', href: 'https://rtorcato.github.io/repo-tooling/' },
 ]
 
 const config: Config = {
@@ -65,7 +65,7 @@ const config: Config = {
 					sidebarPath: './sidebars.ts',
 					// Moved from '/' to '/docs' so the marketing landing (src/pages/index.tsx) owns '/'.
 					routeBasePath: '/docs',
-					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/doc/',
+					editUrl: 'https://github.com/rtorcato/js-common/edit/main/apps/docs/',
 				},
 				blog: false,
 				theme: {
