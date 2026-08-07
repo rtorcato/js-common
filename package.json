@@ -287,7 +287,8 @@
     "chalk-animation": "^2.0.3",
     "commander": "^14.0.1",
     "figlet": "^1.9.3",
-    "gradient-string": "^3.0.0"
+    "gradient-string": "^3.0.0",
+    "pino-pretty": "^13.0.0"
   },
   "config": {
     "commitizen": {
