@@ -1,5 +1,5 @@
 import { configDefaults, mergeConfig } from 'vitest/config'
-import base from '@rtorcato/js-tooling/vitest/config'
+import base from '@rtorcato/repo-tooling/vitest/config'
 
 export default mergeConfig(base, {
 	test: {

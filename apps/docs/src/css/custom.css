@@ -3,8 +3,8 @@
  * Drop in at src/css/custom.css (referenced from docusaurus.config presets).
  *
  * Consumes the shared @rtorcato base tokens (Geist font + navy surfaces) from
- * js-tooling via _jt-tokens.css — the canonical source these --jt-* tokens were
- * extracted from (refresh with `js-tooling copy docusaurus-theme-tokens`). The
+ * repo-tooling via _jt-tokens.css — the canonical source these --jt-* tokens were
+ * extracted from (refresh with `repo-tooling copy docusaurus-theme-tokens`). The
  * gold accent overrides below win.
  */
 
