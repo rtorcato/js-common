@@ -16,6 +16,11 @@ updates:
   commit-message:
     prefix: "chore"
     include: "scope"
+  # typedoc peers cap at TypeScript 6.0.x, so TS 7 breaks the docs API
+  # reference build. Drop this once typedoc 1.0 ships with TS 7 support.
+  ignore:
+  - dependency-name: "typescript"
+    update-types: ["version-update:semver-major"]
   # Group updates to reduce PR noise
   groups:
     development-dependencies:
