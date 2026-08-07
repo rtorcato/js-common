@@ -1,4 +1,4 @@
-import preset from '@rtorcato/js-tooling/semantic-release/github'
+import preset from '@rtorcato/repo-tooling/semantic-release/github'
 
 export default {
 	...preset,

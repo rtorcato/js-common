@@ -150,7 +150,7 @@ const config: Config = {
 					title: 'Sibling projects',
 					items: [
 						{ label: 'browser-common', href: 'https://rtorcato.github.io/browser-common/' },
-						{ label: 'js-tooling', href: 'https://rtorcato.github.io/js-tooling/' },
+						{ label: 'repo-tooling', href: 'https://rtorcato.github.io/repo-tooling/' },
 						{ label: 'swift-common', href: 'https://rtorcato.github.io/swift-common/' },
 					],
 				},
