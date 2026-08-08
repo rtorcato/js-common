@@ -16,3 +16,10 @@ import { assert, createCustomError, getErrorMessage } from '@rtorcato/js-common/
 | `getErrorMessage` | Gets the error message from an unknown error value. |
 | `isErrorName` | Checks if an error is an instance of a specific error name. |
 | `tryWithFallback` | Wraps a function and catches errors, returning a fallback value if an error occurs. |
+
+## See also
+
+- [try](./try.md) — `Result` tuples instead of thrown exceptions
+- [promises](./promises.md) — delay, timeout and settle helpers
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [logging](./logging.md) — leveled logging and console capture

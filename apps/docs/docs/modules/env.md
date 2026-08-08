@@ -18,3 +18,10 @@ import { RootApiEnvSchema, checkEnv, getENV } from '@rtorcato/js-common/env'
 | `isDev` | Determines if the current environment is set to development. |
 | `isProd` | Determines if the current environment is set to production. |
 | `isTest` | Determines if the current environment is set to test. |
+
+## See also
+
+- [process](./process.md) — cwd, pid, uptime, exit, CI detection
+- [node](./node.md) — Node version checks and optional requires
+- [os](./os.md) — platform, arch, home and temp directories
+- [console](./console.md) — clear or silence console output

@@ -50,3 +50,10 @@ import {
 ## Full reference
 
 See the [`datetime` API reference](../api/datetime) for individual function signatures.
+
+## See also
+
+- [date](./date.md) — calendar-day helpers — add, diff, compare, format
+- [time](./time.md) — time-of-day parsing and `HH:MM:SS` formatting
+- [interval](./interval.md) — run something repeatedly on a timer
+- [formatting](./formatting.md) — padding, thousands separators, percentages

@@ -6,7 +6,7 @@ Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue �
 
 - [ ] [#82](https://github.com/rtorcato/js-common/issues/82) — Runnable examples on every function (input → output snippets; stretch: live playground)
 - [ ] [#83](https://github.com/rtorcato/js-common/issues/83) — Module overview prose, not just tables (when to reach for it + design rationale)
-- [ ] [#84](https://github.com/rtorcato/js-common/issues/84) — "See also" cross-links between related modules
+- [x] [#84](https://github.com/rtorcato/js-common/issues/84) — "See also" cross-links between related modules
 - [ ] [#85](https://github.com/rtorcato/js-common/issues/85) — Recipes / cookbook section (task-oriented pages composing multiple modules)
 - [ ] [#86](https://github.com/rtorcato/js-common/issues/86) — OG/social card images, custom 404, `og:image` metadata
 - [x] [#87](https://github.com/rtorcato/js-common/issues/87) — Surface migration page from homepage hero

@@ -18,3 +18,10 @@ import { FileExtension, MimeType, MimeValue } from '@rtorcato/js-common/mime-typ
 | `lookup` | Lookup the MIME type for a file path/extension. |
 | `mimeTypes` | Full MIME-type database keyed by `MimeType`, with `source`, `extensions`, and `compressible` metadata per entry. |
 | `types` | Map from `FileExtension` to its canonical `MimeType`, populated from the database. |
+
+## See also
+
+- [file](./file.md) — read, write and delete files
+- [fetch](./fetch.md) — JSON helpers and fetch with a timeout
+- [url](./url.md) — parse, validate and edit URLs and query params
+- [node](./node.md) — Node version checks and optional requires

@@ -15,3 +15,10 @@ import { abortAfter, abortPromise, createAbortController } from '@rtorcato/js-co
 | `abortPromise` | Returns a promise that rejects when the given AbortSignal is aborted. |
 | `createAbortController` | Creates a new AbortController and returns its controller and signal. |
 | `withAbort` | Wraps a promise and rejects it if the signal is aborted. |
+
+## See also
+
+- [promises](./promises.md) — delay, timeout and settle helpers
+- [sleep](./sleep.md) — await a fixed or random delay
+- [fetch](./fetch.md) — JSON helpers and fetch with a timeout
+- [try](./try.md) — `Result` tuples instead of thrown exceptions

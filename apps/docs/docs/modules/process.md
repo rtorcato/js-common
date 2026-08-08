@@ -17,3 +17,10 @@ import { exitProcess, getCwd, getProcessId } from '@rtorcato/js-common/process'
 | `getProcessPlatform` | Returns the current process platform (Node.js only). |
 | `getProcessUptime` | Returns the current process uptime in seconds (Node.js only). |
 | `isCI` | Returns true if the process is running in a CI environment (Node.js only). |
+
+## See also
+
+- [node](./node.md) — Node version checks and optional requires
+- [os](./os.md) — platform, arch, home and temp directories
+- [env](./env.md) — read env vars and branch on `NODE_ENV`
+- [console](./console.md) — clear or silence console output
