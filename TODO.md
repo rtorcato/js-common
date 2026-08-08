@@ -9,7 +9,7 @@ Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue �
 - [x] [#84](https://github.com/rtorcato/js-common/issues/84) — "See also" cross-links between related modules
 - [ ] [#85](https://github.com/rtorcato/js-common/issues/85) — Recipes / cookbook section (task-oriented pages composing multiple modules)
 - [ ] [#86](https://github.com/rtorcato/js-common/issues/86) — OG/social card images, custom 404, `og:image` metadata
-- [ ] [#87](https://github.com/rtorcato/js-common/issues/87) — Surface migration page from homepage hero
+- [x] [#87](https://github.com/rtorcato/js-common/issues/87) — Surface migration page from homepage hero
 - [ ] [#74](https://github.com/rtorcato/js-common/issues/74) — README references undefined export `validateEmail`
 - [ ] [#77](https://github.com/rtorcato/js-common/issues/77) — Add "Related packages" section linking browser-common and js-tooling to README
 - [ ] [#72](https://github.com/rtorcato/js-common/issues/72) — Cross-link sibling repos (browser-common, js-tooling, swift-common) from docs
