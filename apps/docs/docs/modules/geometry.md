@@ -17,3 +17,9 @@ import { angle2D, distance2D, midpoint2D } from '@rtorcato/js-common/geometry'
 | `pointInRect` | Checks if a point is inside a rectangle. |
 | `polygonArea` | Calculates the area of a polygon given its vertices (Shoelace formula). |
 | `rectsOverlap` | Checks if two rectangles overlap. |
+
+## See also
+
+- [math](./math.md) — add, subtract, multiply, divide
+- [numbers](./numbers.md) — sum, average, clamp, roundTo
+- [colors](./colors.md) — hex/RGB conversion, lighten, darken

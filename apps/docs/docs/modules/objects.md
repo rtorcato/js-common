@@ -16,3 +16,10 @@ import { deepClone, deepMerge, isPlainObject } from '@rtorcato/js-common/objects
 | `isPlainObject` | Returns true if the value is a plain object (not null, not array, not function). |
 | `omit` | Returns a shallow copy of an object with the given keys omitted. |
 | `pick` | Returns a shallow copy of an object with only the given keys. |
+
+## See also
+
+- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [maps](./maps.md) — merge, invert and convert `Map`s
+- [json](./json.md) — safe parse/stringify and JSON deep clone
+- [sets](./sets.md) — union, intersection, difference, subset checks

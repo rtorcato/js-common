@@ -13,3 +13,9 @@ import { clearConsole, disableConsole } from '@rtorcato/js-common/console'
 | --- | --- |
 | `clearConsole` | Clears the console. |
 | `disableConsole` | @fileoverview Console utility functions for logging and disabling console output in production. |
+
+## See also
+
+- [logging](./logging.md) — leveled logging and console capture
+- [logger](./logger.md) — pre-configured Pino logger
+- [env](./env.md) — read env vars and branch on `NODE_ENV`

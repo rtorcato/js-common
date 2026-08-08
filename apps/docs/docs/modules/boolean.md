@@ -17,3 +17,9 @@ import { and, isBoolean, not } from '@rtorcato/js-common/boolean'
 | `or` | Logical OR for two booleans. |
 | `toBoolean` | Converts a value to a boolean. |
 | `xor` | Returns the logical exclusive OR (XOR) of two booleans. |
+
+## See also
+
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [numbers](./numbers.md) — sum, average, clamp, roundTo
+- [math](./math.md) — add, subtract, multiply, divide

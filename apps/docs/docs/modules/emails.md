@@ -16,3 +16,10 @@ import { getEmailDomain, isFreeEmailProvider, isValidEmail } from '@rtorcato/js-
 | `isValidEmail` | Validates if a string is a valid email address (simple regex). |
 | `maskEmail` | Masks an email address for privacy (e.g., j***@domain.com). |
 | `normalizeEmail` | Normalizes an email address by trimming and converting to lowercase. |
+
+## See also
+
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [security](./security.md) — password strength, secure tokens, sanitizing
+- [url](./url.md) — parse, validate and edit URLs and query params
+- [strings](./strings.md) — slugify, truncate, casing, emoji stripping

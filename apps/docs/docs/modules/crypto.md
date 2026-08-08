@@ -16,3 +16,9 @@ import { base64Decode, base64Encode, hashString } from '@rtorcato/js-common/cryp
 | `hashString` | Hashes a string using the specified algorithm. |
 | `hmacHash` | Creates an HMAC hash of a string using a secret and algorithm. |
 | `randomHex` | Generates a random hex string of the specified length (in bytes). |
+
+## See also
+
+- [security](./security.md) — password strength, secure tokens, sanitizing
+- [uuid](./uuid.md) — generate and validate UUIDs
+- [random](./random.md) — random ints, floats, strings and array picks

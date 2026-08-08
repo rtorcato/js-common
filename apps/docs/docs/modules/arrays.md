@@ -19,3 +19,10 @@ import { chunk, compact, first } from '@rtorcato/js-common/arrays'
 | `last` | Returns the last element of an array, or undefined if the array is empty. |
 | `shuffle` | Shuffles an array using the Fisher-Yates algorithm. |
 | `unique` | Removes duplicate values from an array while preserving order. |
+
+## See also
+
+- [objects](./objects.md) — pick, omit, deepMerge, deepClone
+- [sets](./sets.md) — union, intersection, difference, subset checks
+- [maps](./maps.md) — merge, invert and convert `Map`s
+- [random](./random.md) — random ints, floats, strings and array picks

@@ -100,3 +100,10 @@ Pass a second `now` argument to compare against a fixed reference date (useful f
 ## Full reference
 
 See the [`date` API reference](../api/date) for individual function signatures.
+
+## See also
+
+- [datetime](./datetime.md) — ISO strings, ISO weeks and Unix timestamps
+- [time](./time.md) — time-of-day parsing and `HH:MM:SS` formatting
+- [interval](./interval.md) — run something repeatedly on a timer
+- [formatting](./formatting.md) — padding, thousands separators, percentages

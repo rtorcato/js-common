@@ -18,3 +18,9 @@ import { darken, hexToRgb, isValidHex } from '@rtorcato/js-common/colors'
 | `matchingTextColor` | Generates a random color with a given alpha value. |
 | `randomColor` | Generates a random hex color string. |
 | `rgbToHex` | Converts RGB values to a hex color string. |
+
+## See also
+
+- [random](./random.md) — random ints, floats, strings and array picks
+- [geometry](./geometry.md) — 2D distance, angle, midpoint, hit-testing
+- [formatting](./formatting.md) — padding, thousands separators, percentages

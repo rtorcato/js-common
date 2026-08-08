@@ -16,3 +16,10 @@ import { containsHtml, escapeHtml, stripHtmlTags } from '@rtorcato/js-common/htm
 | `stripHtmlTags` | Strips all HTML tags from a string. |
 | `textToHtml` | Converts a plain text string to a simple HTML paragraph (\n to ). |
 | `unescapeHtml` | Unescapes HTML entities in a string. |
+
+## See also
+
+- [strings](./strings.md) — slugify, truncate, casing, emoji stripping
+- [security](./security.md) — password strength, secure tokens, sanitizing
+- [regex](./regex.md) — escape patterns, match-all, split by regex
+- [formatting](./formatting.md) — padding, thousands separators, percentages
