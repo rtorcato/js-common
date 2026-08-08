@@ -1,6 +1,11 @@
 import * as fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { between, clamp, max, min, sum } from './index'
+import { between, clamp, max, min, roundTo, sum } from './index'
+
+// `roundTo` is `Math.round(value * 10**decimals) / 10**decimals`, so the magnitude
+// is capped where the multiply/divide round trip stays exact.
+const roundable = fc.double({ min: -1e6, max: 1e6, noNaN: true, noDefaultInfinity: true })
+const decimals = fc.integer({ min: 0, max: 6 })
 
 describe('numbers — properties', () => {
 	it('clamp result is always inside [min, max]', () => {
@@ -58,6 +63,23 @@ describe('numbers — properties', () => {
 				const hi = Math.max(a, b)
 				const inside = clamp(value, lo, hi)
 				expect(between(inside, lo, hi)).toBe(true)
+			})
+		)
+	})
+
+	it('roundTo is idempotent', () => {
+		fc.assert(
+			fc.property(roundable, decimals, (value, places) => {
+				const once = roundTo(value, places)
+				expect(roundTo(once, places)).toBe(once)
+			})
+		)
+	})
+
+	it('roundTo never moves a value by more than half a step', () => {
+		fc.assert(
+			fc.property(roundable, decimals, (value, places) => {
+				expect(Math.abs(roundTo(value, places) - value)).toBeLessThanOrEqual(0.5 / 10 ** places)
 			})
 		)
 	})
