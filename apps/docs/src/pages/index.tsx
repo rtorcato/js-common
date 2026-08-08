@@ -2,7 +2,7 @@ import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
-import type { ReactElement } from 'react'
+import { type ReactElement, useEffect, useState } from 'react'
 import InstallTabs from '@site/src/components/InstallTabs'
 import styles from './index.module.css'
 
@@ -221,9 +221,51 @@ function Hero(): ReactElement {
 						</Link>
 					</div>
 					<InstallTabs pkg="@rtorcato/js-common" />
+					<MigrationCallout />
 				</div>
 			</div>
 		</header>
+	)
+}
+
+const MIGRATION_DISMISSED = 'jc-migration-callout-dismissed'
+
+function MigrationCallout(): ReactElement | null {
+	// Starts hidden: localStorage doesn't exist during the prerender, and reading it
+	// in an effect means people who dismissed it never see a flash of the callout.
+	const [visible, setVisible] = useState(false)
+	useEffect(() => {
+		try {
+			setVisible(localStorage.getItem(MIGRATION_DISMISSED) !== '1')
+		} catch {
+			// Storage blocked (e.g. all cookies disabled) — show it, just don't persist.
+			setVisible(true)
+		}
+	}, [])
+
+	if (!visible) return null
+
+	return (
+		<div className={styles.migration}>
+			<span>
+				Coming from 1.x? <Link to="/docs/guides/migration">Read the migration guide</Link>.
+			</span>
+			<button
+				type="button"
+				className={styles.migrationDismiss}
+				aria-label="Dismiss migration guide notice"
+				onClick={() => {
+					setVisible(false)
+					try {
+						localStorage.setItem(MIGRATION_DISMISSED, '1')
+					} catch {
+						// Storage blocked — dismissal just won't persist across reloads.
+					}
+				}}
+			>
+				×
+			</button>
+		</div>
 	)
 }
 
