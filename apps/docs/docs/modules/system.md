@@ -18,3 +18,10 @@ import { getPlatform, isAndroid, isIOS } from '@rtorcato/js-common/system'
 | `isMacOs` | Checks if the current OS is macOS. |
 | `isTouchDevice` | Checks if the device supports touch events. |
 | `isWindows` | Checks if the current OS is Windows. |
+
+## See also
+
+- [os](./os.md) — platform, arch, home and temp directories
+- [node](./node.md) — Node version checks and optional requires
+- [env](./env.md) — read env vars and branch on `NODE_ENV`
+- [process](./process.md) — cwd, pid, uptime, exit, CI detection

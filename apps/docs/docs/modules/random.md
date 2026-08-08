@@ -16,3 +16,10 @@ import { randomBool, randomElement, randomFloat } from '@rtorcato/js-common/rand
 | `randomFloat` | Returns a random float between min (inclusive) and max (exclusive). |
 | `randomInt` | Returns a random integer between min (inclusive) and max (inclusive). |
 | `randomString` | Returns a random string of the given length using the given characters. |
+
+## See also
+
+- [numbers](./numbers.md) — sum, average, clamp, roundTo
+- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [uuid](./uuid.md) — generate and validate UUIDs
+- [crypto](./crypto.md) — hashing, HMAC, base64, random hex

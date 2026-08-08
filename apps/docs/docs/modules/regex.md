@@ -16,3 +16,10 @@ import { escapeRegExp, matchAll, replaceAllRegex } from '@rtorcato/js-common/reg
 | `replaceAllRegex` | Replaces all matches of a regex pattern in a string with a replacement. |
 | `splitByRegex` | Splits a string by a regex pattern. |
 | `testRegex` | Tests if a string matches a given regex pattern. |
+
+## See also
+
+- [strings](./strings.md) — slugify, truncate, casing, emoji stripping
+- [html](./html.md) — escape, unescape and strip HTML
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [formatting](./formatting.md) — padding, thousands separators, percentages

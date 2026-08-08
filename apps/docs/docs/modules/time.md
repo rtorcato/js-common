@@ -42,3 +42,10 @@ import {
 ## Full reference
 
 See the [`time` API reference](../api/time) for individual function signatures.
+
+## See also
+
+- [date](./date.md) — calendar-day helpers — add, diff, compare, format
+- [datetime](./datetime.md) — ISO strings, ISO weeks and Unix timestamps
+- [interval](./interval.md) — run something repeatedly on a timer
+- [formatting](./formatting.md) — padding, thousands separators, percentages

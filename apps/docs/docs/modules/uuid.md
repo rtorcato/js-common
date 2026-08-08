@@ -13,3 +13,9 @@ const id = generateUUID()
 isValidUUID(id)        // true
 isValidUUID('not-a-id') // false
 ```
+
+## See also
+
+- [crypto](./crypto.md) — hashing, HMAC, base64, random hex
+- [random](./random.md) — random ints, floats, strings and array picks
+- [security](./security.md) — password strength, secure tokens, sanitizing

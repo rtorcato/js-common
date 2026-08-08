@@ -18,3 +18,9 @@ import { arrayToSet, difference, intersection } from '@rtorcato/js-common/sets'
 | `isSuperset` | Returns true if set a is a superset of set b. |
 | `setToArray` | Converts a set to an array. |
 | `union` | Returns the union of two sets. |
+
+## See also
+
+- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [objects](./objects.md) — pick, omit, deepMerge, deepClone
+- [maps](./maps.md) — merge, invert and convert `Map`s

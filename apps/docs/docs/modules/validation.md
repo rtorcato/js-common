@@ -19,3 +19,10 @@ import { isArray, isBoolean, isDefined } from '@rtorcato/js-common/validation'
 | `isObject` | Checks if a value is an object (but not null or array). |
 | `isString` | Check if a value is a string. |
 | `isUrl` | Checks if a string is a valid URL. |
+
+## See also
+
+- [boolean](./boolean.md) — logical operators and boolean coercion
+- [emails](./emails.md) — validate, normalize and mask email addresses
+- [url](./url.md) — parse, validate and edit URLs and query params
+- [strings](./strings.md) — slugify, truncate, casing, emoji stripping
