@@ -87,6 +87,43 @@
 	color: var(--jc-heading);
 }
 
+/* Migration callout */
+.migration {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 8px 8px 16px;
+	background: var(--jc-gold-soft);
+	border: 1px solid var(--jc-gold-border);
+	border-radius: 14px;
+	font-size: 14px;
+	color: var(--jc-text);
+}
+.migration a {
+	color: var(--jc-gold);
+	font-weight: 600;
+}
+.migrationDismiss {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 26px;
+	height: 26px;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	border-radius: 8px;
+	color: var(--jc-muted);
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+}
+.migrationDismiss:hover {
+	background: var(--jc-surface);
+	color: var(--jc-heading);
+}
+
 /* Code window */
 .codeWindow {
 	border-radius: 14px;
