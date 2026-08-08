@@ -285,34 +285,36 @@ body,
 }
 
 /* ---------- Code ----------
-   Prism is vsDark in both light & dark mode (to match the navy aesthetic),
-   so fenced code blocks must stay dark in BOTH themes — otherwise the pale
-   vsDark tokens wash out on a light background. Inline code (the `code` pills)
-   keeps the themed --ifm-code-background and stays readable. */
+   Prism follows the theme: `theme` (the light slot) is github, `darkTheme` is
+   vsDark — see docusaurus.config.ts. The surface follows with it via the themed
+   tokens, so the block is light-grey on the white page and navy in dark mode.
+   The !important beats prism-react-renderer's inline `plain` style on <pre>,
+   which no selector can outrank. Inline code (the `code` pills) keeps the
+   themed --ifm-code-background and is untouched here. */
 .theme-code-block,
 div[class*="codeBlockContainer"],
 pre[class*="language-"] {
 	border: 1px solid var(--jc-border);
 	border-radius: 12px;
-	background: #0c111b !important;
+	background: var(--jc-code-bg) !important;
 }
 .theme-code-block code,
 pre[class*="language-"] code {
 	background: transparent !important;
-	color: #dfe5ee;
+	color: var(--jc-text);
 }
 /* code block toolbar/title bar (when a title is set) */
 div[class*="codeBlockTitle"] {
-	background: #0a0e16 !important;
-	color: #94a1b4 !important;
+	background: var(--jc-bg2) !important;
+	color: var(--jc-muted) !important;
 	border-bottom: 1px solid var(--jc-border);
 }
-/* in light mode give the dark block a touch more separation from the white page */
+/* light mode: the block sits on white, so it needs the stronger border to read
+   as a distinct surface */
 [data-theme="light"] .theme-code-block,
 [data-theme="light"] div[class*="codeBlockContainer"],
 [data-theme="light"] pre[class*="language-"] {
-	border-color: rgba(12, 18, 28, 0.16);
-	box-shadow: 0 8px 24px -18px rgba(12, 18, 28, 0.5);
+	border-color: var(--jc-border2);
 }
 code {
 	font-family: var(--ifm-font-family-monospace);
