@@ -3,6 +3,8 @@ title: Arrays
 description: Utilities exported from @rtorcato/js-common/arrays.
 ---
 
+Small, non-mutating helpers for everyday array work — chunking, grouping, deduping, taking the ends. Every function returns a new array and leaves its input untouched, including `shuffle`, which copies before running its Fisher-Yates pass. `unique` dedupes through a `Set`, so equality is SameValueZero — primitives compare by value, objects by reference, and two structurally identical objects both survive; use `groupBy` with a key function when you need value-based deduping.
+
 ```ts
 import { chunk, compact, first } from '@rtorcato/js-common/arrays'
 ```
