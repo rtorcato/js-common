@@ -1,0 +1,30 @@
+{
+  "$schema": "https://rtorcato.github.io/repo-tooling/schemas/lockfile.json",
+  "version": 2,
+  "config": {
+    "projectName": "@rtorcato/js-common",
+    "projectType": "library",
+    "typescript": {
+      "enabled": true,
+      "config": "base"
+    },
+    "linting": {
+      "tool": "biome",
+      "eslintConfig": "base"
+    },
+    "formatting": {
+      "tool": "biome"
+    },
+    "testing": {
+      "framework": "vitest",
+      "environment": "node"
+    },
+    "gitHooks": true,
+    "commitLint": true,
+    "semanticRelease": true,
+    "securityAutomation": true,
+    "bundler": "esbuild"
+  },
+  "writtenBy": "@rtorcato/repo-tooling@3.4.0",
+  "writtenAt": "2026-08-11T20:24:34.366Z"
+}
