@@ -252,7 +252,7 @@ Live site: <https://rtorcato.github.io/js-common/>
 
 ## Roadmap
 
-[ROADMAP.md](./ROADMAP.md) tracks the three stages — shipped 2.x modules, the beta npm preview, and the v1.0 stable API — each mirrored by a [GitHub milestone](https://github.com/rtorcato/js-common/milestones). It also carries the release checklist for any change that touches a public API.
+Direction and progress are tracked entirely on GitHub — see the [milestones](https://github.com/rtorcato/js-common/milestones) for the stages (shipped 2.x modules, the beta npm preview, the v1.0 stable API) and the [open issues](https://github.com/rtorcato/js-common/issues) for day-to-day work.
 
 ## Contributing
 
