@@ -15,7 +15,6 @@ describe('functions — types', () => {
 	it('debounce preserves the wrapped function parameters', () => {
 		const fn = (_a: string, _b: number) => {}
 		const debounced = debounce(fn, 100)
-		expectTypeOf(debounced).toEqualTypeOf<typeof fn>()
 		expectTypeOf(debounced).parameters.toEqualTypeOf<[string, number]>()
 		expectTypeOf(debounced).returns.toEqualTypeOf<void>()
 		// @ts-expect-error — arguments are still checked
@@ -25,19 +24,17 @@ describe('functions — types', () => {
 	it('throttle preserves the wrapped function parameters', () => {
 		const fn = (_event: { x: number }) => {}
 		const throttled = throttle(fn, 100)
-		expectTypeOf(throttled).toEqualTypeOf<typeof fn>()
 		expectTypeOf(throttled).parameters.toEqualTypeOf<[{ x: number }]>()
 		expectTypeOf(throttled).returns.toEqualTypeOf<void>()
 		// @ts-expect-error — arguments are still checked
 		throttled({ y: 1 })
 	})
 
-	it('debounce/throttle keep a non-void return type even though the wrapper drops it', () => {
-		// Current (unsound) behaviour: the `=> void` constraint accepts value-returning
-		// functions, so `T` — and therefore the returned type — still says `number`,
-		// while at runtime the wrapper returns undefined. Asserted as-is, not endorsed.
+	it('debounce/throttle return void even when the wrapped function returns a value', () => {
+		// The wrapper never forwards `fn`'s return value, so the type must not claim it does.
 		const fn = (n: number) => n * 2
-		expectTypeOf(debounce(fn, 10)).returns.toEqualTypeOf<number>()
-		expectTypeOf(throttle(fn, 10)).returns.toEqualTypeOf<number>()
+		expectTypeOf(debounce(fn, 10)).returns.toEqualTypeOf<void>()
+		expectTypeOf(throttle(fn, 10)).returns.toEqualTypeOf<void>()
+		expectTypeOf(debounce(fn, 10)).parameters.toEqualTypeOf<[number]>()
 	})
 })
