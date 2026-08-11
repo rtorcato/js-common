@@ -10,10 +10,15 @@ pnpm run check
 # tree here used to rewrite files *after* the checks and never `git add` them,
 # so the commit could contain unformatted code while the working tree looked
 # clean. Nothing to do when the staged set has no formattable files.
+#
+# --no-errors-on-unmatched: the staged set can match the globs below yet be
+# ignored by biome.json (e.g. a commit touching only .claude/settings.json).
+# Without the flag biome exits 1 on "no files were processed" and blocks the
+# commit outright.
 STAGED=$(git diff --cached --name-only --diff-filter=ACMR -- '*.ts' '*.tsx' '*.js' '*.jsx' '*.mjs' '*.cjs' '*.json' '*.jsonc')
 if [ -n "$STAGED" ]; then
   echo "🧹 Formatting staged files..."
-  echo "$STAGED" | tr '\n' '\0' | xargs -0 pnpm exec biome format --write
+  echo "$STAGED" | tr '\n' '\0' | xargs -0 pnpm exec biome format --write --no-errors-on-unmatched
   echo "$STAGED" | tr '\n' '\0' | xargs -0 git add
 fi
 
