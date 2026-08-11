@@ -5,6 +5,24 @@ description: Utilities exported from @rtorcato/js-common/promises.
 
 Promise combinators and adapters — the standard `Promise` statics under stable names, plus `delay`, `withTimeout` and `to` for error-as-value handling. `to` returns an `[error, result]` tuple so a failure can be handled with an `if` instead of a `try`/`catch` block; `try`'s `Result` is the richer, type-narrowing version of the same idea. `withTimeout` is a `Promise.race`: it rejects on time but does not cancel, so the underlying work keeps running unless it honours an `AbortSignal`.
 
+## Example
+
+```ts
+import { to, withTimeout } from '@rtorcato/js-common/promises'
+
+// Error as a value: handle failure with an `if` instead of a try/catch block.
+const [err, user] = await to(getUser(id))
+if (err) return reply.status(502).send('user service unavailable')
+user.email
+
+// Reject after 2s. The request itself is not cancelled — it keeps running.
+await withTimeout(getUser(id), 2_000, new Error('user service slow'))
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { all, allSettled, delay } from '@rtorcato/js-common/promises'
 ```
@@ -19,6 +37,8 @@ import { all, allSettled, delay } from '@rtorcato/js-common/promises'
 | `race` | Returns a promise that resolves or rejects as soon as one of the promises resolves or rejects (like Promise.race). |
 | `to` | Wraps a promise and returns a tuple [error, result]. |
 | `withTimeout` | Returns a promise that rejects after a timeout if the input promise does not resolve. |
+
+<!-- /generated:exports -->
 
 ## See also
 

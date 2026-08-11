@@ -15,21 +15,29 @@ The `date`, `time`, and `datetime` modules cover everyday native-`Date` work and
 These are stable, well-maintained, and far better than anything a thin helper set can offer.
 :::
 
+## Example
+
+```ts
+import { getIsoWeek, nowIso, secondsBetween, unixTimestamp } from '@rtorcato/js-common/datetime'
+
+const started = new Date()
+const row = {
+  createdAt: nowIso(),                  // '2026-06-12T09:04:07.123Z'
+  expiresAt: unixTimestamp() + 3600,    // seconds, for a JWT `exp`
+}
+
+await handleRequest()
+secondsBetween(started, new Date()) // elapsed seconds, floored (b - a)
+
+getIsoWeek(new Date('2026-01-01')) // 1
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
 ## Import
 
 ```ts
-import {
-  formatDateTimeLocal,
-  getIsoWeek,
-  getIsoWeekInfo,
-  getTimezoneOffset,
-  nowIso,
-  parseIsoDateTime,
-  secondsBetween,
-  toUtcDate,
-  unixMillis,
-  unixTimestamp,
-} from '@rtorcato/js-common/datetime'
+import { formatDateTimeLocal, getIsoWeek, getIsoWeekInfo } from '@rtorcato/js-common/datetime'
 ```
 
 ## Exports
@@ -37,19 +45,17 @@ import {
 | Name | Summary |
 | --- | --- |
 | `formatDateTimeLocal` | Formats a Date as `YYYY-MM-DD HH:mm:ss` (local time). |
-| `getIsoWeek` | Returns the ISO week number (1–53) of a date (UTC). |
-| `getIsoWeekInfo` | Returns ISO week number and ISO week year (may differ from calendar year). |
-| `getTimezoneOffset` | Returns the timezone offset in minutes for a date (local − UTC). |
-| `nowIso` | Returns the current date and time as an ISO string. |
+| `getIsoWeek` | Returns the ISO week number (1–53) of a given date using UTC. |
+| `getIsoWeekInfo` | Returns ISO week number and ISO week year (which may differ from calendar year). |
+| `getTimezoneOffset` | Returns the timezone offset in minutes for a given date (local − UTC). |
+| `nowIso` | Returns the current date and time as an ISO string (`YYYY-MM-DDTHH:mm:ss.sssZ`). |
 | `parseIsoDateTime` | Parses an ISO date-time string to a Date object. |
 | `secondsBetween` | Returns the difference in seconds between two Date objects. |
 | `toUtcDate` | Returns the UTC equivalent of a local Date. |
 | `unixMillis` | Returns the number of milliseconds since the Unix epoch. |
 | `unixTimestamp` | Returns the number of seconds since the Unix epoch (UTC). |
 
-## Full reference
-
-See the [`datetime` API reference](../api/datetime) for individual function signatures.
+<!-- /generated:exports -->
 
 ## See also
 

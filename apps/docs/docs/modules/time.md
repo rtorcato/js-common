@@ -15,33 +15,42 @@ The `date`, `time`, and `datetime` modules cover everyday native-`Date` work and
 These are stable, well-maintained, and far better than anything a thin helper set can offer.
 :::
 
+## Example
+
+```ts
+import { formatTime, nowTime, parseTime, secondsBetween } from '@rtorcato/js-common/time'
+
+// Opening hours, stored as plain 'HH:MM:SS' strings.
+const open = parseTime('09:00:00')
+const close = parseTime('17:30:00')
+
+secondsBetween(open, close) // 30600 — signed, floored (t2 - t1)
+formatTime(close)           // '17:30:00'
+nowTime()                   // '14:22:07'
+```
+
+`parseTime` puts the time on today's date, so comparisons are only meaningful within one day.
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
 ## Import
 
 ```ts
-import {
-  formatTime,
-  nowTime,
-  nowTimeShort,
-  pad2,
-  parseTime,
-  secondsBetween,
-} from '@rtorcato/js-common/time'
+import { formatTime, nowTime, nowTimeShort } from '@rtorcato/js-common/time'
 ```
 
 ## Exports
 
 | Name | Summary |
 | --- | --- |
-| `formatTime` | Formats a Date object as HH:MM:SS. |
-| `nowTime` | Returns the current time as HH:MM:SS string. |
+| `formatTime` | Formats a Date object as `HH:MM:SS`. |
+| `nowTime` | Returns the current time as an `HH:MM:SS` string. |
 | `nowTimeShort` | Returns the current time as HH:MM string. |
 | `pad2` | Pads a number to two digits (e.g. `5` → `'05'`). |
 | `parseTime` | Parses a time string (`HH:MM` or `HH:MM:SS`) into a Date object (today's date). |
-| `secondsBetween` | Returns the difference in seconds between two times (Date or string). |
+| `secondsBetween` | Returns the difference in seconds between two times (as Date or string). |
 
-## Full reference
-
-See the [`time` API reference](../api/time) for individual function signatures.
+<!-- /generated:exports -->
 
 ## See also
 

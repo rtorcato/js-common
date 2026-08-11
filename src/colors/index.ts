@@ -83,11 +83,11 @@ export function rgbToHex(r: number, g: number, b: number): string {
 }
 
 /**
- * Converts a hex color string to an HSL object.
+ * Checks whether a string is a valid 3- or 6-digit hex colour.
  *
  * @export
  * @param {string} hex
- * @return {*}  {({ h: number; s: number; l: number } | null)}
+ * @return {*}  {boolean}
  */
 export function isValidHex(hex: string): boolean {
 	return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex)

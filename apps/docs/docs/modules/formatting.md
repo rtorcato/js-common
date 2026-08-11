@@ -5,6 +5,28 @@ description: Utilities exported from @rtorcato/js-common/formatting.
 
 Display formatting with predictable, fixed-shape output — thousands separators, percentages, zero padding, and `YYYY-MM-DD` / `HH:MM:SS` timestamps. The date and time helpers take no format string and the number helpers default to `en-US`, which is the point: this module is for logs, filenames and CSVs, where output should not shift with the machine's locale. When the reader's locale does matter, use `i18n` or `currency`, which go through `Intl`.
 
+## Example
+
+```ts
+import {
+  formatDateTime,
+  formatNumber,
+  formatPercent,
+  padZero,
+} from '@rtorcato/js-common/formatting'
+
+// A log line whose shape does not shift with the machine's locale.
+const line = `${formatDateTime(new Date())} rows=${formatNumber(1234567)} done=${formatPercent(0.4213, 1)}`
+// '2026-06-12 09:04:07 rows=1,234,567 done=42.1%'
+
+padZero(7)     // '07'
+padZero(7, 3)  // '007'
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { formatDate, formatDateTime, formatNumber } from '@rtorcato/js-common/formatting'
 ```
@@ -19,6 +41,8 @@ import { formatDate, formatDateTime, formatNumber } from '@rtorcato/js-common/fo
 | `formatPercent` | Formats a number as a percentage string. |
 | `formatTime` | Formats a Date as HH:MM:SS. |
 | `padZero` | Pads a string or number with leading zeros to a given length. |
+
+<!-- /generated:exports -->
 
 ## See also
 

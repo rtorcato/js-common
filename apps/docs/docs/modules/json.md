@@ -5,6 +5,23 @@ description: Utilities exported from @rtorcato/js-common/json.
 
 Parse, stringify, validate and deep-clone through JSON, with every operation returning a fallback instead of throwing. Parsing untrusted JSON is the classic case where a `try`/`catch` is pure noise, so `safeJsonParse` takes the fallback as an argument. `deepCloneJson` inherits JSON's limits — `undefined`, functions, `Date`s, `Map`s and cycles do not survive the round trip — so prefer `objects.deepClone` unless you specifically want the JSON-shaped result.
 
+## Example
+
+```ts
+import { isValidJson, safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
+
+// localStorage holds whatever the last version of the app wrote there.
+const prefs = safeJsonParse<Prefs>(localStorage.getItem('prefs') ?? '', { theme: 'dark' })
+
+safeJsonParse('{bad json')                 // null
+safeJsonStringify({ self: circularRef })   // null instead of a thrown TypeError
+isValidJson('[1,2,3]')                     // true
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { deepCloneJson, isValidJson, safeJsonParse } from '@rtorcato/js-common/json'
 ```
@@ -17,6 +34,8 @@ import { deepCloneJson, isValidJson, safeJsonParse } from '@rtorcato/js-common/j
 | `isValidJson` | Checks if a string is valid JSON. |
 | `safeJsonParse` | Safely parses a JSON string, returning a fallback value if parsing fails. |
 | `safeJsonStringify` | Safely stringifies a value to JSON, returning a fallback value if stringification fails. |
+
+<!-- /generated:exports -->
 
 ## See also
 

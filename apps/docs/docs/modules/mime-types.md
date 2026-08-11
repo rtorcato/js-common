@@ -5,6 +5,26 @@ description: Utilities exported from @rtorcato/js-common/mime-types.
 
 MIME-type lookup by file extension, plus the database behind it and its string-literal types. It is a vendored, TypeScript-ported subset of the `mime-types` package with `path.extname` removed, so it runs on edge runtimes where `node:path` is unavailable. `MimeType` and `FileExtension` are unions of every value in the database, which turns a typo into a compile error rather than a silent `false` at runtime.
 
+## Example
+
+```ts
+import { lookup, type MimeType } from '@rtorcato/js-common/mime-types'
+
+// Set Content-Type from an uploaded filename.
+res.setHeader('Content-Type', lookup(upload.name) || 'application/octet-stream')
+
+lookup('report.pdf') // 'application/pdf'
+lookup('.png')       // 'image/png' — bare extensions work too
+lookup('README')     // false
+
+// A typo in a MimeType is a compile error, not a silent runtime `false`.
+const accepted: MimeType[] = ['image/png', 'image/webp']
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { FileExtension, MimeType, MimeValue } from '@rtorcato/js-common/mime-types'
 ```
@@ -20,6 +40,8 @@ import { FileExtension, MimeType, MimeValue } from '@rtorcato/js-common/mime-typ
 | `lookup` | Lookup the MIME type for a file path/extension. |
 | `mimeTypes` | Full MIME-type database keyed by `MimeType`, with `source`, `extensions`, and `compressible` metadata per entry. |
 | `types` | Map from `FileExtension` to its canonical `MimeType`, populated from the database. |
+
+<!-- /generated:exports -->
 
 ## See also
 
