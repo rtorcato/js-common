@@ -5,6 +5,9 @@ on:
         branches: [main, master]
     pull_request:
         branches: [main, master]
+    # Required for GitHub merge queue. Without it, checks never run against the
+    # merge group and every queued PR waits forever on contexts that cannot arrive.
+    merge_group:
     workflow_dispatch:
 
 concurrency:
