@@ -146,8 +146,8 @@ import { randomInt, randomFloat, randomBool, randomElement } from '@rtorcato/js-
 
 ### Text & Strings
 ```typescript
-import { capitalize, toTitleCase, padZero } from '@rtorcato/js-common/formatting'
-import { slugify, truncate, removeEmojis } from '@rtorcato/js-common/strings'
+import { padZero, formatPercent, formatDateTime } from '@rtorcato/js-common/formatting'
+import { slugify, truncate, capitalize, titleCase } from '@rtorcato/js-common/strings'
 import { escapeHtml, unescapeHtml, stripHtmlTags } from '@rtorcato/js-common/html'
 import { escapeRegExp, matchAll, replaceAllRegex } from '@rtorcato/js-common/regex'
 import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/i18n'
@@ -173,7 +173,7 @@ import { union, intersection, difference, isSubset } from '@rtorcato/js-common/s
 
 ### Async & Control Flow
 ```typescript
-import { delay, timeout, retry } from '@rtorcato/js-common/promises'
+import { delay, withTimeout, allSettled } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
 import { tryCatch } from '@rtorcato/js-common/try'
