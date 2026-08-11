@@ -245,6 +245,10 @@ pnpm --filter @rtorcato/js-common-docs build
 
 Live site: <https://rtorcato.github.io/js-common/>
 
+## Roadmap
+
+[ROADMAP.md](./ROADMAP.md) tracks the three stages — shipped 2.x modules, the beta npm preview, and the v1.0 stable API — each mirrored by a [GitHub milestone](https://github.com/rtorcato/js-common/milestones). It also carries the release checklist for any change that touches a public API.
+
 ## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md) for guidelines.

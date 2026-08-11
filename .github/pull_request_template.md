@@ -35,6 +35,12 @@ Fixes #<!-- issue number -->
 - [ ] I have added/updated JSDoc comments for new/modified functions
 - [ ] I have updated TypeScript definitions if needed
 
+### Public API changes only
+<!-- Skip this block for refactors, build/CI, and dependency bumps — see ROADMAP.md -->
+- [ ] Docs site updated (`apps/docs/docs/modules/`, plus a recipe if warranted)
+- [ ] README updated (module list + affected examples)
+- [ ] Relevant [`ROADMAP.md`](../ROADMAP.md) item ticked and the issue filed under its milestone
+
 ### Build & Dependencies
 - [ ] My changes don't introduce new dependencies unnecessarily
 - [ ] The build passes (`pnpm run build-prod`)
