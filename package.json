@@ -46,6 +46,7 @@
     "docs:generate": "node scripts/generate-module-docs.mjs",
     "sync:agents": "node scripts/sync-agents.mjs",
     "commit": "cz",
+    "verify": "pnpm typecheck && pnpm check && pnpm exec vitest run",
     "================================================": ""
   },
   "files": [

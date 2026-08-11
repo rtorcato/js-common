@@ -7,4 +7,8 @@ allowBuilds:
   sharp: true
 
 minimumReleaseAgeExclude:
-  - '@rtorcato/repo-tooling@3.0.0'
+  - '@rtorcato/*'
+
+# Don't re-verify node_modules on every script run — the check costs a
+# second per invocation and CI installs with --frozen-lockfile anyway.
+verifyDepsBeforeRun: false
