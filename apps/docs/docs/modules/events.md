@@ -3,6 +3,8 @@ title: Events
 description: Utilities exported from @rtorcato/js-common/events.
 ---
 
+Thin wrappers over the DOM `EventTarget` API — add a listener, dispatch a `CustomEvent`, await a single event as a promise. `on` returns its own removal function, so cleanup is a value you can store and call rather than a `removeEventListener` you must remember to mirror argument for argument. These are browser-side helpers; Node's `EventEmitter` is a different API and is not covered here.
+
 ```ts
 import { emit, on, once } from '@rtorcato/js-common/events'
 ```

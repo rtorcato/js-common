@@ -3,6 +3,8 @@ title: Json
 description: Utilities exported from @rtorcato/js-common/json.
 ---
 
+Parse, stringify, validate and deep-clone through JSON, with every operation returning a fallback instead of throwing. Parsing untrusted JSON is the classic case where a `try`/`catch` is pure noise, so `safeJsonParse` takes the fallback as an argument. `deepCloneJson` inherits JSON's limits — `undefined`, functions, `Date`s, `Map`s and cycles do not survive the round trip — so prefer `objects.deepClone` unless you specifically want the JSON-shaped result.
+
 ```ts
 import { deepCloneJson, isValidJson, safeJsonParse } from '@rtorcato/js-common/json'
 ```

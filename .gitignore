@@ -45,3 +45,4 @@ coverage/
 # Design handoff bundles (reference material, applied to apps/docs — not shipped)
 design_handoff_docusaurus_redesign*/
 FIX-duplicate-route.md
+.claude/ai-loop-status

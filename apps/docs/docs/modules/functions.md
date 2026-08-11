@@ -3,6 +3,8 @@ title: Functions
 description: Utilities exported from @rtorcato/js-common/functions.
 ---
 
+Function decorators — `debounce`, `throttle`, `once` — plus `compose` and `pipe` for wiring functions together. The rate limiters wrap and return a new function rather than taking a config object, so they drop into an event handler in a single line. They are trailing-edge and timer-based with no `cancel` or `flush` handle; if you need to abandon work already in flight, pair them with `abortController`.
+
 ```ts
 import { compose, debounce, once } from '@rtorcato/js-common/functions'
 ```
