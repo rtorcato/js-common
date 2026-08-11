@@ -30,6 +30,14 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 npm install @rtorcato/js-common
 ```
 
+## Agent skill
+
+An agent skill lives in [`skills/js-common`](./skills/js-common/SKILL.md) — it teaches an AI coding agent the subpath-import rules, which modules are Node-only, and the full module → exports map. Install it with the [`skills`](https://www.npmjs.com/package/skills) CLI:
+
+```bash
+npx skills add https://github.com/rtorcato/js-common --skill js-common
+```
+
 ## Migrating from 1.x to 2.x
 
 The only breaking change in 2.0 is a rename in the `errors` module:

@@ -1,5 +1,12 @@
 /**
  * Checks if a string is a valid URL.
+ *
+ * @example
+ * ```typescript
+ * isValidUrl('https://example.com/a?b=1') // true
+ * isValidUrl('example.com') // false (no protocol)
+ * ```
+ *
  * @param str The string to check.
  * @returns True if valid URL, false otherwise.
  */
@@ -14,6 +21,13 @@ export function isValidUrl(str: string): boolean {
 
 /**
  * Gets the query parameters from a URL as an object.
+ *
+ * @example
+ * ```typescript
+ * getQueryParams('https://example.com/s?q=cats&page=2') // { q: 'cats', page: '2' }
+ * getQueryParams('not a url') // {}
+ * ```
+ *
  * @param url The URL string.
  * @returns An object of query parameters.
  */
@@ -32,6 +46,15 @@ export function getQueryParams(url: string): Record<string, string> {
 
 /**
  * Adds or updates a query parameter in a URL.
+ *
+ * @example
+ * ```typescript
+ * setQueryParam('https://example.com/s?q=cats', 'page', '2')
+ * // 'https://example.com/s?q=cats&page=2'
+ * setQueryParam('https://example.com/s?q=cats', 'q', 'dogs')
+ * // 'https://example.com/s?q=dogs'
+ * ```
+ *
  * @param url The URL string.
  * @param key The query parameter key.
  * @param value The query parameter value.

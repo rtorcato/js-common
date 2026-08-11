@@ -1,5 +1,13 @@
 /**
  * Fetches a resource with a timeout.
+ *
+ * @example
+ * ```typescript
+ * await fetchWithTimeout('https://api.example.com/health') // { status: 'ok' }
+ * await fetchWithTimeout('https://slow.example.com', {}, 500)
+ * // rejects with AbortError after 500ms
+ * ```
+ *
  * @param url The URL to fetch.
  * @param options Fetch options.
  * @param timeout Timeout in milliseconds (default: 8000).
@@ -23,6 +31,16 @@ export async function fetchWithTimeout(
 
 /**
  * Sends a POST request with a JSON body.
+ *
+ * @example
+ * ```typescript
+ * const user = await postJson<{ name: string }, { id: number }>(
+ * 	'https://api.example.com/users',
+ * 	{ name: 'Ada' }
+ * )
+ * user.id // 42
+ * ```
+ *
  * @param url The URL to post to.
  * @param body The body to send.
  * @param options Additional fetch options.
@@ -44,6 +62,13 @@ export async function postJson<T = unknown, R = unknown>(
 
 /**
  * Sends a GET request and returns JSON.
+ *
+ * @example
+ * ```typescript
+ * const user = await getJson<{ id: number }>('https://api.example.com/users/42')
+ * user.id // 42
+ * ```
+ *
  * @param url The URL to fetch.
  * @param options Additional fetch options.
  * @returns The parsed JSON response.

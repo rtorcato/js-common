@@ -5,6 +5,13 @@
 
 /**
  * Disables console output in production environment.
+ *
+ * @example
+ * ```typescript
+ * process.env.NODE_ENV = 'production'
+ * disableConsole()
+ * console.log('hidden') // no output
+ * ```
  */
 export const disableConsole = () => {
 	if (process.env.NODE_ENV === 'production') {
@@ -15,6 +22,11 @@ export const disableConsole = () => {
 
 /**
  * Clears the console.
+ *
+ * @example
+ * ```typescript
+ * clearConsole() // terminal is wiped, cursor back at the top-left
+ * ```
  *
  * @export
  * @return {*}  {void}

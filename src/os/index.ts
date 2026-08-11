@@ -1,5 +1,11 @@
 /**
  * Returns the current operating system platform (Node.js only).
+ *
+ * @example
+ * ```typescript
+ * getOsPlatform() // 'darwin' on macOS, 'win32' on Windows, undefined in a browser
+ * ```
+ *
  * @returns {string | undefined} The platform (e.g., 'darwin', 'win32', 'linux').
  */
 export function getOsPlatform(): string | undefined {
@@ -9,6 +15,12 @@ export function getOsPlatform(): string | undefined {
 
 /**
  * Returns the OS release/version (Node.js only).
+ *
+ * @example
+ * ```typescript
+ * getOsRelease() // 'node'
+ * ```
+ *
  * @returns {string | undefined}
  */
 export function getOsRelease(): string | undefined {
@@ -19,6 +31,12 @@ export function getOsRelease(): string | undefined {
 
 /**
  * Returns the OS architecture (Node.js only).
+ *
+ * @example
+ * ```typescript
+ * getOsArch() // 'arm64' on Apple silicon, 'x64' on Intel
+ * ```
+ *
  * @returns {string | undefined}
  */
 export function getOsArch(): string | undefined {

@@ -1,5 +1,12 @@
 /**
  * Logs a message with a timestamp.
+ *
+ * @example
+ * ```typescript
+ * logWithTimestamp('server started') // [2026-08-11T14:03:27.913Z] server started
+ * logWithTimestamp('disk almost full', 'warn') // via console.warn
+ * ```
+ *
  * @param message The message to log.
  * @param level The log level (default: 'info').
  */
@@ -11,6 +18,12 @@ export function logWithTimestamp(message: string, level: 'info' | 'warn' | 'erro
 
 /**
  * Logs a warning message.
+ *
+ * @example
+ * ```typescript
+ * warn('deprecated option') // [WARN] deprecated option
+ * ```
+ *
  * @param message The warning message.
  */
 export function warn(message: string): void {
@@ -20,6 +33,12 @@ export function warn(message: string): void {
 
 /**
  * Logs an error message.
+ *
+ * @example
+ * ```typescript
+ * error('upload failed') // [ERROR] upload failed
+ * ```
+ *
  * @param message The error message.
  */
 export function error(message: string): void {

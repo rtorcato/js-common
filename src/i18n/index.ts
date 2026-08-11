@@ -1,5 +1,12 @@
 /**
  * Detects the user's preferred language from the browser or Node.js environment.
+ *
+ * @example
+ * ```typescript
+ * detectLanguage() // 'en' (from navigator.language 'en-GB' or LANG 'en_US.UTF-8')
+ * detectLanguage('fr') // 'fr' when nothing can be detected
+ * ```
+ *
  * @returns {string} The language code (e.g., 'en', 'fr').
  */
 export function detectLanguage(defaultLang: string = 'en'): string {
@@ -14,6 +21,14 @@ export function detectLanguage(defaultLang: string = 'en'): string {
 
 /**
  * Formats a number as a localized string.
+ *
+ * @example
+ * ```typescript
+ * formatNumber(1234.5, 'en-US') // '1,234.5'
+ * formatNumber(1234.5, 'de-DE') // '1.234,5'
+ * formatNumber(0.42, 'en-US', { style: 'percent' }) // '42%'
+ * ```
+ *
  * @param value The number to format.
  * @param locale The locale code (e.g., 'en-US').
  * @param options Intl.NumberFormat options.
@@ -29,6 +44,14 @@ export function formatNumber(
 
 /**
  * Formats a date as a localized string.
+ *
+ * @example
+ * ```typescript
+ * const d = new Date('2026-08-11T12:00:00Z')
+ * formatDateI18n(d, 'en-US', { timeZone: 'UTC' }) // '8/11/2026'
+ * formatDateI18n(d, 'en-GB', { timeZone: 'UTC' }) // '11/08/2026'
+ * ```
+ *
  * @param date The date to format.
  * @param locale The locale code (e.g., 'en-US').
  * @param options Intl.DateTimeFormat options.

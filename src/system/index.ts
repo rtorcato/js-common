@@ -1,5 +1,11 @@
 /**
  * Checks if the current OS is macOS.
+ *
+ * @example
+ * ```typescript
+ * isMacOs() // true on macOS (via process.platform in Node, userAgent in the browser)
+ * ```
+ *
  * @returns {boolean} True if macOS, false otherwise.
  */
 export function isMacOs(): boolean {
@@ -14,6 +20,12 @@ export function isMacOs(): boolean {
 
 /**
  * Checks if the current OS is Windows.
+ *
+ * @example
+ * ```typescript
+ * isWindows() // true when process.platform === 'win32'
+ * ```
+ *
  * @returns {boolean} True if Windows, false otherwise.
  */
 export function isWindows(): boolean {
@@ -28,6 +40,12 @@ export function isWindows(): boolean {
 
 /**
  * Checks if the current OS is Linux.
+ *
+ * @example
+ * ```typescript
+ * isLinux() // true when process.platform === 'linux'
+ * ```
+ *
  * @returns {boolean} True if Linux, false otherwise.
  */
 export function isLinux(): boolean {

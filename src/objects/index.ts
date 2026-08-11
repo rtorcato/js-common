@@ -1,5 +1,14 @@
 /**
  * Returns true if the value is a plain object (not null, not array, not function).
+ *
+ * @example
+ * ```typescript
+ * isPlainObject({ a: 1 }) // true
+ * isPlainObject([1, 2]) // false
+ * isPlainObject(null) // false
+ * isPlainObject(new Date()) // false
+ * ```
+ *
  * @param value The value to check.
  * @returns {boolean}
  */
@@ -10,6 +19,13 @@ export function isPlainObject(value: any): value is Record<string, any> {
 
 /**
  * Deeply merges two objects. Does not mutate inputs.
+ *
+ * @example
+ * ```typescript
+ * deepMerge({ a: 1, nested: { x: 1, y: 2 } }, { nested: { y: 9 }, b: 2 })
+ * // { a: 1, nested: { x: 1, y: 9 }, b: 2 }
+ * ```
+ *
  * @param target The target object.
  * @param source The source object.
  * @returns {object} The merged object.
@@ -28,6 +44,13 @@ export function deepMerge<T extends object, U extends object>(target: T, source:
 
 /**
  * Returns a shallow copy of an object with the given keys omitted.
+ *
+ * @example
+ * ```typescript
+ * omit({ id: 1, name: 'Ada', password: 'x' }, ['password'])
+ * // { id: 1, name: 'Ada' }
+ * ```
+ *
  * @param obj The source object.
  * @param keys Keys to omit.
  * @returns {object}

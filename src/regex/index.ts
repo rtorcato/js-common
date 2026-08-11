@@ -1,5 +1,13 @@
 /**
  * Escapes special regex characters in a string so it can be used in a RegExp.
+ *
+ * @example
+ * ```typescript
+ * escapeRegExp('1 + 1 = 2?') // '1 \\+ 1 = 2\\?'
+ * new RegExp(escapeRegExp('a.b')).test('a.b') // true
+ * new RegExp(escapeRegExp('a.b')).test('axb') // false
+ * ```
+ *
  * @param str The string to escape.
  * @returns The escaped string.
  */
@@ -9,6 +17,14 @@ export function escapeRegExp(str: string): string {
 
 /**
  * Tests if a string matches a given regex pattern.
+ *
+ * @example
+ * ```typescript
+ * testRegex('hello world', /world/) // true
+ * testRegex('hello world', '^hello') // true
+ * testRegex('hello', /bye/) // false
+ * ```
+ *
  * @param str The string to test.
  * @param pattern The regex pattern (string or RegExp).
  * @returns True if the string matches, false otherwise.
@@ -20,6 +36,13 @@ export function testRegex(str: string, pattern: string | RegExp): boolean {
 
 /**
  * Returns all matches of a regex pattern in a string.
+ *
+ * @example
+ * ```typescript
+ * matchAll('a1 b2 c3', /[a-z](\d)/).map((m) => m[1]) // ['1', '2', '3']
+ * matchAll('nothing here', /\d/) // []
+ * ```
+ *
  * @param str The string to search.
  * @param pattern The regex pattern (string or RegExp).
  * @returns An array of matches, or an empty array if none found.

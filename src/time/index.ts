@@ -1,5 +1,11 @@
 /**
  * Returns the current time as HH:MM:SS string.
+ *
+ * @example
+ * ```typescript
+ * nowTime() // '14:03:27'
+ * ```
+ *
  * @returns {string}
  */
 export function nowTime(): string {
@@ -9,6 +15,13 @@ export function nowTime(): string {
 
 /**
  * Parses a time string (HH:MM or HH:MM:SS) into a Date object (today's date).
+ *
+ * @example
+ * ```typescript
+ * parseTime('09:30').getHours() // 9
+ * parseTime('09:30:15').getSeconds() // 15
+ * ```
+ *
  * @param timeStr The time string.
  * @returns {Date}
  */
@@ -21,6 +34,12 @@ export function parseTime(timeStr: string): Date {
 
 /**
  * Formats a Date object as HH:MM:SS.
+ *
+ * @example
+ * ```typescript
+ * formatTime(new Date(2026, 7, 11, 9, 5, 3)) // '09:05:03'
+ * ```
+ *
  * @param date The Date object.
  * @returns {string}
  */

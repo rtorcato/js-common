@@ -1,5 +1,12 @@
 /**
  * Returns a random integer between min (inclusive) and max (inclusive).
+ *
+ * @example
+ * ```typescript
+ * randomInt(1, 6) // 3 (any integer from 1 to 6)
+ * randomInt(5, 5) // 5
+ * ```
+ *
  * @param min Minimum integer value.
  * @param max Maximum integer value.
  * @returns {number} Random integer between min and max.
@@ -10,6 +17,13 @@ export function randomInt(min: number, max: number): number {
 
 /**
  * Returns a random float between min (inclusive) and max (exclusive).
+ *
+ * @example
+ * ```typescript
+ * randomFloat(0, 1) // 0.7342119...
+ * randomFloat(10, 20) // 14.028...
+ * ```
+ *
  * @param min Minimum float value.
  * @param max Maximum float value.
  * @returns {number} Random float between min and max.
@@ -20,6 +34,13 @@ export function randomFloat(min: number, max: number): number {
 
 /**
  * Returns a random boolean value.
+ *
+ * @example
+ * ```typescript
+ * randomBool() // true
+ * randomBool() // false
+ * ```
+ *
  * @returns {boolean}
  */
 export function randomBool(): boolean {

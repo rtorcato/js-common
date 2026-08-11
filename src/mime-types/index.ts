@@ -29,11 +29,23 @@ function extname(path: string) {
 
 /**
  * Map from `MimeType` to its associated file extensions, populated from the database.
+ *
+ * @example
+ * ```typescript
+ * extensions['application/json'] // ['json', 'map']
+ * extensions['text/html'] // ['html', 'htm', 'shtml']
+ * ```
  */
 export const extensions = {} as Record<MimeType, FileExtension[]>
 
 /**
  * Map from `FileExtension` to its canonical `MimeType`, populated from the database.
+ *
+ * @example
+ * ```typescript
+ * types['json'] // 'application/json'
+ * types['png'] // 'image/png'
+ * ```
  */
 export const types = {} as Record<FileExtension, MimeType>
 
@@ -42,6 +54,14 @@ populateMaps(extensions, types)
 
 /**
  * Lookup the MIME type for a file path/extension.
+ *
+ * @example
+ * ```typescript
+ * lookup('json') // 'application/json'
+ * lookup('.png') // 'image/png'
+ * lookup('/path/to/report.pdf') // 'application/pdf'
+ * lookup('nope') // false
+ * ```
  *
  * @param {string} path
  * @return {boolean|string}

@@ -14,6 +14,11 @@ const translator = createTranslator()
 /**
  * Generates a UUID v4 string.
  * @returns {string} A new UUID v4 string.
+ *
+ * @example
+ * ```typescript
+ * getUUID() // 'f47ac10b-58cc-4372-a567-0e02b2c3d479'
+ * ```
  */
 export const getUUID = (): string => {
 	return uuidv4()
@@ -36,6 +41,11 @@ export const getUUIDv7 = (): string => {
 /**
  * Generates a short UUID string using short-uuid.
  * @returns {string} A new short UUID string.
+ *
+ * @example
+ * ```typescript
+ * getShortUUID() // 'mhvXdrZT4jP5T8vBxuvm75'
+ * ```
  */
 export const getShortUUID = (): string => {
 	return translator.generate()

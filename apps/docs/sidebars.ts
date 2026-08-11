@@ -10,6 +10,20 @@ const sidebars: SidebarsConfig = {
 		},
 		{
 			type: 'category',
+			label: 'Recipes',
+			// Pinned to the index so the category label itself is a landing page,
+			// and so index is not repeated inside the list below.
+			link: { type: 'doc', id: 'recipes/index' },
+			items: [
+				'recipes/format-date-for-locale',
+				'recipes/debounce-a-search-input',
+				'recipes/parse-untrusted-json',
+				'recipes/generate-a-unique-slug',
+				'recipes/retry-with-exponential-backoff',
+			],
+		},
+		{
+			type: 'category',
 			label: 'CLI',
 			items: ['guides/cli'],
 		},

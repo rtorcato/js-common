@@ -1,5 +1,13 @@
 /**
  * Returns a promise that resolves after the specified number of milliseconds.
+ *
+ * @example
+ * ```typescript
+ * const started = Date.now()
+ * await sleep(200)
+ * Date.now() - started >= 200 // true
+ * ```
+ *
  * @param ms Number of milliseconds to sleep.
  * @returns Promise that resolves after ms milliseconds.
  */
@@ -9,6 +17,12 @@ export const sleep = (ms: number): Promise<void> =>
 /**
  * Blocks the event loop for the specified number of milliseconds (synchronous sleep).
  * Not recommended for production use, but useful for scripts or tests.
+ *
+ * @example
+ * ```typescript
+ * sleepSync(50) // blocks the event loop for ~50ms, no await needed
+ * ```
+ *
  * @param ms Number of milliseconds to block.
  */
 export function sleepSync(ms: number): void {
@@ -18,6 +32,12 @@ export function sleepSync(ms: number): void {
 
 /**
  * Returns a promise that resolves after a random delay between min and max milliseconds.
+ *
+ * @example
+ * ```typescript
+ * await sleepRandom(100, 500) // resolves after 100–500ms — handy for jittered retries
+ * ```
+ *
  * @param min Minimum milliseconds to sleep.
  * @param max Maximum milliseconds to sleep.
  * @returns Promise that resolves after a random delay.

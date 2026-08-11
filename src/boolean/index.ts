@@ -1,6 +1,16 @@
 /**
  * Converts a value to a boolean.
  * Accepts 'true', '1', 1 as true; 'false', '0', 0 as false.
+ *
+ * @example
+ * ```typescript
+ * toBoolean('true') // true
+ * toBoolean('0') // false
+ * toBoolean(1) // true
+ * toBoolean(2) // false
+ * toBoolean(null) // false
+ * ```
+ *
  * @param value The value to convert.
  * @returns The boolean representation.
  */
@@ -20,6 +30,14 @@ export function toBoolean(value: unknown): boolean {
 
 /**
  * Checks if a value is a boolean.
+ *
+ * @example
+ * ```typescript
+ * isBoolean(false) // true
+ * isBoolean('false') // false
+ * isBoolean(0) // false
+ * ```
+ *
  * @param value The value to check.
  * @returns True if the value is a boolean, false otherwise.
  */
@@ -30,6 +48,14 @@ export function isBoolean(value: unknown): value is boolean {
 
 /**
  * Returns the logical exclusive OR (XOR) of two booleans.
+ *
+ * @example
+ * ```typescript
+ * xor(true, false) // true
+ * xor(true, true) // false
+ * xor(false, false) // false
+ * ```
+ *
  * @param a First boolean.
  * @param b Second boolean.
  * @returns True if exactly one of a or b is true.

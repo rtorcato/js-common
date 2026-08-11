@@ -3,6 +3,14 @@ import { z } from 'zod'
 /**
  * Retrieves the value of an environment variable by its key.
  *
+ * @example
+ * ```typescript
+ * process.env.API_URL = 'https://api.example.com'
+ * getENV('API_URL') // 'https://api.example.com'
+ * getENV('MISSING', 'fallback') // 'fallback'
+ * getENV('MISSING') // throws Error: Undefined ENV variable - MISSING
+ * ```
+ *
  * @param key - The name of the environment variable to retrieve.
  * @param defaultValue - An optional default value to return if the environment variable is not defined.
  * @returns The value of the environment variable if it exists, otherwise the default value if provided.
@@ -23,6 +31,14 @@ export const getENV = (key: string, defaultValue?: string) => {
 /**
  * Determines if the current environment is set to development.
  *
+ * @example
+ * ```typescript
+ * process.env.NODE_ENV = 'development'
+ * isDev() // true
+ * process.env.NODE_ENV = 'production'
+ * isDev() // false
+ * ```
+ *
  * @returns {boolean} `true` if `process.env.NODE_ENV` is `'development'`, otherwise `false`.
  */
 export const isDev = (): boolean => {
@@ -31,6 +47,14 @@ export const isDev = (): boolean => {
 
 /**
  * Determines if the current environment is set to production.
+ *
+ * @example
+ * ```typescript
+ * process.env.NODE_ENV = 'production'
+ * isProd() // true
+ * process.env.NODE_ENV = 'test'
+ * isProd() // false
+ * ```
  *
  * @returns {boolean} `true` if `process.env.NODE_ENV` is `'production'`, otherwise `false`.
  */
