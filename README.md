@@ -35,6 +35,12 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 npm install @rtorcato/js-common
 ```
 
+Pre-release builds are published to the `beta` dist-tag, so they never reach a plain `npm install`:
+
+```bash
+npm install @rtorcato/js-common@beta
+```
+
 ## Use with AI
 
 An agent skill lives in [`skills/js-common`](./skills/js-common/SKILL.md) — it teaches an AI coding agent the subpath-import rules, which same-named helper belongs to which module, the three error idioms, which modules are Node-only, and the full module → exports map.

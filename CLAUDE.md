@@ -35,6 +35,7 @@ The `./types` subpath is intentionally types-only — it has no `import` field, 
 - Conventional commits are **required**. Run `pnpm commit` for a guided prompt (commitizen).
 - PRs must be **squash-merged** — never rebase-merge or merge-commit.
 - `semantic-release` auto-publishes from `main` using commit messages. **Never bump the version manually** in `package.json`.
+- Pushing to a `beta` branch publishes a pre-release under the `beta` dist-tag; `latest` is untouched.
 
 ## Pre-commit Hooks
 
