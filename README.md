@@ -129,6 +129,10 @@ Each module is shipped as its own subpath export so bundlers only include what y
 
 ## Available Modules
 
+Which module a helper belongs to — and why no helper is exported from two of
+them — is recorded in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md). These paths
+are frozen as of that record.
+
 ### Date & Time
 ```typescript
 import { today, formatDate, daysBetween, isLeapYear } from '@rtorcato/js-common/date'
