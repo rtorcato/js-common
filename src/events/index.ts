@@ -1,5 +1,12 @@
 /**
  * Adds an event listener and returns a function to remove it.
+ *
+ * @example
+ * ```typescript
+ * const off = on(button, 'click', (event) => console.log(event.clientX))
+ * off() // listener removed
+ * ```
+ *
  * @param target The event target.
  * @param type The event type.
  * @param handler The event handler.
@@ -18,6 +25,13 @@ export function on<K extends keyof HTMLElementEventMap>(
 
 /**
  * Dispatches a custom event on the target.
+ *
+ * @example
+ * ```typescript
+ * on(window, 'click', () => {})
+ * emit(window, 'cart:add', { sku: 'A1' }) // true (nothing called preventDefault)
+ * ```
+ *
  * @param target The event target.
  * @param type The event type.
  * @param detail Optional detail data.
@@ -30,6 +44,13 @@ export function emit(target: EventTarget, type: string, detail?: unknown): boole
 
 /**
  * Waits for a single event to occur and resolves a promise.
+ *
+ * @example
+ * ```typescript
+ * const event = await once(button, 'click')
+ * event.type // 'click'
+ * ```
+ *
  * @param target The event target.
  * @param type The event type.
  * @returns {Promise<Event>} Resolves with the event object.

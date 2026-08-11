@@ -1,5 +1,12 @@
 /**
  * Inverts a Map (swaps keys and values). If duplicate values exist, later keys overwrite earlier ones.
+ *
+ * @example
+ * ```typescript
+ * invertMap(new Map([['a', 1], ['b', 2]]))
+ * // Map { 1 => 'a', 2 => 'b' }
+ * ```
+ *
  * @param map The map to invert.
  * @returns {Map<any, any>} The inverted map.
  */
@@ -13,6 +20,13 @@ export function invertMap<K, V>(map: Map<K, V>): Map<V, K> {
 
 /**
  * Maps the values of a Map using a function.
+ *
+ * @example
+ * ```typescript
+ * mapValues(new Map([['a', 1], ['b', 2]]), (v) => v * 10)
+ * // Map { 'a' => 10, 'b' => 20 }
+ * ```
+ *
  * @param map The map to map over.
  * @param fn The function to apply to each value.
  * @returns {Map<K, U>} A new map with mapped values.
@@ -27,6 +41,13 @@ export function mapValues<K, V, U>(map: Map<K, V>, fn: (value: V, key: K) => U):
 
 /**
  * Merges two or more maps. Later maps overwrite earlier keys.
+ *
+ * @example
+ * ```typescript
+ * mergeMaps(new Map([['a', 1]]), new Map([['a', 9], ['b', 2]]))
+ * // Map { 'a' => 9, 'b' => 2 }
+ * ```
+ *
  * @param maps The maps to merge.
  * @returns {Map<K, V>} The merged map.
  */

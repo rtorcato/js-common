@@ -1,5 +1,13 @@
 /**
  * Returns a promise that resolves after a given delay (ms).
+ *
+ * @example
+ * ```typescript
+ * const started = Date.now()
+ * await delay(100)
+ * Date.now() - started >= 100 // true
+ * ```
+ *
  * @param ms Milliseconds to wait.
  * @returns {Promise<void>}
  */
@@ -9,6 +17,16 @@ export function delay(ms: number): Promise<void> {
 
 /**
  * Wraps a promise and returns a tuple [error, result].
+ *
+ * @example
+ * ```typescript
+ * const [err, value] = await to(Promise.resolve(42))
+ * // err = null, value = 42
+ *
+ * const [err2, value2] = await to(Promise.reject(new Error('boom')))
+ * // err2.message = 'boom', value2 = undefined
+ * ```
+ *
  * @param promise The promise to wrap.
  * @returns {Promise<[any, T | undefined]>}
  */
@@ -24,6 +42,13 @@ export async function to<T>(promise: Promise<T>): Promise<[any, T | undefined]> 
 
 /**
  * Returns a promise that rejects after a timeout if the input promise does not resolve.
+ *
+ * @example
+ * ```typescript
+ * await withTimeout(delay(10).then(() => 'fast'), 100) // 'fast'
+ * await withTimeout(delay(500), 100) // rejects with Error('Timeout')
+ * ```
+ *
  * @param promise The promise to race.
  * @param ms Timeout in milliseconds.
  * @param error Optional error to throw on timeout.

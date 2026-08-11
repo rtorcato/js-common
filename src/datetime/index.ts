@@ -1,5 +1,10 @@
 /**
  * Returns the current date and time as an ISO string (YYYY-MM-DDTHH:mm:ss.sssZ).
+ *
+ * @example
+ * ```typescript
+ * nowIso() // '2026-08-11T14:03:27.913Z'
+ * ```
  */
 export function nowIso(): string {
 	return new Date().toISOString()
@@ -7,6 +12,13 @@ export function nowIso(): string {
 
 /**
  * Parses an ISO date-time string to a Date object. Returns null if invalid.
+ *
+ * @example
+ * ```typescript
+ * parseIsoDateTime('2026-08-11T14:03:27Z')?.getUTCHours() // 14
+ * parseIsoDateTime('not-a-date') // null
+ * ```
+ *
  * @param iso The ISO string.
  */
 export function parseIsoDateTime(iso: string): Date | null {
@@ -16,6 +28,12 @@ export function parseIsoDateTime(iso: string): Date | null {
 
 /**
  * Formats a Date as YYYY-MM-DD HH:mm:ss (local time).
+ *
+ * @example
+ * ```typescript
+ * formatDateTimeLocal(new Date(2026, 7, 11, 9, 5, 3)) // '2026-08-11 09:05:03'
+ * ```
+ *
  * @param date The Date object.
  */
 export function formatDateTimeLocal(date: Date): string {

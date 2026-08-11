@@ -1,5 +1,13 @@
 /**
  * Validates if a string is a valid email address (simple regex).
+ *
+ * @example
+ * ```typescript
+ * isValidEmail('user@example.com') // true
+ * isValidEmail('user@example') // false
+ * isValidEmail('not an email') // false
+ * ```
+ *
  * @param email The email address to validate.
  * @returns True if valid, false otherwise.
  */
@@ -9,6 +17,12 @@ export function isValidEmail(email: string): boolean {
 
 /**
  * Normalizes an email address by trimming and converting to lowercase.
+ *
+ * @example
+ * ```typescript
+ * normalizeEmail('  User@Example.COM ') // 'user@example.com'
+ * ```
+ *
  * @param email The email address to normalize.
  * @returns The normalized email address.
  */
@@ -18,6 +32,14 @@ export function normalizeEmail(email: string): string {
 
 /**
  * Masks an email address for privacy (e.g., j***@domain.com).
+ *
+ * @example
+ * ```typescript
+ * maskEmail('jane@example.com') // 'j***@example.com'
+ * maskEmail('a@example.com') // '*@example.com'
+ * maskEmail('nope') // 'nope'
+ * ```
+ *
  * @param email The email address to mask.
  * @returns The masked email address.
  */

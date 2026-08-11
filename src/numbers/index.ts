@@ -1,5 +1,12 @@
 /**
  * Returns a random integer between min and max (inclusive).
+ *
+ * @example
+ * ```typescript
+ * getRandomInt(1, 6) // 4 (any integer from 1 to 6)
+ * getRandomInt(0, 0) // 0
+ * ```
+ *
  * @param min The minimum value (inclusive).
  * @param max The maximum value (inclusive).
  * @returns A random integer.
@@ -10,6 +17,14 @@ export function getRandomInt(min: number, max: number) {
 
 /**
  * Clamps a number between a minimum and maximum value.
+ *
+ * @example
+ * ```typescript
+ * clamp(15, 0, 10) // 10
+ * clamp(-5, 0, 10) // 0
+ * clamp(5, 0, 10) // 5
+ * ```
+ *
  * @param value The number to clamp.
  * @param min The minimum value.
  * @param max The maximum value.
@@ -21,6 +36,14 @@ export function clamp(value: number, min: number, max: number): number {
 
 /**
  * Rounds a number to a specified number of decimal places.
+ *
+ * @example
+ * ```typescript
+ * roundTo(3.14159) // 3.14
+ * roundTo(3.14159, 3) // 3.142
+ * roundTo(1234.5, 0) // 1235
+ * ```
+ *
  * @param value The number to round.
  * @param decimals The number of decimal places. Defaults to 2.
  * @returns The rounded number.

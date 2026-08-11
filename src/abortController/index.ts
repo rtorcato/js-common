@@ -1,5 +1,14 @@
 /**
  * Creates a new AbortController and returns its controller and signal.
+ *
+ * @example
+ * ```typescript
+ * const { controller, signal } = createAbortController()
+ * signal.aborted // false
+ * controller.abort()
+ * signal.aborted // true
+ * ```
+ *
  * @returns {{ controller: AbortController, signal: AbortSignal }}
  */
 export function createAbortController() {
@@ -9,6 +18,15 @@ export function createAbortController() {
 
 /**
  * Returns a promise that rejects when the given AbortSignal is aborted.
+ *
+ * @example
+ * ```typescript
+ * const { controller, signal } = createAbortController()
+ * const pending = abortPromise(signal)
+ * controller.abort()
+ * await pending.catch((err) => err.name) // 'AbortError'
+ * ```
+ *
  * @param signal The AbortSignal to listen to.
  * @returns {Promise<never>}
  */
@@ -30,6 +48,18 @@ export function abortPromise(signal: AbortSignal): Promise<never> {
 
 /**
  * Wraps a promise and rejects it if the signal is aborted.
+ *
+ * @example
+ * ```typescript
+ * const { controller, signal } = createAbortController()
+ * const slow = new Promise<string>((resolve) => setTimeout(() => resolve('done'), 50))
+ *
+ * await withAbort(slow, signal) // 'done'
+ *
+ * controller.abort()
+ * await withAbort(slow, signal).catch((err) => err.name) // 'AbortError'
+ * ```
+ *
  * @param promise The promise to wrap.
  * @param signal The AbortSignal.
  * @returns {Promise<T>}

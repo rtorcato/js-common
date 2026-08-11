@@ -1,5 +1,11 @@
 /**
  * Returns the current process ID (Node.js only).
+ *
+ * @example
+ * ```typescript
+ * getProcessId() // 48213 (undefined in a browser)
+ * ```
+ *
  * @returns {number | undefined}
  */
 export function getProcessId(): number | undefined {
@@ -9,6 +15,12 @@ export function getProcessId(): number | undefined {
 
 /**
  * Returns the current process uptime in seconds (Node.js only).
+ *
+ * @example
+ * ```typescript
+ * getProcessUptime() // 12.482
+ * ```
+ *
  * @returns {number | undefined}
  */
 export function getProcessUptime(): number | undefined {
@@ -19,6 +31,12 @@ export function getProcessUptime(): number | undefined {
 
 /**
  * Returns the current working directory (Node.js only).
+ *
+ * @example
+ * ```typescript
+ * getCwd() // '/Users/ada/projects/app'
+ * ```
+ *
  * @returns {string | undefined}
  */
 export function getCwd(): string | undefined {

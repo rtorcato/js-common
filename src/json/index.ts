@@ -1,5 +1,13 @@
 /**
  * Safely parses a JSON string, returning a fallback value if parsing fails.
+ *
+ * @example
+ * ```typescript
+ * safeJsonParse('{"a":1}') // { a: 1 }
+ * safeJsonParse('{oops') // null
+ * safeJsonParse('{oops', {}) // {}
+ * ```
+ *
  * @param {string} str - The JSON string to parse.
  * @param {any} [fallback=null] - The value to return if parsing fails.
  * @returns The parsed object or the fallback value.
@@ -15,6 +23,17 @@ export function safeJsonParse<T = any>(str: string, fallback: T | null = null): 
 
 /**
  * Safely stringifies a value to JSON, returning a fallback value if stringification fails.
+ *
+ * @example
+ * ```typescript
+ * safeJsonStringify({ a: 1 }) // '{"a":1}'
+ *
+ * const circular: any = {}
+ * circular.self = circular
+ * safeJsonStringify(circular) // null
+ * safeJsonStringify(circular, '{}') // '{}'
+ * ```
+ *
  * @param {any} value - The value to stringify.
  * @param {string} [fallback=null] - The value to return if stringification fails.
  * @returns The JSON string or the fallback value.
@@ -30,6 +49,14 @@ export function safeJsonStringify(value: any, fallback: string | null = null): s
 
 /**
  * Checks if a string is valid JSON.
+ *
+ * @example
+ * ```typescript
+ * isValidJson('{"a":1}') // true
+ * isValidJson('[1,2]') // true
+ * isValidJson('{oops') // false
+ * ```
+ *
  * @param {string} str - The string to check.
  * @returns {boolean} True if the string is valid JSON, false otherwise.
  */

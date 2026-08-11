@@ -1,5 +1,12 @@
 /**
  * Calculates the distance between two points in 2D space.
+ *
+ * @example
+ * ```typescript
+ * distance2D(0, 0, 3, 4) // 5
+ * distance2D(1, 1, 1, 1) // 0
+ * ```
+ *
  * @param x1 X coordinate of first point.
  * @param y1 Y coordinate of first point.
  * @param x2 X coordinate of second point.
@@ -12,6 +19,13 @@ export function distance2D(x1: number, y1: number, x2: number, y2: number): numb
 
 /**
  * Calculates the midpoint between two points in 2D space.
+ *
+ * @example
+ * ```typescript
+ * midpoint2D(0, 0, 4, 6) // [2, 3]
+ * midpoint2D(-2, 5, 2, 5) // [0, 5]
+ * ```
+ *
  * @param x1 X coordinate of first point.
  * @param y1 Y coordinate of first point.
  * @param x2 X coordinate of second point.
@@ -24,6 +38,13 @@ export function midpoint2D(x1: number, y1: number, x2: number, y2: number): [num
 
 /**
  * Calculates the angle (in radians) between two points in 2D space.
+ *
+ * @example
+ * ```typescript
+ * angle2D(0, 0, 1, 0) // 0
+ * angle2D(0, 0, 0, 1) // 1.5707963267948966 (Math.PI / 2)
+ * ```
+ *
  * @param x1 X coordinate of first point.
  * @param y1 Y coordinate of first point.
  * @param x2 X coordinate of second point.

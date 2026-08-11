@@ -1,5 +1,13 @@
 /**
  * Escapes special HTML characters in a string to prevent XSS attacks.
+ *
+ * @example
+ * ```typescript
+ * escapeHtml('<script>alert("x")</script>')
+ * // '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
+ * escapeHtml("Tom & Jerry's") // 'Tom &amp; Jerry&#39;s'
+ * ```
+ *
  * @param str The string to escape.
  * @returns The escaped string.
  */
@@ -14,6 +22,13 @@ export function escapeHtml(str: string): string {
 
 /**
  * Unescapes HTML entities in a string.
+ *
+ * @example
+ * ```typescript
+ * unescapeHtml('&lt;b&gt;hi&lt;/b&gt;') // '<b>hi</b>'
+ * unescapeHtml('Tom &amp; Jerry') // 'Tom & Jerry'
+ * ```
+ *
  * @param str The string to unescape.
  * @returns The unescaped string.
  */
@@ -28,6 +43,13 @@ export function unescapeHtml(str: string): string {
 
 /**
  * Strips all HTML tags from a string.
+ *
+ * @example
+ * ```typescript
+ * stripHtmlTags('<p>Hello <b>world</b></p>') // 'Hello world'
+ * stripHtmlTags('plain text') // 'plain text'
+ * ```
+ *
  * @param str The string to strip tags from.
  * @returns The plain text string.
  */

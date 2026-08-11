@@ -1,5 +1,11 @@
 /**
  * Returns the union of two sets.
+ *
+ * @example
+ * ```typescript
+ * union(new Set([1, 2]), new Set([2, 3])) // Set { 1, 2, 3 }
+ * ```
+ *
  * @param a First set.
  * @param b Second set.
  * @returns {Set<T>} Union of a and b.
@@ -10,6 +16,13 @@ export function union<T>(a: Set<T>, b: Set<T>): Set<T> {
 
 /**
  * Returns the intersection of two sets.
+ *
+ * @example
+ * ```typescript
+ * intersection(new Set([1, 2, 3]), new Set([2, 3, 4])) // Set { 2, 3 }
+ * intersection(new Set([1]), new Set([2])) // Set {}
+ * ```
+ *
  * @param a First set.
  * @param b Second set.
  * @returns {Set<T>} Intersection of a and b.
@@ -20,6 +33,12 @@ export function intersection<T>(a: Set<T>, b: Set<T>): Set<T> {
 
 /**
  * Returns the difference of two sets (elements in a not in b).
+ *
+ * @example
+ * ```typescript
+ * difference(new Set([1, 2, 3]), new Set([2])) // Set { 1, 3 }
+ * ```
+ *
  * @param a First set.
  * @param b Second set.
  * @returns {Set<T>} Difference of a and b.

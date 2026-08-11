@@ -9,6 +9,11 @@ function toDate(value: string | Date): Date {
 
 /**
  * Returns today's date as a YYYY-MM-DD string.
+ *
+ * @example
+ * ```typescript
+ * today() // '2026-08-11'
+ * ```
  */
 export function today(): string {
 	return new Date().toISOString().slice(0, 10)
@@ -16,6 +21,12 @@ export function today(): string {
 
 /**
  * Returns a Date object from a YYYY-MM-DD string (parsed as local time).
+ *
+ * @example
+ * ```typescript
+ * parseDate('2026-08-11') // Date for 2026-08-11 00:00:00 local time
+ * parseDate('2026-08-11').getFullYear() // 2026
+ * ```
  */
 export function parseDate(dateStr: string): Date {
 	return new Date(`${dateStr}T00:00:00`)
@@ -23,6 +34,11 @@ export function parseDate(dateStr: string): Date {
 
 /**
  * Formats a Date object as YYYY-MM-DD (UTC).
+ *
+ * @example
+ * ```typescript
+ * formatDate(new Date('2026-08-11T23:30:00Z')) // '2026-08-11'
+ * ```
  */
 export function formatDate(date: Date): string {
 	return date.toISOString().slice(0, 10)
