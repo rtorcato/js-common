@@ -18,27 +18,36 @@ export function once<T extends (...args: any[]) => any>(fn: T): T {
 
 /**
  * Returns a debounced version of a function.
+ * The wrapper defers the call, so it always returns `undefined` — never `fn`'s return value.
  * @param fn The function to debounce.
  * @param wait Milliseconds to wait.
  * @returns {Function}
  */
 
-export function debounce<T extends (...args: any[]) => void>(fn: T, wait: number): T {
+export function debounce<T extends (...args: any[]) => void>(
+	fn: T,
+	wait: number
+): (...args: Parameters<T>) => void {
 	let timeout: ReturnType<typeof setTimeout> | undefined
 	return function (this: any, ...args: any[]) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => fn.apply(this, args), wait)
-	} as T
+	}
 }
 
 /**
  * Returns a throttled version of a function.
+ * The wrapper drops calls inside the window, so it always returns `undefined` — never `fn`'s
+ * return value.
  * @param fn The function to throttle.
  * @param wait Milliseconds to wait between calls.
  * @returns {Function}
  */
 
-export function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
+export function throttle<T extends (...args: any[]) => void>(
+	fn: T,
+	wait: number
+): (...args: Parameters<T>) => void {
 	let last = 0
 	return function (this: any, ...args: any[]) {
 		const now = Date.now()
@@ -46,7 +55,7 @@ export function throttle<T extends (...args: any[]) => void>(fn: T, wait: number
 			last = now
 			fn.apply(this, args)
 		}
-	} as T
+	}
 }
 
 /**
