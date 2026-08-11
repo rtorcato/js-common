@@ -1,6 +1,6 @@
 # TODO
 
-Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue — that's the source of truth, this file is the at-a-glance view. Closed items live in `git log` and the changelog.
+Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue — that's the source of truth, this file is the at-a-glance view. Closed items live in `git log` and the changelog. For the longer arc — the beta preview and the v1.0 stable API — see [ROADMAP.md](./ROADMAP.md).
 
 ## Documentation
 
@@ -19,5 +19,4 @@ Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue �
 
 ## Chores
 
-- [ ] [#91](https://github.com/rtorcato/js-common/issues/91) — Roadmap milestones (incl. beta) + release docs/README checklist
 - [ ] [#109](https://github.com/rtorcato/js-common/issues/109) — Migrate npm publishing to OIDC trusted publishing; remove `NPM_TOKEN`
