@@ -1,20 +1,20 @@
-
-
 echo "🔍 Running pre-commit checks..."
 
 echo "🧹 Running typecheck (pnpm run typecheck)..."
 pnpm run typecheck
+
 echo "🧹 Running lint (pnpm run check)..."
 pnpm run check
-CHECK_STATUS=$?
 
-if [ $CHECK_STATUS -ne 0 ]; then
-  echo "❌ Linting failed!"
-  exit 1
-else
-  echo "✅ Linting passed!"
+# Format only what is already staged, then re-stage it. Formatting the whole
+# tree here used to rewrite files *after* the checks and never `git add` them,
+# so the commit could contain unformatted code while the working tree looked
+# clean. Nothing to do when the staged set has no formattable files.
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR -- '*.ts' '*.tsx' '*.js' '*.jsx' '*.mjs' '*.cjs' '*.json' '*.jsonc')
+if [ -n "$STAGED" ]; then
+  echo "🧹 Formatting staged files..."
+  echo "$STAGED" | tr '\n' '\0' | xargs -0 pnpm exec biome format --write
+  echo "$STAGED" | tr '\n' '\0' | xargs -0 git add
 fi
-
-pnpm exec biome format .
 
 echo "🎉 Pre-commit checks passed successfully!"
