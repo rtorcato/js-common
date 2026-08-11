@@ -248,6 +248,10 @@ jobs:
 
     release:
         runs-on: ubuntu-latest
+        # Merging and publishing are otherwise the same event, so a PR title that
+        # hides a BREAKING CHANGE footer in its body can ship a major unattended.
+        # The environment holds this job until a human approves it.
+        environment: release
         needs: [dependencies, lint, typecheck, test, build, check-skip]
         if: needs.check-skip.outputs.should-skip != 'true' && github.ref == 'refs/heads/main' && github.event_name == 'push'
         steps:
@@ -290,3 +294,25 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
               run: npx semantic-release
+
+            # Releases failed silently from 2026-08-08 to 2026-08-11 because nothing
+            # surfaced the failure — every merge in between was a `test:` commit that
+            # correctly produced no release, so the breakage stayed invisible.
+            - name: 🔔 Report release failure
+              if: failure()
+              uses: actions/github-script@v8
+              with:
+                  script: |
+                      await github.rest.issues.create({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        title: `Release failed on ${context.sha.slice(0, 7)}`,
+                        body: [
+                          `The \`release\` job failed on \`${context.sha}\`.`,
+                          '',
+                          `[View the run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+                          '',
+                          'Nothing was published. Releases stay blocked until this is fixed.',
+                        ].join('\n'),
+                        labels: ['bug'],
+                      })
