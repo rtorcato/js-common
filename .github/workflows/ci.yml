@@ -248,6 +248,14 @@ jobs:
                       node_modules
                   key: ${{ needs.dependencies.outputs.cache-key }}
 
+            # The cache above only carries the root node_modules, never
+            # apps/docs/node_modules. This job used to get away with that
+            # because pnpm auto-installed the missing workspace deps before
+            # running the script; with verifyDepsBeforeRun disabled it no
+            # longer does, so install explicitly like every other job.
+            - name: 📦 Install dependencies
+              run: pnpm install --frozen-lockfile
+
             - name: 📘 Build docs site
               run: pnpm --filter @rtorcato/js-common-docs build
 
