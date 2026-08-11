@@ -31,6 +31,11 @@ We welcome contributions from everyone! Here's how you can help:
 8. Push to your branch (`git push origin feature/amazing-feature`)
 9. Open a Pull Request
 
+Adding a helper? Check [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md) first. It
+records which module owns what, and the rule that no name is exported from two
+modules — module paths are frozen, so a helper in the wrong place is expensive
+to move later.
+
 ### 📝 Documentation
 - Improve README.md, code comments, or JSDoc
 - Add examples for existing functions
