@@ -3,6 +3,8 @@ title: Formatting
 description: Utilities exported from @rtorcato/js-common/formatting.
 ---
 
+Display formatting with predictable, fixed-shape output — thousands separators, percentages, zero padding, and `YYYY-MM-DD` / `HH:MM:SS` timestamps. The date and time helpers take no format string and the number helpers default to `en-US`, which is the point: this module is for logs, filenames and CSVs, where output should not shift with the machine's locale. When the reader's locale does matter, use `i18n` or `currency`, which go through `Intl`.
+
 ```ts
 import { formatDate, formatDateTime, formatNumber } from '@rtorcato/js-common/formatting'
 ```

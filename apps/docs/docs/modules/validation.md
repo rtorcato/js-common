@@ -3,6 +3,8 @@ title: Validation
 description: Utilities exported from @rtorcato/js-common/validation.
 ---
 
+Runtime type guards for values arriving from outside the program — JSON bodies, query params, config files. Each one returns a TypeScript type predicate, so a check narrows the type at the call site instead of merely returning `true`; `isNumber` also rejects `NaN`, which `typeof` will happily call a number. This is a guard set, not a schema validator — for object shapes, coercion and useful error messages, reach for Zod, as the `env` module does.
+
 ```ts
 import { isArray, isBoolean, isDefined } from '@rtorcato/js-common/validation'
 ```

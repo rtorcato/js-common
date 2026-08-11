@@ -3,6 +3,8 @@ title: Env
 description: Utilities exported from @rtorcato/js-common/env.
 ---
 
+Reading environment variables and validating them, with Zod schemas doing the validating. `getENV` throws when a variable is missing and no default was given — failing loudly at startup beats an `undefined` surfacing three layers deep in a request. `isDev`, `isProd` and `isTest` are plain `NODE_ENV` string comparisons, so they are cheap enough to call anywhere.
+
 ```ts
 import { RootApiEnvSchema, checkEnv, getENV } from '@rtorcato/js-common/env'
 ```

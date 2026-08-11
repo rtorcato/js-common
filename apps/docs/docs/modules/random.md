@@ -3,6 +3,8 @@ title: Random
 description: Utilities exported from @rtorcato/js-common/random.
 ---
 
+Random integers, floats, booleans, strings and array picks. All of it is `Math.random` — fast, seedless and not cryptographically secure — which makes it right for test fixtures, sampling, jitter and visuals, and wrong for tokens, session ids or anything an attacker would like to predict (use `crypto.randomHex` or `security.generateSecureToken`). Note the asymmetry: `randomInt` includes both bounds, `randomFloat` excludes its maximum.
+
 ```ts
 import { randomBool, randomElement, randomFloat } from '@rtorcato/js-common/random'
 ```

@@ -3,6 +3,8 @@ title: File
 description: Utilities exported from @rtorcato/js-common/file.
 ---
 
+Promise-based reads, writes, existence checks and deletes over `node:fs/promises`, plus a file-extension parser. Node-only, async-only and UTF-8 only — no sync variants and no encoding argument, since those are exactly the cases where you should reach for `node:fs` directly. `fileExists` answers a question about the past: the file can disappear before your next line runs, so where it matters, attempt the operation and handle the failure instead.
+
 ```ts
 import { deleteFile, fileExists, getFileExtension } from '@rtorcato/js-common/file'
 ```

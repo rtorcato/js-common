@@ -3,6 +3,8 @@ title: Console
 description: Utilities exported from @rtorcato/js-common/console.
 ---
 
+Two blunt instruments for the console: clear it, or silence it. `disableConsole` replaces `console.log` with a no-op and only does so when `NODE_ENV` is `production`, so a stray debug log cannot leak into a shipped build while your local output stays intact. When you need the output back afterwards use `logging`'s `captureConsole`, and for anything structured use `logger`.
+
 ```ts
 import { clearConsole, disableConsole } from '@rtorcato/js-common/console'
 ```
