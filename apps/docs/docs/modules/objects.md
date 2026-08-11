@@ -3,6 +3,8 @@ title: Objects
 description: Utilities exported from @rtorcato/js-common/objects.
 ---
 
+Plain-object helpers — `pick`, `omit`, `deepMerge`, `deepClone` and a plain-object guard. `deepClone` is `structuredClone`, so `Date`s, `Map`s, `Set`s, typed arrays and cycles all survive while functions and class prototypes do not — that is the deliberate difference from `json.deepCloneJson`. `pick` and `omit` return shallow copies, and `deepMerge` recurses only into plain objects: arrays and class instances are replaced wholesale rather than merged.
+
 ```ts
 import { deepClone, deepMerge, isPlainObject } from '@rtorcato/js-common/objects'
 ```

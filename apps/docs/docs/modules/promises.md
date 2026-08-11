@@ -3,6 +3,8 @@ title: Promises
 description: Utilities exported from @rtorcato/js-common/promises.
 ---
 
+Promise combinators and adapters — the standard `Promise` statics under stable names, plus `delay`, `withTimeout` and `to` for error-as-value handling. `to` returns an `[error, result]` tuple so a failure can be handled with an `if` instead of a `try`/`catch` block; `try`'s `Result` is the richer, type-narrowing version of the same idea. `withTimeout` is a `Promise.race`: it rejects on time but does not cancel, so the underlying work keeps running unless it honours an `AbortSignal`.
+
 ```ts
 import { all, allSettled, delay } from '@rtorcato/js-common/promises'
 ```

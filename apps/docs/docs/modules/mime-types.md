@@ -3,6 +3,8 @@ title: Mime Types
 description: Utilities exported from @rtorcato/js-common/mime-types.
 ---
 
+MIME-type lookup by file extension, plus the database behind it and its string-literal types. It is a vendored, TypeScript-ported subset of the `mime-types` package with `path.extname` removed, so it runs on edge runtimes where `node:path` is unavailable. `MimeType` and `FileExtension` are unions of every value in the database, which turns a typo into a compile error rather than a silent `false` at runtime.
+
 ```ts
 import { FileExtension, MimeType, MimeValue } from '@rtorcato/js-common/mime-types'
 ```

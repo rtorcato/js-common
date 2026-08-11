@@ -3,6 +3,8 @@ title: Currency
 description: Utilities exported from @rtorcato/js-common/currency.
 ---
 
+Money for display — formatting prices and compact notation, parsing them back, and looking up symbols, names and locales for ISO 4217 codes. Formatting delegates to `Intl.NumberFormat`, so symbol placement, digit counts and grouping come from the platform rather than a bundled table, and the currency-name list is loaded lazily to keep the module small. Amounts are plain `number`s: fine to render, wrong for accounting arithmetic, where integer minor units or a decimal library belong.
+
 ```ts
 import { convertCurrency, formatPrice, formatPriceCompact } from '@rtorcato/js-common/currency'
 ```
