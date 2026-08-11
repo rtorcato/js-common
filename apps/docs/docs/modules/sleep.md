@@ -3,6 +3,8 @@ title: Sleep
 description: Utilities exported from @rtorcato/js-common/sleep.
 ---
 
+Await a fixed delay, a random one, or an abortable one — plus `sleepSync`, which blocks. `sleepRandom` is for jitter (retry backoff, staggering pollers), and `sleepWithAbort` is the one to use in anything cancellable, since a plain `sleep` holds its timer to the end. `sleepSync` busy-waits in a loop and freezes the event loop entirely — acceptable in a throwaway script, never in a server request path.
+
 ```ts
 import { sleep, sleepRandom, sleepSync } from '@rtorcato/js-common/sleep'
 ```

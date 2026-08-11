@@ -3,6 +3,8 @@ title: Crypto
 description: Utilities exported from @rtorcato/js-common/crypto.
 ---
 
+Hashing, HMAC, base64 and random hex on top of `node:crypto` — which makes this module Node-only; it will not run in a browser or on an edge runtime. These are one-way digests and encodings, not encryption and not password storage: `hashString` with SHA-256 is the wrong tool for passwords (use argon2 or bcrypt). `randomHex` comes from `randomBytes`, unlike the `Math.random`-based helpers in `random`.
+
 ```ts
 import { base64Decode, base64Encode, hashString } from '@rtorcato/js-common/crypto'
 ```

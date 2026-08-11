@@ -3,6 +3,8 @@ title: Security
 description: Utilities exported from @rtorcato/js-common/security.
 ---
 
+A small set of security-adjacent helpers: password-strength checks, cryptographically secure tokens from `node:crypto`, and coarse string sanitisation. `generateSecureToken` uses `randomBytes` — the `Math.random` helpers in `random` are never an acceptable substitute here. `sanitizeString` strips only `<script>` blocks and inline `on*` handlers with regexes, so treat it as defence in depth: escape untrusted values with `html.escapeHtml`, or run a real sanitizer such as DOMPurify when markup must survive.
+
 ```ts
 import { generateSecureToken, isStrongPassword, sanitizeString } from '@rtorcato/js-common/security'
 ```

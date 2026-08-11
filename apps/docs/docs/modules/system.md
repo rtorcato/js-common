@@ -3,6 +3,8 @@ title: System
 description: Utilities exported from @rtorcato/js-common/system.
 ---
 
+Platform detection for client-side code — operating system, mobile platform, touch support. It reads `navigator.userAgent`, which is a heuristic and not a fact: browsers misreport, and iPadOS presents itself as macOS. Prefer feature detection where one exists, keep these for the cases where behaviour genuinely differs by platform (shortcut labels, store links), and use `os` or `process` on the server.
+
 ```ts
 import { getPlatform, isAndroid, isIOS } from '@rtorcato/js-common/system'
 ```

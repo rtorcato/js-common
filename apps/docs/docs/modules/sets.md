@@ -3,6 +3,8 @@ title: Sets
 description: Utilities exported from @rtorcato/js-common/sets.
 ---
 
+Set algebra over the native `Set` — union, intersection, difference, subset and superset — plus array conversions. Membership is SameValueZero, so primitives compare by value and objects by reference; map objects to a key first if you need structural comparison. Every operation returns a new `Set` and leaves its inputs alone, and these exist for runtimes that do not yet ship the equivalent `Set` methods natively.
+
 ```ts
 import { arrayToSet, difference, intersection } from '@rtorcato/js-common/sets'
 ```
