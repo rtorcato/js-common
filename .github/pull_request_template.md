@@ -36,10 +36,10 @@ Fixes #<!-- issue number -->
 - [ ] I have updated TypeScript definitions if needed
 
 ### Public API changes only
-<!-- Skip this block for refactors, build/CI, and dependency bumps — see ROADMAP.md -->
+<!-- Skip this block for refactors, build/CI, and dependency bumps -->
 - [ ] Docs site updated (`apps/docs/docs/modules/`, plus a recipe if warranted)
 - [ ] README updated (module list + affected examples)
-- [ ] Relevant [`ROADMAP.md`](../ROADMAP.md) item ticked and the issue filed under its milestone
+- [ ] Issue filed under its [GitHub milestone](https://github.com/rtorcato/js-common/milestones)
 
 ### Build & Dependencies
 - [ ] My changes don't introduce new dependencies unnecessarily
