@@ -173,6 +173,9 @@ importers:
       '@playwright/test':
         specifier: ^1.60.0
         version: 1.62.1
+      '@rtorcato/shared-docs':
+        specifier: github:rtorcato/shared-docs
+        version: https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.18
@@ -3027,6 +3030,14 @@ packages:
         optional: true
       vitest:
         optional: true
+
+  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60':
+    resolution: {gitHosted: true, integrity: sha512-AmENptbpXoosikICI9c7ZPgzuhZIygdMgUIIImCA9C3gK8/hYtYKtupNSwSsertxa/rVCeK0pdw4vgAO+J+vpA==, tarball: https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60}
+    version: 1.2.0
+    engines: {node: '>=22'}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -12190,6 +12201,11 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
+  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+
   '@sec-ant/readable-stream@0.4.1': {}
 
   '@semantic-release/changelog@7.0.0(semantic-release@25.0.9(supports-color@8.1.1)(typescript@6.0.3))':
@@ -12759,7 +12775,7 @@ snapshots:
       '@typescript-eslint/types': 8.64.0
       '@typescript-eslint/visitor-keys': 8.64.0
       debug: 4.4.3(supports-color@8.1.1)
-      minimatch: 10.2.5
+      minimatch: 10.2.6
       semver: 7.8.5
       tinyglobby: 0.2.17
       ts-api-utils: 2.5.0(typescript@6.0.3)
