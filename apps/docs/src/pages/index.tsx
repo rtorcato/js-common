@@ -1,5 +1,6 @@
 import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
+import { siblings } from '@rtorcato/shared-docs'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import { type ReactElement, useEffect, useState } from 'react'
@@ -337,34 +338,7 @@ function Categories(): ReactElement {
 	)
 }
 
-type Sibling = {
-	name: string
-	tagline: string
-	href: string
-	dest: 'Docs' | 'GitHub'
-}
-
-const SIBLINGS: Sibling[] = [
-	{
-		name: '@rtorcato/browser-common',
-		tagline: 'Small, tree-shakeable TypeScript wrappers around 40+ browser Web APIs.',
-		href: 'https://rtorcato.github.io/browser-common/',
-		dest: 'Docs',
-	},
-	{
-		name: '@rtorcato/repo-tooling',
-		tagline:
-			'Shared Biome, TypeScript, Vitest and semantic-release presets that power the @rtorcato/* family.',
-		href: 'https://rtorcato.github.io/repo-tooling/',
-		dest: 'Docs',
-	},
-	{
-		name: 'rtorcato/swift-common',
-		tagline: 'Common Swift utilities for Apple platforms — Foundation Core + SwiftUI UI.',
-		href: 'https://rtorcato.github.io/swift-common/',
-		dest: 'Docs',
-	},
-]
+const SIBLINGS = siblings('@rtorcato/js-common')
 
 function Siblings(): ReactElement {
 	return (
