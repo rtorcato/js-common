@@ -1,11 +1,11 @@
 # TODO
 
-Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue — that's the source of truth, this file is the at-a-glance view. Closed items live in `git log` and the changelog.
+Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue — that's the source of truth, this file is the at-a-glance view. Closed items live in `git log` and the changelog. For the longer arc — the beta preview and the v1.0 stable API — see [ROADMAP.md](./ROADMAP.md).
 
 ## Documentation
 
-- [ ] [#103](https://github.com/rtorcato/js-common/issues/103) — Consume `@rtorcato/shared-docs` for the sibling-family list
-- [ ] [#124](https://github.com/rtorcato/js-common/issues/124) — Sync sibling family (db-x added, js-tooling → repo-tooling)
+- [ ] [#86](https://github.com/rtorcato/js-common/issues/86) — OG/social card images, custom 404, `og:image` metadata
+- [x] [#124](https://github.com/rtorcato/js-common/issues/124) — Sync sibling family (db-x added, js-tooling → repo-tooling)
 - [ ] [#125](https://github.com/rtorcato/js-common/issues/125) — Adopt the family brand assets (banner, social card, favicon)
 
 ## Features
@@ -18,5 +18,4 @@ Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue �
 
 ## Chores
 
-- [ ] [#91](https://github.com/rtorcato/js-common/issues/91) — Roadmap milestones (incl. beta) + release docs/README checklist
 - [ ] [#109](https://github.com/rtorcato/js-common/issues/109) — Migrate npm publishing to OIDC trusted publishing; remove `NPM_TOKEN`
