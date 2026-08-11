@@ -45,6 +45,7 @@
     "benchmark": "node scripts/benchmark.mjs",
     "docs:generate": "node scripts/generate-module-docs.mjs",
     "sync:agents": "node scripts/sync-agents.mjs",
+    "check:readme": "node scripts/check-readme-exports.mjs --check",
     "commit": "cz",
     "verify": "pnpm typecheck && pnpm check && pnpm exec vitest run",
     "================================================": ""

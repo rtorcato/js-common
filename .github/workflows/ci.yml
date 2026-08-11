@@ -2,9 +2,9 @@ name: 🚀 CI/CD Pipeline
 
 on:
     push:
-        branches: [main, master]
+        branches: [main, master, beta]
     pull_request:
-        branches: [main, master]
+        branches: [main, master, beta]
     # Required for GitHub merge queue. Without it, checks never run against the
     # merge group and every queued PR waits forever on contexts that cannot arrive.
     merge_group:
@@ -103,6 +103,12 @@ jobs:
             # rather than let the two copies of the agent guidance drift apart.
             - name: 🤖 Check AGENTS.md is in sync with SKILL.md
               run: node scripts/sync-agents.mjs --check
+
+            # The README API reference is hand-written — fail the PR when a new
+            # module ships without a README entry, or an example imports a name
+            # the module no longer exports.
+            - name: 📚 Check README matches package.json exports
+              run: node scripts/check-readme-exports.mjs --check
 
     commitlint:
         runs-on: ubuntu-latest
@@ -266,7 +272,10 @@ jobs:
         # The environment holds this job until a human approves it.
         environment: release
         needs: [dependencies, lint, typecheck, test, build, check-skip]
-        if: needs.check-skip.outputs.should-skip != 'true' && github.ref == 'refs/heads/main' && github.event_name == 'push'
+        # `beta` is a semantic-release prerelease branch: same job, but
+        # @semantic-release/npm publishes it under the `beta` dist-tag, so
+        # `npm install @rtorcato/js-common` (i.e. `latest`) never picks it up.
+        if: needs.check-skip.outputs.should-skip != 'true' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') && github.event_name == 'push'
         steps:
             - name: 📦 Checkout repository
               uses: actions/checkout@v7

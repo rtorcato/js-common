@@ -35,6 +35,12 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 npm install @rtorcato/js-common
 ```
 
+Pre-release builds are published to the `beta` dist-tag, so they never reach a plain `npm install`:
+
+```bash
+npm install @rtorcato/js-common@beta
+```
+
 ## Use with AI
 
 An agent skill lives in [`skills/js-common`](./skills/js-common/SKILL.md) — it teaches an AI coding agent the subpath-import rules, which same-named helper belongs to which module, the three error idioms, which modules are Node-only, and the full module → exports map.
@@ -140,8 +146,8 @@ import { randomInt, randomFloat, randomBool, randomElement } from '@rtorcato/js-
 
 ### Text & Strings
 ```typescript
-import { capitalize, toTitleCase, padZero } from '@rtorcato/js-common/formatting'
-import { slugify, truncate, removeEmojis } from '@rtorcato/js-common/strings'
+import { padZero, formatPercent, formatDateTime } from '@rtorcato/js-common/formatting'
+import { slugify, truncate, capitalize, titleCase } from '@rtorcato/js-common/strings'
 import { escapeHtml, unescapeHtml, stripHtmlTags } from '@rtorcato/js-common/html'
 import { escapeRegExp, matchAll, replaceAllRegex } from '@rtorcato/js-common/regex'
 import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/i18n'
@@ -167,7 +173,7 @@ import { union, intersection, difference, isSubset } from '@rtorcato/js-common/s
 
 ### Async & Control Flow
 ```typescript
-import { delay, timeout, retry } from '@rtorcato/js-common/promises'
+import { delay, withTimeout, allSettled } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
 import { tryCatch } from '@rtorcato/js-common/try'
