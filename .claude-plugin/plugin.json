@@ -1,0 +1,14 @@
+{
+  "name": "js-common",
+  "version": "1.0.0",
+  "description": "Teaches Claude to use @rtorcato/js-common correctly: subpath imports, which same-named helper belongs to which module, the three error idioms, and the Node-only modules.",
+  "author": {
+    "name": "Richard Torcato",
+    "email": "rtorcato@me.com",
+    "url": "https://github.com/rtorcato"
+  },
+  "homepage": "https://rtorcato.github.io/js-common/",
+  "repository": "https://github.com/rtorcato/js-common",
+  "license": "MIT",
+  "keywords": ["typescript", "utilities", "nodejs", "tree-shaking", "esm"]
+}
