@@ -5,8 +5,7 @@ Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue �
 ## Documentation
 
 - [ ] [#86](https://github.com/rtorcato/js-common/issues/86) — OG/social card images, custom 404, `og:image` metadata
-- [ ] [#103](https://github.com/rtorcato/js-common/issues/103) — Consume `@rtorcato/shared-docs` for the sibling-family list
-- [ ] [#124](https://github.com/rtorcato/js-common/issues/124) — Sync sibling family (db-x added, js-tooling → repo-tooling)
+- [x] [#124](https://github.com/rtorcato/js-common/issues/124) — Sync sibling family (db-x added, js-tooling → repo-tooling)
 - [ ] [#125](https://github.com/rtorcato/js-common/issues/125) — Adopt the family brand assets (banner, social card, favicon)
 
 ## Features
