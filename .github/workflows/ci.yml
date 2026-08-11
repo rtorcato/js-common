@@ -99,6 +99,11 @@ jobs:
             - name: 🔍 Run linting
               run: pnpm run check
 
+            # AGENTS.md is generated from skills/js-common/SKILL.md — fail the PR
+            # rather than let the two copies of the agent guidance drift apart.
+            - name: 🤖 Check AGENTS.md is in sync with SKILL.md
+              run: node scripts/sync-agents.mjs --check
+
     commitlint:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]

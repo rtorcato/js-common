@@ -392,6 +392,66 @@ function Siblings(): ReactElement {
 	)
 }
 
+type AiTarget = {
+	title: string
+	desc: ReactElement
+	code: string
+}
+
+const AI_TARGETS: AiTarget[] = [
+	{
+		title: 'Claude Code',
+		desc: <>The repo is its own plugin marketplace — add it, then install the skill.</>,
+		code: '/plugin marketplace add rtorcato/js-common\n/plugin install js-common@js-common',
+	},
+	{
+		title: 'Cursor, Copilot, Codex',
+		desc: (
+			<>
+				They read <code>AGENTS.md</code>. It ships in the npm tarball, so it is already in your{' '}
+				<code>node_modules</code>.
+			</>
+		),
+		code: 'node_modules/@rtorcato/js-common/AGENTS.md',
+	},
+	{
+		title: 'Anything else',
+		desc: <>Pull the skill into any tool the skills CLI supports.</>,
+		code: 'npx skills add https://github.com/rtorcato/js-common \\\n  --skill js-common',
+	},
+]
+
+function UseWithAI(): ReactElement {
+	return (
+		<section className={styles.section}>
+			<div className={styles.sectionHead}>
+				<div>
+					<h2 className={styles.h2}>Use with AI</h2>
+					<p className={styles.sub}>
+						One skill teaches your coding agent the subpath-import rules, the three error idioms and
+						which modules are Node-only.
+					</p>
+				</div>
+				<Link
+					className={styles.viewAll}
+					href="https://github.com/rtorcato/js-common/blob/main/AGENTS.md"
+				>
+					Read the rules →
+				</Link>
+			</div>
+			<div className={styles.catGrid}>
+				{AI_TARGETS.map((t) => (
+					<div key={t.title} className={styles.pillar}>
+						<div className={styles.pillarTitle}>{t.title}</div>
+						<div className={styles.pillarDesc}>{t.desc}</div>
+						<pre className={styles.aiCode}>{t.code}</pre>
+					</div>
+				))}
+			</div>
+		</section>
+	)
+}
+
 export default function Home(): ReactElement {
 	return (
 		<Layout
@@ -402,6 +462,7 @@ export default function Home(): ReactElement {
 				<Hero />
 				<Pillars />
 				<Categories />
+				<UseWithAI />
 				<Siblings />
 			</main>
 		</Layout>

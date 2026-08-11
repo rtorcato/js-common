@@ -1,0 +1,15 @@
+{
+  "name": "js-common",
+  "owner": {
+    "name": "Richard Torcato",
+    "email": "rtorcato@me.com"
+  },
+  "description": "Claude Code skill for @rtorcato/js-common — tree-shakeable TypeScript utilities across 46 subpath modules.",
+  "plugins": [
+    {
+      "name": "js-common",
+      "source": "./",
+      "description": "Teaches Claude to use @rtorcato/js-common correctly: subpath imports, which same-named helper belongs to which module, the three error idioms, and the Node-only modules."
+    }
+  ]
+}

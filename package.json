@@ -44,10 +44,12 @@
     "size": "size-limit",
     "benchmark": "node scripts/benchmark.mjs",
     "docs:generate": "node scripts/generate-module-docs.mjs",
+    "sync:agents": "node scripts/sync-agents.mjs",
     "commit": "cz",
     "================================================": ""
   },
   "files": [
+    "AGENTS.md",
     "CHANGELOG.md",
     "CONTRIBUTORS.md",
     "dist",
