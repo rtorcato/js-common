@@ -3,6 +3,12 @@ import * as path from 'node:path'
 
 /**
  * Reads a file as a string (UTF-8).
+ *
+ * @example
+ * ```typescript
+ * await readFileAsString('./package.json') // '{\n  "name": "@rtorcato/js-common",\n ...'
+ * ```
+ *
  * @param {string} filePath - The path to the file.
  * @returns {Promise<string>} The file contents as a string.
  */
@@ -12,6 +18,13 @@ export async function readFileAsString(filePath: string): Promise<string> {
 
 /**
  * Writes a string to a file (UTF-8).
+ *
+ * @example
+ * ```typescript
+ * await writeFileAsString('./out.txt', 'hello')
+ * await readFileAsString('./out.txt') // 'hello'
+ * ```
+ *
  * @param {string} filePath - The path to the file.
  * @param {string} data - The string data to write.
  * @returns {Promise<void>}
@@ -22,6 +35,13 @@ export async function writeFileAsString(filePath: string, data: string): Promise
 
 /**
  * Checks if a file exists.
+ *
+ * @example
+ * ```typescript
+ * await fileExists('./package.json') // true
+ * await fileExists('./nope.txt') // false
+ * ```
+ *
  * @param {string} filePath - The path to the file.
  * @returns {Promise<boolean>} True if the file exists, false otherwise.
  */

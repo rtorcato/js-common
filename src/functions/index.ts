@@ -1,5 +1,15 @@
 /**
  * Returns a function that only calls the original function once.
+ *
+ * @example
+ * ```typescript
+ * let calls = 0
+ * const init = once(() => ++calls)
+ * init() // 1
+ * init() // 1 (cached, not called again)
+ * calls // 1
+ * ```
+ *
  * @param fn The function to wrap.
  * @returns {Function}
  */
@@ -19,6 +29,15 @@ export function once<T extends (...args: any[]) => any>(fn: T): T {
 /**
  * Returns a debounced version of a function.
  * The wrapper defers the call, so it always returns `undefined` — never `fn`'s return value.
+ *
+ * @example
+ * ```typescript
+ * const search = debounce((term: string) => console.log(term), 300)
+ * search('a')
+ * search('ab')
+ * search('abc') // only 'abc' is logged, 300ms after the last call
+ * ```
+ *
  * @param fn The function to debounce.
  * @param wait Milliseconds to wait.
  * @returns {Function}
@@ -39,6 +58,14 @@ export function debounce<T extends (...args: any[]) => void>(
  * Returns a throttled version of a function.
  * The wrapper drops calls inside the window, so it always returns `undefined` — never `fn`'s
  * return value.
+ *
+ * @example
+ * ```typescript
+ * const onScroll = throttle(() => console.log(window.scrollY), 100)
+ * window.addEventListener('scroll', onScroll)
+ * // fires at most once every 100ms, leading edge first
+ * ```
+ *
  * @param fn The function to throttle.
  * @param wait Milliseconds to wait between calls.
  * @returns {Function}

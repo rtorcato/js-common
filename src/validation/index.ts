@@ -1,5 +1,14 @@
 /**
  * Checks if a value is defined (not null or undefined).
+ *
+ * @example
+ * ```typescript
+ * isDefined(0) // true
+ * isDefined('') // true
+ * isDefined(null) // false
+ * isDefined(undefined) // false
+ * ```
+ *
  * @param value The value to check.
  * @returns {boolean}
  */
@@ -9,6 +18,14 @@ export function isDefined<T>(value: T | null | undefined): value is T {
 
 /**
  * Check if a value is a string.
+ *
+ * @example
+ * ```typescript
+ * isString('hi') // true
+ * isString(42) // false
+ * isString(new String('hi')) // false (boxed, not a primitive)
+ * ```
+ *
  * @param value - The value to check.
  * @returns `true` if the value is a string, `false` otherwise.
  */
@@ -19,6 +36,14 @@ export function isString(value: unknown): value is string {
 
 /**
  * Checks if a value is a number (and not NaN).
+ *
+ * @example
+ * ```typescript
+ * isNumber(42) // true
+ * isNumber(Number.NaN) // false
+ * isNumber('42') // false
+ * ```
+ *
  * @param value The value to check.
  * @returns {boolean}
  */

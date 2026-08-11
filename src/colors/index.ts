@@ -1,6 +1,12 @@
 /**
  * Generates a random hex color string.
  *
+ * @example
+ * ```typescript
+ * randomColor() // '#a1b2c3'
+ * randomColor() // '#0f9e21'
+ * ```
+ *
  * @returns {string} A string representing a random color in hexadecimal format (e.g., `#a1b2c3`).
  */
 export function randomColor(): string {
@@ -11,7 +17,14 @@ export function randomColor(): string {
 }
 
 /**
- * Generates a random color with a given alpha value.
+ * Picks the readable text colour (`#000` or `#fff`) for a hex background.
+ *
+ * @example
+ * ```typescript
+ * matchingTextColor('#ffffff') // '#000'
+ * matchingTextColor('#000000') // '#fff'
+ * matchingTextColor('#1e90ff') // '#fff'
+ * ```
  *
  * @export
  * @param {string} color
@@ -28,6 +41,13 @@ export function matchingTextColor(color: string) {
 
 /**
  * Converts a hex color string to an RGB object.
+ *
+ * @example
+ * ```typescript
+ * hexToRgb('#ff8800') // { r: 255, g: 136, b: 0 }
+ * hexToRgb('ff8800') // { r: 255, g: 136, b: 0 }
+ * hexToRgb('nope') // null
+ * ```
  *
  * @export
  * @param {string} hex

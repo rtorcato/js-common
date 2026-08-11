@@ -18,6 +18,16 @@ function hasPinoPretty(): boolean {
 /**
  * Pre-configured Pino logger — pretty-printed with colors in development (when
  * `pino-pretty` is installed), plain JSON at `info` level in production.
+ *
+ * @example
+ * ```typescript
+ * logger.info('server started')
+ * // dev:  14:03:27 INFO: server started
+ * // prod: {"level":30,"msg":"server started"}
+ *
+ * logger.error({ err }, 'upload failed')
+ * logger.debug('only visible in development')
+ * ```
  */
 export const logger =
 	isDev() && hasPinoPretty()

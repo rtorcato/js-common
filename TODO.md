@@ -4,7 +4,7 @@ Index of open work for `@rtorcato/js-common`. Each row links to a GitHub issue �
 
 ## Documentation
 
-- [ ] [#82](https://github.com/rtorcato/js-common/issues/82) — Runnable examples on every function (input → output snippets; stretch: live playground)
+- [x] [#82](https://github.com/rtorcato/js-common/issues/82) — Runnable examples on every function (input → output snippets; stretch: live playground)
 - [ ] [#83](https://github.com/rtorcato/js-common/issues/83) — Module overview prose, not just tables (when to reach for it + design rationale)
 - [x] [#84](https://github.com/rtorcato/js-common/issues/84) — "See also" cross-links between related modules
 - [x] [#85](https://github.com/rtorcato/js-common/issues/85) — Recipes / cookbook section (task-oriented pages composing multiple modules)
