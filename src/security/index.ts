@@ -7,6 +7,9 @@ import { randomBytes } from 'node:crypto'
  * ```typescript
  * sanitizeString('<p onclick="steal()">hi</p><script>bad()</script>')
  * // '<p >hi</p>'
+ *
+ * // Blocklist-based, so it is bypassable — not a substitute for a real
+ * // sanitizer such as DOMPurify when rendering untrusted HTML.
  * ```
  *
  * @param str The string to sanitize.

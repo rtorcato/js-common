@@ -10,8 +10,8 @@ describe('promises — types', () => {
 	})
 
 	it('to returns an [error, value] tuple with the value widened to undefined', () => {
-		// The error slot is `any` — see the note in the issue thread, not fixed here.
-		expectTypeOf(to(Promise.resolve('x'))).toEqualTypeOf<Promise<[any, string | undefined]>>()
+		// The error slot is `unknown`, so call sites have to narrow before using it.
+		expectTypeOf(to(Promise.resolve('x'))).toEqualTypeOf<Promise<[unknown, string | undefined]>>()
 	})
 
 	it('all/allSettled/race preserve the element type', () => {

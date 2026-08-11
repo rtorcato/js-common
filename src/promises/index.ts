@@ -17,6 +17,7 @@ export function delay(ms: number): Promise<void> {
 
 /**
  * Wraps a promise and returns a tuple [error, result].
+ * The error slot is `unknown` — narrow it at the call site before touching its properties.
  *
  * @example
  * ```typescript
@@ -24,14 +25,15 @@ export function delay(ms: number): Promise<void> {
  * // err = null, value = 42
  *
  * const [err2, value2] = await to(Promise.reject(new Error('boom')))
- * // err2.message = 'boom', value2 = undefined
+ * const message = err2 instanceof Error ? err2.message : String(err2)
+ * // message = 'boom', value2 = undefined
  * ```
  *
  * @param promise The promise to wrap.
- * @returns {Promise<[any, T | undefined]>}
+ * @returns {Promise<[unknown, T | undefined]>}
  */
 
-export async function to<T>(promise: Promise<T>): Promise<[any, T | undefined]> {
+export async function to<T>(promise: Promise<T>): Promise<[unknown, T | undefined]> {
 	try {
 		const result = await promise
 		return [null, result]
