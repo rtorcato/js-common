@@ -3,7 +3,7 @@
 Where `@rtorcato/js-common` is going, and what "done" means for each stage. Each
 section maps 1:1 to a [GitHub milestone](https://github.com/rtorcato/js-common/milestones) —
 the milestone is where the individual issues live, this file is the at-a-glance view.
-Day-to-day open work is in [TODO.md](./TODO.md).
+Day-to-day open work is in [GitHub issues](https://github.com/rtorcato/js-common/issues).
 
 ## [v2.x — Shipped modules](https://github.com/rtorcato/js-common/milestone/1) — done
 
