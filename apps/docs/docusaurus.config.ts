@@ -36,6 +36,16 @@ const config: Config = {
 
 	headTags: [
 		{
+			// Docusaurus emits only the `favicon` link on its own. Unlike `favicon`,
+			// headTags hrefs are raw — the baseUrl prefix is NOT added for you.
+			tagName: 'link',
+			attributes: {
+				rel: 'apple-touch-icon',
+				sizes: '512x512',
+				href: '/js-common/img/favicon-512.png',
+			},
+		},
+		{
 			tagName: 'link',
 			attributes: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
 		},
@@ -113,9 +123,9 @@ const config: Config = {
 	themeConfig: {
 		// Social card. Docusaurus turns this into og:image + twitter:image (absolute
 		// URLs), and already emits twitter:card=summary_large_image by default, so
-		// shared links render a preview card. Uses the existing 1774×887 banner until
-		// a purpose-built 1200×630 `img/og.png` is designed — see issue #86.
-		image: 'img/banner.png',
+		// shared links render a preview card. Must live in `themeConfig` — a
+		// top-level `image` fails config validation ("field(s) not recognized").
+		image: 'img/social-card.png',
 		colorMode: {
 			defaultMode: 'dark',
 			respectPrefersColorScheme: true,

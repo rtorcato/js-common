@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="js-common — Tree-shakeable TypeScript utilities">
+	<defs>
+		<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#0d1117"/>
+			<stop offset="1" stop-color="#090c13"/>
+		</linearGradient>
+		<radialGradient id="glow" cx="0.1" cy="0.05" r="0.55">
+			<stop offset="0" stop-color="#f2cc60" stop-opacity="0.15"/>
+			<stop offset="1" stop-color="#f2cc60" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="glow2" cx="0.95" cy="1" r="0.5">
+			<stop offset="0" stop-color="#6e7bff" stop-opacity="0.12"/>
+			<stop offset="1" stop-color="#6e7bff" stop-opacity="0"/>
+		</radialGradient>
+	</defs>
+
+	<rect width="1280" height="640" fill="url(#bg)"/>
+	<rect width="1280" height="640" fill="url(#glow)"/>
+	<rect width="1280" height="640" fill="url(#glow2)"/>
+
+	<!-- Logo mark: the favicon glyph (32 viewBox) scaled to 100px. -->
+	<g transform="translate(64 176) scale(3.125)">
+		<rect width="32" height="32" rx="8" fill="#f2cc60"/>
+		<path d="M13.2 8.5h2.45v9.04c0 2.83-1.36 4.06-3.66 4.06-1.3 0-2.32-.42-2.99-1.2l1.4-1.55c.36.46.78.76 1.36.76.74 0 1.2-.44 1.2-1.55V8.5h.24z" fill="#0A0E16"/>
+		<path d="M18.7 19.1c.66.86 1.5 1.45 2.7 1.45.94 0 1.5-.4 1.5-1.04 0-.72-.5-.98-1.55-1.44l-.58-.25c-1.66-.7-2.76-1.58-2.76-3.45 0-1.72 1.31-3.02 3.36-3.02 1.46 0 2.5.5 3.25 1.83l-1.78 1.14c-.39-.7-.8-.97-1.47-.97-.67 0-1.1.43-1.1 1 0 .63.43.89 1.42 1.32l.58.25c1.95.84 3.06 1.69 3.06 3.6 0 2.06-1.62 3.19-3.8 3.19-2.13 0-3.5-1.02-4.18-2.34l1.86-1.08z" fill="#0A0E16"/>
+	</g>
+
+	<text x="188" y="253" font-family="Avenir Next" font-weight="800" font-size="76" letter-spacing="-1.8"><tspan fill="#e6edf3">js-</tspan><tspan fill="#f2cc60">common</tspan></text>
+
+	<text xml:space="preserve" x="66" y="318" font-family="Menlo" font-weight="bold" font-size="18" letter-spacing="3"><tspan fill="#e6edf3">STRINGS</tspan><tspan fill="#5a6472"> · </tspan><tspan fill="#f2cc60">DATE</tspan><tspan fill="#5a6472"> · </tspan><tspan fill="#7ee787">CLI</tspan></text>
+
+	<!-- librsvg does not reset x on a y-only tspan, so every line repeats x. -->
+	<text font-family="Avenir Next" font-weight="500" font-size="27" fill="#9ba6b8">
+		<tspan x="66" y="384">Tree-shakeable TypeScript utilities —</tspan>
+		<tspan x="66" y="422">tiny bundles, full type safety,</tspan>
+		<tspan x="66" y="460">CLI included.</tspan>
+	</text>
+
+	<!-- Editor panel -->
+	<rect x="650" y="140" width="574" height="360" rx="14" fill="#11151d" stroke="#232936" stroke-width="1"/>
+	<path d="M650 154a14 14 0 0 1 14-14h546a14 14 0 0 1 14 14v34H650z" fill="#171c26"/>
+	<circle cx="673" cy="164" r="6" fill="#ff5f57"/>
+	<circle cx="694" cy="164" r="6" fill="#febc2e"/>
+	<circle cx="715" cy="164" r="6" fill="#28c840"/>
+	<text xml:space="preserve" x="742" y="170" font-family="Menlo" font-size="15" fill="#7d8899">app.ts</text>
+
+	<g font-family="Menlo" font-size="19">
+		<text xml:space="preserve" x="674" y="234"><tspan fill="#f2cc60">import</tspan><tspan fill="#e6edf3"> { slugify, chunk }</tspan></text>
+		<text xml:space="preserve" x="674" y="262"><tspan fill="#f2cc60">from</tspan><tspan fill="#7ee787"> '@rtorcato/js-common'</tspan></text>
+
+		<text xml:space="preserve" x="674" y="318"><tspan fill="#e6edf3">slugify(</tspan><tspan fill="#7ee787">'Hello World'</tspan><tspan fill="#e6edf3">)</tspan></text>
+		<text xml:space="preserve" x="674" y="346" fill="#7d8899">// 'hello-world'</text>
+
+		<text xml:space="preserve" x="674" y="402"><tspan fill="#e6edf3">chunk([1, 2, 3, 4], </tspan><tspan fill="#a78bfa">2</tspan><tspan fill="#e6edf3">)</tspan></text>
+		<text xml:space="preserve" x="674" y="430" fill="#7d8899">// [[1, 2], [3, 4]]</text>
+
+		<text xml:space="preserve" x="674" y="470"><tspan fill="#7ee787">✓</tspan><tspan fill="#7d8899">  0 runtime deps · tree-shakeable</tspan></text>
+	</g>
+</svg>

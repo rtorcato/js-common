@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="786" viewBox="0 0 1280 786" role="img" aria-label="js-common — Tree-shakeable TypeScript utilities">
+	<defs>
+		<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#0d1117"/>
+			<stop offset="1" stop-color="#090c13"/>
+		</linearGradient>
+		<radialGradient id="glow" cx="0.12" cy="0.05" r="0.55">
+			<stop offset="0" stop-color="#f2cc60" stop-opacity="0.15"/>
+			<stop offset="1" stop-color="#f2cc60" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="glow2" cx="0.95" cy="1" r="0.5">
+			<stop offset="0" stop-color="#6e7bff" stop-opacity="0.12"/>
+			<stop offset="1" stop-color="#6e7bff" stop-opacity="0"/>
+		</radialGradient>
+	</defs>
+
+	<rect width="1280" height="786" fill="url(#bg)"/>
+	<rect width="1280" height="786" fill="url(#glow)"/>
+	<rect width="1280" height="786" fill="url(#glow2)"/>
+
+	<!-- Logo mark: the favicon glyph (32 viewBox) scaled to 150px. -->
+	<g transform="translate(565 104) scale(4.6875)">
+		<rect width="32" height="32" rx="8" fill="#f2cc60"/>
+		<path d="M13.2 8.5h2.45v9.04c0 2.83-1.36 4.06-3.66 4.06-1.3 0-2.32-.42-2.99-1.2l1.4-1.55c.36.46.78.76 1.36.76.74 0 1.2-.44 1.2-1.55V8.5h.24z" fill="#0A0E16"/>
+		<path d="M18.7 19.1c.66.86 1.5 1.45 2.7 1.45.94 0 1.5-.4 1.5-1.04 0-.72-.5-.98-1.55-1.44l-.58-.25c-1.66-.7-2.76-1.58-2.76-3.45 0-1.72 1.31-3.02 3.36-3.02 1.46 0 2.5.5 3.25 1.83l-1.78 1.14c-.39-.7-.8-.97-1.47-.97-.67 0-1.1.43-1.1 1 0 .63.43.89 1.42 1.32l.58.25c1.95.84 3.06 1.69 3.06 3.6 0 2.06-1.62 3.19-3.8 3.19-2.13 0-3.5-1.02-4.18-2.34l1.86-1.08z" fill="#0A0E16"/>
+	</g>
+
+	<text x="640" y="360" text-anchor="middle" font-family="Avenir Next" font-weight="800" font-size="76" letter-spacing="-1.8"><tspan fill="#e6edf3">js-</tspan><tspan fill="#f2cc60">common</tspan></text>
+
+	<text xml:space="preserve" x="640" y="432" text-anchor="middle" font-family="Menlo" font-weight="bold" font-size="22" letter-spacing="3"><tspan fill="#e6edf3">STRINGS</tspan><tspan fill="#5a6472"> · </tspan><tspan fill="#f2cc60">DATE</tspan><tspan fill="#5a6472"> · </tspan><tspan fill="#7ee787">CLI</tspan></text>
+
+	<!-- librsvg does not reset x on a y-only tspan, so every line repeats x. -->
+	<text text-anchor="middle" font-family="Avenir Next" font-weight="500" font-size="30" fill="#9ba6b8">
+		<tspan x="640" y="510">Tree-shakeable TypeScript utilities —</tspan>
+		<tspan x="640" y="554">tiny bundles, full type safety, CLI included.</tspan>
+	</text>
+
+	<rect x="427" y="608" width="426" height="78" rx="14" fill="#11151d" stroke="#232936" stroke-width="1"/>
+	<text xml:space="preserve" x="640" y="656" text-anchor="middle" font-family="Menlo" font-size="24"><tspan fill="#f2cc60">npm i </tspan><tspan fill="#e6edf3">@rtorcato/js-common</tspan></text>
+</svg>
