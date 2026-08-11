@@ -2,8 +2,8 @@
 
 <p align="center">
   <picture>
-    <source media="(max-width: 600px)" srcset="./banner-mobile.png">
-    <img src="./banner.png" alt="js-common — Tree-shakeable TypeScript utilities: tiny bundles, full type safety, CLI included." width="100%">
+    <source media="(max-width: 600px)" srcset="./brand/banner-mobile.png">
+    <img src="./brand/banner.png" alt="js-common — Tree-shakeable TypeScript utilities: tiny bundles, full type safety, CLI included." width="100%">
   </picture>
 </p>
 
