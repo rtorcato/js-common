@@ -7,6 +7,7 @@ import gradient from 'gradient-string'
 import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { type CliFunction, functionCategories } from './catalog.js'
 
 // Get current directory
 const currentDir = dirname(fileURLToPath(import.meta.url))
@@ -18,73 +19,6 @@ program
 	.name('js-common')
 	.description(chalk.cyan('✨ CLI utilities from @rtorcato/js-common'))
 	.version(packageJson.version)
-
-// Function categories for list and interactive mode
-// `subpath` is the published module the printed import should name. It is not
-// always the category key — the CLI groups by task ('math', 'text', 'validate')
-// while the library groups by module ('numbers', 'strings', 'validation').
-const functionCategories = {
-	date: {
-		name: '📅 Date & Time',
-		subpath: 'date',
-		functions: [
-			{ name: 'today', description: "Get today's date (YYYY-MM-DD)" },
-			{ name: 'now', description: 'Get current timestamp' },
-			{ name: 'between', description: 'Calculate days between dates' },
-		],
-	},
-	math: {
-		name: '🔢 Mathematical',
-		subpath: 'numbers',
-		functions: [
-			{ name: 'sum', description: 'Calculate sum of numbers' },
-			{ name: 'avg', description: 'Calculate average of numbers' },
-			{ name: 'random', description: 'Generate random number' },
-			{ name: 'round', description: 'Round to decimal places' },
-			{ name: 'clamp', description: 'Clamp between min/max' },
-		],
-	},
-	text: {
-		name: '📝 Text Formatting',
-		subpath: 'strings',
-		functions: [
-			{ name: 'capitalize', description: 'Capitalize first letter' },
-			{ name: 'title', description: 'Convert to title case' },
-			{ name: 'pad', description: 'Pad with leading zeros' },
-		],
-	},
-	file: {
-		name: '📁 File Operations',
-		subpath: 'file',
-		functions: [
-			{ name: 'exists', description: 'Check if file exists' },
-			{ name: 'ext', description: 'Get file extension' },
-		],
-	},
-	security: {
-		name: '🔒 Security',
-		subpath: 'security',
-		functions: [
-			{ name: 'password', description: 'Check password strength' },
-			{ name: 'token', description: 'Generate secure token' },
-		],
-	},
-	validate: {
-		name: '✅ Validation',
-		subpath: 'validation',
-		functions: [{ name: 'url', description: 'Validate URL format' }],
-	},
-	system: {
-		name: '💻 System Info',
-		subpath: 'process',
-		functions: [
-			{ name: 'pid', description: 'Get process ID' },
-			{ name: 'uptime', description: 'Get process uptime' },
-			{ name: 'ci', description: 'Check CI environment' },
-			{ name: 'node-version', description: 'Get Node.js version' },
-		],
-	},
-}
 
 // List all functions - add as a separate command
 program
@@ -247,11 +181,11 @@ program
 			}
 
 			const selectedCategory = functionCategories[category as keyof typeof functionCategories]
-			const functions = await checkbox<string>({
+			const functions = await checkbox<CliFunction>({
 				message: chalk.cyan(`Select ${selectedCategory.name} functions to add:`),
 				choices: selectedCategory.functions.map((func) => ({
 					name: `${func.name} - ${func.description}`,
-					value: func.name,
+					value: func,
 					checked: false,
 				})),
 				pageSize: 10,
@@ -263,28 +197,32 @@ program
 				return
 			}
 
+			// A category can span several modules (math → numbers + random), so
+			// group by subpath and print one import per module.
+			const bySubpath = new Map<string, string[]>()
+			for (const func of functions) {
+				bySubpath.set(func.subpath, [...(bySubpath.get(func.subpath) ?? []), func.exportName])
+			}
+
 			console.log(chalk.green('\n📦 Import Statement:'))
-			console.log(
-				chalk.white(
-					`import { ${functions.join(', ')} } from '@rtorcato/js-common/${selectedCategory.subpath}'`
+			for (const [subpath, exportNames] of bySubpath) {
+				console.log(
+					chalk.white(`import { ${exportNames.join(', ')} } from '@rtorcato/js-common/${subpath}'`)
 				)
-			)
+			}
 
 			console.log(chalk.green('\n📝 Usage Examples:'))
-			functions.forEach((func: string) => {
-				const funcInfo = selectedCategory.functions.find((f) => f.name === func)
-				if (funcInfo) {
-					console.log(chalk.gray(`\n// ${funcInfo.description}`))
-					generateUsageExample(category, func)
-				}
-			})
+			for (const func of functions) {
+				console.log(chalk.gray(`\n// ${func.description}`))
+				console.log(chalk.white(func.example))
+			}
 
 			console.log(chalk.green('\n📚 Documentation:'))
 			console.log(chalk.blue(`https://github.com/rtorcato/js-common#${category}-utilities`))
 
 			console.log(
 				chalk.yellow('\n💡 Tip: Run ') +
-					chalk.green(`js-common ${category} ${functions[0]} --help`) +
+					chalk.green(`js-common ${category} ${functions[0]?.name} --help`) +
 					chalk.yellow(' for detailed CLI usage\n')
 			)
 		} catch (error) {
@@ -296,51 +234,6 @@ program
 			process.exit(1)
 		}
 	})
-
-// Helper function to generate usage examples
-function generateUsageExample(category: string, functionName: string) {
-	const examples: Record<string, Record<string, string>> = {
-		date: {
-			today: `const today = today(); // "${new Date().toISOString().split('T')[0]}"`,
-			now: `const timestamp = now(); // ${Date.now()}`,
-			between: `const days = daysBetween('2023-01-01', '2023-12-31'); // 364`,
-		},
-		math: {
-			sum: `const total = sum([1, 2, 3, 4, 5]); // 15`,
-			avg: `const average = avg([10, 20, 30]); // 20`,
-			random: `const num = randomBetween(1, 100); // 42`,
-			round: `const rounded = roundTo(3.14159, 2); // 3.14`,
-			clamp: `const clamped = clamp(150, 0, 100); // 100`,
-		},
-		text: {
-			capitalize: `const text = capitalize('hello world'); // "Hello world"`,
-			title: `const title = toTitleCase('hello world'); // "Hello World"`,
-			pad: `const padded = padWithZeros(42, 5); // "00042"`,
-		},
-		file: {
-			exists: `const exists = await fileExists('package.json'); // true`,
-			ext: `const extension = getFileExtension('file.txt'); // "txt"`,
-		},
-		security: {
-			password: `const isStrong = checkPasswordStrength('MyPass123!'); // true`,
-			token: `const token = generateSecureToken(32); // "abc123..."`,
-		},
-		validate: {
-			url: `const isValid = isValidUrl('https://example.com'); // true`,
-		},
-		system: {
-			pid: `const processId = getProcessId(); // 12345`,
-			uptime: `const uptime = getProcessUptime(); // 123.45`,
-			ci: `const isCI = isCiEnvironment(); // false`,
-			'node-version': `const version = getNodeVersion(); // "18.17.0"`,
-		},
-	}
-
-	const example = examples[category]?.[functionName]
-	if (example) {
-		console.log(chalk.white(example))
-	}
-}
 
 // Date commands
 const dateCmd = program.command('date').description('📅 Date and time utilities')
