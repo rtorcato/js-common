@@ -73,7 +73,17 @@ function findTag(str: string, from: number): { open: number; close: number } | n
  * ```typescript
  * stripHtmlTags('<p>Hello <b>world</b></p>') // 'Hello world'
  * stripHtmlTags('plain text') // 'plain text'
+ *
+ * // Strips `<…>` spans, so ragged input leaves residue — not a sanitizer.
+ * stripHtmlTags('<<a>script>') // 'script>'
+ * stripHtmlTags('<scr<x>ipt>') // 'ipt>'
  * ```
+ *
+ * Removes `<…>` spans and nothing else: it does not decode entities and does
+ * not understand attributes or quoting, so ragged or nested markup leaves
+ * attacker-controlled residue behind rather than a safe string. Not a
+ * substitute for a real sanitizer such as DOMPurify when rendering untrusted
+ * HTML — this produces display text, it does not make untrusted markup safe.
  *
  * @param str The string to strip tags from.
  * @returns The plain text string.
@@ -99,6 +109,11 @@ export function textToHtml(str: string): string {
 
 /**
  * Checks if a string contains any HTML tags.
+ *
+ * A heuristic for "does this look like markup", not a security gate: it only
+ * looks for a non-empty `<…>` span, so `'a<b'` and `'<>'` are both false. Do
+ * not use it to decide whether untrusted input is safe to render.
+ *
  * @param str The string to check.
  * @returns True if the string contains HTML tags, false otherwise.
  */

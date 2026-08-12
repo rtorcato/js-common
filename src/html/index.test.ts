@@ -21,10 +21,25 @@ describe('html module', () => {
 		expect(stripHtmlTags('no tags')).toBe('no tags')
 	})
 
-	it('stripHtmlTags matches what /<[^>]*>/g did on ragged input', () => {
-		const cases = ['<<a>script>', '<scr<x>ipt>', 'a<b', '<<<', '<>', 'a>b<c>d', '']
-		for (const input of cases) {
-			expect(stripHtmlTags(input)).toBe(input.replace(/<[^>]*>/g, ''))
+	// Expectations are hardcoded, not computed from the retired regex: the old
+	// construct is exactly what this rewrite is removing from the codebase.
+	// Each pair below was checked against the old behaviour by hand.
+	it('stripHtmlTags matches the old regex output on ragged input', () => {
+		const cases: [input: string, expected: string][] = [
+			['<<a>script>', 'script>'],
+			['<scr<x>ipt>', 'ipt>'],
+			['<scr<script>ipt>', 'ipt>'],
+			['<<script>script>', 'script>'],
+			['<scr<x>ipt>alert(1)', 'ipt>alert(1)'],
+			['<img/onerror=x>', ''],
+			['a<b', 'a<b'],
+			['<<<', '<<<'],
+			['<>', ''],
+			['a>b<c>d', 'a>bd'],
+			['', ''],
+		]
+		for (const [input, expected] of cases) {
+			expect(stripHtmlTags(input)).toBe(expected)
 		}
 	})
 
