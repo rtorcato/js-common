@@ -56,6 +56,8 @@ describe('validation utils', () => {
 		expect(isEmail('not-an-email')).toBe(false)
 		expect(isEmail('foo@bar')).toBe(false)
 		expect(isEmail('foo@.com')).toBe(false)
+		expect(isEmail('foo@bar..com')).toBe(false)
+		expect(isEmail('foo@bar.com.')).toBe(false)
 	})
 
 	it('isUrl', () => {

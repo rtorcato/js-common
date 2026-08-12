@@ -88,7 +88,9 @@ export function isObject(value: unknown): value is object {
  * @returns {boolean}
  */
 export function isEmail(str: string): boolean {
-	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str)
+	// Same regex as emails.isValidEmail: domain parts exclude '.' so the match stays linear
+	// on inputs like 'a@!.!.!.!.' (CodeQL js/polynomial-redos).
+	return /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/.test(str)
 }
 
 /**

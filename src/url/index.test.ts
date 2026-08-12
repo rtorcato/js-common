@@ -54,6 +54,12 @@ describe('joinUrl', () => {
 		expect(joinUrl('/a/', '/b/', '/c/')).toBe('/a/b/c')
 		expect(joinUrl('a', 'b', 'c')).toBe('a/b/c')
 	})
+
+	it('collapses runs of slashes and drops all-slash segments', () => {
+		expect(joinUrl('https://a.com///', '///foo///', '//bar//')).toBe('https://a.com/foo/bar')
+		expect(joinUrl('a', '///', 'b')).toBe('a/b')
+		expect(joinUrl('///')).toBe('')
+	})
 })
 
 describe('getHostname', () => {

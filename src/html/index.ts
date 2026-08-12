@@ -51,6 +51,22 @@ export function unescapeHtml(str: string): string {
 }
 
 /**
+ * Finds the next `<…>` span at or after `from`, matching what `/<[^>]*>/` would match.
+ *
+ * ponytail: an index scan rather than the regex — same spans, but linear in the length of
+ * the input instead of quadratic on inputs like `'<<<<<<<'` (CodeQL `js/polynomial-redos`).
+ *
+ * A `<` with no `>` after it is not a span, and neither is anything later in the string,
+ * so `null` ends the search.
+ */
+function findTag(str: string, from: number): { open: number; close: number } | null {
+	const open = str.indexOf('<', from)
+	if (open === -1) return null
+	const close = str.indexOf('>', open + 1)
+	return close === -1 ? null : { open, close }
+}
+
+/**
  * Strips all HTML tags from a string.
  *
  * @example
@@ -63,7 +79,13 @@ export function unescapeHtml(str: string): string {
  * @returns The plain text string.
  */
 export function stripHtmlTags(str: string): string {
-	return str.replace(/<[^>]*>/g, '')
+	let out = ''
+	let i = 0
+	for (let tag = findTag(str, i); tag; tag = findTag(str, i)) {
+		out += str.slice(i, tag.open)
+		i = tag.close + 1
+	}
+	return out + str.slice(i)
 }
 
 /**
@@ -81,5 +103,9 @@ export function textToHtml(str: string): string {
  * @returns True if the string contains HTML tags, false otherwise.
  */
 export function containsHtml(str: string): boolean {
-	return /<[^>]+>/.test(str)
+	// Same matches as /<[^>]+>/ — the `close > open + 1` check is the `+` (an empty `<>` is not a tag).
+	for (let tag = findTag(str, 0); tag; tag = findTag(str, tag.close + 1)) {
+		if (tag.close > tag.open + 1) return true
+	}
+	return false
 }

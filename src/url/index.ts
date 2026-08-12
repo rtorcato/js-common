@@ -87,16 +87,27 @@ export function removeQueryParam(url: string, key: string): string {
 }
 
 /**
+ * Trims slashes off a URL segment — always trailing, and leading too when `leading` is set.
+ *
+ * ponytail: an index scan rather than `/^\/+|\/+$/g` — same result, but linear on inputs
+ * like `'//////'` instead of quadratic (CodeQL `js/polynomial-redos`).
+ */
+function trimSlashes(part: string, leading: boolean): string {
+	let start = 0
+	let end = part.length
+	if (leading) while (start < end && part[start] === '/') start++
+	while (end > start && part[end - 1] === '/') end--
+	return part.slice(start, end)
+}
+
+/**
  * Joins multiple URL segments into a single URL, ensuring proper slashes.
  * @param parts The URL segments.
  * @returns The joined URL string.
  */
 export function joinUrl(...parts: string[]): string {
 	return parts
-		.map((part, i) => {
-			if (i === 0) return part.replace(/\/+$/, '')
-			return part.replace(/^\/+|\/+$/g, '')
-		})
+		.map((part, i) => trimSlashes(part, i > 0))
 		.filter(Boolean)
 		.join('/')
 }
