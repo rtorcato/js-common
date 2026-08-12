@@ -92,7 +92,7 @@ Import from `@rtorcato/js-common/<module>`.
 | promises | delay, to, withTimeout, all, allSettled, race |
 | random | randomInt, randomFloat, randomBool, randomElement, randomString |
 | regex | escapeRegExp, testRegex, matchAll, replaceAllRegex, splitByRegex |
-| security | sanitizeString, isStrongPassword, generateSecureToken |
+| security | stripScriptish, isStrongPassword, generateSecureToken |
 | sets | union, intersection, difference, isSubset, isSuperset, setToArray, arrayToSet |
 | sleep | sleep, sleepSync, sleepRandom, sleepWithAbort |
 | strings | titleCase, capitalize, camelCase, kebabCase, snakeCase, truncate, padStart, padEnd, replaceString, reverse, slugify, words, wordCount, pluralize, ordinalize, isBlank, mask, template |

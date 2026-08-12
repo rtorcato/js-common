@@ -161,13 +161,13 @@ replaceString('hello world world', 'world', 'there') // 'hello there there'
 ### HTML Handling
 
 HTML escaping, unescaping and tag stripping live in
-[`html`](../html); string sanitizing lives in [`security`](../security).
+[`html`](../html); coarse script stripping lives in [`security`](../security).
 Random strings live in [`random`](../random).
 
 ```typescript
 import { escapeHtml, stripHtmlTags, unescapeHtml } from '@rtorcato/js-common/html'
 import { randomString } from '@rtorcato/js-common/random'
-import { sanitizeString } from '@rtorcato/js-common/security'
+import { stripScriptish } from '@rtorcato/js-common/security'
 ```
 
 ### Text Analysis

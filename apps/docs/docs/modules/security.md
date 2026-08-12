@@ -3,7 +3,7 @@ title: Security
 description: Utilities exported from @rtorcato/js-common/security.
 ---
 
-A small set of security-adjacent helpers: password-strength checks, cryptographically secure tokens from `node:crypto`, and coarse string sanitisation. `generateSecureToken` uses `randomBytes` — the `Math.random` helpers in `random` are never an acceptable substitute here. `sanitizeString` strips only `<script>` blocks and inline `on*` handlers with regexes, so treat it as defence in depth: escape untrusted values with `html.escapeHtml`, or run a real sanitizer such as DOMPurify when markup must survive.
+A small set of security-adjacent helpers: password-strength checks, cryptographically secure tokens from `node:crypto`, and coarse script stripping. `generateSecureToken` uses `randomBytes` — the `Math.random` helpers in `random` are never an acceptable substitute here. `stripScriptish` (called `sanitizeString` before 3.0) removes only `<script>` blocks and inline `on*` handlers, so treat it as defence in depth: escape untrusted values with `html.escapeHtml`, or run a real sanitizer such as DOMPurify when markup must survive. It was renamed precisely because the old name promised a guarantee it never delivered.
 
 ## Example
 
@@ -22,7 +22,7 @@ const token = generateSecureToken(32) // 64 hex characters
 ## Import
 
 ```ts
-import { generateSecureToken, isStrongPassword, sanitizeString } from '@rtorcato/js-common/security'
+import { generateSecureToken, isStrongPassword, stripScriptish } from '@rtorcato/js-common/security'
 ```
 
 ## Exports
@@ -31,7 +31,7 @@ import { generateSecureToken, isStrongPassword, sanitizeString } from '@rtorcato
 | --- | --- |
 | `generateSecureToken` | Generates a cryptographically secure random token (hex string). |
 | `isStrongPassword` | Checks if a password is strong (min 8 chars, upper, lower, number, special char). |
-| `sanitizeString` | Sanitizes a string by removing script tags and event handlers. |
+| `stripScriptish` | Removes `<script>` blocks and inline `on*=` event-handler attributes from a string. |
 
 <!-- /generated:exports -->
 
