@@ -69,13 +69,18 @@ const uuid = isUUID('550e8400-e29b-41d4-a716-446655440000') // boolean
 import { base64Encode, hashString, hmacHash, randomHex } from '@rtorcato/js-common/crypto'
 
 // Hashing — synchronous, returns a hex digest
-const hashed = hashString('password', 'sha256')
+const cacheKey = hashString(`user:${userId}:${locale}`)
+const etag = hashString(JSON.stringify(payload), 'sha256')
 const signature = hmacHash('payload', process.env.SECRET)
 
 // Random bytes as hex
 const token = randomHex(32)
 const encoded = base64Encode('hello')
 ```
+
+`hashString` is a plain, unsalted digest — for cache keys, content fingerprints,
+ETags and dedupe keys. It is not a password hash: use bcrypt, scrypt or argon2
+for credentials, never a raw SHA-256.
 
 For random strings from a chosen alphabet, use the `random` module instead:
 
@@ -171,7 +176,8 @@ When suggesting code using this library:
 5. **Chain utilities** when appropriate for functional composition
 6. **Include error handling** for async operations using `try` utilities
 7. **Suggest validation** before processing user input
-8. **Recommend crypto utilities** for security-sensitive operations
+8. **Recommend crypto utilities** for digests, signing and random tokens — never
+   for password storage, which needs bcrypt/scrypt/argon2
 
 ## Integration Examples
 
@@ -188,14 +194,14 @@ async function createUser(data: CreateUserRequest) {
     throw new Error('Invalid email')
   }
 
-  // Hash password
-  const hashedPassword = hashString(data.password, 'sha256')
+  // Stable lookup key for the normalized email — a digest, not a credential
+  const emailKey = hashString(data.email.trim().toLowerCase())
 
   // Safe database operation
   const { data: user, error } = await tryCatch(async () => {
     return await database.users.create({
       ...data,
-      password: hashedPassword
+      emailKey
     })
   })
 

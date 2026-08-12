@@ -55,17 +55,18 @@ class ApiClient {
     return isSuccess(result) ? result.data : null
   }
 
-  async createSecureSession(credentials: LoginCredentials) {
-    const { data: sessionData, error } = await tryCatch(async () => {
-      const hashedPassword = hashString(credentials.password, 'sha256')
-      return await this.authenticateUser({
-        ...credentials,
-        password: hashedPassword,
-        createdOn: formatDate(new Date())
+  async syncProfile(profile: UserProfile) {
+    const { data, error } = await tryCatch(async () => {
+      // Content fingerprint — skip the write when nothing actually changed
+      const fingerprint = hashString(JSON.stringify(profile), 'sha256')
+      return await this.upsertProfile({
+        ...profile,
+        fingerprint,
+        syncedOn: formatDate(new Date())
       })
     })
 
-    return error ? { error } : { session: sessionData }
+    return error ? { error } : { profile: data }
   }
 }
 ```
