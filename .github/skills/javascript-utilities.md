@@ -184,9 +184,16 @@ When suggesting code using this library:
 ### API Endpoint with Validation
 ```typescript
 import { hashString } from '@rtorcato/js-common/crypto'
+import { normalizeEmail } from '@rtorcato/js-common/emails'
 import { isBlank } from '@rtorcato/js-common/strings'
 import { tryCatch } from '@rtorcato/js-common/try'
 import { isEmail } from '@rtorcato/js-common/validation'
+
+type CreateUserRequest = {
+  email: string
+  displayName: string
+  locale: string
+}
 
 async function createUser(data: CreateUserRequest) {
   // Validate input
@@ -195,7 +202,7 @@ async function createUser(data: CreateUserRequest) {
   }
 
   // Stable lookup key for the normalized email — a digest, not a credential
-  const emailKey = hashString(data.email.trim().toLowerCase())
+  const emailKey = hashString(normalizeEmail(data.email))
 
   // Safe database operation
   const { data: user, error } = await tryCatch(async () => {
@@ -209,6 +216,10 @@ async function createUser(data: CreateUserRequest) {
   return user
 }
 ```
+
+`CreateUserRequest` deliberately carries no credential field. Credentials never
+belong in a profile payload that gets spread into a write — hash them in a
+dedicated auth flow with bcrypt, scrypt or argon2.
 
 ### Data Processing Pipeline
 ```typescript
