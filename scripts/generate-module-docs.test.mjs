@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { MARKER_END, MARKER_START, spliceGeneratedBlock } from './generate-module-docs.mjs'
+import {
+	escapeForMarkdownTable,
+	MARKER_END,
+	MARKER_START,
+	spliceGeneratedBlock,
+} from './generate-module-docs.mjs'
 
 const page = `---
 title: Colors
@@ -35,5 +40,16 @@ describe('spliceGeneratedBlock', () => {
 
 	it('returns null for a page with no markers, so it is left untouched', () => {
 		expect(spliceGeneratedBlock('# Fully hand-written\n', 'anything')).toBeNull()
+	})
+})
+
+describe('escapeForMarkdownTable', () => {
+	it('escapes angle brackets outside code spans and leaves them inside', () => {
+		// Escaping beats stripping: a one-pass `/<[^>]*>/` strip leaves `<b>`
+		// behind here, and deletes the `<T>` from an unbackticked `Success<T>`.
+		expect(escapeForMarkdownTable('a <<b>> c')).toBe('a &lt;&lt;b>> c')
+		expect(escapeForMarkdownTable('returns Success<T>')).toBe('returns Success&lt;T>')
+		expect(escapeForMarkdownTable('use `Success<T>` here')).toBe('use `Success<T>` here')
+		expect(escapeForMarkdownTable('a | b')).toBe('a \\| b')
 	})
 })

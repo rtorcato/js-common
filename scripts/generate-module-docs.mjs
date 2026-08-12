@@ -31,14 +31,18 @@ const REEXPORT_FROM = /export\s+\*\s+from\s+['"]\.\/([\w-]+)(?:\.js|\.ts)?['"]/g
 const JSDOC_BLOCK =
 	/\/\*\*((?:[^*]|\*(?!\/))*)\*\/\s*(?:export\s+(?:async\s+)?(?:function|const|let|class|type|interface|enum)\s+([A-Za-z_$][\w$]*))/g
 
-function escapeForMarkdownTable(text) {
-	// Strip raw HTML-ish tags outside code spans, which would otherwise confuse
-	// Docusaurus's MDX parser — but keep them inside backticks, where
+export function escapeForMarkdownTable(text) {
+	// Neutralise raw HTML-ish tags outside code spans, which would otherwise
+	// confuse Docusaurus's MDX parser — but keep them inside backticks, where
 	// `Success<T>` and `<br>` are the point. Then escape pipes everywhere, since
 	// one anywhere in the cell breaks the table layout.
+	//
+	// Escaping the `<` beats stripping `/<[^>]*>/`: a one-pass tag strip can
+	// leave a tag behind on nested input (`<<b>>` -> `<b>`) and silently eats
+	// text like `Success<T>` when the JSDoc forgot the backticks.
 	return text
 		.split(/(`[^`]*`)/)
-		.map((part, i) => (i % 2 === 1 ? part : part.replace(/<[^>]*>/g, '')))
+		.map((part, i) => (i % 2 === 1 ? part : part.replace(/</g, '&lt;')))
 		.join('')
 		.replace(/\|/g, '\\|')
 }
@@ -144,8 +148,17 @@ export function generate() {
 		collectFromFile(resolve(repoRoot, 'src', sub, 'index.ts'), summaries)
 		const block = buildBlock(sub, summaries)
 
-		if (existsSync(docPath)) {
-			const existing = readFileSync(docPath, 'utf8')
+		// Read first and treat ENOENT as "not there yet", rather than asking
+		// existsSync and then writing — the check-then-write pair is a race, and
+		// the answer is thrown away the moment it is read anyway.
+		let existing = null
+		try {
+			existing = readFileSync(docPath, 'utf8')
+		} catch (err) {
+			if (err.code !== 'ENOENT') throw err
+		}
+
+		if (existing !== null) {
 			const next = spliceGeneratedBlock(existing, block)
 			if (next === null) {
 				skipped++
