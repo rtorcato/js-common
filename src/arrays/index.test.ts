@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { chunk, compact, first, flatten, last, shuffle, unique } from './index'
+import { chunk, compact, first, flatten, groupBy, last, shuffle, unique } from './index'
 
 describe('first', () => {
 	it('returns the first element', () => {
@@ -39,6 +39,27 @@ describe('chunk', () => {
 describe('compact', () => {
 	it('removes falsy values', () => {
 		expect(compact([0, 1, false, 2, '', 3, null, undefined])).toEqual([1, 2, 3])
+	})
+})
+
+describe('groupBy', () => {
+	it('groups by a computed string key', () => {
+		expect(groupBy([1, 2, 3, 4], (n) => (n % 2 === 0 ? 'even' : 'odd'))).toEqual({
+			odd: [1, 3],
+			even: [2, 4],
+		})
+	})
+
+	it('groups objects by a property', () => {
+		const items = [{ type: 'a' }, { type: 'b' }, { type: 'a' }]
+		expect(groupBy(items, (x) => x.type)).toEqual({
+			a: [items[0], items[2]],
+			b: [items[1]],
+		})
+	})
+
+	it('returns an empty object for an empty array', () => {
+		expect(groupBy([], (n: number) => n)).toEqual({})
 	})
 })
 

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
 	formatDateTimeLocal,
+	getIsoWeek,
+	getIsoWeekInfo,
 	getTimezoneOffset,
 	nowIso,
 	parseIsoDateTime,
@@ -59,23 +61,44 @@ describe('datetime module', () => {
 		expect(typeof ms).toBe('number')
 		expect(ms).toBeGreaterThan(1000000000000)
 	})
+})
 
-	// it('getIsoWeek returns correct ISO week number', () => {
-	// 	// 2025-01-01 is week 1
-	// 	expect(getIsoWeek(new Date('2025-01-01'))).toBe(1)
-	// 	// 2025-12-31 is week 1 of next year (ISO)
-	// 	expect(getIsoWeek(new Date('2025-12-31'))).toBe(1)
-	// 	// 2025-05-26 is week 22
-	// 	expect(getIsoWeek(new Date('2025-05-26'))).toBe(22)
-	// })
-	// it('getIsoWeek returns correct ISO week number', () => {
-	// 	expect(getIsoWeek(new Date(Date.UTC(2025, 0, 1)))).toBe(1)
-	// 	expect(getIsoWeek(new Date(Date.UTC(2025, 11, 31)))).toBe(1) // 2025-12-31
-	// 	expect(getIsoWeek(new Date(Date.UTC(2025, 4, 26)))).toBe(22) // 2025-05-26
-	// })
-	// it('getIsoWeek returns correct ISO week number', () => {
-	// 	expect(getIsoWeekInfo(new Date(Date.UTC(2025, 0, 1)))).toEqual({ week: 1, year: 2025 })
-	// 	expect(getIsoWeekInfo(new Date(Date.UTC(2025, 11, 31)))).toEqual({ week: 1, year: 2026 })
-	// 	expect(getIsoWeekInfo(new Date(Date.UTC(2025, 4, 26)))).toEqual({ week: 22, year: 2025 }) // ✅ fixed
-	// })
+// `getIsoWeek` and `getIsoWeekInfo` read the *local* calendar fields of their input
+// (getFullYear/getMonth/getDate) before re-projecting onto UTC. Feeding them a
+// UTC-constructed date (`new Date('2025-01-01')` or `new Date(Date.UTC(...))`) therefore
+// shifts the day by one in any zone behind UTC — which is why the earlier attempts at
+// these tests were commented out rather than fixed. Constructing with local components
+// makes them timezone-independent.
+describe('getIsoWeek', () => {
+	it('returns the ISO week number', () => {
+		expect(getIsoWeek(new Date(2025, 0, 1))).toBe(1) // Wed 2025-01-01
+		expect(getIsoWeek(new Date(2025, 4, 26))).toBe(22) // Mon 2025-05-26
+		expect(getIsoWeek(new Date(2025, 11, 31))).toBe(1) // rolls into ISO week 1 of 2026
+	})
+
+	it('counts week 53 in a long ISO year', () => {
+		expect(getIsoWeek(new Date(2020, 11, 31))).toBe(53)
+	})
+})
+
+describe('getIsoWeekInfo', () => {
+	it('returns the ISO week and the ISO week year', () => {
+		expect(getIsoWeekInfo(new Date(2025, 0, 1))).toEqual({ week: 1, year: 2025 })
+		expect(getIsoWeekInfo(new Date(2025, 4, 26))).toEqual({ week: 22, year: 2025 })
+	})
+
+	it('reports the next ISO year for a late-December date', () => {
+		expect(getIsoWeekInfo(new Date(2025, 11, 31))).toEqual({ week: 1, year: 2026 })
+	})
+
+	it('reports the previous ISO year for an early-January date', () => {
+		// Fri 2021-01-01 belongs to ISO week 53 of 2020.
+		expect(getIsoWeekInfo(new Date(2021, 0, 1))).toEqual({ week: 53, year: 2020 })
+	})
+
+	it('agrees with getIsoWeek on the week number', () => {
+		for (const d of [new Date(2025, 0, 1), new Date(2025, 4, 26), new Date(2025, 11, 31)]) {
+			expect(getIsoWeekInfo(d).week).toBe(getIsoWeek(d))
+		}
+	})
 })
