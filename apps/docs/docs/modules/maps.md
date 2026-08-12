@@ -5,6 +5,24 @@ description: Utilities exported from @rtorcato/js-common/maps.
 
 Conversions and transforms for the native `Map` — to and from plain objects, merge, invert, map values. `Map` is the right structure for non-string keys, guaranteed insertion order and frequent adds and deletes, but it has none of the spread-and-merge ergonomics objects enjoy, which is the gap these fill. Every helper returns a new `Map`; later maps win on key collisions in `mergeMaps`, matching object spread.
 
+## Example
+
+```ts
+import { mapToObject, mergeMaps, objectToMap } from '@rtorcato/js-common/maps'
+
+// Defaults plus overrides, then back to a plain object for JSON.
+const merged = mergeMaps(
+  objectToMap({ theme: 'light', lang: 'en' }),
+  objectToMap({ theme: 'dark' })
+)
+
+mapToObject(merged) // { theme: 'dark', lang: 'en' } — later maps win
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { invertMap, mapToObject, mapValues } from '@rtorcato/js-common/maps'
 ```
@@ -18,6 +36,8 @@ import { invertMap, mapToObject, mapValues } from '@rtorcato/js-common/maps'
 | `mapValues` | Maps the values of a Map using a function. |
 | `mergeMaps` | Merges two or more maps. |
 | `objectToMap` | Converts an object to a Map. |
+
+<!-- /generated:exports -->
 
 ## See also
 

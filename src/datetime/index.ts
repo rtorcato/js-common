@@ -1,5 +1,5 @@
 /**
- * Returns the current date and time as an ISO string (YYYY-MM-DDTHH:mm:ss.sssZ).
+ * Returns the current date and time as an ISO string (`YYYY-MM-DDTHH:mm:ss.sssZ`).
  *
  * @example
  * ```typescript
@@ -27,7 +27,7 @@ export function parseIsoDateTime(iso: string): Date | null {
 }
 
 /**
- * Formats a Date as YYYY-MM-DD HH:mm:ss (local time).
+ * Formats a Date as `YYYY-MM-DD HH:mm:ss` (local time).
  *
  * @example
  * ```typescript
@@ -45,7 +45,7 @@ export function formatDateTimeLocal(date: Date): string {
 }
 
 /**
- * Returns the timezone offset in minutes for a given date (local - UTC).
+ * Returns the timezone offset in minutes for a given date (local − UTC).
  * @param date The Date object.
  */
 export function getTimezoneOffset(date: Date = new Date()): number {

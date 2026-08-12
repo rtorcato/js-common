@@ -1,5 +1,5 @@
 /**
- * Returns the current time as HH:MM:SS string.
+ * Returns the current time as an `HH:MM:SS` string.
  *
  * @example
  * ```typescript
@@ -14,7 +14,7 @@ export function nowTime(): string {
 }
 
 /**
- * Parses a time string (HH:MM or HH:MM:SS) into a Date object (today's date).
+ * Parses a time string (`HH:MM` or `HH:MM:SS`) into a Date object (today's date).
  *
  * @example
  * ```typescript
@@ -33,7 +33,7 @@ export function parseTime(timeStr: string): Date {
 }
 
 /**
- * Formats a Date object as HH:MM:SS.
+ * Formats a Date object as `HH:MM:SS`.
  *
  * @example
  * ```typescript
@@ -60,7 +60,7 @@ export function secondsBetween(t1: string | Date, t2: string | Date): number {
 }
 
 /**
- * Pads a number to two digits (e.g., 5 -> '05').
+ * Pads a number to two digits (e.g. `5` → `'05'`).
  * @param n The number.
  * @returns {string}
  */

@@ -3,7 +3,25 @@ title: Events
 description: Utilities exported from @rtorcato/js-common/events.
 ---
 
-Thin wrappers over the DOM `EventTarget` API — add a listener, dispatch a `CustomEvent`, await a single event as a promise. `on` returns its own removal function, so cleanup is a value you can store and call rather than a `removeEventListener` you must remember to mirror argument for argument. These are browser-side helpers; Node's `EventEmitter` is a different API and is not covered here.
+Thin wrappers over the DOM `EventTarget` API — add a listener, dispatch a `CustomEvent`, await a single event as a promise. `on` returns its own removal function, so cleanup is a value you can store and call rather than a `removeEventListener` you must remember to mirror argument for argument. These are browser-side helpers; Node's `EventEmitter` is a different API and is not covered here. The awaiter is `onceEvent`, not `once` — `functions.once` memoises a call, and the two were separated so neither name has to be read twice.
+
+## Example
+
+```ts
+import { emit, on, onceEvent } from '@rtorcato/js-common/events'
+
+// `on` returns its own teardown, so cleanup is a value rather than a listener
+// signature you have to mirror argument for argument.
+const off = on(window, 'resize', () => relayout())
+onUnmount(off)
+
+await onceEvent(panel, 'transitionend')  // await a single event
+emit(window, 'app:ready', { at: Date.now() }) // dispatch a CustomEvent
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
 
 ```ts
 import { emit, on, onceEvent } from '@rtorcato/js-common/events'
@@ -18,6 +36,8 @@ import { emit, on, onceEvent } from '@rtorcato/js-common/events'
 | `onceEvent` | Waits for a single event to occur and resolves a promise. |
 | `preventDefault` | Prevents the default action for an event. |
 | `stopPropagation` | Stops propagation for an event. |
+
+<!-- /generated:exports -->
 
 ## See also
 

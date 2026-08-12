@@ -5,6 +5,24 @@ description: Utilities exported from @rtorcato/js-common/sets.
 
 Set algebra over the native `Set` — union, intersection, difference, subset and superset — plus array conversions. Membership is SameValueZero, so primitives compare by value and objects by reference; map objects to a key first if you need structural comparison. Every operation returns a new `Set` and leaves its inputs alone, and these exist for runtimes that do not yet ship the equivalent `Set` methods natively.
 
+## Example
+
+```ts
+import { arrayToSet, difference, intersection } from '@rtorcato/js-common/sets'
+
+// What did this role gain and lose?
+const before = arrayToSet(['read', 'write'])
+const after = arrayToSet(['read', 'admin'])
+
+difference(after, before)   // Set { 'admin' } — granted
+difference(before, after)   // Set { 'write' } — revoked
+intersection(before, after) // Set { 'read' }  — unchanged
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { arrayToSet, difference, intersection } from '@rtorcato/js-common/sets'
 ```
@@ -20,6 +38,8 @@ import { arrayToSet, difference, intersection } from '@rtorcato/js-common/sets'
 | `isSuperset` | Returns true if set a is a superset of set b. |
 | `setToArray` | Converts a set to an array. |
 | `union` | Returns the union of two sets. |
+
+<!-- /generated:exports -->
 
 ## See also
 

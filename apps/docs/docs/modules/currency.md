@@ -5,6 +5,25 @@ description: Utilities exported from @rtorcato/js-common/currency.
 
 Money for display — formatting prices and compact notation, parsing them back, and looking up symbols, names and locales for ISO 4217 codes. Formatting delegates to `Intl.NumberFormat`, so symbol placement, digit counts and grouping come from the platform rather than a bundled table, and the currency-name list is loaded lazily to keep the module small. Amounts are plain `number`s: fine to render, wrong for accounting arithmetic, where integer minor units or a decimal library belong.
 
+## Example
+
+```ts
+import { formatPrice, formatPriceCompact, parsePrice } from '@rtorcato/js-common/currency'
+
+// Render a price, then read one back out of a text input.
+formatPrice(1234.56, 'USD')          // '$1,234.56'
+formatPrice(1234.56, 'EUR', 'de-DE') // '1.234,56 €'
+formatPriceCompact(1234567, 'USD')   // '$1.2M' — for dashboards and charts
+
+parsePrice('$1,234.56') // 1234.56
+parsePrice('€1.234,56') // 1234.56 — European grouping handled too
+parsePrice('free')      // null
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { convertCurrency, formatPrice, formatPriceCompact } from '@rtorcato/js-common/currency'
 ```
@@ -18,11 +37,13 @@ import { convertCurrency, formatPrice, formatPriceCompact } from '@rtorcato/js-c
 | `formatPriceCompact` | Formats a price in compact notation (e.g., $1.2K, $1.5M). |
 | `getCurrencyLocale` | Returns the default locale typically associated with a currency. |
 | `getCurrencyName` | Returns the full display name of a currency. |
-| `getCurrencySymbol` | Lazily loads the currencies list to reduce bundle size. |
+| `getCurrencySymbol` | Returns the currency symbol for a given ISO 4217 currency code. |
 | `isValidCurrency` | Synchronously checks if a currency code is valid using the Intl API. |
 | `isValidCurrencyCode` | Checks if the provided currency code is valid. |
 | `parseCurrencyString` | Parses a currency string and extracts both the amount and currency code. |
 | `parsePrice` | Parses a given price string and returns its numeric value. |
+
+<!-- /generated:exports -->
 
 ## See also
 

@@ -5,6 +5,28 @@ description: Utilities exported from @rtorcato/js-common/try.
 
 Go-style `Result` values for async code: `tryCatch` runs a function and hands back a success or failure branch instead of throwing. The point is the type system — a `Result` cannot be read without acknowledging the error branch, whereas a `try`/`catch` binding is `unknown` and easy to ignore. Use it where failure is an expected outcome, and keep throwing for genuinely exceptional states that no caller can sensibly handle.
 
+## Example
+
+```ts
+import { tryCatch } from '@rtorcato/js-common/try'
+
+const result = await tryCatch(() => fetch('/api/user').then((r) => r.json() as Promise<User>))
+
+if (result.error) {
+  console.warn('user lookup failed', result.error)
+  return null
+}
+
+result.data.email // narrowed to User — unreachable without handling `error` first
+```
+
+Note the name collision: `tryCatch` here is the `Result` helper. The `errors` module's
+similarly-shaped helper is `tryWithFallback`, which returns a fallback value instead.
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { Failure, Result, Success } from '@rtorcato/js-common/try'
 ```
@@ -18,6 +40,8 @@ import { Failure, Result, Success } from '@rtorcato/js-common/try'
 | `Success` | Successful branch of a `Result` — carries the value and a `null` error. |
 | `isSuccess` | Type guard that narrows a `Result` to its `Success` branch when the error is `null`. |
 | `tryCatch` | Run an async function and capture any thrown error into a `Result`, eliminating try/catch at the call site. |
+
+<!-- /generated:exports -->
 
 ## See also
 

@@ -5,6 +5,25 @@ description: Utilities exported from @rtorcato/js-common/sleep.
 
 Await a fixed delay, a random one, or an abortable one — plus `sleepSync`, which blocks. `sleepRandom` is for jitter (retry backoff, staggering pollers), and `sleepWithAbort` is the one to use in anything cancellable, since a plain `sleep` holds its timer to the end. `sleepSync` busy-waits in a loop and freezes the event loop entirely — acceptable in a throwaway script, never in a server request path.
 
+## Example
+
+```ts
+import { sleepRandom, sleepWithAbort } from '@rtorcato/js-common/sleep'
+
+// Retry with jitter, so a fleet of clients does not retry in lockstep.
+for (let attempt = 0; attempt < 3; attempt++) {
+  if (await ping()) break
+  await sleepRandom(200, 800)
+}
+
+// Rejects the moment the signal fires, instead of holding the timer to the end.
+await sleepWithAbort(30_000, signal)
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
 ```ts
 import { sleep, sleepRandom, sleepSync } from '@rtorcato/js-common/sleep'
 ```
@@ -17,6 +36,8 @@ import { sleep, sleepRandom, sleepSync } from '@rtorcato/js-common/sleep'
 | `sleepRandom` | Returns a promise that resolves after a random delay between min and max milliseconds. |
 | `sleepSync` | Blocks the event loop for the specified number of milliseconds (synchronous sleep). |
 | `sleepWithAbort` | Returns a promise that resolves after ms, or rejects if aborted via AbortSignal. |
+
+<!-- /generated:exports -->
 
 ## See also
 

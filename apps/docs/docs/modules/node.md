@@ -5,8 +5,25 @@ description: Utilities exported from @rtorcato/js-common/node.
 
 Runtime questions about Node itself — is this Node, which major version — plus `requireOptional` for modules that may not be installed. Process-level questions such as uptime, pid and cwd live in [process](./process.md). The version helpers are for guarding features that need a floor and failing with a clear message instead of a cryptic crash deeper in. `requireOptional` returns `undefined` rather than throwing, which is the behaviour you want around optional peer dependencies.
 
+## Example
+
 ```ts
 import { getNodeMajorVersion, isNode, requireOptional } from '@rtorcato/js-common/node'
+
+// Optional peer dependency: degrade instead of crashing on a missing module.
+const pretty = requireOptional('pino-pretty')
+if (!pretty) console.warn('pino-pretty not installed — logging as JSON')
+
+// Fail at boot with a clear message rather than deep inside a request.
+if (isNode() && getNodeMajorVersion() < 20) throw new Error('Node 20+ required')
+```
+
+<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
+
+## Import
+
+```ts
+import { getNodeMajorVersion, isNode, nodeVersionCheck } from '@rtorcato/js-common/node'
 ```
 
 ## Exports
@@ -17,6 +34,8 @@ import { getNodeMajorVersion, isNode, requireOptional } from '@rtorcato/js-commo
 | `isNode` | Checks if the current environment is Node.js. |
 | `nodeVersionCheck` | Checks if the current Node.js version is less than the specified version. |
 | `requireOptional` | Attempts to require a module, returning `undefined` if the module is not found. |
+
+<!-- /generated:exports -->
 
 ## See also
 

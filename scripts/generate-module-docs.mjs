@@ -1,13 +1,16 @@
-// Generate module stub pages for apps/docs/docs/modules/.
+// Generate the API-reference block of apps/docs/docs/modules/.
 //
-// For every subpath in package.json#exports (except '.' and './types'):
-//   - If apps/docs/docs/modules/<name>.md already exists, skip it (hand-written)
-//   - Otherwise, read src/<name>/index.ts (+ any local re-exports), pull out
-//     `export function`, `export const`, `export class`, `export type`,
-//     `export interface` names plus the first line of the JSDoc above each,
-//     and write a stub page with an import snippet + exports table.
+// For every subpath in package.json#exports (except '.' and './types'), read
+// src/<name>/index.ts (+ any local re-exports), pull out `export function`,
+// `export const`, `export class`, `export type`, `export interface` names plus
+// the first line of the JSDoc above each, and build an import snippet + an
+// exports table.
 //
-// Re-run safely: existing files are never overwritten.
+// That block is fenced by MARKER_START/MARKER_END so the hand-written guide
+// around it survives regeneration:
+//   - File missing            -> write frontmatter + block.
+//   - File has both markers   -> replace only what is between them.
+//   - File has no markers     -> leave alone (fully hand-written page).
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -23,14 +26,29 @@ const EXPORT_NAMED =
 	/export\s+(?:async\s+)?(?:function|const|let|class|type|interface|enum)\s+([A-Za-z_$][\w$]*)/g
 const EXPORT_BRACE = /export\s*\{\s*([^}]+)\}/g
 const REEXPORT_FROM = /export\s+\*\s+from\s+['"]\.\/([\w-]+)(?:\.js|\.ts)?['"]/g
+// The comment body must not itself contain `*/`, otherwise a file-header
+// comment swallows everything down to the first exported symbol.
 const JSDOC_BLOCK =
-	/\/\*\*([\s\S]*?)\*\/\s*(?:export\s+(?:async\s+)?(?:function|const|let|class|type|interface|enum)\s+([A-Za-z_$][\w$]*))/g
+	/\/\*\*((?:[^*]|\*(?!\/))*)\*\/\s*(?:export\s+(?:async\s+)?(?:function|const|let|class|type|interface|enum)\s+([A-Za-z_$][\w$]*))/g
 
-function escapeForMarkdownTable(text) {
-	// Strip raw HTML-ish tags (e.g. `\n to <br>`) that would otherwise
-	// confuse Docusaurus's MDX parser, and escape pipe characters that
-	// would break the table layout.
-	return text.replace(/<[^>]*>/g, '').replace(/\|/g, '\\|')
+export function escapeForMarkdownTable(text) {
+	// Neutralise raw HTML-ish tags outside code spans, which would otherwise
+	// confuse Docusaurus's MDX parser — but keep them inside backticks, where
+	// `Success<T>` and `<br>` are the point. Then escape pipes everywhere, since
+	// one anywhere in the cell breaks the table layout.
+	//
+	// Escaping the `<` beats stripping `/<[^>]*>/`: a one-pass tag strip can
+	// leave a tag behind on nested input (`<<b>>` -> `<b>`) and silently eats
+	// text like `Success<T>` when the JSDoc forgot the backticks.
+	//
+	// Escape the backslash in the same pass as the pipe, not after it: escaping
+	// only `|` turns the input `a\|b` into `a\\|b`, which markdown reads as an
+	// escaped backslash followed by a live pipe, and the row breaks anyway.
+	return text
+		.split(/(`[^`]*`)/)
+		.map((part, i) => (i % 2 === 1 ? part : part.replace(/</g, '&lt;')))
+		.join('')
+		.replace(/[\\|]/g, '\\$&')
 }
 
 function firstSentence(jsdoc) {
@@ -39,7 +57,8 @@ function firstSentence(jsdoc) {
 		.map((l) => l.replace(/^\s*\*\s?/, '').trim())
 		.filter(Boolean)
 		.join(' ')
-	const match = cleaned.match(/^(.+?[.!?])(\s|$)/)
+	// `(?<!e\.g|i\.e|etc)` so an abbreviation does not end the sentence early.
+	const match = cleaned.match(/^(.+?(?<!\be\.g)(?<!\bi\.e)(?<!\betc)[.!?])(\s|$)/)
 	return escapeForMarkdownTable((match ? match[1] : cleaned).trim() || '')
 }
 
@@ -82,33 +101,31 @@ const subpaths = Object.keys(pkg.exports)
 	.filter((k) => k !== '.' && k !== './types')
 	.map((k) => k.replace(/^\.\//, ''))
 
-let created = 0
-let skipped = 0
-for (const sub of subpaths) {
-	const docPath = resolve(docsDir, `${sub}.md`)
-	if (existsSync(docPath)) {
-		skipped++
-		continue
-	}
+export const MARKER_START =
+	'<!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->'
+export const MARKER_END = '<!-- /generated:exports -->'
 
-	const indexPath = resolve(repoRoot, 'src', sub, 'index.ts')
-	const summaries = new Map()
-	collectFromFile(indexPath, summaries)
+/**
+ * Splice `block` into `existing` between the markers. Returns null when the
+ * page has no markers, which means "hand-written, leave it alone".
+ */
+export function spliceGeneratedBlock(existing, block) {
+	const start = existing.indexOf(MARKER_START)
+	const end = existing.indexOf(MARKER_END)
+	if (start === -1 || end === -1 || end < start) return null
+	return existing.slice(0, start) + block + existing.slice(end + MARKER_END.length)
+}
 
-	const title = sub.replace(/[-/]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-	const description = `Utilities exported from @rtorcato/js-common/${sub}.`
-
+export function buildBlock(sub, summaries) {
 	const exportNames = [...summaries.keys()].sort()
 	const exampleImports = exportNames.slice(0, 3).join(', ') || '/* utilities */'
-
 	const tableRows = exportNames.length
 		? exportNames.map((name) => `| \`${name}\` | ${summaries.get(name) || '—'} |`).join('\n')
 		: '| _no exports detected_ | _add docs here_ |'
 
-	const body = `---
-title: ${title}
-description: ${description}
----
+	return `${MARKER_START}
+
+## Import
 
 \`\`\`ts
 import { ${exampleImports} } from '@rtorcato/js-common/${sub}'
@@ -119,10 +136,63 @@ import { ${exampleImports} } from '@rtorcato/js-common/${sub}'
 | Name | Summary |
 | --- | --- |
 ${tableRows}
-`
 
-	writeFileSync(docPath, body)
-	created++
+${MARKER_END}`
 }
 
-console.log(`generate-module-docs: created ${created}, skipped ${skipped} (already existed)`)
+// Importable for tests; only the CLI invocation touches the filesystem.
+export function generate() {
+	let created = 0
+	let updated = 0
+	let skipped = 0
+
+	for (const sub of subpaths) {
+		const docPath = resolve(docsDir, `${sub}.md`)
+		const summaries = new Map()
+		collectFromFile(resolve(repoRoot, 'src', sub, 'index.ts'), summaries)
+		const block = buildBlock(sub, summaries)
+
+		// Read first and treat ENOENT as "not there yet", rather than asking
+		// existsSync and then writing — the check-then-write pair is a race, and
+		// the answer is thrown away the moment it is read anyway.
+		let existing = null
+		try {
+			existing = readFileSync(docPath, 'utf8')
+		} catch (err) {
+			if (err.code !== 'ENOENT') throw err
+		}
+
+		if (existing !== null) {
+			const next = spliceGeneratedBlock(existing, block)
+			if (next === null) {
+				skipped++
+			} else if (next !== existing) {
+				writeFileSync(docPath, next)
+				updated++
+			}
+			continue
+		}
+
+		const title = sub.replace(/[-/]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+		writeFileSync(
+			docPath,
+			`---
+title: ${title}
+description: Utilities exported from @rtorcato/js-common/${sub}.
+---
+
+${block}
+`
+		)
+		created++
+	}
+
+	return { created, updated, skipped }
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+	const { created, updated, skipped } = generate()
+	console.log(
+		`generate-module-docs: created ${created}, updated ${updated}, skipped ${skipped} (no marker block)`
+	)
+}
