@@ -139,6 +139,20 @@ imported it, so from here it needs a major version and an entry in
 
 Adding a *new* helper to an existing module is not covered by the freeze and
 stays ordinary work — but it inherits the rule at the top: check that the name is
-not already exported somewhere else first. `scripts/check-readme-exports.mjs`
-catches drift between the README and `package.json`; it does not catch a name
-exported from two modules, so that check stays a review responsibility.
+not already exported somewhere else first.
+
+`scripts/check-readme-exports.mjs` enforces that in CI so it does not rest on
+reviewer vigilance. It fails the build on three things:
+
+1. A `package.json#exports` subpath missing from the README's
+   `## Available Modules` section, or a module listed there that is not exported.
+2. **An export name reachable from two different subpaths** — the rule at the top
+   of this record.
+3. An `import { … } from '@rtorcato/js-common/<module>'` sample anywhere in
+   `README.md` or `apps/docs/docs/**` naming something that module does not
+   export.
+
+Docs that quote a removed API on purpose — the "before" half of a migration
+snippet — opt out by putting `boundary-check: ignore` inside the fenced block.
+Use it only for code that is *meant* to be historical; it is not a way to park a
+broken example.

@@ -74,6 +74,7 @@ different function from awaiting a DOM event, so the event one moved aside.
 ## 1.x → 2.x — `errors.tryCatch` → `errors.tryWithFallback`
 
 ```ts
+// boundary-check: ignore — quotes the pre-2.0 API on purpose
 // 1.x — swallow errors and fall back to a default value
 import { tryCatch } from '@rtorcato/js-common/errors'
 const data = await tryCatch(() => fetchData(), [])

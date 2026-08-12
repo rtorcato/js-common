@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 /**
- * Fail when the README "Available Modules" section drifts from package.json
- * `exports`: every subpath must appear in the README, and every module the
- * README mentions must be a real export. Also checks that the named imports in
- * the README examples exist in src/<module>/index.ts.
+ * Guards the module boundary freeze (MODULE-BOUNDARIES.md) in CI:
+ *
+ *  1. The README "Available Modules" section lists every package.json `exports`
+ *     subpath and nothing else.
+ *  2. No export name is reachable from two different subpaths — the freeze's
+ *     "every helper has exactly one home" rule.
+ *  3. Every `import { … } from '@rtorcato/js-common/<module>'` sample anywhere in
+ *     README.md or apps/docs/docs/** names something that module really exports.
  *
  *   node scripts/check-readme-exports.mjs --check   # exit 1 on drift (used by CI)
  */
-import { existsSync, readFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -69,6 +73,7 @@ const mentioned = new Set([...imported, ...bulleted])
 
 const errors = []
 
+// 1. The README lists every subpath and nothing that is not one.
 for (const sub of subpaths) {
 	if (!mentioned.has(sub)) errors.push(`exported but missing from the README: ./${sub}`)
 }
@@ -77,24 +82,77 @@ for (const name of mentioned) {
 		errors.push(`in the README but not in package.json exports: ${name}`)
 }
 
-const IMPORT_EXAMPLE = /import\s*\{([^}]+)\}\s*from\s*'@rtorcato\/js-common\/([\w-]+)'/g
-for (const m of section.matchAll(IMPORT_EXAMPLE)) {
-	const sub = m[2]
-	const available = collectExportNames(join(root, 'src', sub, 'index.ts'))
-	if (available.size === 0) continue
-	for (const name of m[1]
-		.split(',')
-		.map((s) => s.trim())
-		.filter(Boolean)) {
-		if (!available.has(name)) {
-			errors.push(`README imports \`${name}\` from ./${sub}, which does not export it`)
+// One pass over the source, reused by both checks below. `./types` is types-only
+// (no `import` field, no runtime index.ts) — absent, not broken.
+const exportsBySubpath = new Map()
+for (const sub of subpaths) {
+	const entry = join(root, 'src', sub, 'index.ts')
+	if (!existsSync(entry)) continue
+	exportsBySubpath.set(sub, collectExportNames(entry))
+}
+
+// 2. One home per name: the rule MODULE-BOUNDARIES.md freezes.
+const homes = new Map()
+for (const [sub, names] of exportsBySubpath) {
+	for (const name of names) {
+		if (!homes.has(name)) homes.set(name, [])
+		homes.get(name).push(sub)
+	}
+}
+for (const [name, subs] of homes) {
+	if (subs.length > 1) {
+		errors.push(`\`${name}\` is exported from ${subs.length} modules: ${subs.join(', ')}`)
+	}
+}
+
+// 3. Import samples across all the prose, not just the README section.
+const IMPORT_EXAMPLE =
+	/import\s+(?:type\s+)?\{([^}]+)\}\s*from\s*['"]@rtorcato\/js-common\/([\w-]+)['"]/g
+const docFiles = [join(root, 'README.md')]
+const docsDir = join(root, 'apps', 'docs', 'docs')
+if (existsSync(docsDir)) {
+	for (const name of readdirSync(docsDir, { recursive: true })) {
+		if (/\.mdx?$/.test(name)) docFiles.push(join(docsDir, name))
+	}
+}
+
+// A migration guide has to quote the API it is migrating away from. A fenced
+// block containing `boundary-check: ignore` is skipped for that reason.
+const FENCE = /^```[\s\S]*?^```/gm
+
+for (const file of docFiles) {
+	const where = relative(root, file)
+	const text = readFileSync(file, 'utf8').replace(FENCE, (block) =>
+		block.includes('boundary-check: ignore') ? '' : block
+	)
+	for (const m of text.matchAll(IMPORT_EXAMPLE)) {
+		const sub = m[2]
+		const available = exportsBySubpath.get(sub)
+		// ./types is declaration-only (`.d.ts`, no src/types/index.ts) — its names
+		// are not collectable here, so samples importing from it are left alone.
+		if (!available) {
+			if (!subpaths.includes(sub))
+				errors.push(`${where} imports from ./${sub}, which is not an exported module`)
+			continue
+		}
+		for (const name of m[1]
+			.split(',')
+			.map((s) => s.trim().replace(/^type\s+/, ''))
+			.filter(Boolean)) {
+			if (!available.has(name)) {
+				errors.push(`${where} imports \`${name}\` from ./${sub}, which does not export it`)
+			}
 		}
 	}
 }
 
 if (errors.length) {
-	console.error('README "Available Modules" is out of sync with package.json exports:')
+	console.error('Module boundary check failed:')
 	for (const e of errors) console.error(`  - ${e}`)
 	process.exit(1)
 }
-console.log(`README "Available Modules" covers all ${subpaths.length} exported modules.`)
+console.log(
+	`README covers all ${subpaths.length} exported modules; ` +
+		`${homes.size} export names each have one home; ` +
+		`import samples in ${docFiles.length} files resolve.`
+)

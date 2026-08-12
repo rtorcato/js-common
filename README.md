@@ -69,6 +69,7 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 **1.x → 2.x** — the only breaking change in 2.0 is a rename in the `errors` module:
 
 ```ts
+// boundary-check: ignore — quotes the pre-2.0 API on purpose
 // 1.x — swallow errors and fall back to a default value
 import { tryCatch } from '@rtorcato/js-common/errors'
 const data = await tryCatch(() => fetchData(), [])
