@@ -109,9 +109,10 @@ for (const [name, subs] of homes) {
 // 3. Import samples across all the prose, not just the README section.
 const IMPORT_EXAMPLE =
 	/import\s+(?:type\s+)?\{([^}]+)\}\s*from\s*['"]@rtorcato\/js-common\/([\w-]+)['"]/g
-const docFiles = [join(root, 'README.md')]
+const docFiles = [join(root, 'README.md'), join(root, '.github', 'COPILOT.md')].filter(existsSync)
 // .github/skills/** is Copilot-facing: a wrong name there is taught to an
 // assistant writing code against this package, so it gets the same check.
+// COPILOT.md above is the same audience and was missed the first time round.
 for (const dir of [join(root, 'apps', 'docs', 'docs'), join(root, '.github', 'skills')]) {
 	if (!existsSync(dir)) continue
 	for (const name of readdirSync(dir, { recursive: true })) {
