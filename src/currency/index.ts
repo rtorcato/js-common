@@ -182,7 +182,9 @@ export function formatPriceCompact(
  */
 export function parsePrice(value: string): number | null {
 	// Handle European format (1.234,56) by detecting comma as decimal separator
-	const hasEuropeanFormat = /\d+\.\d{3},\d{2}$/.test(value)
+	// One leading \d, not \d+ — the test is the same (both need a digit before the dot), but
+	// with no unbounded quantifier it stays linear on '999…9' (CodeQL js/polynomial-redos).
+	const hasEuropeanFormat = /\d\.\d{3},\d{2}$/.test(value)
 	let normalized = value
 
 	if (hasEuropeanFormat) {

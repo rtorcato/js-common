@@ -12,7 +12,9 @@
  * @returns True if valid, false otherwise.
  */
 export function isValidEmail(email: string): boolean {
-	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+	// The domain parts exclude '.' so each one has a single possible split, which keeps the
+	// match linear on inputs like 'a@!.!.!.!.' (CodeQL js/polynomial-redos).
+	return /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/.test(email)
 }
 
 /**

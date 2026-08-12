@@ -16,6 +16,12 @@ describe('emails module', () => {
 		expect(isValidEmail('foo@.com')).toBe(false)
 	})
 
+	it('isValidEmail rejects empty and trailing domain labels', () => {
+		expect(isValidEmail('foo@bar..com')).toBe(false)
+		expect(isValidEmail('foo@bar.com.')).toBe(false)
+		expect(isValidEmail('foo.bar@baz.example.com')).toBe(true)
+	})
+
 	it('normalizeEmail trims and lowercases', () => {
 		expect(normalizeEmail('  TEST@Example.COM  ')).toBe('test@example.com')
 	})
