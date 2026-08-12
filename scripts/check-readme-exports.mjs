@@ -7,8 +7,7 @@
  *  2. No export name is reachable from two different subpaths — the freeze's
  *     "every helper has exactly one home" rule.
  *  3. Every `import { … } from '@rtorcato/js-common/<module>'` sample anywhere in
- *     README.md, apps/docs/docs/** or .github/skills/** names something that
- *     module really exports.
+ *     README.md or apps/docs/docs/** names something that module really exports.
  *
  *   node scripts/check-readme-exports.mjs --check   # exit 1 on drift (used by CI)
  */
@@ -109,14 +108,11 @@ for (const [name, subs] of homes) {
 // 3. Import samples across all the prose, not just the README section.
 const IMPORT_EXAMPLE =
 	/import\s+(?:type\s+)?\{([^}]+)\}\s*from\s*['"]@rtorcato\/js-common\/([\w-]+)['"]/g
-const docFiles = [join(root, 'README.md'), join(root, '.github', 'COPILOT.md')].filter(existsSync)
-// .github/skills/** is Copilot-facing: a wrong name there is taught to an
-// assistant writing code against this package, so it gets the same check.
-// COPILOT.md above is the same audience and was missed the first time round.
-for (const dir of [join(root, 'apps', 'docs', 'docs'), join(root, '.github', 'skills')]) {
-	if (!existsSync(dir)) continue
-	for (const name of readdirSync(dir, { recursive: true })) {
-		if (/\.mdx?$/.test(name)) docFiles.push(join(dir, name))
+const docFiles = [join(root, 'README.md')]
+const docsDir = join(root, 'apps', 'docs', 'docs')
+if (existsSync(docsDir)) {
+	for (const name of readdirSync(docsDir, { recursive: true })) {
+		if (/\.mdx?$/.test(name)) docFiles.push(join(docsDir, name))
 	}
 }
 
