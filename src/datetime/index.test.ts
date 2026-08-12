@@ -4,7 +4,6 @@ import {
 	getTimezoneOffset,
 	nowIso,
 	parseIsoDateTime,
-	secondsBetween,
 	toUtcDate,
 	unixMillis,
 	unixTimestamp,
@@ -59,13 +58,6 @@ describe('datetime module', () => {
 		const ms = unixMillis()
 		expect(typeof ms).toBe('number')
 		expect(ms).toBeGreaterThan(1000000000000)
-	})
-
-	it('secondsBetween returns correct difference in seconds', () => {
-		const a = new Date('2025-05-26T00:00:00Z')
-		const b = new Date('2025-05-26T00:01:40Z')
-		expect(secondsBetween(a, b)).toBe(100)
-		expect(secondsBetween(b, a)).toBe(-100)
 	})
 
 	// it('getIsoWeek returns correct ISO week number', () => {

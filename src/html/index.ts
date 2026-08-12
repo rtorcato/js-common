@@ -27,18 +27,27 @@ export function escapeHtml(str: string): string {
  * ```typescript
  * unescapeHtml('&lt;b&gt;hi&lt;/b&gt;') // '<b>hi</b>'
  * unescapeHtml('Tom &amp; Jerry') // 'Tom & Jerry'
+ * unescapeHtml('a&#x2F;b&nbsp;c') // 'a/b c'
  * ```
  *
  * @param str The string to unescape.
  * @returns The unescaped string.
  */
 export function unescapeHtml(str: string): string {
-	return str
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>')
-		.replace(/&quot;/g, '"')
-		.replace(/&#39;/g, "'")
-		.replace(/&amp;/g, '&')
+	const htmlUnescapes: Record<string, string> = {
+		'&amp;': '&',
+		'&lt;': '<',
+		'&gt;': '>',
+		'&quot;': '"',
+		'&#39;': "'",
+		'&#x27;': "'",
+		'&#x2F;': '/',
+		'&nbsp;': ' ',
+	}
+	return str.replace(
+		/&(?:amp|lt|gt|quot|#39|#x27|#x2F|nbsp);/g,
+		(entity) => htmlUnescapes[entity] ?? entity
+	)
 }
 
 /**

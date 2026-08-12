@@ -106,4 +106,4 @@ See the [`date` API reference](../api/date) for individual function signatures.
 - [datetime](./datetime.md) — ISO strings, ISO weeks and Unix timestamps
 - [time](./time.md) — time-of-day parsing and `HH:MM:SS` formatting
 - [interval](./interval.md) — run something repeatedly on a timer
-- [formatting](./formatting.md) — padding, thousands separators, percentages
+- [i18n](./i18n.md) — locale-aware number/date formatting and translation

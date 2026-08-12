@@ -45,9 +45,12 @@ export function emit(target: EventTarget, type: string, detail?: unknown): boole
 /**
  * Waits for a single event to occur and resolves a promise.
  *
+ * Named `onceEvent` rather than `once` so it cannot be confused with
+ * `functions.once`, which memoises a call rather than awaiting an event.
+ *
  * @example
  * ```typescript
- * const event = await once(button, 'click')
+ * const event = await onceEvent(button, 'click')
  * event.type // 'click'
  * ```
  *
@@ -55,7 +58,7 @@ export function emit(target: EventTarget, type: string, detail?: unknown): boole
  * @param type The event type.
  * @returns {Promise<Event>} Resolves with the event object.
  */
-export function once<K extends keyof HTMLElementEventMap>(
+export function onceEvent<K extends keyof HTMLElementEventMap>(
 	target: EventTarget,
 	type: K
 ): Promise<HTMLElementEventMap[K]> {

@@ -57,4 +57,4 @@ import { formatTime, nowTime, nowTimeShort } from '@rtorcato/js-common/time'
 - [date](./date.md) — calendar-day helpers — add, diff, compare, format
 - [datetime](./datetime.md) — ISO strings, ISO weeks and Unix timestamps
 - [interval](./interval.md) — run something repeatedly on a timer
-- [formatting](./formatting.md) — padding, thousands separators, percentages
+- [i18n](./i18n.md) — locale-aware number/date formatting and translation

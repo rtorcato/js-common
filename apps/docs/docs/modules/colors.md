@@ -45,4 +45,4 @@ import { darken, hexToRgb, isValidHex } from '@rtorcato/js-common/colors'
 
 - [random](./random.md) — random ints, floats, strings and array picks
 - [geometry](./geometry.md) — 2D distance, angle, midpoint, hit-testing
-- [formatting](./formatting.md) — padding, thousands separators, percentages
+- [numbers](./numbers.md) — sum, average, clamp, roundTo

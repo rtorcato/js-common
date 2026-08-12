@@ -61,15 +61,3 @@ export function requireOptional(moduleName: string): any | undefined {
 		return undefined
 	}
 }
-
-/**
- * Returns the process uptime in seconds.
- *
- * @returns The number of seconds the current Node.js process has been running.
- *
- * @example
- * const uptime = getProcessUptime();
- */
-export const getProcessUptime = (): number => {
-	return process.uptime()
-}

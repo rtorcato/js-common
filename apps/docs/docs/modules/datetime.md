@@ -18,7 +18,8 @@ These are stable, well-maintained, and far better than anything a thin helper se
 ## Example
 
 ```ts
-import { getIsoWeek, nowIso, secondsBetween, unixTimestamp } from '@rtorcato/js-common/datetime'
+import { getIsoWeek, nowIso, unixTimestamp } from '@rtorcato/js-common/datetime'
+import { secondsBetween } from '@rtorcato/js-common/time'
 
 const started = new Date()
 const row = {
@@ -50,7 +51,6 @@ import { formatDateTimeLocal, getIsoWeek, getIsoWeekInfo } from '@rtorcato/js-co
 | `getTimezoneOffset` | Returns the timezone offset in minutes for a given date (local − UTC). |
 | `nowIso` | Returns the current date and time as an ISO string (`YYYY-MM-DDTHH:mm:ss.sssZ`). |
 | `parseIsoDateTime` | Parses an ISO date-time string to a Date object. |
-| `secondsBetween` | Returns the difference in seconds between two Date objects. |
 | `toUtcDate` | Returns the UTC equivalent of a local Date. |
 | `unixMillis` | Returns the number of milliseconds since the Unix epoch. |
 | `unixTimestamp` | Returns the number of seconds since the Unix epoch (UTC). |
@@ -60,6 +60,6 @@ import { formatDateTimeLocal, getIsoWeek, getIsoWeekInfo } from '@rtorcato/js-co
 ## See also
 
 - [date](./date.md) — calendar-day helpers — add, diff, compare, format
-- [time](./time.md) — time-of-day parsing and `HH:MM:SS` formatting
+- [time](./time.md) — time-of-day parsing, `HH:MM:SS` formatting and `secondsBetween`
 - [interval](./interval.md) — run something repeatedly on a timer
-- [formatting](./formatting.md) — padding, thousands separators, percentages
+- [i18n](./i18n.md) — locale-aware number/date formatting and translation

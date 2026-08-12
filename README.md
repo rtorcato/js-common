@@ -26,13 +26,19 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **Tree-shakeable** — import only what you need via subpath exports
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
-- **Modular** — one module per concern, 46 subpaths
+- **Modular** — one module per concern, 44 subpaths
 - **Minimal runtime deps** — only `date-fns`, `date-fns-tz`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 
 ## Installation
 
 ```bash
 npm install @rtorcato/js-common
+```
+
+Pre-release builds are published to the `beta` dist-tag, so they never reach a plain `npm install`:
+
+```bash
+npm install @rtorcato/js-common@beta
 ```
 
 ## Use with AI
@@ -56,9 +62,11 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 
 `AGENTS.md` is generated from `SKILL.md` by `pnpm sync:agents`; CI fails if they drift. Edit `SKILL.md`, never `AGENTS.md`.
 
-## Migrating from 1.x to 2.x
+## Migrating
 
-The only breaking change in 2.0 is a rename in the `errors` module:
+**2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
+
+**1.x → 2.x** — the only breaking change in 2.0 is a rename in the `errors` module:
 
 ```ts
 // 1.x — swallow errors and fall back to a default value
@@ -108,7 +116,7 @@ import { formatDate, today, daysBetween } from '@rtorcato/js-common/date'
 import { isValidEmail, normalizeEmail } from '@rtorcato/js-common/emails'
 import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
 import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
-import { capitalize, toTitleCase } from '@rtorcato/js-common/formatting'
+import { capitalize, titleCase } from '@rtorcato/js-common/strings'
 
 // Example usage
 console.log(today()) // "2026-05-29"
@@ -123,6 +131,10 @@ Each module is shipped as its own subpath export so bundlers only include what y
 
 ## Available Modules
 
+Which module a helper belongs to — and why no helper is exported from two of
+them — is recorded in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md). These paths
+are frozen as of that record.
+
 ### Date & Time
 ```typescript
 import { today, formatDate, daysBetween, isLeapYear } from '@rtorcato/js-common/date'
@@ -131,20 +143,18 @@ import { nowTime, parseTime, secondsBetween } from '@rtorcato/js-common/time'
 import { runInterval, clearIntervalById } from '@rtorcato/js-common/interval'
 ```
 
-### Numbers & Math
+### Numbers
 ```typescript
-import { sum, average, roundTo, clamp, getRandomInt } from '@rtorcato/js-common/numbers'
-import { add, subtract, multiply, divide } from '@rtorcato/js-common/math'
+import { sum, average, roundTo, clamp, formatPercent } from '@rtorcato/js-common/numbers'
 import { randomInt, randomFloat, randomBool, randomElement } from '@rtorcato/js-common/random'
 ```
 
 ### Text & Strings
 ```typescript
-import { capitalize, toTitleCase, padZero } from '@rtorcato/js-common/formatting'
-import { slugify, truncate, removeEmojis } from '@rtorcato/js-common/strings'
+import { slugify, truncate, capitalize, titleCase, pluralize } from '@rtorcato/js-common/strings'
 import { escapeHtml, unescapeHtml, stripHtmlTags } from '@rtorcato/js-common/html'
 import { escapeRegExp, matchAll, replaceAllRegex } from '@rtorcato/js-common/regex'
-import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/i18n'
+import { detectLanguage, formatNumber, formatDateI18n, t } from '@rtorcato/js-common/i18n'
 ```
 
 ### Security & Validation
@@ -152,8 +162,8 @@ import { detectLanguage, formatNumber, t, pluralize } from '@rtorcato/js-common/
 import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/security'
 import { isValidEmail, maskEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
-import { isString, isNumber, isArray, isObject } from '@rtorcato/js-common/validation'
-import { toBoolean, isBoolean, xor } from '@rtorcato/js-common/boolean'
+import { isString, isNumber, isBoolean, isArray, isObject } from '@rtorcato/js-common/validation'
+import { toBoolean, and, or, not, xor } from '@rtorcato/js-common/boolean'
 ```
 
 ### Data Structures
@@ -167,7 +177,7 @@ import { union, intersection, difference, isSubset } from '@rtorcato/js-common/s
 
 ### Async & Control Flow
 ```typescript
-import { delay, timeout, retry } from '@rtorcato/js-common/promises'
+import { delay, withTimeout, allSettled } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
 import { tryCatch } from '@rtorcato/js-common/try'
@@ -195,7 +205,7 @@ import { info, warn, error, captureConsole } from '@rtorcato/js-common/logging'
 - `colors` — color manipulation and conversion
 - `crypto` — cryptographic helpers
 - `currency` — currency formatting and conversion
-- `events` — event emitter utilities
+- `events` — DOM event helpers (`on`, `emit`, `onceEvent`)
 - `fetch` — HTTP request helpers
 - `file` — file system helpers
 - `geometry` — 2D geometry calculations

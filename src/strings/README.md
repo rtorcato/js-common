@@ -33,14 +33,9 @@ import {
   slugify,
   
   // Random & replace
-  randomString,
   replaceString,
   
   // HTML handling
-  sanitizeString,
-  escapeHtml,
-  unescapeHtml,
-  stripHtml,
   
   // Text analysis
   words,
@@ -153,16 +148,7 @@ slugify('Café & Résumé')   // 'cafe-resume'
 slugify('  Multiple   Spaces  ') // 'multiple-spaces'
 ```
 
-### Random & Replace
-
-#### `randomString(length: number, chars: string): string`
-
-Generates a random string of specified length using provided characters.
-
-```typescript
-randomString(8, 'abc123')            // e.g., 'a1b3c2a1'
-randomString(16, '0123456789abcdef') // e.g., '3f8a2c1b9d0e4f7a'
-```
+### Replace
 
 #### `replaceString(str: string, search: string, replacement: string): string`
 
@@ -174,40 +160,14 @@ replaceString('hello world world', 'world', 'there') // 'hello there there'
 
 ### HTML Handling
 
-#### `sanitizeString(str: string): string`
-
-Sanitizes a string by removing script tags and event handlers.
-
-```typescript
-sanitizeString('<script>alert("xss")</script>Hello') // 'Hello'
-sanitizeString('<div onclick="evil()">Safe</div>')   // '<div >Safe</div>'
-```
-
-#### `escapeHtml(str: string): string`
-
-Escapes HTML special characters to prevent XSS.
+HTML escaping, unescaping and tag stripping live in
+[`html`](../html); string sanitizing lives in [`security`](../security).
+Random strings live in [`random`](../random).
 
 ```typescript
-escapeHtml('<div>Hello & "World"</div>') // '&lt;div&gt;Hello &amp; &quot;World&quot;&lt;/div&gt;'
-escapeHtml("It's <script>")              // "It&#39;s &lt;script&gt;"
-```
-
-#### `unescapeHtml(str: string): string`
-
-Unescapes HTML entities back to their original characters.
-
-```typescript
-unescapeHtml('&lt;div&gt;')      // '<div>'
-unescapeHtml('&amp;&quot;&#39;') // '&"''
-```
-
-#### `stripHtml(str: string): string`
-
-Removes all HTML tags from a string.
-
-```typescript
-stripHtml('<p>Hello <b>World</b></p>') // 'Hello World'
-stripHtml('<script>alert(1)</script>Text') // 'alert(1)Text'
+import { escapeHtml, stripHtmlTags, unescapeHtml } from '@rtorcato/js-common/html'
+import { randomString } from '@rtorcato/js-common/random'
+import { sanitizeString } from '@rtorcato/js-common/security'
 ```
 
 ### Text Analysis
@@ -295,7 +255,6 @@ template('Missing ${key}', {}) // 'Missing ${key}'
 ### Form Input Processing
 
 ```typescript
-const username = sanitizeString(input.value)
 const slug = slugify(title)
 const className = camelCase(componentName)
 ```
@@ -315,7 +274,6 @@ const position = ordinalize(rank) // "1st place"
 ```typescript
 const cardNumber = mask(card, 0, 12) // '************1234'
 const email = mask(user.email, 3, user.email.indexOf('@')) // 'joh****@example.com'
-const safeHtml = escapeHtml(userInput)
 ```
 
 ### Code Generation
@@ -348,6 +306,5 @@ const message = template('Hello ${name}, you have ${count} messages', {
 
 - All functions are pure and don't mutate input
 - Empty string inputs are handled gracefully
-- `sanitizeString` provides basic XSS protection but should not be relied upon as the sole security measure
 - `slugify` normalizes unicode characters and removes diacritics
 - `mask` is useful for hiding sensitive data like credit card numbers

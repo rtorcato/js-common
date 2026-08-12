@@ -3,7 +3,7 @@ title: Node
 description: Utilities exported from @rtorcato/js-common/node.
 ---
 
-Runtime questions about Node itself — is this Node, which major version, how long has the process been up — plus `requireOptional` for modules that may not be installed. The version helpers are for guarding features that need a floor and failing with a clear message instead of a cryptic crash deeper in. `requireOptional` returns `undefined` rather than throwing, which is the behaviour you want around optional peer dependencies.
+Runtime questions about Node itself — is this Node, which major version — plus `requireOptional` for modules that may not be installed. Process-level questions such as uptime, pid and cwd live in [process](./process.md). The version helpers are for guarding features that need a floor and failing with a clear message instead of a cryptic crash deeper in. `requireOptional` returns `undefined` rather than throwing, which is the behaviour you want around optional peer dependencies.
 
 ## Example
 
@@ -23,7 +23,7 @@ if (isNode() && getNodeMajorVersion() < 20) throw new Error('Node 20+ required')
 ## Import
 
 ```ts
-import { getNodeMajorVersion, getProcessUptime, isNode } from '@rtorcato/js-common/node'
+import { getNodeMajorVersion, isNode, nodeVersionCheck } from '@rtorcato/js-common/node'
 ```
 
 ## Exports
@@ -31,7 +31,6 @@ import { getNodeMajorVersion, getProcessUptime, isNode } from '@rtorcato/js-comm
 | Name | Summary |
 | --- | --- |
 | `getNodeMajorVersion` | Returns the current Node.js major version as a number. |
-| `getProcessUptime` | Returns the process uptime in seconds. |
 | `isNode` | Checks if the current environment is Node.js. |
 | `nodeVersionCheck` | Checks if the current Node.js version is less than the specified version. |
 | `requireOptional` | Attempts to require a module, returning `undefined` if the module is not found. |

@@ -85,15 +85,6 @@ export function unixMillis(): number {
 }
 
 /**
- * Returns the difference in seconds between two Date objects.
- * @param a First date.
- * @param b Second date.
- */
-export function secondsBetween(a: Date, b: Date): number {
-	return Math.floor((b.getTime() - a.getTime()) / 1000)
-}
-
-/**
  * Returns the ISO week number (1–53) of a given date using UTC.
  * @param date A JavaScript Date object.
  */

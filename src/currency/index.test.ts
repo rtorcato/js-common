@@ -10,7 +10,6 @@ import {
 	isValidCurrencyCode,
 	parseCurrencyString,
 	parsePrice,
-	roundTo,
 } from './index'
 
 describe('currency module', () => {
@@ -139,14 +138,6 @@ describe('currency module', () => {
 			expect(isValidCurrency('USD')).toBe(true)
 			expect(isValidCurrency('EUR')).toBe(true)
 			expect(isValidCurrency('INVALID')).toBe(false)
-		})
-	})
-
-	describe('roundTo', () => {
-		it('rounds to given decimals', () => {
-			expect(roundTo(1.23456)).toBe(1.23)
-			expect(roundTo(1.235, 2)).toBe(1.24)
-			expect(roundTo(1.2, 0)).toBe(1)
 		})
 	})
 })

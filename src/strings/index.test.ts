@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import {
 	camelCase,
 	capitalize,
-	escapeHtml,
 	isBlank,
 	kebabCase,
 	mask,
@@ -10,17 +9,13 @@ import {
 	padEnd,
 	padStart,
 	pluralize,
-	randomString,
 	replaceString,
 	reverse,
-	sanitizeString,
 	slugify,
 	snakeCase,
-	stripHtml,
 	template,
 	titleCase,
 	truncate,
-	unescapeHtml,
 	wordCount,
 	words,
 } from './index'
@@ -79,25 +74,9 @@ describe('padEnd', () => {
 	})
 })
 
-describe('randomString', () => {
-	it('returns a string of the correct length', () => {
-		const str = randomString(10, 'abc')
-		expect(str.length).toBe(10)
-		expect(/^[abc]+$/.test(str)).toBe(true)
-	})
-})
-
 describe('replaceString', () => {
 	it('replaces all occurrences', () => {
 		expect(replaceString('foo bar foo', 'foo', 'baz')).toBe('baz bar baz')
-	})
-})
-
-describe('sanitizeString', () => {
-	it('removes script tags and event handlers', () => {
-		expect(sanitizeString('<script>alert(1)</script><div onclick="foo()">x</div>')).toBe(
-			'<div >x</div>'
-		)
 	})
 })
 
@@ -133,31 +112,6 @@ describe('wordCount', () => {
 		expect(wordCount('  one  two  three  ')).toBe(3)
 		expect(wordCount('')).toBe(0)
 		expect(wordCount('   ')).toBe(0)
-	})
-})
-
-describe('escapeHtml', () => {
-	it('escapes HTML special characters', () => {
-		expect(escapeHtml('<div>')).toBe('&lt;div&gt;')
-		expect(escapeHtml('a & b')).toBe('a &amp; b')
-		expect(escapeHtml('"quoted"')).toBe('&quot;quoted&quot;')
-		expect(escapeHtml("it's")).toBe('it&#39;s')
-	})
-})
-
-describe('unescapeHtml', () => {
-	it('unescapes HTML entities', () => {
-		expect(unescapeHtml('&lt;div&gt;')).toBe('<div>')
-		expect(unescapeHtml('&amp;&quot;&#39;')).toBe('&"\'')
-		expect(unescapeHtml('&nbsp;')).toBe(' ')
-	})
-})
-
-describe('stripHtml', () => {
-	it('removes all HTML tags', () => {
-		expect(stripHtml('<p>Hello <b>World</b></p>')).toBe('Hello World')
-		expect(stripHtml('<script>alert(1)</script>Text')).toBe('alert(1)Text')
-		expect(stripHtml('No tags')).toBe('No tags')
 	})
 })
 

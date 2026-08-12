@@ -42,13 +42,10 @@ import { convertCurrency, formatPrice, formatPriceCompact } from '@rtorcato/js-c
 | `isValidCurrencyCode` | Checks if the provided currency code is valid. |
 | `parseCurrencyString` | Parses a currency string and extracts both the amount and currency code. |
 | `parsePrice` | Parses a given price string and returns its numeric value. |
-| `roundTo` | Rounds a given number to a specified number of decimal places. |
 
 <!-- /generated:exports -->
 
 ## See also
 
 - [numbers](./numbers.md) — sum, average, clamp, roundTo
-- [formatting](./formatting.md) — padding, thousands separators, percentages
 - [i18n](./i18n.md) — locale-aware number/date formatting and translation
-- [math](./math.md) — add, subtract, multiply, divide

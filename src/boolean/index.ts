@@ -29,24 +29,6 @@ export function toBoolean(value: unknown): boolean {
 }
 
 /**
- * Checks if a value is a boolean.
- *
- * @example
- * ```typescript
- * isBoolean(false) // true
- * isBoolean('false') // false
- * isBoolean(0) // false
- * ```
- *
- * @param value The value to check.
- * @returns True if the value is a boolean, false otherwise.
- */
-
-export function isBoolean(value: unknown): value is boolean {
-	return typeof value === 'boolean'
-}
-
-/**
  * Returns the logical exclusive OR (XOR) of two booleans.
  *
  * @example
