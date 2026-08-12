@@ -82,6 +82,8 @@ regexes got wrong:
 
 - Unquoted handlers are now removed. `<img src=x onerror=alert(1)>` was
   previously left intact, because the old pattern required matching quotes.
+  So was `<img/onerror=alert(1)>`, where `/` separates the attribute instead
+  of a space.
 - `</script >` now closes a block. The old pattern demanded `</script>` exactly,
   so a space defeated it (CodeQL `js/bad-tag-filter`).
 - No stray space is left behind. `<div onclick="x()">` yields `<div>`, not

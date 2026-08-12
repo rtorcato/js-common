@@ -16,6 +16,10 @@ describe('security module', () => {
 		expect(stripScriptish('<script type="text/javascript">bad()</script>')).toBe('')
 		// An unquoted handler value needs no quotes to fire.
 		expect(stripScriptish('<img src=x onerror=alert(1)>')).toBe('<img src=x>')
+		// …and no space either: `/` separates attributes just as well.
+		expect(stripScriptish('<img/onerror=alert(1)>')).toBe('<img>')
+		// The `/` arm must not eat a legitimate slash in an attribute value.
+		expect(stripScriptish('<img src=/foo.png>')).toBe('<img src=/foo.png>')
 		// Single quotes.
 		expect(stripScriptish("<div onclick='evil()'>hi</div>")).toBe('<div>hi</div>')
 		// `<scriptural>` is not a script tag — `\b` keeps it.

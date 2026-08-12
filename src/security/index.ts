@@ -26,8 +26,9 @@ export function stripScriptish(str: string): string {
 	// The handler pass stays a regex: the alternation is over bounded character
 	// classes, so there is nothing to backtrack into. The bare-value arm is what
 	// the old `(['"]).*?\1` could not see — `onerror=alert(1)` needs no quotes to
-	// fire. Leading `\s` is consumed so removal leaves no stray space.
-	return removeScriptBlocks(str).replace(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, '')
+	// fire, and `<img/onerror=…>` needs no space either. The leading separator is
+	// consumed so removal leaves no stray character.
+	return removeScriptBlocks(str).replace(/[\s/]on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, '')
 }
 
 /**
