@@ -39,7 +39,7 @@ Import from the owner; the other module no longer exports the name.
 |---|---|---|
 | `roundTo` | `numbers` | `currency` |
 | `randomString` | `random` | `strings` |
-| `sanitizeString` | `security` | `strings` |
+| `sanitizeString` | `security` | `strings` — and renamed, see below |
 | `escapeHtml`, `unescapeHtml` | `html` | `strings` |
 | `pluralize` | `strings` | `i18n` |
 | `formatNumber` | `i18n` | — (`formatting` removed) |
@@ -57,6 +57,41 @@ Three of these changed behaviour where the surviving copy was the stricter one:
 
 `html.unescapeHtml` also **adopted the `strings` implementation**, so it now
 decodes `&#x27;`, `&#x2F;` and `&nbsp;` as well.
+
+### `sanitizeString` is now `stripScriptish`
+
+```ts
+// boundary-check: ignore — quotes the pre-3.0 name on purpose
+- import { sanitizeString } from '@rtorcato/js-common/security'
+- sanitizeString(html)
++ import { stripScriptish } from '@rtorcato/js-common/security'
++ stripScriptish(html)
+```
+
+Same function, honest name. It removes `<script>` blocks and inline `on*=`
+handlers and nothing else — a blocklist over two shapes. It was never a
+sanitizer, and the old name invited people to use it as one without reading the
+caveat that has been in its docs the whole time.
+
+**If you were relying on it to make untrusted HTML safe, renaming the import is
+not the fix.** Escape with [`html.escapeHtml`](../modules/html.md), or run
+DOMPurify when the markup has to survive.
+
+Three behaviour changes came with the rename, all of them things the old
+regexes got wrong:
+
+- Unquoted handlers are now removed. `<img src=x onerror=alert(1)>` was
+  previously left intact, because the old pattern required matching quotes.
+- `</script >` now closes a block. The old pattern demanded `</script>` exactly,
+  so a space defeated it (CodeQL `js/bad-tag-filter`).
+- No stray space is left behind. `<div onclick="x()">` yields `<div>`, not
+  `<div >`. Update snapshot tests that captured the old output.
+
+Performance also changed by three orders of magnitude on hostile input:
+`'<script'.repeat(40_000)` took 9.8s and now takes ~2ms. The old
+implementation backtracked once per `<script` occurrence
+(CodeQL `js/polynomial-redos`), which was a denial-of-service vector for anyone
+passing it attacker-controlled strings.
 
 ### Renames
 
