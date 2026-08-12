@@ -104,10 +104,10 @@ jobs:
             - name: 🤖 Check AGENTS.md is in sync with SKILL.md
               run: node scripts/sync-agents.mjs --check
 
-            # The README API reference is hand-written — fail the PR when a new
-            # module ships without a README entry, or an example imports a name
-            # the module no longer exports.
-            - name: 📚 Check README matches package.json exports
+            # Guards the MODULE-BOUNDARIES.md freeze: a module shipping without a
+            # README entry, a name exported from two subpaths, or a doc example
+            # importing something the module does not export.
+            - name: 📚 Check module boundaries and doc examples
               run: node scripts/check-readme-exports.mjs --check
 
     commitlint:

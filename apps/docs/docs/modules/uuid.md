@@ -7,13 +7,13 @@ sidebar_position: 5
 UUID generation, validation and conversion, wrapping the `uuid` and `short-uuid` packages rather than hand-rolling either. Generation draws from a CSPRNG and validation is version-aware, so a plausible-looking but malformed id is rejected instead of slipping through a loose regex. v4 is the default when you want no embedded information; v7 is there when you want time-ordered ids that index well as database primary keys, and the short forms are the same value in a shorter alphabet, not a different id.
 
 ```ts
-import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
+import { getUUID, isUUID } from '@rtorcato/js-common/uuid'
 
-const id = generateUUID()
+const id = getUUID()
 // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
 
-isValidUUID(id)        // true
-isValidUUID('not-a-id') // false
+isUUID(id)         // true
+isUUID('not-a-id') // false
 ```
 
 ## See also

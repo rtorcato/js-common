@@ -69,6 +69,7 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 **1.x → 2.x** — the only breaking change in 2.0 is a rename in the `errors` module:
 
 ```ts
+// boundary-check: ignore — quotes the pre-2.0 API on purpose
 // 1.x — swallow errors and fall back to a default value
 import { tryCatch } from '@rtorcato/js-common/errors'
 const data = await tryCatch(() => fetchData(), [])
@@ -114,7 +115,7 @@ See [CLI.md](./CLI.md) for complete CLI documentation.
 // Import specific modules (recommended for tree-shaking)
 import { formatDate, today, daysBetween } from '@rtorcato/js-common/date'
 import { isValidEmail, normalizeEmail } from '@rtorcato/js-common/emails'
-import { generateUUID, isValidUUID } from '@rtorcato/js-common/uuid'
+import { getUUID, isUUID } from '@rtorcato/js-common/uuid'
 import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
 import { capitalize, titleCase } from '@rtorcato/js-common/strings'
 
@@ -122,7 +123,7 @@ import { capitalize, titleCase } from '@rtorcato/js-common/strings'
 console.log(today()) // "2026-05-29"
 console.log(sum([1, 2, 3, 4, 5])) // 15
 console.log(capitalize('hello world')) // "Hello world"
-console.log(generateUUID()) // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+console.log(getUUID()) // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
 ```
 
 ### Bundle Size Impact
