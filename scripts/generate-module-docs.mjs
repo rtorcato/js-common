@@ -40,11 +40,15 @@ export function escapeForMarkdownTable(text) {
 	// Escaping the `<` beats stripping `/<[^>]*>/`: a one-pass tag strip can
 	// leave a tag behind on nested input (`<<b>>` -> `<b>`) and silently eats
 	// text like `Success<T>` when the JSDoc forgot the backticks.
+	//
+	// Escape the backslash in the same pass as the pipe, not after it: escaping
+	// only `|` turns the input `a\|b` into `a\\|b`, which markdown reads as an
+	// escaped backslash followed by a live pipe, and the row breaks anyway.
 	return text
 		.split(/(`[^`]*`)/)
 		.map((part, i) => (i % 2 === 1 ? part : part.replace(/</g, '&lt;')))
 		.join('')
-		.replace(/\|/g, '\\|')
+		.replace(/[\\|]/g, '\\$&')
 }
 
 function firstSentence(jsdoc) {

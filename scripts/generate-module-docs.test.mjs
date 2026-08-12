@@ -52,4 +52,10 @@ describe('escapeForMarkdownTable', () => {
 		expect(escapeForMarkdownTable('use `Success<T>` here')).toBe('use `Success<T>` here')
 		expect(escapeForMarkdownTable('a | b')).toBe('a \\| b')
 	})
+
+	it('escapes a backslash so it cannot re-expose the pipe it precedes', () => {
+		// Escaping only `|` would yield `a\\|b` — an escaped backslash plus a
+		// live pipe, which still breaks the row.
+		expect(escapeForMarkdownTable('a\\|b')).toBe('a\\\\\\|b')
+	})
 })
