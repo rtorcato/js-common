@@ -28,7 +28,16 @@ export function stripScriptish(str: string): string {
 	// the old `(['"]).*?\1` could not see — `onerror=alert(1)` needs no quotes to
 	// fire, and `<img/onerror=…>` needs no space either. The leading separator is
 	// consumed so removal leaves no stray character.
-	return removeScriptBlocks(str).replace(/[\s/]on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, '')
+	//
+	// Apply repeatedly until stable to avoid incomplete multi-character
+	// sanitization where one removal can expose a new `on*=` sequence.
+	let sanitized = removeScriptBlocks(str)
+	let previous: string
+	do {
+		previous = sanitized
+		sanitized = sanitized.replace(/[\s/]on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, '')
+	} while (sanitized !== previous)
+	return sanitized
 }
 
 /**
