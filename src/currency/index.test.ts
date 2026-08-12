@@ -84,6 +84,7 @@ describe('currency module', () => {
 
 		it('parses European format price strings', () => {
 			expect(parsePrice('€1.234,56')).toBeCloseTo(1234.56)
+			expect(parsePrice('€1.234.567,89')).toBeCloseTo(1234567.89)
 		})
 
 		it('returns null for invalid strings', () => {
