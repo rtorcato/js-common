@@ -13,16 +13,16 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Time | `@rtorcato/js-common/time` | `nowTime`, `parseTime`, `secondsBetween` |
 | Numbers | `@rtorcato/js-common/numbers` | `sum`, `average`, `roundTo`, `clamp`, `formatPercent` |
 | Random | `@rtorcato/js-common/random` | `randomInt`, `randomFloat`, `randomBool`, `randomString` |
-| Strings | `@rtorcato/js-common/strings` | `slugify`, `truncate`, `removeEmojis`, `capitalize` |
+| Strings | `@rtorcato/js-common/strings` | `slugify`, `truncate`, `titleCase`, `capitalize` |
 | Arrays | `@rtorcato/js-common/arrays` | `flatten`, `unique`, `chunk`, `groupBy` |
 | Objects | `@rtorcato/js-common/objects` | `deepMerge`, `pick`, `omit`, `deepClone` |
 | JSON | `@rtorcato/js-common/json` | `safeJsonParse`, `safeJsonStringify` |
-| Emails | `@rtorcato/js-common/emails` | `validateEmail`, `isValidEmail` |
+| Emails | `@rtorcato/js-common/emails` | `isValidEmail`, `normalizeEmail`, `maskEmail` |
 | URL | `@rtorcato/js-common/url` | `isValidUrl` |
-| UUID | `@rtorcato/js-common/uuid` | `generateUUID`, `isValidUUID` |
+| UUID | `@rtorcato/js-common/uuid` | `getUUID`, `getUUIDv7`, `isUUID` |
 | Security | `@rtorcato/js-common/security` | `isStrongPassword`, `generateSecureToken` |
 | Validation | `@rtorcato/js-common/validation` | `isString`, `isNumber`, `isArray`, `isObject` |
-| Promises | `@rtorcato/js-common/promises` | `delay`, `timeout`, `retry` |
+| Promises | `@rtorcato/js-common/promises` | `delay`, `withTimeout`, `to` |
 | Functions | `@rtorcato/js-common/functions` | `debounce`, `throttle`, `once` |
 | Sleep | `@rtorcato/js-common/sleep` | `sleep` |
 
