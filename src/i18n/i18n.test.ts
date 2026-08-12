@@ -1,19 +1,36 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { detectLanguage, formatDateI18n, formatNumber, t } from '.'
 
 describe('detectLanguage', () => {
-	it('returns the default language when no environment signals are present', () => {
-		const lang = detectLanguage('en')
-		expect(typeof lang).toBe('string')
-		expect(lang.length).toBeGreaterThan(0)
+	const originalLang = process.env['LANG']
+
+	afterEach(() => {
+		vi.unstubAllGlobals()
+		if (originalLang === undefined) delete process.env['LANG']
+		else process.env['LANG'] = originalLang
 	})
+
+	it('prefers navigator.language and strips the region subtag', () => {
+		vi.stubGlobal('navigator', { language: 'en-GB' })
+		expect(detectLanguage('fr')).toBe('en')
+	})
+
+	it('falls back to the LANG environment variable outside the browser', () => {
+		vi.stubGlobal('navigator', undefined)
+		process.env['LANG'] = 'fr_FR.UTF-8'
+		expect(detectLanguage('en')).toBe('fr')
+	})
+
 	it('uses the provided default when nothing is detectable', () => {
-		const orig = process.env['LANG']
+		vi.stubGlobal('navigator', undefined)
 		delete process.env['LANG']
-		const lang = detectLanguage('fr')
-		// In a Node test environment without LANG set and no navigator, returns default
-		expect(['fr', 'en']).toContain(lang) // allow 'en' if CI sets it
-		process.env['LANG'] = orig
+		expect(detectLanguage('fr')).toBe('fr')
+	})
+
+	it('defaults to "en" when no default is given', () => {
+		vi.stubGlobal('navigator', undefined)
+		delete process.env['LANG']
+		expect(detectLanguage()).toBe('en')
 	})
 })
 
