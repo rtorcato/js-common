@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { detectLanguage, formatDateI18n, formatNumber, pluralize, t } from '.'
+import { detectLanguage, formatDateI18n, formatNumber, t } from '.'
 
 describe('detectLanguage', () => {
 	it('returns the default language when no environment signals are present', () => {
@@ -45,15 +45,5 @@ describe('t', () => {
 	})
 	it('returns the key itself when not found anywhere', () => {
 		expect(t('missing', dict, 'en')).toBe('missing')
-	})
-})
-
-describe('pluralize', () => {
-	it('returns singular for count 1', () => {
-		expect(pluralize('item', 1)).toBe('item')
-	})
-	it('returns plural for other counts', () => {
-		expect(pluralize('item', 0)).toBe('items')
-		expect(pluralize('item', 5)).toBe('items')
 	})
 })

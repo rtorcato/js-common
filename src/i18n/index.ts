@@ -80,13 +80,3 @@ export function t(
 	const l = lang || detectLanguage()
 	return dict[l]?.[key] || dict['en']?.[key] || key
 }
-
-/**
- * Pluralizes a word based on a count (basic English only).
- * @param word The word to pluralize.
- * @param count The count.
- * @returns {string}
- */
-export function pluralize(word: string, count: number): string {
-	return count === 1 ? word : `${word}s`
-}

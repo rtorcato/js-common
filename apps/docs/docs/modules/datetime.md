@@ -25,7 +25,6 @@ import {
   getTimezoneOffset,
   nowIso,
   parseIsoDateTime,
-  secondsBetween,
   toUtcDate,
   unixMillis,
   unixTimestamp,
@@ -42,7 +41,6 @@ import {
 | `getTimezoneOffset` | Returns the timezone offset in minutes for a date (local − UTC). |
 | `nowIso` | Returns the current date and time as an ISO string. |
 | `parseIsoDateTime` | Parses an ISO date-time string to a Date object. |
-| `secondsBetween` | Returns the difference in seconds between two Date objects. |
 | `toUtcDate` | Returns the UTC equivalent of a local Date. |
 | `unixMillis` | Returns the number of milliseconds since the Unix epoch. |
 | `unixTimestamp` | Returns the number of seconds since the Unix epoch (UTC). |
@@ -54,6 +52,6 @@ See the [`datetime` API reference](../api/datetime) for individual function sign
 ## See also
 
 - [date](./date.md) — calendar-day helpers — add, diff, compare, format
-- [time](./time.md) — time-of-day parsing and `HH:MM:SS` formatting
+- [time](./time.md) — time-of-day parsing, `HH:MM:SS` formatting and `secondsBetween`
 - [interval](./interval.md) — run something repeatedly on a timer
-- [formatting](./formatting.md) — padding, thousands separators, percentages
+- [i18n](./i18n.md) — locale-aware number/date formatting and translation

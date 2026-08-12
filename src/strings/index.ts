@@ -128,20 +128,6 @@ export function padEnd(str: string, targetLength: number, padString = ' '): stri
 }
 
 /**
- * get a random string
- * var rStr= randomString(32,'0123456789abcdefghijklmn');
- * @param  {number} length
- * @param  {string} chars
- */
-export const randomString = (length: number, chars: string): string => {
-	let result = ''
-	for (let i = length; i > 0; --i) {
-		result += chars[Math.floor(Math.random() * chars.length)]
-	}
-	return result
-}
-
-/**
  * replace all items in a string using regex
  * @param  {string} str
  * @param  {string} search
@@ -149,15 +135,6 @@ export const randomString = (length: number, chars: string): string => {
  */
 export const replaceString = (str: string, search: string, replacement: string): string => {
 	return str.replace(new RegExp(search, 'g'), replacement)
-}
-
-/**
- * Sanitizes a string by removing script tags and event handlers.
- * @param str The string to sanitize.
- * @returns The sanitized string.
- */
-export function sanitizeString(str: string): string {
-	return str.replace(/<script.*?>.*?<\/script>/gi, '').replace(/on\w+\s*=\s*(['"]).*?\1/gi, '')
 }
 
 /**
@@ -241,74 +218,6 @@ export function wordCount(str: string): number {
 	const trimmed = str.trim()
 	if (trimmed === '') return 0
 	return trimmed.split(/\s+/).length
-}
-
-/**
- * Escapes HTML special characters to prevent XSS.
- *
- * @example
- * ```typescript
- * escapeHtml('<div>Hello & "World"</div>') // '&lt;div&gt;Hello &amp; &quot;World&quot;&lt;/div&gt;'
- * escapeHtml("It's <script>") // "It&#39;s &lt;script&gt;"
- * ```
- *
- * @param str The string to escape
- * @returns The escaped string
- */
-export function escapeHtml(str: string): string {
-	const htmlEscapes: Record<string, string> = {
-		'&': '&amp;',
-		'<': '&lt;',
-		'>': '&gt;',
-		'"': '&quot;',
-		"'": '&#39;',
-	}
-	return str.replace(/[&<>"']/g, (char) => htmlEscapes[char] ?? char)
-}
-
-/**
- * Unescapes HTML entities back to their original characters.
- *
- * @example
- * ```typescript
- * unescapeHtml('&lt;div&gt;') // '<div>'
- * unescapeHtml('&amp;&quot;&#39;') // '&"''
- * ```
- *
- * @param str The string to unescape
- * @returns The unescaped string
- */
-export function unescapeHtml(str: string): string {
-	const htmlUnescapes: Record<string, string> = {
-		'&amp;': '&',
-		'&lt;': '<',
-		'&gt;': '>',
-		'&quot;': '"',
-		'&#39;': "'",
-		'&#x27;': "'",
-		'&#x2F;': '/',
-		'&nbsp;': ' ',
-	}
-	return str.replace(
-		/&(?:amp|lt|gt|quot|#39|#x27|#x2F|nbsp);/g,
-		(entity) => htmlUnescapes[entity] ?? entity
-	)
-}
-
-/**
- * Removes all HTML tags from a string.
- *
- * @example
- * ```typescript
- * stripHtml('<p>Hello <b>World</b></p>') // 'Hello World'
- * stripHtml('<script>alert(1)</script>Text') // 'Text'
- * ```
- *
- * @param str The string to strip HTML from
- * @returns The string without HTML tags
- */
-export function stripHtml(str: string): string {
-	return str.replace(/<[^>]*>/g, '')
 }
 
 /**

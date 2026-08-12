@@ -1,6 +1,9 @@
 # Module boundaries
 
-**Status:** accepted during beta · settles [#174](https://github.com/rtorcato/js-common/issues/174)
+**Status:** accepted and applied during beta · settles [#174](https://github.com/rtorcato/js-common/issues/174)
+
+Every decision below is live in the code as of 3.0. The before/after map for
+consumers is the [migration guide](apps/docs/docs/guides/migration.md).
 
 This is the decision record for where each helper lives. It exists so the next
 contributor does not re-litigate a question that was already answered, and so a

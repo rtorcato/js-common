@@ -112,16 +112,16 @@ const CATEGORIES: Category[] = [
 		chips: ['date', 'datetime', 'time', 'interval'],
 	},
 	{
-		name: 'Numbers & Math',
-		count: 3,
+		name: 'Numbers',
+		count: 2,
 		desc: 'Arithmetic, rounding and randomness.',
-		chips: ['numbers', 'math', 'random'],
+		chips: ['numbers', 'random'],
 	},
 	{
 		name: 'Text & Strings',
 		count: 5,
 		desc: 'Formatting, slugs, HTML and i18n.',
-		chips: ['formatting', 'strings', 'html', 'regex'],
+		chips: ['strings', 'html', 'regex', 'i18n'],
 	},
 	{
 		name: 'Security & Validation',
@@ -309,7 +309,7 @@ function Categories(): ReactElement {
 				<div>
 					<h2 className={styles.h2}>Everything in one place</h2>
 					<p className={styles.sub}>
-						Nine focused categories. 46 modules. Import exactly what you need.
+						Nine focused categories. 44 modules. Import exactly what you need.
 					</p>
 				</div>
 				<Link className={styles.viewAll} to="/docs/modules/overview">

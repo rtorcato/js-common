@@ -12,6 +12,10 @@ describe('html module', () => {
 		expect(unescapeHtml('plain')).toBe('plain')
 	})
 
+	it('unescapeHtml decodes the entities the strings copy used to own', () => {
+		expect(unescapeHtml('&#x27;&#x2F;&nbsp;')).toBe("'/ ")
+	})
+
 	it('stripHtmlTags removes all HTML tags', () => {
 		expect(stripHtmlTags('<div>Hello <b>world</b>!</div>')).toBe('Hello world!')
 		expect(stripHtmlTags('no tags')).toBe('no tags')

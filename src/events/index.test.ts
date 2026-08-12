@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import { emit, on, once, preventDefault, stopPropagation } from './index'
+import { emit, on, onceEvent, preventDefault, stopPropagation } from './index'
 
 describe('events module', () => {
 	it('on adds and removes event listeners', () => {
@@ -26,10 +26,10 @@ describe('events module', () => {
 		expect(handler).toHaveBeenCalledWith(detail)
 	})
 
-	it('once resolves when event is fired', async () => {
+	it('onceEvent resolves when event is fired', async () => {
 		const target = document.createElement('div')
 		setTimeout(() => target.dispatchEvent(new MouseEvent('click')), 10)
-		const event = await once(target, 'click')
+		const event = await onceEvent(target, 'click')
 		expect(event).toBeInstanceOf(MouseEvent)
 	})
 

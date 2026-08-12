@@ -20,9 +20,13 @@ program
 	.version(packageJson.version)
 
 // Function categories for list and interactive mode
+// `subpath` is the published module the printed import should name. It is not
+// always the category key — the CLI groups by task ('math', 'text', 'validate')
+// while the library groups by module ('numbers', 'strings', 'validation').
 const functionCategories = {
 	date: {
 		name: '📅 Date & Time',
+		subpath: 'date',
 		functions: [
 			{ name: 'today', description: "Get today's date (YYYY-MM-DD)" },
 			{ name: 'now', description: 'Get current timestamp' },
@@ -31,6 +35,7 @@ const functionCategories = {
 	},
 	math: {
 		name: '🔢 Mathematical',
+		subpath: 'numbers',
 		functions: [
 			{ name: 'sum', description: 'Calculate sum of numbers' },
 			{ name: 'avg', description: 'Calculate average of numbers' },
@@ -41,6 +46,7 @@ const functionCategories = {
 	},
 	text: {
 		name: '📝 Text Formatting',
+		subpath: 'strings',
 		functions: [
 			{ name: 'capitalize', description: 'Capitalize first letter' },
 			{ name: 'title', description: 'Convert to title case' },
@@ -49,6 +55,7 @@ const functionCategories = {
 	},
 	file: {
 		name: '📁 File Operations',
+		subpath: 'file',
 		functions: [
 			{ name: 'exists', description: 'Check if file exists' },
 			{ name: 'ext', description: 'Get file extension' },
@@ -56,6 +63,7 @@ const functionCategories = {
 	},
 	security: {
 		name: '🔒 Security',
+		subpath: 'security',
 		functions: [
 			{ name: 'password', description: 'Check password strength' },
 			{ name: 'token', description: 'Generate secure token' },
@@ -63,10 +71,12 @@ const functionCategories = {
 	},
 	validate: {
 		name: '✅ Validation',
+		subpath: 'validation',
 		functions: [{ name: 'url', description: 'Validate URL format' }],
 	},
 	system: {
 		name: '💻 System Info',
+		subpath: 'process',
 		functions: [
 			{ name: 'pid', description: 'Get process ID' },
 			{ name: 'uptime', description: 'Get process uptime' },
@@ -255,7 +265,9 @@ program
 
 			console.log(chalk.green('\n📦 Import Statement:'))
 			console.log(
-				chalk.white(`import { ${functions.join(', ')} } from '@rtorcato/js-common/${category}'`)
+				chalk.white(
+					`import { ${functions.join(', ')} } from '@rtorcato/js-common/${selectedCategory.subpath}'`
+				)
 			)
 
 			console.log(chalk.green('\n📝 Usage Examples:'))

@@ -1,21 +1,4 @@
 /**
- * Returns a random integer between min and max (inclusive).
- *
- * @example
- * ```typescript
- * getRandomInt(1, 6) // 4 (any integer from 1 to 6)
- * getRandomInt(0, 0) // 0
- * ```
- *
- * @param min The minimum value (inclusive).
- * @param max The maximum value (inclusive).
- * @returns A random integer.
- */
-export function getRandomInt(min: number, max: number) {
-	return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-/**
  * Clamps a number between a minimum and maximum value.
  *
  * @example
@@ -63,13 +46,20 @@ export function isFiniteNumber(value: unknown): value is number {
 }
 
 /**
- * Generates a random float between min (inclusive) and max (exclusive).
- * @param min The minimum value (inclusive).
- * @param max The maximum value (exclusive).
- * @returns A random float.
+ * Formats a number as a percentage string.
+ *
+ * @example
+ * ```typescript
+ * formatPercent(0.25) // '25%'
+ * formatPercent(0.1234, 1) // '12.3%'
+ * ```
+ *
+ * @param value The value to format (e.g. 0.25 for 25%).
+ * @param fractionDigits Number of decimal places (default: 0).
+ * @returns The formatted percentage string.
  */
-export function getRandomFloat(min: number, max: number): number {
-	return Math.random() * (max - min) + min
+export function formatPercent(value: number, fractionDigits = 0): string {
+	return `${(value * 100).toFixed(fractionDigits)}%`
 }
 
 /**

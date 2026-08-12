@@ -22,6 +22,6 @@ import { angle2D, distance2D, midpoint2D } from '@rtorcato/js-common/geometry'
 
 ## See also
 
-- [math](./math.md) — add, subtract, multiply, divide
+- [numbers](./numbers.md) — sum, average, clamp, roundTo
 - [numbers](./numbers.md) — sum, average, clamp, roundTo
 - [colors](./colors.md) — hex/RGB conversion, lighten, darken
