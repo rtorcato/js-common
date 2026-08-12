@@ -1,11 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import {
-	getNodeMajorVersion,
-	getProcessUptime,
-	isNode,
-	nodeVersionCheck,
-	requireOptional,
-} from './index'
+import { getNodeMajorVersion, isNode, nodeVersionCheck, requireOptional } from './index'
 
 describe('node module', () => {
 	it('getNodeMajorVersion returns a number >= 0', () => {
@@ -21,10 +15,6 @@ describe('node module', () => {
 	it('requireOptional returns module or undefined', () => {
 		expect(requireOptional('fs')).toBeDefined()
 		expect(requireOptional('nonexistent-module-xyz')).toBeUndefined()
-	})
-
-	it('getProcessUptime returns a number >= 0', () => {
-		expect(getProcessUptime()).toBeGreaterThanOrEqual(0)
 	})
 
 	it('nodeVersionCheck does not exit if version is sufficient', () => {

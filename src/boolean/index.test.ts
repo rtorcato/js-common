@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { and, isBoolean, not, or, toBoolean, xor } from './index'
+import { and, not, or, toBoolean, xor } from './index'
 
 describe('toBoolean', () => {
 	it('converts various values to boolean', () => {
@@ -15,16 +15,6 @@ describe('toBoolean', () => {
 		expect(toBoolean('')).toBe(false)
 		expect(toBoolean(null)).toBe(false)
 		expect(toBoolean(undefined)).toBe(false)
-	})
-})
-
-describe('isBoolean', () => {
-	it('returns true only for booleans', () => {
-		expect(isBoolean(true)).toBe(true)
-		expect(isBoolean(false)).toBe(true)
-		expect(isBoolean('true')).toBe(false)
-		expect(isBoolean(1)).toBe(false)
-		expect(isBoolean(null)).toBe(false)
 	})
 })
 

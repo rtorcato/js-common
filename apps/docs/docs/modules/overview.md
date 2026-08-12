@@ -11,8 +11,8 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Dates | `@rtorcato/js-common/date` | `today`, `formatDate`, `daysBetween`, `isLeapYear` |
 | Date-time | `@rtorcato/js-common/datetime` | `nowIso`, `formatDateTimeLocal`, `unixTimestamp` |
 | Time | `@rtorcato/js-common/time` | `nowTime`, `parseTime`, `secondsBetween` |
-| Numbers | `@rtorcato/js-common/numbers` | `sum`, `average`, `roundTo`, `clamp`, `getRandomInt` |
-| Math | `@rtorcato/js-common/math` | `add`, `subtract`, `multiply`, `divide` |
+| Numbers | `@rtorcato/js-common/numbers` | `sum`, `average`, `roundTo`, `clamp`, `formatPercent` |
+| Random | `@rtorcato/js-common/random` | `randomInt`, `randomFloat`, `randomBool`, `randomString` |
 | Strings | `@rtorcato/js-common/strings` | `slugify`, `truncate`, `removeEmojis`, `capitalize` |
 | Arrays | `@rtorcato/js-common/arrays` | `flatten`, `unique`, `chunk`, `groupBy` |
 | Objects | `@rtorcato/js-common/objects` | `deepMerge`, `pick`, `omit`, `deepClone` |
@@ -26,4 +26,4 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Functions | `@rtorcato/js-common/functions` | `debounce`, `throttle`, `once` |
 | Sleep | `@rtorcato/js-common/sleep` | `sleep` |
 
-The full list of subpaths is in the package's [`exports`](https://github.com/rtorcato/js-common/blob/main/package.json) field.
+The full list of subpaths is in the package's [`exports`](https://github.com/rtorcato/js-common/blob/main/package.json) field. Which module owns a given helper — and why no name is exported from two of them — is recorded in [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md).

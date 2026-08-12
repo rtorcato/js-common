@@ -22,7 +22,6 @@ import {
   convertCurrency,
   isValidCurrency,
   isValidCurrencyCode,
-  roundTo,
 } from '@rtorcato/js-common/currency'
 ```
 
@@ -135,16 +134,6 @@ Asynchronously validates a currency code against the supported currencies list. 
 await isValidCurrencyCode('USD') // true
 await isValidCurrencyCode('XXX') // true (ISO 4217 "no currency")
 await isValidCurrencyCode('ZZZ') // false
-```
-
-### `roundTo(value: number, decimals?: number): number`
-
-Rounds a number to a specified number of decimal places.
-
-```typescript
-roundTo(3.14159)    // 3.14
-roundTo(3.14159, 3) // 3.142
-roundTo(10.5, 0)    // 11
 ```
 
 ## Supported Currencies

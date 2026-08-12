@@ -190,7 +190,7 @@ npx @rtorcato/js-common add
 # 1. Select category (e.g., "🔢 Mathematical")
 # 2. Choose functions (e.g., sum, avg, random)
 # 3. Get generated import statement:
-#    import { sum, avg, random } from '@rtorcato/js-common/math'
+#    import { sum, avg, random } from '@rtorcato/js-common/numbers'
 # 4. See usage examples:
 #    const total = sum([1, 2, 3, 4, 5]); // 15
 #    const average = avg([10, 20, 30]); // 20

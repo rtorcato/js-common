@@ -313,21 +313,3 @@ export function isValidCurrency(code: string): boolean {
 		return false
 	}
 }
-
-/**
- * Rounds a given number to a specified number of decimal places.
- *
- * @param value - The number to be rounded.
- * @param decimals - The number of decimal places to round to. Defaults to 2.
- * @returns The rounded number.
- *
- * @example
- * ```typescript
- * roundTo(3.14159, 2) // 3.14
- * roundTo(10.5, 0) // 11
- * ```
- */
-export function roundTo(value: number, decimals = 2): number {
-	const factor = 10 ** decimals
-	return Math.round(value * factor) / factor
-}

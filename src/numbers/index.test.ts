@@ -3,8 +3,7 @@ import {
 	average,
 	between,
 	clamp,
-	getRandomFloat,
-	getRandomInt,
+	formatPercent,
 	isFiniteNumber,
 	isInteger,
 	mod,
@@ -12,14 +11,13 @@ import {
 	sum,
 } from './index'
 
-describe('getRandomInt', () => {
-	it('returns an int in the range [min, max]', () => {
-		for (let i = 0; i < 100; i++) {
-			const n = getRandomInt(1, 3)
-			expect(n).toBeGreaterThanOrEqual(1)
-			expect(n).toBeLessThanOrEqual(3)
-			expect(Number.isInteger(n)).toBe(true)
-		}
+describe('formatPercent', () => {
+	it('formats a decimal as percent', () => {
+		expect(formatPercent(0.25)).toBe('25%')
+		expect(formatPercent(1)).toBe('100%')
+	})
+	it('respects fractionDigits', () => {
+		expect(formatPercent(0.1234, 2)).toBe('12.34%')
 	})
 })
 
@@ -47,16 +45,6 @@ describe('isFiniteNumber', () => {
 		expect(isFiniteNumber(Number.POSITIVE_INFINITY)).toBe(false)
 		expect(isFiniteNumber(Number.NaN)).toBe(false)
 		expect(isFiniteNumber('1')).toBe(false)
-	})
-})
-
-describe('getRandomFloat', () => {
-	it('returns a float in the range [min, max)', () => {
-		for (let i = 0; i < 100; i++) {
-			const n = getRandomFloat(1, 2)
-			expect(n).toBeGreaterThanOrEqual(1)
-			expect(n).toBeLessThan(2)
-		}
 	})
 })
 
