@@ -7,7 +7,8 @@
  *  2. No export name is reachable from two different subpaths — the freeze's
  *     "every helper has exactly one home" rule.
  *  3. Every `import { … } from '@rtorcato/js-common/<module>'` sample anywhere in
- *     README.md or apps/docs/docs/** names something that module really exports.
+ *     README.md, apps/docs/docs/** or .github/skills/** names something that
+ *     module really exports.
  *
  *   node scripts/check-readme-exports.mjs --check   # exit 1 on drift (used by CI)
  */
@@ -109,22 +110,51 @@ for (const [name, subs] of homes) {
 const IMPORT_EXAMPLE =
 	/import\s+(?:type\s+)?\{([^}]+)\}\s*from\s*['"]@rtorcato\/js-common\/([\w-]+)['"]/g
 const docFiles = [join(root, 'README.md')]
-const docsDir = join(root, 'apps', 'docs', 'docs')
-if (existsSync(docsDir)) {
-	for (const name of readdirSync(docsDir, { recursive: true })) {
-		if (/\.mdx?$/.test(name)) docFiles.push(join(docsDir, name))
+// .github/skills/** is Copilot-facing: a wrong name there is taught to an
+// assistant writing code against this package, so it gets the same check.
+for (const dir of [join(root, 'apps', 'docs', 'docs'), join(root, '.github', 'skills')]) {
+	if (!existsSync(dir)) continue
+	for (const name of readdirSync(dir, { recursive: true })) {
+		if (/\.mdx?$/.test(name)) docFiles.push(join(dir, name))
 	}
 }
 
-// A migration guide has to quote the API it is migrating away from. A fenced
-// block containing `boundary-check: ignore` is skipped for that reason.
-const FENCE = /^```[\s\S]*?^```/gm
+/**
+ * Blank out every fenced block containing `boundary-check: ignore` — a migration
+ * guide has to quote the API it is migrating away from.
+ *
+ * Line-oriented on purpose: the regex this replaced (`/^```[\s\S]*?^```/gm`) had
+ * to rescan to EOF from every opener that never closed, which is polynomial on a
+ * file with many unclosed fences. Walking once is linear and lets an unclosed
+ * fence be handled deliberately — its lines are kept and still checked, rather
+ * than being silently paired with the *next* block's opener, which used to shift
+ * which block the ignore marker appeared to belong to.
+ */
+function stripIgnoredBlocks(text) {
+	const kept = []
+	let fence = null
+	for (const line of text.split('\n')) {
+		if (line.startsWith('```')) {
+			if (fence) {
+				fence.push(line)
+				if (!fence.some((l) => l.includes('boundary-check: ignore'))) kept.push(...fence)
+				fence = null
+			} else {
+				fence = [line]
+			}
+			continue
+		}
+		if (fence) fence.push(line)
+		else kept.push(line)
+	}
+	// Unclosed fence: not an opt-out, so keep it and check what is inside.
+	if (fence) kept.push(...fence)
+	return kept.join('\n')
+}
 
 for (const file of docFiles) {
 	const where = relative(root, file)
-	const text = readFileSync(file, 'utf8').replace(FENCE, (block) =>
-		block.includes('boundary-check: ignore') ? '' : block
-	)
+	const text = stripIgnoredBlocks(readFileSync(file, 'utf8'))
 	for (const m of text.matchAll(IMPORT_EXAMPLE)) {
 		const sub = m[2]
 		const available = exportsBySubpath.get(sub)

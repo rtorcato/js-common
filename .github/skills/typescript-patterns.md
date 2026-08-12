@@ -7,20 +7,16 @@ This file provides GitHub Copilot with specific TypeScript patterns used through
 ### Array Manipulation Functions
 ```typescript
 // Pattern: Generic array transformation
-export function transform<T, U>(arr: T[], fn: (item: T) => U): U[] {
+export function mapItems<T, U>(arr: T[], fn: (item: T) => U): U[] {
   return arr.map(fn)
 }
 
-// Pattern: Array filtering with type guards
-export function filterBy<T>(arr: T[], predicate: (item: T) => boolean): T[] {
-  return arr.filter(predicate)
-}
-
-// Pattern: Array grouping with computed keys
-export function groupBy<T, K extends string | number>(
-  arr: T[], 
-  key: keyof T | ((item: T) => K)
-): Record<K, T[]> {
+// Pattern: Array grouping with a computed key — js-common's `groupBy` takes a
+// key function, not a property name
+export function groupBy<T>(
+  arr: T[],
+  fn: (item: T) => string | number
+): Record<string | number, T[]> {
   // Implementation details...
 }
 ```
@@ -28,14 +24,14 @@ export function groupBy<T, K extends string | number>(
 ### Object Manipulation Patterns
 ```typescript
 // Pattern: Object key picking with type safety
-export function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
   // Implementation...
 }
 
 // Pattern: Object merging with deep type inference
-export function merge<T extends Record<string, any>, U extends Record<string, any>>(
-  obj1: T,
-  obj2: U
+export function deepMerge<T extends object, U extends object>(
+  target: T,
+  source: U
 ): T & U {
   // Implementation...
 }
@@ -51,24 +47,21 @@ export function isString(value: unknown): value is string {
 export function isArray<T>(value: unknown): value is T[] {
   return Array.isArray(value)
 }
-
-// Pattern: Schema validation with type inference
-export function validate<T>(value: unknown, schema: Schema<T>): value is T {
-  // Implementation...
-}
 ```
 
 ### Async Utility Patterns
 ```typescript
-// Pattern: Safe async execution with error handling
-export async function attempt<T>(
-  fn: () => Promise<T>
-): Promise<{ success: true; data: T } | { success: false; error: Error }> {
+// Pattern: Go-style Result instead of a thrown exception
+export type Success<T> = { data: T; error: null }
+export type Failure<E> = { data: null; error: E }
+export type Result<T, E = Error> = Success<T> | Failure<E>
+
+export async function tryCatch<T, E = Error>(fn: () => Promise<T>): Promise<Result<T, E>> {
   try {
     const data = await fn()
-    return { success: true, data }
+    return { data, error: null }
   } catch (error) {
-    return { success: false, error: error as Error }
+    return { data: null, error: error as E }
   }
 }
 
@@ -83,14 +76,6 @@ export function withTimeout<T>(
 
 ### String Processing Patterns
 ```typescript
-// Pattern: String case transformations
-export function transform<T extends string>(
-  str: T,
-  transformer: (s: string) => string
-): string {
-  return transformer(str)
-}
-
 // Pattern: Template string processing
 export function template(
   str: string,
@@ -104,7 +89,8 @@ export function template(
 
 ### Data Processing Pipeline
 ```typescript
-import { groupBy, pick, filterBy } from '@rtorcato/js-common'
+import { groupBy } from '@rtorcato/js-common/arrays'
+import { pick } from '@rtorcato/js-common/objects'
 
 interface User {
   id: number
@@ -116,51 +102,54 @@ interface User {
 
 // Copilot should suggest this pattern for user data processing
 function processUsers(users: User[]) {
-  return filterBy(users, user => user.active)
-    .map(user => pick(user, ['id', 'name', 'email']))
-    .reduce(groupBy, user => user.role)
+  const active = users
+    .filter((user) => user.active)
+    .map((user) => pick(user, ['id', 'name', 'email', 'role']))
+
+  return groupBy(active, (user) => user.role)
 }
 ```
 
 ### Error Handling Pipeline
 ```typescript
-import { attempt, trycatch } from '@rtorcato/js-common/try'
+import { isSuccess, tryCatch } from '@rtorcato/js-common/try'
 
 // Pattern for API calls with error handling
 async function fetchUserData(userId: string) {
-  const result = await attempt(async () => {
+  const result = await tryCatch(async () => {
     const response = await fetch(`/api/users/${userId}`)
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
     }
     return response.json()
   })
-  
-  if (result.success) {
+
+  if (isSuccess(result)) {
     return result.data
-  } else {
-    console.error('Failed to fetch user:', result.error.message)
-    return null
   }
+
+  console.error('Failed to fetch user:', result.error.message)
+  return null
 }
 ```
 
 ### Validation Chain
 ```typescript
-import { isEmail, isEmpty, isLength } from '@rtorcato/js-common/validation'
+import { isBlank } from '@rtorcato/js-common/strings'
+import { isEmail } from '@rtorcato/js-common/validation'
 
 // Pattern for input validation
 function validateUserInput(input: { email: string; password: string }) {
   const errors: string[] = []
-  
-  if (isEmpty(input.email) || !isEmail(input.email)) {
+
+  if (isBlank(input.email) || !isEmail(input.email)) {
     errors.push('Invalid email address')
   }
-  
-  if (isEmpty(input.password) || !isLength(input.password, 8)) {
+
+  if (isBlank(input.password) || input.password.length < 8) {
     errors.push('Password must be at least 8 characters')
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors
@@ -173,24 +162,29 @@ function validateUserInput(input: { email: string; password: string }) {
 When Copilot encounters these imports, suggest these patterns:
 
 ### Import Suggestions
-- `@rtorcato/js-common/arrays` → suggest `unique`, `chunk`, `groupBy`, `flatten`
-- `@rtorcato/js-common/strings` → suggest `capitalize`, `kebabCase`, `camelCase`, `truncate`
-- `@rtorcato/js-common/validation` → suggest `isEmail`, `isUrl`, `isEmpty`, `isLength`
-- `@rtorcato/js-common/try` → suggest `attempt`, `trycatch` for error handling
-- `@rtorcato/js-common/objects` → suggest `pick`, `omit`, `merge`, `deepClone`
+- `@rtorcato/js-common/arrays` → suggest `unique`, `chunk`, `groupBy`, `flatten`, `compact`
+- `@rtorcato/js-common/strings` → suggest `capitalize`, `titleCase`, `kebabCase`, `camelCase`, `truncate`, `isBlank`
+- `@rtorcato/js-common/validation` → suggest `isEmail`, `isUrl`, `isString`, `isDefined`
+- `@rtorcato/js-common/try` → suggest `tryCatch`, `isSuccess` for error handling
+- `@rtorcato/js-common/objects` → suggest `pick`, `omit`, `deepMerge`, `deepClone`
+- `@rtorcato/js-common/numbers` → suggest `clamp`, `roundTo`, `sum`, `average`
+- `@rtorcato/js-common/currency` → suggest `formatPrice` for money formatting
+
+Never suggest a bare `@rtorcato/js-common` import: the root entry has no runtime
+code, so a root import resolves to nothing.
 
 ### Function Chaining Patterns
 ```typescript
 // Suggest chaining for array operations
-const result = users
-  .filter(isActive)
-  .map(u => pick(u, ['id', 'name']))
-  .reduce(groupBy('department'))
+const grouped = groupBy(
+  users.filter(isActive).map((u) => pick(u, ['id', 'name', 'department'])),
+  (u) => u.department
+)
 
 // Suggest error handling for async chains
-const data = await attempt(() =>
+const { data, error } = await tryCatch(() =>
   fetch(url)
-    .then(r => r.json())
+    .then((r) => r.json())
     .then(validateData)
 )
 ```
@@ -198,4 +192,4 @@ const data = await attempt(() =>
 ### TypeScript Integration
 - Always preserve generic types: `unique<User>(users)`
 - Suggest type guards: `if (isString(value)) { /* value is string */ }`
-- Use type inference: `const grouped = groupBy(items, 'category')` // infers grouping type
+- Use type inference: `const grouped = groupBy(items, (item) => item.category)` // infers grouping type
