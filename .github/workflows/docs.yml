@@ -7,11 +7,14 @@ on:
             - 'apps/docs/**'
             - '.github/workflows/docs.yml'
             - 'pnpm-workspace.yaml'
-    # The changelog page is built from GitHub Releases at build time
-    # (scripts/sync-changelog.mjs), so a release has to redeploy the site or the
-    # published page silently stops at whatever the last apps/docs change saw.
-    release:
-        types: [published]
+    # A release must redeploy the site, or the changelog page — built from the
+    # GitHub Releases API by scripts/sync-changelog.mjs — silently stops at
+    # whatever the last apps/docs change saw. That is done by the `release` job
+    # in ci.yml dispatching this workflow on `main`, NOT by subscribing to the
+    # `release` event here: that event runs with `github.ref` set to the tag,
+    # and the `github-pages` environment only accepts deployments from `main`,
+    # so the build succeeds and the deploy is rejected with "Tag vX.Y.Z is not
+    # allowed to deploy to github-pages due to environment protection rules".
     workflow_dispatch:
 
 concurrency:
