@@ -9,7 +9,7 @@ pnpm run build-dev       # development build (esbuild + tsc declarations)
 pnpm run build-prod      # production build
 pnpm run build-cli       # CLI build (separate TypeScript compilation + shebang injection)
 pnpm test                # vitest
-pnpm coverage            # vitest with Istanbul coverage
+pnpm coverage            # vitest with V8 coverage (@vitest/coverage-v8)
 pnpm typecheck           # tsc --noEmit
 pnpm lint                # biome lint (read-only)
 pnpm format              # biome format (write)
@@ -43,5 +43,7 @@ Husky runs `pnpm typecheck` and `pnpm check` on every commit. This can be slow �
 
 ## Notes
 
-- The CLI (`src/cli/`) is built with a separate script and has its own `tsconfig`. Do not include it in the main library build.
-- Required env vars for CI releases: `GITHUB_TOKEN`, `NPM_TOKEN` (GitHub Actions), `GITLAB_TOKEN` (GitLab CI).
+- The CLI (`src/cli/`) is built by `build-cli`, which runs `tsc` with `--ignoreConfig` and every flag inline — there is no CLI `tsconfig`, only `tsconfig.json` and `tsconfig.build.json`. Do not include the CLI in the main library build.
+- The CLI is a shop window, not a port of the library. `src/cli/catalog.ts` may only advertise verbs that `src/cli/cli.ts` actually registers; `catalog.test.ts` enforces both that and the `exportName`s being real.
+- Required env vars for CI releases: `GITHUB_TOKEN`, `NPM_TOKEN` (GitHub Actions).
+- Releases are gated on the `release` GitHub environment and need a manual approval — a merge to `main` leaves the pipeline `waiting`, it does not publish on its own.

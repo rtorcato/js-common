@@ -6,8 +6,12 @@ We actively support the following versions of `@rtorcato/js-common`:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x.x   | :white_check_mark: |
-| < 1.0   | :x:                |
+| 3.x.x   | :white_check_mark: |
+| < 3.0   | :x:                |
+
+Only the latest major gets fixes. 3.0 moved every helper to exactly one module and
+renamed `sanitizeString` to `stripScriptish` — see [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md)
+and the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
 
 ## Reporting a Vulnerability
 
@@ -36,19 +40,25 @@ We take security seriously. If you discover a security vulnerability, please rep
 
 This library follows security best practices:
 
-- ✅ **Minimal Runtime Dependencies**: Library utilities depend on a small, audited set (`date-fns`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`). CLI-only packages (`chalk`, `commander`, `inquirer`, `figlet`, …) are isolated to the `cli` subpath.
+- ✅ **Minimal Runtime Dependencies**: Library utilities depend on a small, audited set (`date-fns`, `date-fns-tz`, `luxon`, `pino`, `short-uuid`, `uuid`, `zod`). The CLI-only packages (`@inquirer/prompts`, `chalk`, `chalk-animation`, `commander`, `figlet`, `gradient-string`) are `optionalDependencies` used by the `js-common` binary, not by any importable subpath — there is no `./cli` export.
 - ✅ **Type Safety**: Full TypeScript support prevents many runtime errors
-- ✅ **Secure Defaults**: Crypto functions use strong algorithms (SHA-256, etc.)
-- ✅ **Input Validation**: Validation utilities help prevent injection attacks
+- ✅ **Secure Defaults**: `generateSecureToken` uses `randomBytes` from `node:crypto`. The `Math.random`-based helpers in `random` are never an acceptable substitute for it.
 - ✅ **Automated Updates**: Dependabot keeps dependencies current
 - ✅ **CI Security**: GitHub Actions with security scanning
 
 ### Known Security Considerations
 
-1. **Crypto Module**: Uses Node.js built-in crypto - ensure Node.js is up-to-date
-2. **Environment Variables**: Never commit secrets to version control
-3. **Input Validation**: Always validate user input before processing
-4. **CLI Tool**: Be cautious when running CLI commands with user input
+1. **`stripScriptish` is not a sanitizer**: it strips `<script>` blocks and inline
+   `on*` handlers, and nothing else. A blocklist over two shapes leaves everything it
+   does not name — `<a href="javascript:...">` survives it untouched. Treat it as
+   defence in depth: escape untrusted values with `html.escapeHtml`, or run a real
+   sanitizer such as DOMPurify when markup has to survive. It was renamed from
+   `sanitizeString` in 3.0 precisely because the old name promised a guarantee it
+   never delivered; `src/security/index.test.ts` asserts the bypasses so they stay visible.
+2. **Crypto Module**: Uses Node.js built-in crypto - ensure Node.js is up-to-date
+3. **Environment Variables**: Never commit secrets to version control
+4. **Input Validation**: Always validate user input before processing
+5. **CLI Tool**: Be cautious when running CLI commands with user input
 
 ### Security Resources
 
