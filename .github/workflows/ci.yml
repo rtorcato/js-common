@@ -347,21 +347,59 @@ jobs:
             # Releases failed silently from 2026-08-08 to 2026-08-11 because nothing
             # surfaced the failure — every merge in between was a `test:` commit that
             # correctly produced no release, so the breakage stayed invisible.
+            # Did anything actually ship? semantic-release can fail *after* the
+            # publish — its `success` lifecycle runs once npm and the GitHub
+            # release are already done — so a failed job does not imply a failed
+            # release. Resolve it here rather than letting the reporter guess.
+            - name: 🔎 Determine whether the release shipped
+              id: shipped
+              if: failure()
+              run: |
+                  git fetch --tags --quiet || true
+                  tag=$(git tag --points-at HEAD | head -1)
+                  if [ -n "$tag" ]; then
+                      echo "tag=$tag" >> "$GITHUB_OUTPUT"
+                  else
+                      echo "tag=" >> "$GITHUB_OUTPUT"
+                  fi
+
+            # Releases failed silently from 2026-08-08 to 2026-08-11 because nothing
+            # surfaced the failure — every merge in between was a `test:` commit that
+            # correctly produced no release, so the breakage stayed invisible.
             - name: 🔔 Report release failure
               if: failure()
               uses: actions/github-script@v9
               with:
                   script: |
+                      const tag = '${{ steps.shipped.outputs.tag }}'
+                      const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+                      // Never assert "nothing was published" without checking — #215
+                      // was filed saying exactly that about a release that had
+                      // already put 3.0.0 on npm, because ~30 courtesy comments
+                      // 503'd after the publish.
+                      const outcome = tag
+                        ? [
+                            `**\`${tag}\` was published.** The job failed *after* the release completed,`,
+                            'so npm and the GitHub release are fine — check which post-publish step',
+                            'failed before assuming anything is broken.',
+                          ]
+                        : [
+                            '**Nothing was published.** No tag exists on this commit, so the job',
+                            'failed before or during the release itself. Releases stay blocked',
+                            'until this is fixed.',
+                          ]
                       await github.rest.issues.create({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        title: `Release failed on ${context.sha.slice(0, 7)}`,
+                        title: tag
+                          ? `Release job failed after publishing ${tag}`
+                          : `Release failed on ${context.sha.slice(0, 7)}`,
                         body: [
                           `The \`release\` job failed on \`${context.sha}\`.`,
                           '',
-                          `[View the run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+                          ...outcome,
                           '',
-                          'Nothing was published. Releases stay blocked until this is fixed.',
+                          `[View the run](${runUrl})`,
                         ].join('\n'),
                         labels: ['bug'],
                       })
