@@ -355,7 +355,9 @@ function Siblings(): ReactElement {
 				{SIBLINGS.map((s) => (
 					<Link key={s.name} href={s.href} className={styles.card}>
 						<div className={styles.cardHead}>
-							<div className={styles.cardName}>{s.name}</div>
+							<div className={styles.cardName} style={{ color: s.accent }}>
+								{s.name}
+							</div>
 							<div className={styles.cardCount}>{s.dest} ↗</div>
 						</div>
 						<p className={styles.cardDesc}>{s.tagline}</p>
