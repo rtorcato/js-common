@@ -40,7 +40,7 @@ We take security seriously. If you discover a security vulnerability, please rep
 
 This library follows security best practices:
 
-- ✅ **Minimal Runtime Dependencies**: Library utilities depend on a small, audited set (`date-fns`, `date-fns-tz`, `luxon`, `pino`, `short-uuid`, `uuid`, `zod`). The CLI-only packages (`@inquirer/prompts`, `chalk`, `chalk-animation`, `commander`, `figlet`, `gradient-string`) are `optionalDependencies` used by the `js-common` binary, not by any importable subpath — there is no `./cli` export.
+- ✅ **Minimal Runtime Dependencies**: Library utilities depend on a small, audited set (`pino`, `short-uuid`, `uuid`, `zod`). The CLI-only packages (`@inquirer/prompts`, `chalk`, `chalk-animation`, `commander`, `figlet`, `gradient-string`) are `optionalDependencies` used by the `js-common` binary, not by any importable subpath — there is no `./cli` export.
 - ✅ **Type Safety**: Full TypeScript support prevents many runtime errors
 - ✅ **Secure Defaults**: `generateSecureToken` uses `randomBytes` from `node:crypto`. The `Math.random`-based helpers in `random` are never an acceptable substitute for it.
 - ✅ **Automated Updates**: Dependabot keeps dependencies current

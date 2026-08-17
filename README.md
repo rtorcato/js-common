@@ -27,7 +27,7 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
 - **Modular** — one module per concern, 44 subpaths
-- **Minimal runtime deps** — only `date-fns`, `date-fns-tz`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
+- **Minimal runtime deps** — only `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 
 ## Installation
 
