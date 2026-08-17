@@ -1,6 +1,6 @@
 import * as fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { deepClone, deepMerge, isPlainObject } from './index'
+import { deepMerge, isPlainObject } from './index'
 
 // Biased towards a tiny pool so two generated objects actually collide on keys —
 // with purely random keys the merge properties are vacuously true. Capped at 6
@@ -32,40 +32,7 @@ const cloneable = fc.letrec<{ leaf: unknown; node: unknown }>((tie) => ({
 
 const cloneableObject = fc.dictionary(key, cloneable, { maxKeys: 5, noNullPrototype: true })
 
-/** Recursively scribbles on every mutable node so a shared reference cannot hide. */
-function mutateEverything(value: unknown): void {
-	if (Array.isArray(value)) {
-		for (const item of [...value]) mutateEverything(item)
-		value.push('mutated')
-	} else if (value instanceof Date) {
-		value.setTime(0)
-	} else if (isPlainObject(value)) {
-		for (const item of Object.values(value)) mutateEverything(item)
-		value['mutated'] = true
-	}
-}
-
 describe('objects — properties', () => {
-	it('deepClone is structurally equal to the original', () => {
-		fc.assert(
-			fc.property(cloneable, (value) => {
-				expect(deepClone(value)).toEqual(value)
-			})
-		)
-	})
-
-	it('mutating the clone never touches the source', () => {
-		fc.assert(
-			// Two independently constructed but identical values: `reference` is the
-			// yardstick, so a deepClone that returned its input would be caught.
-			fc.property(fc.clone(cloneableObject, 2), ([source, reference]) => {
-				const clone = deepClone(source)
-				mutateEverything(clone)
-				expect(source).toEqual(reference)
-			})
-		)
-	})
-
 	it('deepMerge keeps every key from both sides', () => {
 		fc.assert(
 			fc.property(cloneableObject, cloneableObject, (target, source) => {

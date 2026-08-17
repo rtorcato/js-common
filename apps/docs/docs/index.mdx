@@ -45,14 +45,14 @@ Import named functions from a subpath export to keep your bundle tiny:
 import { today, daysBetween } from '@rtorcato/js-common/date'
 import { sum, average } from '@rtorcato/js-common/numbers'
 import { capitalize } from '@rtorcato/js-common/strings'
-import { getUUID } from '@rtorcato/js-common/uuid'
+import { getUUIDv7 } from '@rtorcato/js-common/uuid'
 
 today()                                  // "2026-06-12"
 daysBetween('2026-01-01', '2026-06-12')  // 162
 sum([1, 2, 3, 4, 5])                     // 15
 average([10, 20, 30])                    // 20
 capitalize('hello world')                // "Hello world"
-getUUID()                                // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+getUUIDv7()                              // "018e5e2c-7c0a-7000-8000-0e02b2c3d479"
 ```
 
 Always import from a subpath — never from the package root:
@@ -84,7 +84,7 @@ See [Tree-shaking & imports](./guides/tree-shaking.md) for the full explanation.
 | Strings | `strings`, `html`, `regex` | `slugify`, `truncate`, `capitalize`, `escapeHtml` |
 | Collections | `arrays`, `objects`, `maps` | `unique`, `chunk`, `groupBy`, `deepMerge`, `pick`, `omit` |
 | Async | `promises`, `sleep`, `abortController`, `functions` | `delay`, `withTimeout`, `sleep`, `debounce`, `throttle` |
-| Validation | `validation`, `emails`, `url`, `uuid` | `isValidEmail`, `isValidUrl`, `getUUID` |
+| Validation | `validation`, `emails`, `url`, `uuid` | `isValidEmail`, `isValidUrl`, `getUUIDv7` |
 | System | `env`, `os`, `node`, `process`, `system` | environment, platform, runtime info |
 | Other | `json`, `fetch`, `file`, `logger`, `security`, `i18n`, `html` | `safeJsonParse`, `isStrongPassword`, … |
 

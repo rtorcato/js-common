@@ -6,10 +6,7 @@ import {
 	kebabCase,
 	mask,
 	ordinalize,
-	padEnd,
-	padStart,
 	pluralize,
-	replaceString,
 	reverse,
 	slugify,
 	snakeCase,
@@ -59,24 +56,6 @@ describe('truncate', () => {
 	it('truncates and adds ellipsis if needed', () => {
 		expect(truncate('hello world', 5)).toBe('hell…')
 		expect(truncate('hi', 5)).toBe('hi')
-	})
-})
-
-describe('padStart', () => {
-	it('pads the start of a string', () => {
-		expect(padStart('42', 5, '0')).toBe('00042')
-	})
-})
-
-describe('padEnd', () => {
-	it('pads the end of a string', () => {
-		expect(padEnd('42', 5, '0')).toBe('42000')
-	})
-})
-
-describe('replaceString', () => {
-	it('replaces all occurrences', () => {
-		expect(replaceString('foo bar foo', 'foo', 'baz')).toBe('baz bar baz')
 	})
 })
 

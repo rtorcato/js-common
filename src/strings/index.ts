@@ -106,38 +106,6 @@ export function truncate(str: string, maxLength: number): string {
 }
 
 /**
- * Pads the start of a string to a given length.
- * @param str The string to pad.
- * @param targetLength The target length.
- * @param padString The string to pad with.
- * @returns The padded string.
- */
-export function padStart(str: string, targetLength: number, padString = ' '): string {
-	return str.padStart(targetLength, padString)
-}
-
-/**
- * Pads the end of a string to a given length.
- * @param str The string to pad.
- * @param targetLength The target length.
- * @param padString The string to pad with.
- * @returns The padded string.
- */
-export function padEnd(str: string, targetLength: number, padString = ' '): string {
-	return str.padEnd(targetLength, padString)
-}
-
-/**
- * replace all items in a string using regex
- * @param  {string} str
- * @param  {string} search
- * @param  {string} replacement
- */
-export const replaceString = (str: string, search: string, replacement: string): string => {
-	return str.replace(new RegExp(search, 'g'), replacement)
-}
-
-/**
  * Reverses a string.
  *
  * @example

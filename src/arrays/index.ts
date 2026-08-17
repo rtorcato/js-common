@@ -1,40 +1,4 @@
 /**
- * Returns the first element of an array, or undefined if the array is empty.
- *
- * @example
- * ```typescript
- * first([1, 2, 3]) // 1
- * first([]) // undefined
- * first(['a', 'b']) // 'a'
- * ```
- *
- * @param arr The array to get the first element from
- * @returns The first element or undefined if array is empty
- * @category Array Utilities
- */
-export function first<T>(arr: T[]): T | undefined {
-	return arr[0]
-}
-
-/**
- * Returns the last element of an array, or undefined if the array is empty.
- *
- * @example
- * ```typescript
- * last([1, 2, 3]) // 3
- * last([]) // undefined
- * last(['a', 'b']) // 'b'
- * ```
- *
- * @param arr The array to get the last element from
- * @returns The last element or undefined if array is empty
- * @category Array Utilities
- */
-export function last<T>(arr: T[]): T | undefined {
-	return arr.length ? arr[arr.length - 1] : undefined
-}
-
-/**
  * Removes duplicate values from an array while preserving order.
  * Uses Set for O(n) performance with primitive values.
  *
@@ -51,24 +15,6 @@ export function last<T>(arr: T[]): T | undefined {
  */
 export function unique<T>(arr: T[]): T[] {
 	return Array.from(new Set(arr))
-}
-
-/**
- * Flattens an array one level deep.
- *
- * @example
- * ```typescript
- * flatten([[1, 2], [3, 4]]) // [1, 2, 3, 4]
- * flatten([1, [2, 3], 4]) // [1, 2, 3, 4]
- * flatten([[1, [2]], [3]]) // [1, [2], 3] (only one level deep)
- * ```
- *
- * @param arr The array to flatten
- * @returns A new flattened array
- * @category Array Utilities
- */
-export function flatten<T>(arr: readonly (T | T[])[]): T[] {
-	return arr.flat() as T[]
 }
 
 /**
@@ -142,33 +88,4 @@ export function shuffle<T>(arr: T[]): T[] {
 		;[a[i], a[j]] = [a[j], a[i]] as [T, T]
 	}
 	return a
-}
-
-/**
- * Groups array elements by a key derived from each element.
- *
- * @example
- * ```typescript
- * groupBy([1, 2, 3, 4], n => n % 2 === 0 ? 'even' : 'odd')
- * // { odd: [1, 3], even: [2, 4] }
- *
- * groupBy([{ type: 'a' }, { type: 'b' }, { type: 'a' }], x => x.type)
- * // { a: [{ type: 'a' }, { type: 'a' }], b: [{ type: 'b' }] }
- * ```
- *
- * @param arr The array to group
- * @param fn Function that returns the group key for each element
- * @returns An object mapping keys to arrays of elements
- * @category Array Utilities
- */
-export function groupBy<T>(
-	arr: T[],
-	fn: (item: T) => string | number
-): Record<string | number, T[]> {
-	return arr.reduce<Record<string | number, T[]>>((acc, item) => {
-		const key = fn(item)
-		if (!acc[key]) acc[key] = []
-		acc[key].push(item)
-		return acc
-	}, {})
 }

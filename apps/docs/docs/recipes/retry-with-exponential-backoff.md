@@ -1,10 +1,10 @@
 ---
 title: Retry an async operation with exponential backoff
-description: A retry helper built from delay, clamp and tryCatch — with jitter, a cap, and a rule for which errors are worth retrying.
+description: A retry helper built from sleep, clamp and tryCatch — with jitter, a cap, and a rule for which errors are worth retrying.
 ---
 
 A flaky upstream deserves a second attempt; a `404` does not. This recipe builds
-a retry helper from [`delay`](../modules/promises.md),
+a retry helper from [`sleep`](../modules/sleep.md),
 [`clamp`](../modules/numbers.md), [`randomInt`](../modules/random.md) and
 [`tryCatch`](../modules/try.md) — about twenty lines, no dependency.
 
@@ -12,7 +12,7 @@ a retry helper from [`delay`](../modules/promises.md),
 
 ```ts
 import { clamp } from '@rtorcato/js-common/numbers'
-import { delay } from '@rtorcato/js-common/promises'
+import { sleep } from '@rtorcato/js-common/sleep'
 import { randomInt } from '@rtorcato/js-common/random'
 import { type Result, tryCatch } from '@rtorcato/js-common/try'
 
@@ -43,7 +43,7 @@ export async function retry<T>(
     if (attempt === attempts - 1 || !shouldRetry(last.error)) break
 
     const backoff = clamp(baseMs * 2 ** attempt, baseMs, maxMs)
-    await delay(randomInt(Math.round(backoff / 2), backoff)) // jitter
+    await sleep(randomInt(Math.round(backoff / 2), backoff)) // jitter
   }
 
   return last
@@ -131,7 +131,8 @@ const result = await retry(() => fetch('/api/report', { signal }), {
 
 ## See also
 
-- [promises](../modules/promises.md) — delay, timeout and settle helpers
+- [sleep](../modules/sleep.md) — plain, random and abortable waits
+- [promises](../modules/promises.md) — timeout and error-as-value adapters
 - [try](../modules/try.md) — `Result` values instead of thrown exceptions
 - [numbers](../modules/numbers.md) — sum, average, clamp, roundTo
 - [abortController](../modules/abortController.md) — cancel in-flight work with an `AbortSignal`

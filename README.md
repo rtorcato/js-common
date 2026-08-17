@@ -64,7 +64,7 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 
 ## Migrating
 
-**3.x → 4.x** — `./sets` and `./interval` are gone, because on the Node 22 baseline they wrapped things the runtime already does: `Set.prototype.union`/`intersection`/`difference`/`isSubsetOf`/`isSupersetOf`, and `setInterval`/`clearInterval`. Nothing moved to another module — the replacement is the platform. The full before/after table is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
+**3.x → 4.x** — everything the runtime already does was removed. `./sets` and `./interval` are gone as modules, and the pass-through wrappers inside surviving modules went with them: `promises.all`/`allSettled`/`race`/`delay`, `boolean.and`/`or`/`not`/`xor`, `strings.padStart`/`padEnd`/`replaceString`, `arrays.first`/`last`/`flatten`/`groupBy`, `numbers.isInteger`/`isFiniteNumber`/`min`/`max`, `objects.deepClone`, `json.deepCloneJson` and `uuid.getUUID`. Nothing moved to another module — the replacement is a JavaScript built-in in every case, which the Node 22 floor guarantees. Two are **not** drop-ins: `Object.groupBy` returns a null-prototype object with optional values, and `structuredClone` keeps `Date`s where the JSON round trip flattened them. The full before/after table is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
 
 **2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. One helper was also renamed rather than moved: `sanitizeString` is now `stripScriptish`, because the old name promised sanitising it never did — it removes `<script>` blocks and inline `on*` handlers and nothing else. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
 
@@ -117,7 +117,7 @@ See [CLI.md](./CLI.md) for complete CLI documentation.
 // Import specific modules (recommended for tree-shaking)
 import { formatDate, today, daysBetween } from '@rtorcato/js-common/date'
 import { isValidEmail, normalizeEmail } from '@rtorcato/js-common/emails'
-import { getUUID, isUUID } from '@rtorcato/js-common/uuid'
+import { getUUIDv7, isUUID } from '@rtorcato/js-common/uuid'
 import { sum, average, roundTo } from '@rtorcato/js-common/numbers'
 import { capitalize, titleCase } from '@rtorcato/js-common/strings'
 
@@ -125,7 +125,7 @@ import { capitalize, titleCase } from '@rtorcato/js-common/strings'
 console.log(today()) // "2026-05-29"
 console.log(sum([1, 2, 3, 4, 5])) // 15
 console.log(capitalize('hello world')) // "Hello world"
-console.log(getUUID()) // "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+console.log(getUUIDv7()) // "018e5e2c-7c0a-7000-8000-0e02b2c3d479"
 ```
 
 ### Bundle Size Impact
@@ -165,20 +165,20 @@ import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/secur
 import { isValidEmail, maskEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
 import { isString, isNumber, isBoolean, isArray, isObject } from '@rtorcato/js-common/validation'
-import { toBoolean, and, or, not, xor } from '@rtorcato/js-common/boolean'
+import { toBoolean } from '@rtorcato/js-common/boolean'
 ```
 
 ### Data Structures
 ```typescript
-import { flatten, unique, chunk, groupBy } from '@rtorcato/js-common/arrays'
-import { deepMerge, pick, omit, deepClone } from '@rtorcato/js-common/objects'
+import { unique, chunk, compact, shuffle } from '@rtorcato/js-common/arrays'
+import { deepMerge, pick, omit, isPlainObject } from '@rtorcato/js-common/objects'
 import { safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
 import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-common/maps'
 ```
 
 ### Async & Control Flow
 ```typescript
-import { delay, withTimeout, allSettled } from '@rtorcato/js-common/promises'
+import { to, withTimeout } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
 import { tryCatch } from '@rtorcato/js-common/try'
