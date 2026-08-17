@@ -374,7 +374,14 @@ type AiTarget = {
 	code: string
 }
 
+// The skills CLI works everywhere, so it leads; the other two are shortcuts for
+// the tools that have one.
 const AI_TARGETS: AiTarget[] = [
+	{
+		title: 'Any coding agent',
+		desc: <>Pull the skill into any tool the skills CLI supports.</>,
+		code: 'npx skills add https://github.com/rtorcato/js-common \\\n  --skill js-common',
+	},
 	{
 		title: 'Claude Code',
 		desc: <>The repo is its own plugin marketplace — add it, then install the skill.</>,
@@ -389,11 +396,6 @@ const AI_TARGETS: AiTarget[] = [
 			</>
 		),
 		code: 'node_modules/@rtorcato/js-common/AGENTS.md',
-	},
-	{
-		title: 'Anything else',
-		desc: <>Pull the skill into any tool the skills CLI supports.</>,
-		code: 'npx skills add https://github.com/rtorcato/js-common \\\n  --skill js-common',
 	},
 ]
 
@@ -415,7 +417,7 @@ function UseWithAI(): ReactElement {
 					Read the rules →
 				</Link>
 			</div>
-			<div className={styles.catGrid}>
+			<div className={styles.aiStack}>
 				{AI_TARGETS.map((t) => (
 					<div key={t.title} className={styles.pillar}>
 						<div className={styles.pillarTitle}>{t.title}</div>
