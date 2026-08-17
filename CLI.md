@@ -124,9 +124,14 @@ js-common system pid
 # Get process uptime in seconds
 js-common system uptime
 
-# Get Node.js major version
+# Get the full Node.js version string, e.g. v22.23.1
 js-common system node-version
 ```
+
+Note the CLI verbs and the library exports are deliberately different things, and
+`js-common add` prints the export, not the verb. `system node-version` prints
+`process.version` in full; the export it points you at, `getNodeMajorVersion`,
+returns just the major as a number (`22`).
 
 That is the whole command surface. The CLI is a shop window for the library, not a
 port of it — most of the package (`file`, `security`, `validation`, and the rest of
