@@ -11,7 +11,7 @@
  *
  * @see {@link https://www.iso.org/iso-4217-currency-codes.html ISO 4217 Currency Codes}
  */
-export const currencies = [
+const currencies = [
 	'CAD',
 	'USD',
 	'AUD',

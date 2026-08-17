@@ -1,5 +1,5 @@
 import { describe, expectTypeOf, it } from 'vitest'
-import { type Failure, type Result, type Success, isSuccess, tryCatch } from './trycatch'
+import { type Failure, type Result, type Success, isSuccess, tryCatch } from '.'
 
 describe('try — types', () => {
 	it('Result<T,E> is the union of Success<T> and Failure<E>', () => {
