@@ -25,9 +25,28 @@ import preset from '@rtorcato/repo-tooling/semantic-release/github'
 // here — CI just has to run the release job on that branch too (see ci.yml).
 const DROPPED = new Set(['@semantic-release/git', '@semantic-release/changelog'])
 
-const plugins = preset.plugins.filter(
-	(plugin) => !DROPPED.has(Array.isArray(plugin) ? plugin[0] : plugin)
-)
+// @semantic-release/github's `success` step posts a "included in version X"
+// comment on every issue and PR referenced in the release notes. That is one
+// API call each, after the npm publish and the GitHub release have already
+// happened — so when those calls fail, semantic-release exits non-zero on a
+// release that fully shipped.
+//
+// 3.0.0 did exactly that (#215): the release and the publish both succeeded at
+// 17:06, then GitHub's API started returning 503 "No server is currently
+// available" and ~30 comment calls failed until semantic-release gave up at
+// 17:12. A release carrying 76 commits references dozens of PRs, so the
+// blast radius grows with the size of the release — the bigger and more
+// important the release, the likelier it fails on a cosmetic step.
+//
+// The comments are noise here anyway: PRs are squash-merged and closed long
+// before they ship. Turning them off removes the failure mode entirely.
+const plugins = preset.plugins
+	.filter((plugin) => !DROPPED.has(Array.isArray(plugin) ? plugin[0] : plugin))
+	.map((plugin) =>
+		Array.isArray(plugin) && plugin[0] === '@semantic-release/github'
+			? [plugin[0], { ...plugin[1], successComment: false }]
+			: plugin
+	)
 
 export default {
 	...preset,
