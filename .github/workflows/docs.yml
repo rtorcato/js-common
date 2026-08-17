@@ -7,6 +7,11 @@ on:
             - 'apps/docs/**'
             - '.github/workflows/docs.yml'
             - 'pnpm-workspace.yaml'
+    # The changelog page is built from GitHub Releases at build time
+    # (scripts/sync-changelog.mjs), so a release has to redeploy the site or the
+    # published page silently stops at whatever the last apps/docs change saw.
+    release:
+        types: [published]
     workflow_dispatch:
 
 concurrency:
@@ -39,6 +44,11 @@ jobs:
 
             - name: 🏗️ Build Docusaurus site
               run: pnpm --filter @rtorcato/js-common-docs build
+              env:
+                  # Lifts the 60/hr unauthenticated limit on the Releases fetch in
+                  # scripts/sync-changelog.mjs. The build falls back to CHANGELOG.md
+                  # without it, so this is a safeguard rather than a requirement.
+                  GITHUB_TOKEN: ${{ github.token }}
 
             - name: 📤 Upload Pages artifact
               uses: actions/upload-pages-artifact@v5
