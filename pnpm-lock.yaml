@@ -40,8 +40,8 @@ importers:
         specifier: ^21.2.0
         version: 21.2.0
       '@rtorcato/repo-tooling':
-        specifier: ^3.9.1
-        version: 3.9.1(30d8862d0d43ceafc31e73019da20b9e)
+        specifier: ^3.11.0
+        version: 3.11.0(30d8862d0d43ceafc31e73019da20b9e)
       '@semantic-release/changelog':
         specifier: ^7.0.0
         version: 7.0.0(semantic-release@25.0.9(supports-color@8.1.1)(typescript@6.0.3))
@@ -2916,8 +2916,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rtorcato/repo-tooling@3.9.1':
-    resolution: {integrity: sha512-leSjjoY+s1T1E767PE7sHBfFIosbm69hXWLYaRfwBqjkc8dJKVTWc9dUU2eeAkwEUNwUctf2i5oQefkrBJjmNQ==}
+  '@rtorcato/repo-tooling@3.11.0':
+    resolution: {integrity: sha512-PChFiam5z09Q2CvioyWgOUJv8SxgZJVP9yHXiZjLYst/jmgYa4BpILoMn3cbbtBE5uQzTVHR/3dcykqsa5HqTg==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -12163,7 +12163,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.1':
     optional: true
 
-  '@rtorcato/repo-tooling@3.9.1(30d8862d0d43ceafc31e73019da20b9e)':
+  '@rtorcato/repo-tooling@3.11.0(30d8862d0d43ceafc31e73019da20b9e)':
     dependencies:
       chalk: 5.6.2
       commander: 15.0.0
