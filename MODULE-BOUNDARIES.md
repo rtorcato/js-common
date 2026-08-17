@@ -51,6 +51,22 @@ wrappers around `+`, `-`, `*`, `/`. They are not re-homed, because `a + b` is
 shorter, faster and clearer than `add(a, b)`. `./numbers` keeps the arithmetic
 that actually earns a function call — `clamp`, `average`, `sum`, `mod`, `between`.
 
+### `./sets` and `./interval` → deleted in 4.0
+
+Same reasoning as `./math`, applied to the platform rather than to operators.
+The package goes from 44 subpath modules to 42.
+
+- `./interval` was `runInterval` and `clearIntervalById`, which called
+  `setInterval` and `clearInterval` with the same arguments and returned the
+  same value.
+- `./sets` predated the ES2025 `Set` methods. `engines.node` is `>=22`, which
+  ships `union`, `intersection`, `difference`, `isSubsetOf` and `isSupersetOf`
+  on `Set.prototype`; `setToArray` and `arrayToSet` are `[...set]` and
+  `new Set(arr)`.
+
+Both are unusual in that the replacement is *not* a second copy inside this
+package — it is the runtime, so there is nothing left to re-home.
+
 ## Modules deliberately kept apart
 
 ### `./logger` and `./logging` stay separate
@@ -65,7 +81,8 @@ the reason is a dependency boundary rather than a naming one:
 
 Folding them would make every `import { captureConsole } from '.../logging'`
 drag pino into the consumer's bundle. The subpath split is what keeps that cost
-opt-in, which is the whole point of shipping 44 subpaths instead of one barrel.
+opt-in, which is the whole point of shipping a subpath per module instead of
+one barrel.
 
 The names are admittedly close. The distinction to remember: **`./logger` is a
 thing** (one configured logger), **`./logging` is a set of actions** (console

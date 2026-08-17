@@ -52,6 +52,5 @@ import { chunk, compact, first } from '@rtorcato/js-common/arrays'
 ## See also
 
 - [objects](./objects.md) — pick, omit, deepMerge, deepClone
-- [sets](./sets.md) — union, intersection, difference, subset checks
 - [maps](./maps.md) — merge, invert and convert `Map`s
 - [random](./random.md) — random ints, floats, strings and array picks

@@ -26,7 +26,7 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **Tree-shakeable** — import only what you need via subpath exports
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
-- **Modular** — one module per concern, 44 subpaths
+- **Modular** — one module per concern, 42 subpaths
 - **Minimal runtime deps** — only `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 
 ## Installation
@@ -63,6 +63,8 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 `AGENTS.md` is generated from `SKILL.md` by `pnpm sync:agents`; CI fails if they drift. Edit `SKILL.md`, never `AGENTS.md`.
 
 ## Migrating
+
+**3.x → 4.x** — `./sets` and `./interval` are gone, because on the Node 22 baseline they wrapped things the runtime already does: `Set.prototype.union`/`intersection`/`difference`/`isSubsetOf`/`isSupersetOf`, and `setInterval`/`clearInterval`. Nothing moved to another module — the replacement is the platform. The full before/after table is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
 
 **2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. One helper was also renamed rather than moved: `sanitizeString` is now `stripScriptish`, because the old name promised sanitising it never did — it removes `<script>` blocks and inline `on*` handlers and nothing else. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
 
@@ -141,7 +143,6 @@ are frozen as of that record.
 import { today, formatDate, daysBetween, isLeapYear } from '@rtorcato/js-common/date'
 import { nowIso, formatDateTimeLocal, unixTimestamp } from '@rtorcato/js-common/datetime'
 import { nowTime, parseTime, secondsBetween } from '@rtorcato/js-common/time'
-import { runInterval, clearIntervalById } from '@rtorcato/js-common/interval'
 ```
 
 ### Numbers
@@ -173,7 +174,6 @@ import { flatten, unique, chunk, groupBy } from '@rtorcato/js-common/arrays'
 import { deepMerge, pick, omit, deepClone } from '@rtorcato/js-common/objects'
 import { safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
 import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-common/maps'
-import { union, intersection, difference, isSubset } from '@rtorcato/js-common/sets'
 ```
 
 ### Async & Control Flow

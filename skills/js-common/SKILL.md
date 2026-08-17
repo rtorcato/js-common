@@ -78,7 +78,6 @@ Import from `@rtorcato/js-common/<module>`.
 | geometry | distance2D, midpoint2D, angle2D, pointInRect, rectsOverlap, polygonArea |
 | html | escapeHtml, unescapeHtml, stripHtmlTags, textToHtml, containsHtml |
 | i18n | detectLanguage, formatNumber, formatDateI18n, t |
-| interval | runInterval, clearIntervalById |
 | json | safeJsonParse, safeJsonStringify, isValidJson, deepCloneJson |
 | logger | logger (pino instance — pretty in dev, JSON in prod) |
 | logging | logWithTimestamp, info, warn, error, captureConsole, ConsoleLevel |
@@ -93,7 +92,6 @@ Import from `@rtorcato/js-common/<module>`.
 | random | randomInt, randomFloat, randomBool, randomElement, randomString |
 | regex | escapeRegExp, testRegex, matchAll, replaceAllRegex, splitByRegex |
 | security | stripScriptish, isStrongPassword, generateSecureToken |
-| sets | union, intersection, difference, isSubset, isSuperset, setToArray, arrayToSet |
 | sleep | sleep, sleepSync, sleepRandom, sleepWithAbort |
 | strings | titleCase, capitalize, camelCase, kebabCase, snakeCase, truncate, padStart, padEnd, replaceString, reverse, slugify, words, wordCount, pluralize, ordinalize, isBlank, mask, template |
 | system | isMacOs, isWindows, isLinux, isIOS, isAndroid, getPlatform, isTouchDevice |

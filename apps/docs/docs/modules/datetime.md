@@ -61,5 +61,4 @@ import { formatDateTimeLocal, getIsoWeek, getIsoWeekInfo } from '@rtorcato/js-co
 
 - [date](./date.md) — calendar-day helpers — add, diff, compare, format
 - [time](./time.md) — time-of-day parsing, `HH:MM:SS` formatting and `secondsBetween`
-- [interval](./interval.md) — run something repeatedly on a timer
 - [i18n](./i18n.md) — locale-aware number/date formatting and translation
