@@ -311,6 +311,12 @@
 	color: var(--jc-text);
 }
 
+/* Use-with-AI: one full-width card per target. Three columns squeezed the
+   install commands into different wrap points, so nothing lined up. */
+.aiStack {
+	display: grid;
+	gap: 16px;
+}
 /* Use-with-AI install snippets */
 .aiCode {
 	margin: 12px 0 0;
