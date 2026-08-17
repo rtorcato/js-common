@@ -245,7 +245,6 @@
     "@size-limit/preset-small-lib": "^13.0.3",
     "@types/chalk-animation": "^1.6.3",
     "@types/figlet": "^1.7.0",
-    "@types/luxon": "^3.7.1",
     "@types/node": "^26.1.2",
     "@vitest/coverage-v8": "^4.0.17",
     "cross-env": "^10.1.0",
@@ -261,9 +260,6 @@
     "vitest": "^4.0.17"
   },
   "dependencies": {
-    "date-fns": "^4.1.0",
-    "date-fns-tz": "^3.2.0",
-    "luxon": "^3.7.2",
     "pino": "^10.1.0",
     "short-uuid": "^6.0.3",
     "uuid": "^14.0.1",

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { logger } from './logger'
+import { logger } from '.'
 
 describe('logger module', () => {
 	it('logger has standard log methods', () => {
