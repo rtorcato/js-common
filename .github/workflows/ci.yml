@@ -19,6 +19,9 @@ permissions:
     issues: write
     pull-requests: write
     id-token: write
+    # Lets the release job dispatch docs.yml after a publish, so the changelog
+    # page (built from the GitHub Releases API) picks the new version up.
+    actions: write
 
 jobs:
     check-skip:
@@ -316,6 +319,30 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
               run: npx semantic-release
+
+            # The changelog page is built from the GitHub Releases API at docs
+            # build time, so a publish only reaches the site once the site is
+            # rebuilt. docs.yml cannot subscribe to `release` itself: that event
+            # runs with `github.ref` set to the tag, and the `github-pages`
+            # environment only accepts deployments from `main` — the build
+            # succeeds and the deploy is rejected. Dispatching on `main` instead
+            # keeps that protection intact.
+            - name: 📘 Redeploy the docs after a publish
+              # The publish has already happened by this point, so a hiccup here
+              # must not fail the job — that would fire the reporter below and
+              # open an issue saying nothing was published, which would be a lie.
+              # Worst case the docs refresh on the next apps/docs change.
+              continue-on-error: true
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  tag=$(git tag --points-at HEAD | head -1)
+                  if [ -z "$tag" ]; then
+                      echo "No tag on HEAD — semantic-release published nothing. Skipping."
+                      exit 0
+                  fi
+                  echo "Published $tag — dispatching docs.yml on main."
+                  gh workflow run docs.yml --ref main
 
             # Releases failed silently from 2026-08-08 to 2026-08-11 because nothing
             # surfaced the failure — every merge in between was a `test:` commit that
