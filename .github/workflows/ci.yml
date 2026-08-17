@@ -12,7 +12,10 @@ on:
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+    # Only cancel superseded PR runs. A push to main carries the release job, and
+    # killing that mid-publish can leave a tag with no npm publish behind it — so
+    # back-to-back pushes queue instead of cancelling.
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
     contents: write
