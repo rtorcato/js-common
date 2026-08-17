@@ -1,8 +1,28 @@
 ---
 title: Migrating
-description: Upgrading from 1.x to 2.x, and from 2.x to 3.x.
+description: Upgrading from 1.x to 2.x, from 2.x to 3.x, and from 3.x to 4.x.
 sidebar_position: 3
 ---
+
+## 3.x → 4.x — `mimeTypes` entries lose `compressible`
+
+The vendored MIME database no longer carries a `compressible` flag per entry.
+Nothing in the library read it — `lookup` is built from `extensions` and
+`source` alone — so it was 913 lines of payload for every consumer of the
+`mime-types` module.
+
+```ts
+// boundary-check: ignore — quotes the pre-4.0 shape on purpose
+- mimeTypes['text/html'].compressible // true
++ // no replacement in this package
+```
+
+`MimeValue` narrows to `{ source, extensions }` to match, so TypeScript will
+point at every read rather than letting one return `undefined` at runtime.
+`lookup`, `types` and `extensions` are unchanged.
+
+If you need the flag, [`mime-db`](https://www.npmjs.com/package/mime-db) still
+publishes it and is the upstream this database was vendored from.
 
 ## 2.x → 3.x — one home per helper
 
