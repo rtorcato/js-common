@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { deepClone, deepMerge, isPlainObject, omit, pick } from './index'
+import { deepMerge, isPlainObject, omit, pick } from './index'
 
 describe('isPlainObject', () => {
 	it('returns true for plain objects', () => {
@@ -41,20 +41,5 @@ describe('omit', () => {
 describe('pick', () => {
 	it('picks only specified keys', () => {
 		expect(pick({ a: 1, b: 2, c: 3 }, ['b', 'c'])).toEqual({ b: 2, c: 3 })
-	})
-})
-
-describe('deepClone', () => {
-	it('deep clones objects and arrays', () => {
-		const obj = { a: 1, b: { c: 2 } }
-		const arr = [1, 2, { a: 3 }]
-		const objClone = deepClone(obj)
-		const arrClone = deepClone(arr)
-		expect(objClone).toEqual(obj)
-		expect(arrClone).toEqual(arr)
-		expect(objClone).not.toBe(obj)
-		expect(arrClone).not.toBe(arr)
-		expect(objClone.b).not.toBe(obj.b)
-		expect(arrClone[2]).not.toBe(arr[2])
 	})
 })

@@ -1,15 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-	average,
-	between,
-	clamp,
-	formatPercent,
-	isFiniteNumber,
-	isInteger,
-	mod,
-	roundTo,
-	sum,
-} from './index'
+import { average, between, clamp, formatPercent, mod, roundTo, sum } from './index'
 
 describe('formatPercent', () => {
 	it('formats a decimal as percent', () => {
@@ -34,27 +24,6 @@ describe('roundTo', () => {
 		expect(roundTo(1.2345, 2)).toBe(1.23)
 		expect(roundTo(1.2355, 2)).toBe(1.24)
 		expect(roundTo(1.2, 0)).toBe(1)
-	})
-})
-
-describe('isFiniteNumber', () => {
-	it('returns true for finite numbers', () => {
-		expect(isFiniteNumber(1)).toBe(true)
-		expect(isFiniteNumber(-1)).toBe(true)
-		expect(isFiniteNumber(0)).toBe(true)
-		expect(isFiniteNumber(Number.POSITIVE_INFINITY)).toBe(false)
-		expect(isFiniteNumber(Number.NaN)).toBe(false)
-		expect(isFiniteNumber('1')).toBe(false)
-	})
-})
-
-describe('isInteger', () => {
-	it('returns true for integers', () => {
-		expect(isInteger(1)).toBe(true)
-		expect(isInteger(0)).toBe(true)
-		expect(isInteger(-1)).toBe(true)
-		expect(isInteger(1.1)).toBe(false)
-		expect(isInteger('1')).toBe(false)
 	})
 })
 

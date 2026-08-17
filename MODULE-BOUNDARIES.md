@@ -67,6 +67,40 @@ The package goes from 44 subpath modules to 42.
 Both are unusual in that the replacement is *not* a second copy inside this
 package — it is the runtime, so there is nothing left to re-home.
 
+### Individual exports the platform already provides → deleted in 4.0
+
+The same rule applied inside modules that survive. Each of these was a
+pass-through: same arguments, same return value, one extra import.
+
+| Removed | Replacement |
+|---|---|
+| `promises.all` / `allSettled` / `race` | `Promise.all` / `allSettled` / `race` |
+| `promises.delay` | `sleep.sleep` — it was the same function under two names |
+| `boolean.and` / `or` / `not` / `xor` | `&&`, `\|\|`, `!`, `!==` |
+| `strings.padStart` / `padEnd` | `String.prototype.padStart` / `padEnd` |
+| `strings.replaceString` | `String.prototype.replaceAll` |
+| `arrays.first` / `last` | `arr.at(0)` / `arr.at(-1)` |
+| `arrays.flatten` | `arr.flat()` |
+| `arrays.groupBy` | `Object.groupBy` |
+| `numbers.isInteger` / `isFiniteNumber` | `Number.isInteger` / `Number.isFinite` |
+| `numbers.min` / `max` | `Math.min(...ns)` / `Math.max(...ns)` |
+| `objects.deepClone` | `structuredClone` — it was a one-line passthrough |
+| `json.deepCloneJson` | `structuredClone`, which does not lose `Date`s |
+| `uuid.getUUID` | `crypto.randomUUID()` |
+
+**This reverses the `isBoolean` row below**, which recorded that `./boolean`
+keeps `and`, `or`, `not` and `xor`. That was inconsistent with the `./math`
+deletion three sections up: `add(a, b)` was cut because `a + b` is shorter and
+clearer, and `and(a, b)` is the same trade for `a && b`. The argument for
+keeping them — that named operators can be passed as values to `reduce` or
+`pipe` — is real but rare, and an arrow function covers it at the one call site
+that needs it. `toBoolean` stays: coercing `'false'` to `false` is genuine
+behaviour, not an operator in disguise.
+
+`uuid.getUUID` removes no dependency — `uuid` is still needed for v7, `parse`,
+`stringify` and version-aware validation. It goes for consistency with the rest
+of the table, not for weight.
+
 ## Modules deliberately kept apart
 
 ### `./logger` and `./logging` stay separate
@@ -130,7 +164,7 @@ No behaviour change for anyone importing from the owner.
 |---|---|---|---|
 | `roundTo` | `./numbers` | `./currency` | byte-identical |
 | `stripScriptish` | `./security` | `./strings` | byte-identical; sanitising is a security concern. Called `sanitizeString` before 3.0 — renamed because the old name promised a guarantee it never delivered, see [#201](https://github.com/rtorcato/js-common/issues/201) |
-| `isBoolean` | `./validation` | `./boolean` | identical; belongs with the `is*` family. `./boolean` keeps the logic operators (`and`, `or`, `not`, `xor`, `toBoolean`) |
+| `isBoolean` | `./validation` | `./boolean` | identical; belongs with the `is*` family. `./boolean` kept the logic operators at the time — 4.0 removed them, see below |
 | `escapeHtml` | `./html` | `./strings` | different implementations, same output |
 | `formatTime` | `./time` | `./formatting` | both local `HH:MM:SS` |
 

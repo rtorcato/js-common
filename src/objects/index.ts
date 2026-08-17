@@ -78,13 +78,3 @@ export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pi
 	}
 	return result
 }
-
-/**
- * Deep clones a value using the native structuredClone algorithm.
- * Correctly handles Date, Map, Set, ArrayBuffer, and circular references.
- * @param obj The value to clone.
- * @returns A deep clone of the value.
- */
-export function deepClone<T>(obj: T): T {
-	return structuredClone(obj)
-}
