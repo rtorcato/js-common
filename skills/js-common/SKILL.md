@@ -60,8 +60,8 @@ Import from `@rtorcato/js-common/<module>`.
 | Module | Exports |
 |---|---|
 | abortController | createAbortController, abortPromise, withAbort, abortAfter |
-| arrays | first, last, unique, flatten, chunk, compact, shuffle, groupBy |
-| boolean | toBoolean, xor, and, or, not |
+| arrays | unique, chunk, compact, shuffle |
+| boolean | toBoolean |
 | colors | randomColor, matchingTextColor, hexToRgb, rgbToHex, isValidHex, darken, lighten |
 | console | disableConsole, clearConsole |
 | crypto | hashString, randomHex, hmacHash, base64Encode, base64Decode |
@@ -78,28 +78,28 @@ Import from `@rtorcato/js-common/<module>`.
 | geometry | distance2D, midpoint2D, angle2D, pointInRect, rectsOverlap, polygonArea |
 | html | escapeHtml, unescapeHtml, stripHtmlTags, textToHtml, containsHtml |
 | i18n | detectLanguage, formatNumber, formatDateI18n, t |
-| json | safeJsonParse, safeJsonStringify, isValidJson, deepCloneJson |
+| json | safeJsonParse, safeJsonStringify, isValidJson |
 | logger | logger (pino instance — pretty in dev, JSON in prod) |
 | logging | logWithTimestamp, info, warn, error, captureConsole, ConsoleLevel |
 | maps | invertMap, mapValues, mergeMaps, objectToMap, mapToObject |
 | mime-types | lookup, types, extensions, mimeTypes |
 | node | nodeVersionCheck, getNodeMajorVersion, isNode, requireOptional |
-| numbers | clamp, roundTo, formatPercent, isFiniteNumber, isInteger, between, sum, average, mod, min, max |
-| objects | isPlainObject, deepMerge, omit, pick, deepClone |
+| numbers | clamp, roundTo, formatPercent, between, sum, average, mod |
+| objects | isPlainObject, deepMerge, omit, pick |
 | os | getOsPlatform, getOsRelease, getOsArch, getHomeDir, getTmpDir |
 | process | getProcessId, getProcessUptime, getCwd, getProcessPlatform, exitProcess, isCI |
-| promises | delay, to, withTimeout, all, allSettled, race |
+| promises | to, withTimeout |
 | random | randomInt, randomFloat, randomBool, randomElement, randomString |
 | regex | escapeRegExp, testRegex, matchAll, replaceAllRegex, splitByRegex |
 | security | stripScriptish, isStrongPassword, generateSecureToken |
 | sleep | sleep, sleepSync, sleepRandom, sleepWithAbort |
-| strings | titleCase, capitalize, camelCase, kebabCase, snakeCase, truncate, padStart, padEnd, replaceString, reverse, slugify, words, wordCount, pluralize, ordinalize, isBlank, mask, template |
+| strings | titleCase, capitalize, camelCase, kebabCase, snakeCase, truncate, reverse, slugify, words, wordCount, pluralize, ordinalize, isBlank, mask, template |
 | system | isMacOs, isWindows, isLinux, isIOS, isAndroid, getPlatform, isTouchDevice |
 | time | nowTime, nowTimeShort, parseTime, formatTime, secondsBetween, pad2 |
 | try | tryCatch, isSuccess, Result, Success, Failure |
 | types | Prettify, Merge (types only) |
 | url | isValidUrl, getQueryParams, setQueryParam, removeQueryParam, joinUrl, getHostname |
-| uuid | getUUID, getUUIDv7, getShortUUID, toShortUUID, fromShortUUID, isUUID, isUUIDv4, isNilUUID, getUUIDVersion, getNilUUID, uuidToBytes, bytesToUUID |
+| uuid | getUUIDv7, getShortUUID, toShortUUID, fromShortUUID, isUUID, isUUIDv4, isNilUUID, getUUIDVersion, getNilUUID, uuidToBytes, bytesToUUID |
 | validation | isDefined, isString, isNumber, isBoolean, isArray, isObject, isEmail, isUrl |
 
 ## CLI

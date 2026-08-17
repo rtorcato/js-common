@@ -1,21 +1,4 @@
 /**
- * Returns a promise that resolves after a given delay (ms).
- *
- * @example
- * ```typescript
- * const started = Date.now()
- * await delay(100)
- * Date.now() - started >= 100 // true
- * ```
- *
- * @param ms Milliseconds to wait.
- * @returns {Promise<void>}
- */
-export function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-/**
  * Wraps a promise and returns a tuple [error, result].
  * The error slot is `unknown` — narrow it at the call site before touching its properties.
  *
@@ -62,31 +45,4 @@ export function withTimeout<T>(
 	error: any = new Error('Timeout')
 ): Promise<T> {
 	return Promise.race([promise, new Promise<T>((_, reject) => setTimeout(() => reject(error), ms))])
-}
-
-/**
- * Returns a promise that resolves when all promises resolve, or rejects on the first rejection (like Promise.all).
- * @param promises Array of promises.
- * @returns {Promise<T[]>}
- */
-export function all<T>(promises: Promise<T>[]): Promise<T[]> {
-	return Promise.all(promises)
-}
-
-/**
- * Returns a promise that resolves when all promises settle (like Promise.allSettled).
- * @param promises Array of promises.
- * @returns {Promise<PromiseSettledResult<T>[]>}
- */
-export function allSettled<T>(promises: Promise<T>[]): Promise<PromiseSettledResult<T>[]> {
-	return Promise.allSettled(promises)
-}
-
-/**
- * Returns a promise that resolves or rejects as soon as one of the promises resolves or rejects (like Promise.race).
- * @param promises Array of promises.
- * @returns {Promise<T>}
- */
-export function race<T>(promises: Promise<T>[]): Promise<T> {
-	return Promise.race(promises)
 }

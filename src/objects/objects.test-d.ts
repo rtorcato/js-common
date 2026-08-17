@@ -1,5 +1,5 @@
 import { describe, expectTypeOf, it } from 'vitest'
-import { deepClone, deepMerge, omit, pick } from './index'
+import { deepMerge, omit, pick } from './index'
 
 describe('objects — types', () => {
 	it('pick narrows to the selected keys', () => {
@@ -23,10 +23,5 @@ describe('objects — types', () => {
 		const b = { y: 'two' }
 		const out = deepMerge(a, b)
 		expectTypeOf(out).toEqualTypeOf<{ x: number } & { y: string }>()
-	})
-
-	it('deepClone is identity over the input type', () => {
-		const value = { nested: { id: 1 as const } }
-		expectTypeOf(deepClone(value)).toEqualTypeOf<typeof value>()
 	})
 })

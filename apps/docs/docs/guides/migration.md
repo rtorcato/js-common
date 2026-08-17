@@ -4,14 +4,92 @@ description: Upgrading from 1.x to 2.x, from 2.x to 3.x, and from 3.x to 4.x.
 sidebar_position: 3
 ---
 
-## 3.x → 4.x — two modules the runtime replaced
+## 3.x → 4.x — what the platform already does
 
-`engines.node` is `>=22`, and on that baseline `./sets` and `./interval` were
-wrapping things the platform already does. Both subpaths are **removed** — 44
-subpaths become 42. There is no re-homed copy inside the package this time; the
-replacement is the runtime itself.
+4.0 removes wrappers whose replacement is the runtime itself, not another module
+in this package. Nothing was re-homed, so there is no "import it from here
+instead" — every row below points at a JavaScript built-in.
 
-### `./sets` → `Set.prototype`
+The `engines.node` floor of `>=22` is what makes this possible: `Set.prototype`
+methods, `Object.groupBy`, `Array.prototype.at`, `structuredClone` and
+`crypto.randomUUID` are all available there.
+
+### Individual exports removed
+
+| Was | Now |
+|---|---|
+| `promises.all(ps)` | `Promise.all(ps)` |
+| `promises.allSettled(ps)` | `Promise.allSettled(ps)` |
+| `promises.race(ps)` | `Promise.race(ps)` |
+| `promises.delay(ms)` | `sleep(ms)` from `@rtorcato/js-common/sleep` |
+| `boolean.and(a, b)` | `a && b` |
+| `boolean.or(a, b)` | `a \|\| b` |
+| `boolean.not(a)` | `!a` |
+| `boolean.xor(a, b)` | `a !== b` |
+| `strings.padStart(s, n, c)` | `s.padStart(n, c)` |
+| `strings.padEnd(s, n, c)` | `s.padEnd(n, c)` |
+| `strings.replaceString(s, a, b)` | `s.replaceAll(a, b)` |
+| `arrays.first(arr)` | `arr.at(0)` |
+| `arrays.last(arr)` | `arr.at(-1)` |
+| `arrays.flatten(arr)` | `arr.flat()` |
+| `arrays.groupBy(arr, fn)` | `Object.groupBy(arr, fn)` — **see the note below** |
+| `numbers.isInteger(v)` | `Number.isInteger(v)` |
+| `numbers.isFiniteNumber(v)` | `Number.isFinite(v)` |
+| `numbers.min(ns)` | `Math.min(...ns)` |
+| `numbers.max(ns)` | `Math.max(...ns)` |
+| `objects.deepClone(v)` | `structuredClone(v)` |
+| `json.deepCloneJson(v)` | `structuredClone(v)` — **see the note below** |
+| `uuid.getUUID()` | `crypto.randomUUID()` |
+
+`toBoolean` stays in `boolean`, and `sum`, `average`, `clamp`, `mod` and
+`between` stay in `numbers` — those do work a built-in does not.
+
+### `groupBy` is not a drop-in
+
+`Object.groupBy` differs from the removed helper in two ways that will show up
+in a type check rather than at runtime:
+
+```ts
+// boundary-check: ignore — quotes the pre-4.0 API on purpose
+- const byTeam = groupBy(rows, (r) => r.team)
+- byTeam.red.length      // T[] — always defined
++ const byTeam = Object.groupBy(rows, (r) => r.team)
++ byTeam.red?.length     // T[] | undefined — every key is optional
+```
+
+It also returns a **null-prototype** object, so `byTeam.hasOwnProperty(...)`
+throws. Use `Object.hasOwn(byTeam, key)` or the `in` operator. Both differences
+are the standard's, not a behaviour change we chose.
+
+### `deepCloneJson` had different semantics
+
+`json.deepCloneJson` cloned through `JSON.parse(JSON.stringify(v))`, which
+silently drops `undefined` and functions and turns `Date`s into strings.
+`structuredClone` keeps `Date`s, `Map`s, `Set`s, typed arrays and cycles, and
+throws on functions instead of dropping them.
+
+That is a **better** result in almost every case, but it is not identical — if
+you were relying on the JSON round trip to flatten a value into
+JSON-serialisable shape, call `JSON.parse(JSON.stringify(v))` explicitly so the
+intent is visible.
+
+### `mimeTypes` entries lose `compressible`
+
+The vendored MIME database no longer carries a `compressible` flag per entry.
+Nothing in the library read it — `lookup` is built from `extensions` and
+`source` alone — so it was 913 lines of payload for every consumer of the
+`mime-types` module. `MimeValue` narrows to `{ source, extensions }` to match.
+`lookup`, `types` and `extensions` are unchanged.
+
+If you need the flag, [`mime-db`](https://www.npmjs.com/package/mime-db) still
+publishes it and is the upstream this database was vendored from.
+
+### Two modules removed entirely
+
+`./sets` and `./interval` were nothing but wrappers, so both subpaths are gone —
+44 subpaths become 42.
+
+#### `./sets` → `Set.prototype`
 
 Node 22 ships the ES2025 `Set` methods, so every export had a native equivalent.
 
@@ -29,7 +107,7 @@ Note the argument order reads differently — `isSubset(a, b)` asked "is `a` a
 subset of `b`", and `a.isSubsetOf(b)` asks the same thing, so these two are a
 direct swap. The set-returning methods produce a new `Set` exactly as before.
 
-### `./interval` → the timer globals
+#### `./interval` → the timer globals
 
 | Was | Now |
 |---|---|

@@ -5,24 +5,10 @@ import {
 	stringify as uuidStringify,
 	validate as uuidValidate,
 	version as uuidVersion,
-	v4 as uuidv4,
 	v7 as uuidv7,
 } from 'uuid'
 
 const translator = createTranslator()
-
-/**
- * Generates a UUID v4 string.
- * @returns {string} A new UUID v4 string.
- *
- * @example
- * ```typescript
- * getUUID() // 'f47ac10b-58cc-4372-a567-0e02b2c3d479'
- * ```
- */
-export const getUUID = (): string => {
-	return uuidv4()
-}
 
 /**
  * Generates a UUID v7 string (time-ordered).

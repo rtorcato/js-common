@@ -3,7 +3,7 @@ title: Json
 description: Utilities exported from @rtorcato/js-common/json.
 ---
 
-Parse, stringify, validate and deep-clone through JSON, with every operation returning a fallback instead of throwing. Parsing untrusted JSON is the classic case where a `try`/`catch` is pure noise, so `safeJsonParse` takes the fallback as an argument. `deepCloneJson` inherits JSON's limits — `undefined`, functions, `Date`s, `Map`s and cycles do not survive the round trip — so prefer `objects.deepClone` unless you specifically want the JSON-shaped result.
+Parse, stringify, validate and deep-clone through JSON, with every operation returning a fallback instead of throwing. Parsing untrusted JSON is the classic case where a `try`/`catch` is pure noise, so `safeJsonParse` takes the fallback as an argument. Cloning through JSON was removed in 4.0 along with its `objects` counterpart: `structuredClone` is a global on every supported runtime and keeps `Date`s, `Map`s, `Set`s and cycles intact.
 
 ## Example
 
@@ -23,14 +23,13 @@ isValidJson('[1,2,3]')                     // true
 ## Import
 
 ```ts
-import { deepCloneJson, isValidJson, safeJsonParse } from '@rtorcato/js-common/json'
+import { isValidJson, safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
 ```
 
 ## Exports
 
 | Name | Summary |
 | --- | --- |
-| `deepCloneJson` | Deep clones a value using JSON serialization. |
 | `isValidJson` | Checks if a string is valid JSON. |
 | `safeJsonParse` | Safely parses a JSON string, returning a fallback value if parsing fails. |
 | `safeJsonStringify` | Safely stringifies a value to JSON, returning a fallback value if stringification fails. |

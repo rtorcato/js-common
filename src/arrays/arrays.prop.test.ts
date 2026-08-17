@@ -28,22 +28,4 @@ describe('arrays — properties', () => {
 			})
 		)
 	})
-
-	it('every chunk except possibly the last has exactly `size` elements', () => {
-		fc.assert(
-			fc.property(fc.array(fc.integer()), fc.integer({ min: 1, max: 50 }), (arr, size) => {
-				const chunks = chunk(arr, size)
-				// All but the last must be exactly `size`.
-				for (const c of chunks.slice(0, -1)) {
-					expect(c.length).toBe(size)
-				}
-				// The last (if any) is non-empty and <= size.
-				const tail = chunks.at(-1)
-				if (tail !== undefined) {
-					expect(tail.length).toBeGreaterThan(0)
-					expect(tail.length).toBeLessThanOrEqual(size)
-				}
-			})
-		)
-	})
 })

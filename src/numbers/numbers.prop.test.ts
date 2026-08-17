@@ -1,6 +1,6 @@
 import * as fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { between, clamp, max, min, roundTo, sum } from './index'
+import { between, clamp, roundTo, sum } from './index'
 
 // `roundTo` is `Math.round(value * 10**decimals) / 10**decimals`, so the magnitude
 // is capped where the multiply/divide round trip stays exact.
@@ -39,19 +39,6 @@ describe('numbers — properties', () => {
 		fc.assert(
 			fc.property(fc.array(fc.integer({ min: -1_000_000, max: 1_000_000 })), (arr) => {
 				expect(sum(arr)).toBe(arr.reduce((a, b) => a + b, 0))
-			})
-		)
-	})
-
-	it('min/max bound every element of a non-empty array', () => {
-		fc.assert(
-			fc.property(fc.array(fc.integer(), { minLength: 1 }), (arr) => {
-				const lo = min(arr)
-				const hi = max(arr)
-				for (const v of arr) {
-					expect(v).toBeGreaterThanOrEqual(lo)
-					expect(v).toBeLessThanOrEqual(hi)
-				}
 			})
 		)
 	})

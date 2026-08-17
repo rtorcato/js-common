@@ -37,15 +37,6 @@ export function roundTo(value: number, decimals = 2): number {
 }
 
 /**
- * Checks if a value is a finite number.
- * @param value The value to check.
- * @returns True if the value is a finite number, false otherwise.
- */
-export function isFiniteNumber(value: unknown): value is number {
-	return typeof value === 'number' && Number.isFinite(value)
-}
-
-/**
  * Formats a number as a percentage string.
  *
  * @example
@@ -60,15 +51,6 @@ export function isFiniteNumber(value: unknown): value is number {
  */
 export function formatPercent(value: number, fractionDigits = 0): string {
 	return `${(value * 100).toFixed(fractionDigits)}%`
-}
-
-/**
- * Checks if a value is an integer.
- * @param value The value to check.
- * @returns True if the value is an integer, false otherwise.
- */
-export function isInteger(value: unknown): value is number {
-	return typeof value === 'number' && Number.isInteger(value)
 }
 
 /**
@@ -109,22 +91,4 @@ export function average(numbers: number[]): number {
  */
 export function mod(n: number, m: number): number {
 	return ((n % m) + m) % m
-}
-
-/**
- * Returns the smallest value in an array of numbers.
- * @param numbers The array of numbers.
- * @returns The minimum value.
- */
-export function min(numbers: number[]): number {
-	return Math.min(...numbers)
-}
-
-/**
- * Returns the largest value in an array of numbers.
- * @param numbers The array of numbers.
- * @returns The maximum value.
- */
-export function max(numbers: number[]): number {
-	return Math.max(...numbers)
 }

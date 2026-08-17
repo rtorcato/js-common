@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { deepCloneJson, isValidJson, safeJsonParse, safeJsonStringify } from './index'
+import { isValidJson, safeJsonParse, safeJsonStringify } from './index'
 
 describe('json module', () => {
 	it('safeJsonParse parses valid JSON', () => {
@@ -31,13 +31,5 @@ describe('json module', () => {
 	it('isValidJson returns false for invalid JSON', () => {
 		expect(isValidJson('{a:1}')).toBe(false)
 		expect(isValidJson('not json')).toBe(false)
-	})
-
-	it('deepCloneJson clones objects deeply', () => {
-		const obj = { a: 1, b: { c: 2 } }
-		const clone = deepCloneJson(obj)
-		expect(clone).toEqual(obj)
-		expect(clone).not.toBe(obj)
-		expect(clone.b).not.toBe(obj.b)
 	})
 })

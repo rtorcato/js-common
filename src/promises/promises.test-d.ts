@@ -1,5 +1,5 @@
 import { describe, expectTypeOf, it } from 'vitest'
-import { all, allSettled, race, to, withTimeout } from './index'
+import { to, withTimeout } from './index'
 
 describe('promises — types', () => {
 	it('withTimeout preserves the awaited type', () => {
@@ -12,13 +12,5 @@ describe('promises — types', () => {
 	it('to returns an [error, value] tuple with the value widened to undefined', () => {
 		// The error slot is `unknown`, so call sites have to narrow before using it.
 		expectTypeOf(to(Promise.resolve('x'))).toEqualTypeOf<Promise<[unknown, string | undefined]>>()
-	})
-
-	it('all/allSettled/race preserve the element type', () => {
-		expectTypeOf(all([Promise.resolve(1)])).toEqualTypeOf<Promise<number[]>>()
-		expectTypeOf(allSettled([Promise.resolve('a')])).toEqualTypeOf<
-			Promise<PromiseSettledResult<string>[]>
-		>()
-		expectTypeOf(race([Promise.resolve(true)])).toEqualTypeOf<Promise<boolean>>()
 	})
 })

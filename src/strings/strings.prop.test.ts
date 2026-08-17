@@ -1,6 +1,6 @@
 import * as fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { camelCase, capitalize, kebabCase, padEnd, padStart, snakeCase } from './index'
+import { camelCase, capitalize, kebabCase, snakeCase } from './index'
 
 // Inputs constrained to a "word-like" alphabet so case helpers have well-defined
 // behavior — Unicode/emoji round-trips aren't a contract these helpers promise.
@@ -51,22 +51,6 @@ describe('strings — properties', () => {
 		fc.assert(
 			fc.property(fc.stringMatching(/^[A-Z][a-z]+$/, { size: 'small' }), (s) => {
 				expect(capitalize(s)).toBe(s)
-			})
-		)
-	})
-
-	it('padStart yields a string of at least `target` length', () => {
-		fc.assert(
-			fc.property(fc.string({ maxLength: 20 }), fc.integer({ min: 0, max: 60 }), (s, n) => {
-				expect(padStart(s, n).length).toBeGreaterThanOrEqual(Math.max(s.length, n))
-			})
-		)
-	})
-
-	it('padEnd yields a string of at least `target` length', () => {
-		fc.assert(
-			fc.property(fc.string({ maxLength: 20 }), fc.integer({ min: 0, max: 60 }), (s, n) => {
-				expect(padEnd(s, n).length).toBeGreaterThanOrEqual(Math.max(s.length, n))
 			})
 		)
 	})

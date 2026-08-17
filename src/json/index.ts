@@ -68,13 +68,3 @@ export function isValidJson(str: string): boolean {
 		return false
 	}
 }
-
-/**
- * Deep clones a value using JSON serialization.
- * Note: Only works for JSON-safe values (no functions, undefined, etc).
- * @param {T} value - The value to clone.
- * @returns {T} The deep-cloned value.
- */
-export function deepCloneJson<T>(value: T): T {
-	return JSON.parse(JSON.stringify(value))
-}
