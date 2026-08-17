@@ -6,12 +6,13 @@ We actively support the following versions of `@rtorcato/js-common`:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 3.x.x   | :white_check_mark: |
-| < 3.0   | :x:                |
+| 4.x.x   | :white_check_mark: |
+| < 4.0   | :x:                |
 
-Only the latest major gets fixes. 3.0 moved every helper to exactly one module and
-renamed `sanitizeString` to `stripScriptish` — see [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md)
-and the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
+Only the latest major gets fixes. 4.0 removed the exports that only wrapped a
+JavaScript built-in, including the `./sets` and `./interval` modules — see
+[MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md) and the
+[migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
 
 ## Reporting a Vulnerability
 
