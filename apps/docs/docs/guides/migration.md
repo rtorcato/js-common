@@ -1,8 +1,43 @@
 ---
 title: Migrating
-description: Upgrading from 1.x to 2.x, and from 2.x to 3.x.
+description: Upgrading from 1.x to 2.x, from 2.x to 3.x, and from 3.x to 4.x.
 sidebar_position: 3
 ---
+
+## 3.x → 4.x — two modules the runtime replaced
+
+`engines.node` is `>=22`, and on that baseline `./sets` and `./interval` were
+wrapping things the platform already does. Both subpaths are **removed** — 44
+subpaths become 42. There is no re-homed copy inside the package this time; the
+replacement is the runtime itself.
+
+### `./sets` → `Set.prototype`
+
+Node 22 ships the ES2025 `Set` methods, so every export had a native equivalent.
+
+| Was | Now |
+|---|---|
+| `union(a, b)` | `a.union(b)` |
+| `intersection(a, b)` | `a.intersection(b)` |
+| `difference(a, b)` | `a.difference(b)` |
+| `isSubset(a, b)` | `a.isSubsetOf(b)` |
+| `isSuperset(a, b)` | `a.isSupersetOf(b)` |
+| `setToArray(set)` | `[...set]` |
+| `arrayToSet(arr)` | `new Set(arr)` |
+
+Note the argument order reads differently — `isSubset(a, b)` asked "is `a` a
+subset of `b`", and `a.isSubsetOf(b)` asks the same thing, so these two are a
+direct swap. The set-returning methods produce a new `Set` exactly as before.
+
+### `./interval` → the timer globals
+
+| Was | Now |
+|---|---|
+| `runInterval(fn, ms)` | `setInterval(fn, ms)` |
+| `clearIntervalById(id)` | `clearInterval(id)` |
+
+Both wrappers passed their arguments straight through and returned what the
+global returned, so this is a rename and nothing more.
 
 ## 2.x → 3.x — one home per helper
 

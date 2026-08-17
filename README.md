@@ -64,6 +64,8 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 
 ## Migrating
 
+**3.x → 4.x** — `./sets` and `./interval` are gone, because on the Node 22 baseline they wrapped things the runtime already does: `Set.prototype.union`/`intersection`/`difference`/`isSubsetOf`/`isSupersetOf`, and `setInterval`/`clearInterval`. Nothing moved to another module — the replacement is the platform. The full before/after table is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
+
 **2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. One helper was also renamed rather than moved: `sanitizeString` is now `stripScriptish`, because the old name promised sanitising it never did — it removes `<script>` blocks and inline `on*` handlers and nothing else. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
 
 **1.x → 2.x** — the only breaking change in 2.0 is a rename in the `errors` module:
