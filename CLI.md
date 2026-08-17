@@ -77,10 +77,10 @@ This command provides:
 # Get today's date (YYYY-MM-DD)
 js-common date today
 
-# Get current timestamp
+# Get current timestamp (epoch milliseconds)
 js-common date now
 js-common date now --iso     # ISO format
-js-common date now --time    # Time only (HH:MM:SS)
+js-common date now --time    # Time, e.g. 14:32:07 GMT+0000 (Coordinated Universal Time)
 
 # Calculate days between dates
 js-common date between 2025-01-01 2025-12-31
@@ -96,10 +96,10 @@ js-common math sum 1 2 3 4 5
 js-common math avg 10 20 30 40 50
 
 # Generate random number
-js-common math random --min 1 --max 100
+js-common math random 1 100
 
 # Round number to decimal places
-js-common math round 3.14159 --decimals 2
+js-common math round 3.14159 2
 
 # Clamp number between min/max
 js-common math clamp 150 0 100
@@ -113,36 +113,6 @@ js-common text capitalize "hello world"
 
 # Convert to title case
 js-common text title "hello world from javascript"
-
-# Pad with leading zeros
-js-common text pad 5 --length 3
-```
-
-### File Operations
-
-```bash
-# Check if file exists (exit code 0 = exists, 1 = doesn't exist)
-js-common file exists package.json
-
-# Get file extension
-js-common file ext myfile.txt
-```
-
-### Security Utilities
-
-```bash
-# Check password strength (exit code 0 = strong, 1 = weak)
-js-common security password "MyStr0ng!Pass"
-
-# Generate secure random token
-js-common security token --length 32
-```
-
-### Validation
-
-```bash
-# Validate URL (exit code 0 = valid, 1 = invalid)
-js-common validate url "https://example.com"
 ```
 
 ### System Information
@@ -154,28 +124,13 @@ js-common system pid
 # Get process uptime in seconds
 js-common system uptime
 
-# Check if running in CI environment
-js-common system ci
-
 # Get Node.js major version
 js-common system node-version
 ```
 
-## Exit Codes
-
-Many validation commands use exit codes to indicate success/failure:
-- `0`: Success/Valid/True
-- `1`: Failure/Invalid/False
-
-This makes them useful in shell scripts:
-
-```bash
-if js-common validate url "https://example.com"; then
-    echo "Valid URL"
-else
-    echo "Invalid URL"
-fi
-```
+That is the whole command surface. The CLI is a shop window for the library, not a
+port of it — most of the package (`file`, `security`, `validation`, and the rest of
+the 44 modules) is import-only. Use `js-common add` to get the import statement.
 
 ## 💡 Developer Integration Examples
 
@@ -189,12 +144,14 @@ npx @rtorcato/js-common add
 # Interactive workflow:
 # 1. Select category (e.g., "🔢 Mathematical")
 # 2. Choose functions (e.g., sum, avg, random)
-# 3. Get generated import statement:
-#    import { sum, avg, random } from '@rtorcato/js-common/numbers'
+# 3. Get generated import statements — note these are the *export* names, which
+#    differ from the CLI verbs, and one import per module the category spans:
+#    import { sum, average } from '@rtorcato/js-common/numbers'
+#    import { randomInt } from '@rtorcato/js-common/random'
 # 4. See usage examples:
-#    const total = sum([1, 2, 3, 4, 5]); // 15
-#    const average = avg([10, 20, 30]); // 20
-#    const num = randomBetween(1, 100); // 42
+#    const total = sum([1, 2, 3, 4, 5]) // 15
+#    const mean = average([10, 20, 30]) // 20
+#    const num = randomInt(1, 100) // 42
 ```
 
 ### CLI Usage Examples
@@ -217,10 +174,6 @@ npx @rtorcato/js-common system pid         # 12345
 
 ```bash
 #!/bin/bash
-
-# Generate a secure token for API keys
-API_KEY=$(js-common security token --length 16)
-echo "Generated API Key: $API_KEY"
 
 # Calculate project statistics
 TOTAL_FILES=$(find . -name "*.js" | wc -l)

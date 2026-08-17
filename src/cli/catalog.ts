@@ -10,8 +10,12 @@
 // 'system') while the library groups by module — 'math' spans `numbers` and
 // `random`, 'system' spans `process` and `node`.
 //
-// `src/cli/catalog.test.ts` asserts every `exportName` really is exported by
-// `src/<subpath>/index.ts`, so this cannot drift back into fiction.
+// `src/cli/catalog.test.ts` asserts both halves, so this cannot drift back into
+// fiction: every `exportName` really is exported by `src/<subpath>/index.ts`,
+// and every `name` really is a command registered in `src/cli/cli.ts`. The
+// second check exists because it wasn't there — `file`, `security`, `validate`,
+// `text pad` and `system ci` were advertised here for long enough that `list`
+// printed commands that errored when run.
 export const functionCategories = {
 	date: {
 		name: '📅 Date & Time',
@@ -96,63 +100,6 @@ export const functionCategories = {
 				subpath: 'strings',
 				example: `const heading = titleCase('hello world') // 'Hello World'`,
 			},
-			{
-				name: 'pad',
-				description: 'Pad with leading zeros',
-				exportName: 'padStart',
-				subpath: 'strings',
-				example: `const padded = padStart('42', 5, '0') // '00042'`,
-			},
-		],
-	},
-	file: {
-		name: '📁 File Operations',
-		functions: [
-			{
-				name: 'exists',
-				description: 'Check if file exists',
-				exportName: 'fileExists',
-				subpath: 'file',
-				example: `const exists = await fileExists('package.json') // true`,
-			},
-			{
-				name: 'ext',
-				description: 'Get file extension',
-				exportName: 'getFileExtension',
-				subpath: 'file',
-				example: `const extension = getFileExtension('file.txt') // '.txt'`,
-			},
-		],
-	},
-	security: {
-		name: '🔒 Security',
-		functions: [
-			{
-				name: 'password',
-				description: 'Check password strength',
-				exportName: 'isStrongPassword',
-				subpath: 'security',
-				example: `const isStrong = isStrongPassword('MyPass123!') // true`,
-			},
-			{
-				name: 'token',
-				description: 'Generate secure token',
-				exportName: 'generateSecureToken',
-				subpath: 'security',
-				example: `const token = generateSecureToken(32) // 64 hex chars`,
-			},
-		],
-	},
-	validate: {
-		name: '✅ Validation',
-		functions: [
-			{
-				name: 'url',
-				description: 'Validate URL format',
-				exportName: 'isUrl',
-				subpath: 'validation',
-				example: `const isValid = isUrl('https://example.com') // true`,
-			},
 		],
 	},
 	system: {
@@ -171,13 +118,6 @@ export const functionCategories = {
 				exportName: 'getProcessUptime',
 				subpath: 'process',
 				example: `const uptime = getProcessUptime() // 123.45`,
-			},
-			{
-				name: 'ci',
-				description: 'Check CI environment',
-				exportName: 'isCI',
-				subpath: 'process',
-				example: `const inCi = isCI() // false`,
 			},
 			{
 				name: 'node-version',

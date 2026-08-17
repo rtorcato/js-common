@@ -112,7 +112,7 @@ No behaviour change for anyone importing from the owner.
 | Name | Owner | Removed from | Note |
 |---|---|---|---|
 | `roundTo` | `./numbers` | `./currency` | byte-identical |
-| `sanitizeString` | `./security` | `./strings` | byte-identical; sanitising is a security concern. Since renamed `stripScriptish` — see [#201](https://github.com/rtorcato/js-common/issues/201) |
+| `stripScriptish` | `./security` | `./strings` | byte-identical; sanitising is a security concern. Called `sanitizeString` before 3.0 — renamed because the old name promised a guarantee it never delivered, see [#201](https://github.com/rtorcato/js-common/issues/201) |
 | `isBoolean` | `./validation` | `./boolean` | identical; belongs with the `is*` family. `./boolean` keeps the logic operators (`and`, `or`, `not`, `xor`, `toBoolean`) |
 | `escapeHtml` | `./html` | `./strings` | different implementations, same output |
 | `formatTime` | `./time` | `./formatting` | both local `HH:MM:SS` |

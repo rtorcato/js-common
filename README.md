@@ -64,7 +64,7 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 
 ## Migrating
 
-**2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
+**2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. One helper was also renamed rather than moved: `sanitizeString` is now `stripScriptish`, because the old name promised sanitising it never did — it removes `<script>` blocks and inline `on*` handlers and nothing else. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
 
 **1.x → 2.x** — the only breaking change in 2.0 is a rename in the `errors` module:
 
@@ -252,7 +252,7 @@ pnpm run benchmark
 The full documentation site lives in [`apps/docs`](./apps/docs) and is built with [Docusaurus](https://docusaurus.io/). It auto-deploys to GitHub Pages on every push to `main` that touches `apps/docs/**`.
 
 ```bash
-# Run the docs locally (http://localhost:4321/js-common)
+# Run the docs locally (http://localhost:3000/js-common/)
 pnpm --filter @rtorcato/js-common-docs dev
 
 # Build the static site
