@@ -107,9 +107,9 @@ type Category = {
 const CATEGORIES: Category[] = [
 	{
 		name: 'Date & Time',
-		count: 4,
-		desc: 'Dates, times, intervals and timezones.',
-		chips: ['date', 'datetime', 'time', 'interval'],
+		count: 3,
+		desc: 'Dates, times and timezones.',
+		chips: ['date', 'datetime', 'time'],
 	},
 	{
 		name: 'Numbers',
@@ -131,8 +131,8 @@ const CATEGORIES: Category[] = [
 	},
 	{
 		name: 'Data Structures',
-		count: 5,
-		desc: 'Arrays, objects, maps, sets and JSON.',
+		count: 4,
+		desc: 'Arrays, objects, maps and JSON.',
 		chips: ['arrays', 'objects', 'json', 'maps'],
 	},
 	{

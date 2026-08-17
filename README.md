@@ -26,7 +26,7 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **Tree-shakeable** — import only what you need via subpath exports
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
-- **Modular** — one module per concern, 44 subpaths
+- **Modular** — one module per concern, 42 subpaths
 - **Minimal runtime deps** — only `date-fns`, `date-fns-tz`, `luxon`, `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 
 ## Installation
@@ -141,7 +141,6 @@ are frozen as of that record.
 import { today, formatDate, daysBetween, isLeapYear } from '@rtorcato/js-common/date'
 import { nowIso, formatDateTimeLocal, unixTimestamp } from '@rtorcato/js-common/datetime'
 import { nowTime, parseTime, secondsBetween } from '@rtorcato/js-common/time'
-import { runInterval, clearIntervalById } from '@rtorcato/js-common/interval'
 ```
 
 ### Numbers
@@ -173,7 +172,6 @@ import { flatten, unique, chunk, groupBy } from '@rtorcato/js-common/arrays'
 import { deepMerge, pick, omit, deepClone } from '@rtorcato/js-common/objects'
 import { safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
 import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-common/maps'
-import { union, intersection, difference, isSubset } from '@rtorcato/js-common/sets'
 ```
 
 ### Async & Control Flow

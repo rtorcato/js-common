@@ -139,10 +139,6 @@
       "import": "./dist/i18n/index.js",
       "types": "./dist/i18n/index.d.ts"
     },
-    "./interval": {
-      "import": "./dist/interval/index.js",
-      "types": "./dist/interval/index.d.ts"
-    },
     "./json": {
       "import": "./dist/json/index.js",
       "types": "./dist/json/index.d.ts"
@@ -198,10 +194,6 @@
     "./security": {
       "import": "./dist/security/index.js",
       "types": "./dist/security/index.d.ts"
-    },
-    "./sets": {
-      "import": "./dist/sets/index.js",
-      "types": "./dist/sets/index.d.ts"
     },
     "./sleep": {
       "import": "./dist/sleep/index.js",

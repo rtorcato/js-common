@@ -48,4 +48,3 @@ import { deepClone, deepMerge, isPlainObject } from '@rtorcato/js-common/objects
 - [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
 - [maps](./maps.md) — merge, invert and convert `Map`s
 - [json](./json.md) — safe parse/stringify and JSON deep clone
-- [sets](./sets.md) — union, intersection, difference, subset checks
