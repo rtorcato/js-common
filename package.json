@@ -42,7 +42,6 @@
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
     "size": "size-limit",
-    "benchmark": "node scripts/benchmark.mjs",
     "docs:generate": "node scripts/generate-module-docs.mjs",
     "sync:agents": "node scripts/sync-agents.mjs",
     "check:readme": "node scripts/check-readme-exports.mjs --check",
