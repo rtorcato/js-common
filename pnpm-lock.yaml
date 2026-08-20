@@ -163,7 +163,7 @@ importers:
         version: 1.62.1
       '@rtorcato/shared-docs':
         specifier: github:rtorcato/shared-docs
-        version: https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.18
@@ -3019,8 +3019,8 @@ packages:
       vitest:
         optional: true
 
-  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60':
-    resolution: {gitHosted: true, integrity: sha512-AmENptbpXoosikICI9c7ZPgzuhZIygdMgUIIImCA9C3gK8/hYtYKtupNSwSsertxa/rVCeK0pdw4vgAO+J+vpA==, tarball: https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60}
+  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d':
+    resolution: {gitHosted: true, integrity: sha512-SSZhfFdM+b3eTmyYfSMrAJM+/aMojHP6igyiWwPs5qTGGx79BhDbtaeQqiGJQLj9ge4ka9R81Ffn/hWhqVT1EA==, tarball: https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d}
     version: 1.2.0
     engines: {node: '>=22'}
     peerDependencies:
@@ -12174,7 +12174,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/5fb0ae8ff63da6dcc027b2931ee7df3f7a48ce60(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)

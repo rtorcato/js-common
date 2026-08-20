@@ -1,6 +1,7 @@
 import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { siblings } from '@rtorcato/shared-docs'
+import UseWithAI from '@rtorcato/shared-docs/components/UseWithAI'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import { type ReactElement, useEffect, useState } from 'react'
@@ -368,68 +369,6 @@ function Siblings(): ReactElement {
 	)
 }
 
-type AiTarget = {
-	title: string
-	desc: ReactElement
-	code: string
-}
-
-// The skills CLI works everywhere, so it leads; the other two are shortcuts for
-// the tools that have one.
-const AI_TARGETS: AiTarget[] = [
-	{
-		title: 'Any coding agent',
-		desc: <>Pull the skill into any tool the skills CLI supports.</>,
-		code: 'npx skills add https://github.com/rtorcato/js-common \\\n  --skill js-common',
-	},
-	{
-		title: 'Claude Code',
-		desc: <>The repo is its own plugin marketplace — add it, then install the skill.</>,
-		code: '/plugin marketplace add rtorcato/js-common\n/plugin install js-common@js-common',
-	},
-	{
-		title: 'Cursor, Copilot, Codex',
-		desc: (
-			<>
-				They read <code>AGENTS.md</code>. It ships in the npm tarball, so it is already in your{' '}
-				<code>node_modules</code>.
-			</>
-		),
-		code: 'node_modules/@rtorcato/js-common/AGENTS.md',
-	},
-]
-
-function UseWithAI(): ReactElement {
-	return (
-		<section className={styles.section}>
-			<div className={styles.sectionHead}>
-				<div>
-					<h2 className={styles.h2}>Use with AI</h2>
-					<p className={styles.sub}>
-						One skill teaches your coding agent the subpath-import rules, the three error idioms and
-						which modules are Node-only.
-					</p>
-				</div>
-				<Link
-					className={styles.viewAll}
-					href="https://github.com/rtorcato/js-common/blob/main/AGENTS.md"
-				>
-					Read the rules →
-				</Link>
-			</div>
-			<div className={styles.aiStack}>
-				{AI_TARGETS.map((t) => (
-					<div key={t.title} className={styles.pillar}>
-						<div className={styles.pillarTitle}>{t.title}</div>
-						<div className={styles.pillarDesc}>{t.desc}</div>
-						<pre className={styles.aiCode}>{t.code}</pre>
-					</div>
-				))}
-			</div>
-		</section>
-	)
-}
-
 export default function Home(): ReactElement {
 	return (
 		<Layout
@@ -440,7 +379,13 @@ export default function Home(): ReactElement {
 				<Hero />
 				<Pillars />
 				<Categories />
-				<UseWithAI />
+				<UseWithAI
+					repo="rtorcato/js-common"
+					plugin="js-common"
+					skill="js-common"
+					pkg="@rtorcato/js-common"
+					blurb="One skill teaches your coding agent the subpath-import rules, the three error idioms and which modules are Node-only."
+				/>
 				<Siblings />
 			</main>
 		</Layout>
