@@ -242,9 +242,6 @@ pnpm run check:fix
 
 # Type checking
 pnpm run typecheck
-
-# Run micro-benchmarks (scripts/benchmark.mjs)
-pnpm run benchmark
 ```
 
 ## Documentation site
