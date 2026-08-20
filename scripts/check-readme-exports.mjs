@@ -8,6 +8,8 @@
  *     "every helper has exactly one home" rule.
  *  3. Every `import { … } from '@rtorcato/js-common/<module>'` sample anywhere in
  *     README.md or apps/docs/docs/** names something that module really exports.
+ *  4. No two subpaths export a function with the same body — the near-duplicate
+ *     rule, which check 2 is structurally blind to because the names differ.
  *
  *   node scripts/check-readme-exports.mjs --check   # exit 1 on drift (used by CI)
  */
@@ -51,17 +53,128 @@ function collectExportNames(file, names = new Set(), seen = new Set()) {
 	return names
 }
 
+/* ---------- check 4: near-duplicate bodies ---------- */
+
+const FUNCTION_START = /^export\s+(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*(?:<[^>]*>)?\s*\(/gm
+const TOP_LEVEL_EXPORT = /^export\s/gm
+// Below this, a body is a `return x` shape that recurs honestly — matching on it
+// is noise, not a finding.
+const MIN_BODY_LENGTH = 12
+
+/** Index just past the `)` that closes the `(` at `open`. */
+function endOfParams(src, open) {
+	let depth = 0
+	for (let i = open; i < src.length; i++) {
+		if (src[i] === '(') depth++
+		else if (src[i] === ')' && --depth === 0) return i + 1
+	}
+	return -1
+}
+
+/** Split on commas that are not inside brackets — `(a: Foo<A, B>, b)` is two params. */
+export function splitParams(params) {
+	const parts = []
+	let depth = 0
+	let start = 0
+	for (let i = 0; i < params.length; i++) {
+		const c = params[i]
+		if ('([{<'.includes(c)) depth++
+		else if (')]}>'.includes(c)) depth--
+		else if (c === ',' && depth === 0) {
+			parts.push(params.slice(start, i))
+			start = i + 1
+		}
+	}
+	parts.push(params.slice(start))
+	return parts.map((p) => p.trim()).filter(Boolean)
+}
+
+/**
+ * Reduce a body to a form that compares equal across two honest copies of the
+ * same function. Parameter names are substituted positionally, because the only
+ * difference between `emails.isValidEmail(email)` and `validation.isEmail(str)`
+ * is what the argument is called — see #239.
+ */
+export function normaliseBody(body, params) {
+	let out = body
+		.replace(/\/\*[\s\S]*?\*\//g, ' ')
+		.replace(/\/\/[^\n]*/g, ' ')
+		// Drop the return-type annotation and opening brace the slice starts with,
+		// then the closing brace it ends with.
+		.replace(/^[^{]*\{/, '')
+		.replace(/\}\s*$/, '')
+
+	splitParams(params).forEach((param, i) => {
+		// `str: string`, `length = 16`, `...rest: T[]` -> `str`, `length`, `rest`.
+		// A destructured param has no single name to rename, so leave it verbatim.
+		const name = param
+			.split(/[:=]/)[0]
+			.trim()
+			.replace(/^\.\.\./, '')
+		if (/^[A-Za-z_$][\w$]*$/.test(name)) {
+			out = out.replace(new RegExp(`\\b${name}\\b`, 'g'), `_p${i}`)
+		}
+	})
+
+	return out.replace(/\s+/g, ' ').trim()
+}
+
+/**
+ * Bodies of the `export function`s declared directly in `file`.
+ *
+ * Deliberately does not follow re-exports the way collectExportNames does: a
+ * near-duplicate has to be read and judged by a human anyway, and every pair
+ * found so far lives in an `index.ts`. Widening it is cheap if one ever hides
+ * behind a re-export.
+ */
+function collectExportBodies(file) {
+	const bodies = new Map()
+	if (!existsSync(file)) return bodies
+	const src = readFileSync(file, 'utf8')
+
+	for (const m of src.matchAll(FUNCTION_START)) {
+		const open = m.index + m[0].length - 1
+		const close = endOfParams(src, open)
+		if (close === -1) continue
+
+		// The declaration runs to the next top-level `export`, or to EOF.
+		TOP_LEVEL_EXPORT.lastIndex = close
+		const next = TOP_LEVEL_EXPORT.exec(src)
+		const body = normaliseBody(
+			src.slice(close, next ? next.index : src.length),
+			src.slice(open + 1, close - 1)
+		)
+
+		if (body.length >= MIN_BODY_LENGTH) bodies.set(m[1], body)
+	}
+	return bodies
+}
+
+/**
+ * Pairs that are known duplicates and cannot be fixed without a major version,
+ * since the freeze means resolving one deletes an export — tracked in #239.
+ * Listed as sorted `sub.name` pairs. Delete a line as its pair is resolved; do
+ * not add one without an issue saying why the duplicate is allowed to stand.
+ */
+const ACCEPTED_DUPLICATES = new Set([
+	'emails.isValidEmail|validation.isEmail',
+	'os.getOsPlatform|process.getProcessPlatform',
+	'url.isValidUrl|validation.isUrl',
+	// Same body, different defaults (16 vs 32 bytes), so the two are not
+	// interchangeable at their defaults — which is what makes it worth an issue.
+	'crypto.randomHex|security.generateSecureToken',
+])
+
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
 const subpaths = Object.keys(pkg.exports)
 	.filter((k) => k !== '.')
 	.map((k) => k.replace(/^\.\//, ''))
 
+const errors = []
+
 const readme = readFileSync(join(root, 'README.md'), 'utf8')
 const start = readme.indexOf('## Available Modules')
-if (start === -1) {
-	console.error('README.md has no "## Available Modules" section.')
-	process.exit(1)
-}
+if (start === -1) errors.push('README.md has no "## Available Modules" section.')
 const rest = readme.slice(start + 1)
 const end = rest.indexOf('\n## ')
 const section = end === -1 ? rest : rest.slice(0, end)
@@ -70,8 +183,6 @@ const section = end === -1 ? rest : rest.slice(0, end)
 const imported = [...section.matchAll(/@rtorcato\/js-common\/([\w-]+)/g)].map((m) => m[1])
 const bulleted = [...section.matchAll(/^- `([\w-]+)`/gm)].map((m) => m[1])
 const mentioned = new Set([...imported, ...bulleted])
-
-const errors = []
 
 // 1. The README lists every subpath and nothing that is not one.
 for (const sub of subpaths) {
@@ -173,13 +284,36 @@ for (const file of docFiles) {
 	}
 }
 
-if (errors.length) {
-	console.error('Module boundary check failed:')
-	for (const e of errors) console.error(`  - ${e}`)
-	process.exit(1)
+// 4. Near-duplicates: same body, different names, different subpaths.
+const byBody = new Map()
+for (const sub of subpaths) {
+	for (const [name, body] of collectExportBodies(join(root, 'src', sub, 'index.ts'))) {
+		if (!byBody.has(body)) byBody.set(body, [])
+		byBody.get(body).push(`${sub}.${name}`)
+	}
 }
-console.log(
-	`README covers all ${subpaths.length} exported modules; ` +
-		`${homes.size} export names each have one home; ` +
-		`import samples in ${docFiles.length} files resolve.`
-)
+let accepted = 0
+for (const owners of byBody.values()) {
+	if (owners.length < 2) continue
+	const key = [...owners].sort().join('|')
+	if (ACCEPTED_DUPLICATES.has(key)) {
+		accepted++
+		continue
+	}
+	errors.push(`${owners.join(' and ')} have the same body — one of them is a near-duplicate`)
+}
+
+// Importable for tests; only the CLI invocation reports and sets the exit code.
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+	if (errors.length) {
+		console.error('Module boundary check failed:')
+		for (const e of errors) console.error(`  - ${e}`)
+		process.exit(1)
+	}
+	console.log(
+		`README covers all ${subpaths.length} exported modules; ` +
+			`${homes.size} export names each have one home; ` +
+			`import samples in ${docFiles.length} files resolve; ` +
+			`no unlisted duplicate bodies (${accepted} accepted, see #239).`
+	)
+}
