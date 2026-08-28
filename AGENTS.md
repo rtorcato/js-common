@@ -44,7 +44,7 @@
 
    `tryCatch` in `errors` was renamed to `tryWithFallback` in 2.0; `tryCatch` now means the Result helper in `try`.
 
-4. **Node-only modules.** `crypto`, `security`, and `file` import `node:crypto` / `node:fs`; `logger` uses pino. Don't ship these to a browser bundle. `events` is the opposite — it wraps DOM `EventTarget` and is browser-only. `os`, `process`, `node`, and `system` probe for `process` / `window` and degrade rather than throw.
+4. **Node-only modules.** `crypto`, `security`, and `file` import `node:crypto` / `node:fs`; `logger` uses pino. Don't ship these to a browser bundle. `events` is the opposite — it wraps DOM `EventTarget` and is browser-only. `os`, `process`, `node`, `system`, and `i18n` probe for `process` / `window` / `navigator` and degrade rather than throw. `src/runtime-boundaries.test.ts` enforces this paragraph.
 
 5. **`./types` is types-only.** It has a `types` field and no `import` field on purpose — use it for `import type { Prettify, Merge } from '@rtorcato/js-common/types'` only.
 
