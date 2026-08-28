@@ -62,6 +62,35 @@ function firstSentence(jsdoc) {
 	return escapeForMarkdownTable((match ? match[1] : cleaned).trim() || '')
 }
 
+export const DEPRECATED_PREFIX = '**Deprecated.**'
+
+/**
+ * Summary cell for one export: the first sentence of the description, prefixed
+ * with the first sentence of any `@deprecated` tag so the table never reads as
+ * a recommendation. The replacement comes from the tag text, not from a list
+ * kept in sync by hand.
+ */
+export function summarize(jsdoc) {
+	// Strip the leading ` * ` first, so a block tag actually starts its line.
+	const body = jsdoc
+		.split('\n')
+		.map((l) => l.replace(/^\s*\*\s?/, ''))
+		.join('\n')
+	// Split on block tags rather than matching one lazily: with the `m` flag a
+	// lazy `[\s\S]*?` stops at the first line end, truncating a wrapped tag.
+	const [description, ...tags] = body.split(/^@(?=\w)/m)
+	const deprecated = tags.find((t) => t.startsWith('deprecated'))
+	const summary = firstSentence(description)
+	if (deprecated === undefined) return summary
+	// Keep the pointer, drop the rationale: the convention in `src/` is
+	// `@deprecated Use <replacement> — <why>`, and only the pointer earns a place
+	// in a summary cell.
+	const note = firstSentence(deprecated.slice('deprecated'.length)).split(' — ')[0]
+	return [DEPRECATED_PREFIX, note && `${note.replace(/\.$/, '')}.`, summary]
+		.filter(Boolean)
+		.join(' ')
+}
+
 function collectFromFile(filePath, summaries, seen = new Set()) {
 	if (seen.has(filePath) || !existsSync(filePath)) return
 	seen.add(filePath)
@@ -70,7 +99,7 @@ function collectFromFile(filePath, summaries, seen = new Set()) {
 	for (const m of src.matchAll(JSDOC_BLOCK)) {
 		const name = m[2]
 		if (name && !summaries.has(name)) {
-			summaries.set(name, firstSentence(m[1]))
+			summaries.set(name, summarize(m[1]))
 		}
 	}
 	for (const m of src.matchAll(EXPORT_NAMED)) {
@@ -118,7 +147,11 @@ export function spliceGeneratedBlock(existing, block) {
 
 export function buildBlock(sub, summaries) {
 	const exportNames = [...summaries.keys()].sort()
-	const exampleImports = exportNames.slice(0, 3).join(', ') || '/* utilities */'
+	// Never open the page with a deprecated name; fall back to the full list on
+	// the (hypothetical) module where everything is deprecated.
+	const importable = exportNames.filter((n) => !summaries.get(n)?.startsWith(DEPRECATED_PREFIX))
+	const exampleImports =
+		(importable.length ? importable : exportNames).slice(0, 3).join(', ') || '/* utilities */'
 	const tableRows = exportNames.length
 		? exportNames.map((name) => `| \`${name}\` | ${summaries.get(name) || '—'} |`).join('\n')
 		: '| _no exports detected_ | _add docs here_ |'

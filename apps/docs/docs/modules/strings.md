@@ -20,4 +20,4 @@ pluralize('item', 5)                // "items"
 - [i18n](./i18n.md) — locale-aware number/date formatting and translation
 - [regex](./regex.md) — escape patterns, match-all, split by regex
 - [html](./html.md) — escape, unescape and strip HTML
-- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isDefined`

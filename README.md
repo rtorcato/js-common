@@ -189,9 +189,9 @@ import { createCustomError, getErrorMessage, assert } from '@rtorcato/js-common/
 ### System & Process
 ```typescript
 import { getENV, isDev, isProd, getNodeEnv, checkEnv } from '@rtorcato/js-common/env'
-import { getOsPlatform, getOsArch, getHomeDir } from '@rtorcato/js-common/os'
+import { getOsArch, getOsRelease, getHomeDir } from '@rtorcato/js-common/os'
 import { getNodeMajorVersion, isNode, requireOptional } from '@rtorcato/js-common/node'
-import { getProcessId, getCwd, exitProcess, isCI } from '@rtorcato/js-common/process'
+import { getProcessPlatform, getCwd, exitProcess, isCI } from '@rtorcato/js-common/process'
 import { isMacOs, isWindows, isLinux, getPlatform } from '@rtorcato/js-common/system'
 import { disableConsole, clearConsole } from '@rtorcato/js-common/console'
 ```

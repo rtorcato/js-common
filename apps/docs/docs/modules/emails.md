@@ -45,7 +45,7 @@ import { getEmailDomain, isFreeEmailProvider, isValidEmail } from '@rtorcato/js-
 
 ## See also
 
-- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isDefined`
 - [security](./security.md) — password strength, secure tokens, sanitizing
 - [url](./url.md) — parse, validate and edit URLs and query params
 - [strings](./strings.md) — slugify, truncate, casing, emoji stripping
