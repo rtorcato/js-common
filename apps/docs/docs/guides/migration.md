@@ -4,6 +4,8 @@ description: Upgrading from 1.x to 2.x, from 2.x to 3.x, and from 3.x to 4.x.
 sidebar_position: 3
 ---
 
+<!-- boundary-check: ignore — every table below names the API being migrated away from -->
+
 ## 3.x → 4.x — what the platform already does
 
 4.0 removes wrappers whose replacement is the runtime itself, not another module

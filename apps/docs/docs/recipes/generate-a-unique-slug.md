@@ -98,6 +98,6 @@ const slug = `${slugify(title)}-${token}` // "hello-world-a7f3k2"
 ## See also
 
 - [strings](../modules/strings.md) — slugify, truncate, casing, emoji stripping
-- [arrays](../modules/arrays.md) — chunk, unique, groupBy and other array helpers
+- [arrays](../modules/arrays.md) — chunk, unique, compact and other array helpers
 - [random](../modules/random.md) — random ints, floats, strings and array picks
 - [url](../modules/url.md) — parse, validate and edit URLs and query params

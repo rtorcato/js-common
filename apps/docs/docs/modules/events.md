@@ -43,4 +43,4 @@ import { emit, on, onceEvent } from '@rtorcato/js-common/events'
 
 - [abortController](./abortController.md) — cancel in-flight work with an `AbortSignal`
 - [functions](./functions.md) — debounce, throttle, `once` (memoise a call), compose
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers

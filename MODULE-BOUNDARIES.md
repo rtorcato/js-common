@@ -193,7 +193,7 @@ stays ordinary work — but it inherits the rule at the top: check that the name
 not already exported somewhere else first.
 
 `scripts/check-readme-exports.mjs` enforces that in CI so it does not rest on
-reviewer vigilance. It fails the build on three things:
+reviewer vigilance. It fails the build on five things:
 
 1. A `package.json#exports` subpath missing from the README's
    `## Available Modules` section, or a module listed there that is not exported.
@@ -202,8 +202,16 @@ reviewer vigilance. It fails the build on three things:
 3. An `import { … } from '@rtorcato/js-common/<module>'` sample anywhere in
    `README.md` or `apps/docs/docs/**` naming something that module does not
    export.
+4. Two subpaths exporting a function with the same body — the near-duplicate
+   rule, which check 2 is blind to because the names differ.
+5. A markdown table row that names a subpath and then lists a backticked name
+   that subpath does not export. Summary tables carry no import sample, so
+   check 3 never sees them — that is how five removed exports outlived 4.0
+   (#243). Generated blocks are exempt; they are rewritten from the source.
 
 Docs that quote a removed API on purpose — the "before" half of a migration
 snippet — opt out by putting `boundary-check: ignore` inside the fenced block.
-Use it only for code that is *meant* to be historical; it is not a way to park a
-broken example.
+For check 5 the opt-out is an `<!-- boundary-check: ignore -->` comment anywhere
+in the file, which exempts the whole file: a migration guide is tables of removed
+names top to bottom. Use either only for content that is *meant* to be
+historical; neither is a way to park a broken example.

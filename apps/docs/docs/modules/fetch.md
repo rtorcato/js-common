@@ -42,7 +42,7 @@ import { fetchText, fetchWithTimeout, getJson } from '@rtorcato/js-common/fetch'
 
 ## See also
 
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers
 - [abortController](./abortController.md) — cancel in-flight work with an `AbortSignal`
 - [json](./json.md) — safe parse/stringify and JSON deep clone
 - [url](./url.md) — parse, validate and edit URLs and query params

@@ -41,6 +41,6 @@ import { invertMap, mapToObject, mapValues } from '@rtorcato/js-common/maps'
 
 ## See also
 
-- [objects](./objects.md) — pick, omit, deepMerge, deepClone
-- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [objects](./objects.md) — pick, omit, deepMerge and other object helpers
+- [arrays](./arrays.md) — chunk, unique, compact and other array helpers
 - [json](./json.md) — safe parse/stringify and JSON deep clone

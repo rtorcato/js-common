@@ -38,7 +38,7 @@ import { isValidJson, safeJsonParse, safeJsonStringify } from '@rtorcato/js-comm
 
 ## See also
 
-- [objects](./objects.md) — pick, omit, deepMerge, deepClone
+- [objects](./objects.md) — pick, omit, deepMerge and other object helpers
 - [fetch](./fetch.md) — JSON helpers and fetch with a timeout
 - [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
-- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [arrays](./arrays.md) — chunk, unique, compact and other array helpers

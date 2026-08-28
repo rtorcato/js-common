@@ -43,6 +43,6 @@ import { randomBool, randomElement, randomFloat } from '@rtorcato/js-common/rand
 ## See also
 
 - [numbers](./numbers.md) — sum, average, clamp, roundTo
-- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [arrays](./arrays.md) — chunk, unique, compact and other array helpers
 - [uuid](./uuid.md) — generate and validate UUIDs
 - [crypto](./crypto.md) — hashing, HMAC, base64, random hex
