@@ -181,6 +181,44 @@ reason an audit was worth doing at all.
 | `time.pad2` | `formatting.padZero` | `strings.padStart` covers the general case |
 | `datetime.formatDateTimeLocal` | `formatting.formatDateTime` | identical output |
 
+## Near-duplicates collapsed, not removed
+
+The four pairs that outlived the 3.0 audit ([#239](https://github.com/rtorcato/js-common/issues/239)).
+Removing an export needs a major, and a major spent only on deleting aliases costs
+every consumer a version bump for nothing they asked for. So three of the four were
+**collapsed instead**: the loser keeps its name and delegates to the winner, marked
+`@deprecated` with the replacement named.
+
+| Winner | Delegating alias | Why this owner |
+|---|---|---|
+| `emails.isValidEmail` | `validation.isEmail` | `./emails` is the subject-matter home, as `pluralize` went to `./strings` over `./i18n` |
+| `url.isValidUrl` | `validation.isUrl` | `./url` owns it, same reasoning |
+| `process.getProcessPlatform` | `os.getOsPlatform` | follows the `getProcessUptime` precedent above — guarded `process` access belongs to `./process` |
+
+This is non-breaking, so it ships as an ordinary release: one implementation, one
+place to fix a bug, and the editor strikes the alias through at the call site so
+callers migrate on their own schedule. **Deleting the three aliases is still the end
+state** — it just rides along with whatever major happens next for a real reason,
+rather than forcing one.
+
+The build hoists a delegated body into a shared chunk rather than copying it, so an
+alias costs nothing at consumer bundle size: `validation` and `emails` share
+`chunk-BTQDSDRX`, `os` and `process` share `chunk-HFYUD75W`.
+
+**One pair is deliberately left alone.** `crypto.randomHex` (default 16 bytes) and
+`security.generateSecureToken` (default 32) have identical bodies but different
+defaults, so delegating either direction silently halves or doubles the token length
+its callers get. It stays on the `ACCEPTED_DUPLICATES` allowlist in
+`scripts/check-readme-exports.mjs` until someone picks a winner *and* accepts that
+behaviour change — a judgement call, not a mechanical one.
+
+Why collapse rather than leave them duplicated: check 4 fires on *identical* bodies,
+so it never protected these. The moment someone "simplified" one copy the bodies
+would diverge and the check would go **quiet** — which is precisely how the email
+pair's ReDoS rationale (domain parts exclude `.` so the match stays linear on
+`'a@!.!.!.!.'`, CodeQL `js/polynomial-redos`) could have been lost from one copy
+without anything failing.
+
 ## What this freezes
 
 Once this record lands, **module paths and export names are frozen**. Moving a

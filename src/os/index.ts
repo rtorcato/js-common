@@ -1,3 +1,5 @@
+import { getProcessPlatform } from '../process'
+
 /**
  * Returns the current operating system platform (Node.js only).
  *
@@ -6,11 +8,13 @@
  * getOsPlatform() // 'darwin' on macOS, 'win32' on Windows, undefined in a browser
  * ```
  *
+ * @deprecated Use `getProcessPlatform` from `@rtorcato/js-common/process` — the same
+ * guarded `process` access, following the `getProcessUptime` precedent in
+ * MODULE-BOUNDARIES.md. Kept as a delegating alias; see #239.
  * @returns {string | undefined} The platform (e.g., 'darwin', 'win32', 'linux').
  */
 export function getOsPlatform(): string | undefined {
-	if (typeof process !== 'undefined' && process.platform) return process.platform
-	return undefined
+	return getProcessPlatform()
 }
 
 /**

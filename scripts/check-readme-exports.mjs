@@ -160,11 +160,10 @@ function collectExportBodies(file) {
  * not add one without an issue saying why the duplicate is allowed to stand.
  */
 const ACCEPTED_DUPLICATES = new Set([
-	'emails.isValidEmail|validation.isEmail',
-	'os.getOsPlatform|process.getProcessPlatform',
-	'url.isValidUrl|validation.isUrl',
 	// Same body, different defaults (16 vs 32 bytes), so the two are not
 	// interchangeable at their defaults — which is what makes it worth an issue.
+	// The only pair delegation cannot collapse: routing one to the other would
+	// silently change the token length its callers get.
 	'crypto.randomHex|security.generateSecureToken',
 ])
 
