@@ -46,6 +46,6 @@ import { assert, createCustomError, getErrorMessage } from '@rtorcato/js-common/
 ## See also
 
 - [try](./try.md) — `Result` tuples instead of thrown exceptions
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers
 - [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
 - [logging](./logging.md) — leveled logging and console capture

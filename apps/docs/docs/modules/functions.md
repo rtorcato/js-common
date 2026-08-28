@@ -41,7 +41,7 @@ import { compose, debounce, once } from '@rtorcato/js-common/functions'
 
 ## See also
 
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers
 - [sleep](./sleep.md) — await a fixed or random delay
 - [events](./events.md) — add, remove and await events
 - [abortController](./abortController.md) — cancel in-flight work with an `AbortSignal`

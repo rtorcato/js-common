@@ -41,6 +41,6 @@ import { chunk, compact, shuffle } from '@rtorcato/js-common/arrays'
 
 ## See also
 
-- [objects](./objects.md) — pick, omit, deepMerge, deepClone
+- [objects](./objects.md) — pick, omit, deepMerge and other object helpers
 - [maps](./maps.md) — merge, invert and convert `Map`s
 - [random](./random.md) — random ints, floats, strings and array picks

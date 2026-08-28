@@ -46,5 +46,5 @@ import { Failure, Result, Success } from '@rtorcato/js-common/try'
 ## See also
 
 - [errors](./errors.md) — assert, custom errors, message extraction
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers
 - [abortController](./abortController.md) — cancel in-flight work with an `AbortSignal`

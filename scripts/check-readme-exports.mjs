@@ -10,6 +10,9 @@
  *     README.md or apps/docs/docs/** names something that module really exports.
  *  4. No two subpaths export a function with the same body — the near-duplicate
  *     rule, which check 2 is structurally blind to because the names differ.
+ *  5. Every backticked name listed on a prose line that also names a subpath is
+ *     really exported by it — the summary tables and "see also" bullets that
+ *     check 3 is blind to because they carry no import sample.
  *
  *   node scripts/check-readme-exports.mjs --check   # exit 1 on drift (used by CI)
  */
@@ -260,9 +263,65 @@ function stripIgnoredBlocks(text) {
 	return kept.join('\n')
 }
 
+/**
+ * Check 5. A "highlights" table row advertises exports as bare backticked names
+ * with no import statement, so check 3 never sees them — that is how #243's five
+ * phantom exports survived the 4.0 purge.
+ *
+ * Scope is deliberately narrow: markdown table rows only. A row is checked when it
+ * names at least one subpath, as a `@rtorcato/js-common/<mod>` specifier or as a
+ * backticked bare subpath name; every other identifier-shaped backticked token in
+ * that row must then be exported by one of them. Widening this to prose lines was
+ * tried and drowned in false positives — a bullet's `NODE_ENV` beside a link to
+ * ./env is not a claim about exports.
+ *
+ * Generated blocks are skipped: `pnpm docs:generate` writes them from the source,
+ * so they cannot drift, and their description cells are prose full of backticks.
+ *
+ * Opt out per file with an `<!-- boundary-check: ignore -->` comment: a migration
+ * guide names removed exports on purpose. That is deliberately a different marker
+ * from the in-fence one, so a fenced opt-out cannot silently disable this check.
+ */
+export function proseClaimErrors(text, subpaths, exportsBySubpath) {
+	if (text.includes('<!-- boundary-check: ignore')) return []
+	const errs = []
+	let inFence = false
+	let inGenerated = false
+
+	for (const line of text.split('\n')) {
+		if (line.startsWith('```')) inFence = !inFence
+		if (line.startsWith('<!-- generated:')) inGenerated = true
+		else if (line.startsWith('<!-- /generated:')) inGenerated = false
+		// Check 3 owns import samples; re-flagging them here would only duplicate.
+		if (inFence || inGenerated || !line.startsWith('|') || line.includes('import')) continue
+
+		const backticked = [...line.matchAll(/`([^`]+)`/g)].map((m) => m[1].trim())
+		const subs = new Set(backticked.filter((t) => subpaths.includes(t)))
+		for (const m of line.matchAll(/@rtorcato\/js-common\/([\w-]+)/g)) subs.add(m[1])
+		if (!subs.size) continue
+
+		const available = new Set()
+		for (const sub of subs) for (const name of exportsBySubpath.get(sub) ?? []) available.add(name)
+		// Only ./types resolves to nothing (declaration-only) — nothing to check against.
+		if (!available.size) continue
+
+		for (const token of backticked) {
+			if (!/^[A-Za-z_$][\w$]*$/.test(token)) continue
+			if (subs.has(token) || available.has(token)) continue
+			errs.push(
+				`\`${token}\` is listed beside ${[...subs].map((s) => `./${s}`).join(', ')}, ` +
+					'which do not export it'
+			)
+		}
+	}
+	return errs
+}
+
 for (const file of docFiles) {
 	const where = relative(root, file)
-	const text = stripIgnoredBlocks(readFileSync(file, 'utf8'))
+	const raw = readFileSync(file, 'utf8')
+	const text = stripIgnoredBlocks(raw)
+	for (const e of proseClaimErrors(raw, subpaths, exportsBySubpath)) errors.push(`${where}: ${e}`)
 	for (const m of text.matchAll(IMPORT_EXAMPLE)) {
 		const sub = m[2]
 		const available = exportsBySubpath.get(sub)

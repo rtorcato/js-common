@@ -1,5 +1,38 @@
 import { describe, expect, it } from 'vitest'
-import { normaliseBody, splitParams } from './check-readme-exports.mjs'
+import { normaliseBody, proseClaimErrors, splitParams } from './check-readme-exports.mjs'
+
+describe('proseClaimErrors', () => {
+	const subpaths = ['arrays', 'objects']
+	const exportsBySubpath = new Map([
+		['arrays', new Set(['unique', 'chunk'])],
+		['objects', new Set(['pick'])],
+	])
+	const check = (text) => proseClaimErrors(text, subpaths, exportsBySubpath)
+
+	// #243: a removed export left in a summary table carried no import sample, so
+	// nothing caught it until the reader hit a SyntaxError.
+	it('flags a name the row’s subpath does not export', () => {
+		expect(check('| Arrays | `@rtorcato/js-common/arrays` | `unique`, `groupBy` |')).toEqual([
+			'`groupBy` is listed beside ./arrays, which do not export it',
+		])
+	})
+
+	it('accepts a name from any subpath the row names', () => {
+		expect(check('| Collections | `arrays`, `objects` | `chunk`, `pick` |')).toEqual([])
+	})
+
+	it('ignores prose, fenced code and generated blocks', () => {
+		expect(check('See [arrays](./arrays.md) for `groupBy`.')).toEqual([])
+		expect(check('```ts\n| `arrays` | `groupBy` |\n```')).toEqual([])
+		expect(
+			check('<!-- generated:exports -->\n| `arrays` | `groupBy` |\n<!-- /generated:exports -->')
+		).toEqual([])
+	})
+
+	it('honours the per-file opt-out a migration guide needs', () => {
+		expect(check('<!-- boundary-check: ignore -->\n| Was | `arrays` | `groupBy` |')).toEqual([])
+	})
+})
 
 describe('splitParams', () => {
 	it('splits on top-level commas only', () => {

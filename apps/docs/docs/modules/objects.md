@@ -45,6 +45,6 @@ import { deepMerge, isPlainObject, omit } from '@rtorcato/js-common/objects'
 
 ## See also
 
-- [arrays](./arrays.md) — chunk, unique, groupBy and other array helpers
+- [arrays](./arrays.md) — chunk, unique, compact and other array helpers
 - [maps](./maps.md) — merge, invert and convert `Map`s
 - [json](./json.md) — safe parse/stringify and JSON deep clone

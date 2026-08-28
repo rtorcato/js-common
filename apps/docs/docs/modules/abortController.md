@@ -47,7 +47,7 @@ import { abortAfter, abortPromise, createAbortController } from '@rtorcato/js-co
 
 ## See also
 
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers
 - [sleep](./sleep.md) — await a fixed or random delay
 - [fetch](./fetch.md) — JSON helpers and fetch with a timeout
 - [try](./try.md) — `Result` tuples instead of thrown exceptions

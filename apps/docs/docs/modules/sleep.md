@@ -41,6 +41,6 @@ import { sleep, sleepRandom, sleepSync } from '@rtorcato/js-common/sleep'
 
 ## See also
 
-- [promises](./promises.md) — delay, timeout and settle helpers
+- [promises](./promises.md) — timeout and error-tuple helpers
 - [functions](./functions.md) — debounce, throttle, once, compose
 - [abortController](./abortController.md) — cancel in-flight work with an `AbortSignal`
