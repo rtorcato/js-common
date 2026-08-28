@@ -42,5 +42,5 @@ import { escapeRegExp, matchAll, replaceAllRegex } from '@rtorcato/js-common/reg
 
 - [strings](./strings.md) — slugify, truncate, casing, emoji stripping
 - [html](./html.md) — escape, unescape and strip HTML
-- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isDefined`
 - [strings](./strings.md) — slugify, truncate, casing, emoji stripping

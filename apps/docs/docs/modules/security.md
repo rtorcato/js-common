@@ -39,5 +39,5 @@ import { generateSecureToken, isStrongPassword, stripScriptish } from '@rtorcato
 
 - [emails](./emails.md) — validate, normalize and mask email addresses
 - [url](./url.md) — parse, validate and edit URLs and query params
-- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isDefined`
 - [crypto](./crypto.md) — hashing, HMAC, base64, random hex

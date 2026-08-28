@@ -45,7 +45,7 @@ import { getHostname, getQueryParams, isValidUrl } from '@rtorcato/js-common/url
 
 ## See also
 
-- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isUrl`
+- [validation](./validation.md) — type guards — `isString`, `isNumber`, `isDefined`
 - [security](./security.md) — password strength, secure tokens, sanitizing
 - [emails](./emails.md) — validate, normalize and mask email addresses
 - [fetch](./fetch.md) — JSON helpers and fetch with a timeout
