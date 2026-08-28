@@ -3,7 +3,7 @@ title: Url
 description: Utilities exported from @rtorcato/js-common/url.
 ---
 
-URL parsing and query-string editing built on the platform `URL` — hostname, params, joining segments, setting and removing query parameters. Delegating to `URL` means percent-encoding, internationalised domains and relative resolution are the platform's problem rather than a regex's; `isValidUrl` is literally an attempted `new URL()`. `joinUrl` is the exception — plain string joining with slash normalisation, for assembling a path before you have a base.
+URL parsing and query-string editing built on the platform `URL` — hostname, params, joining segments, setting and removing query parameters. Delegating to `URL` means percent-encoding, internationalised domains and relative resolution are the platform's problem rather than a regex's; `isValidUrl` is literally `URL.canParse()`. `joinUrl` is the exception — plain string joining with slash normalisation, for assembling a path before you have a base.
 
 ## Example
 
