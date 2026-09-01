@@ -261,11 +261,11 @@
   "dependencies": {
     "pino": "^10.1.0",
     "short-uuid": "^6.0.3",
-    "uuid": "^14.0.1",
+    "uuid": "^14.0.2",
     "zod": "^4.1.12"
   },
   "optionalDependencies": {
-    "@inquirer/prompts": "^8.5.0",
+    "@inquirer/prompts": "^8.6.0",
     "chalk": "^6.0.0",
     "chalk-animation": "^2.0.3",
     "commander": "^15.0.0",
