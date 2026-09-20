@@ -44,7 +44,9 @@ export interface FormatPercentOptions {
 	fractionDigits?: number
 	/**
 	 * Force a leading `+` on positive values (e.g. `+2.14%`). Zero is never signed,
-	 * regardless of this option, since `+0%` / `-0%` reads as noise. Default: false.
+	 * regardless of this option, since `+0%` / `-0%` reads as noise — this is decided
+	 * by the rounded, displayed value, so a value that rounds to zero at the given
+	 * `fractionDigits` is unsigned too. Default: false.
 	 */
 	signed?: boolean
 }
@@ -62,6 +64,7 @@ export interface FormatPercentOptions {
  * formatPercent(0.0214, { fractionDigits: 2, signed: true }) // '+2.14%'
  * formatPercent(-0.0088, { fractionDigits: 2, signed: true }) // '-0.88%'
  * formatPercent(0, { signed: true }) // '0%' (zero is never signed)
+ * formatPercent(0.00001, { fractionDigits: 2, signed: true }) // '0.00%' (rounds to zero)
  * ```
  *
  * @param value The value to format, as a fraction (e.g. 0.25 for 25%).
@@ -78,8 +81,12 @@ export function formatPercent(
 			: (fractionDigitsOrOptions ?? {})
 
 	const formatted = (value * 100).toFixed(fractionDigits)
-	const sign = signed && value > 0 ? '+' : ''
-	return `${sign}${formatted}%`
+	if (!signed) return `${formatted}%`
+	// The sign follows what is displayed, not the raw value: a tiny value that
+	// rounds away to zero is unsigned, so no '+0.00%' or '-0.00%'.
+	const rounded = Number(formatted)
+	if (rounded === 0) return `${formatted.replace('-', '')}%`
+	return `${rounded > 0 ? '+' : ''}${formatted}%`
 }
 
 /**

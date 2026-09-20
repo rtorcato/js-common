@@ -34,6 +34,10 @@ describe('formatPercent', () => {
 		expect(formatPercent(0, { signed: true })).toBe('0%')
 		expect(formatPercent(-0, { signed: true })).toBe('0%')
 	})
+	it('never signs values that round to zero at the given precision', () => {
+		expect(formatPercent(0.00001, { fractionDigits: 2, signed: true })).toBe('0.00%')
+		expect(formatPercent(-0.00001, { fractionDigits: 2, signed: true })).toBe('0.00%')
+	})
 	it('is unsigned by default', () => {
 		expect(formatPercent(0.0214, { fractionDigits: 2 })).toBe('2.14%')
 	})
