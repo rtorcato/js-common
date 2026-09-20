@@ -1,6 +1,6 @@
 import * as fc from 'fast-check'
 import { describe, expect, it } from 'vitest'
-import { chunk, unique } from './index'
+import { chunk, partition, sortBy, unique } from './index'
 
 describe('arrays — properties', () => {
 	it('unique is idempotent', () => {
@@ -25,6 +25,28 @@ describe('arrays — properties', () => {
 		fc.assert(
 			fc.property(fc.array(fc.integer()), fc.integer({ min: 1, max: 50 }), (arr, size) => {
 				expect(chunk(arr, size).flat()).toEqual(arr)
+			})
+		)
+	})
+
+	it('partition halves recombine to the original length', () => {
+		fc.assert(
+			fc.property(fc.array(fc.integer()), (arr) => {
+				const [pass, fail] = partition(arr, (n) => n % 2 === 0)
+				expect(pass.length + fail.length).toBe(arr.length)
+				expect(pass.every((n) => n % 2 === 0)).toBe(true)
+				expect(fail.every((n) => n % 2 !== 0)).toBe(true)
+			})
+		)
+	})
+
+	it('sortBy is a permutation in non-decreasing key order', () => {
+		fc.assert(
+			fc.property(fc.array(fc.integer()), (arr) => {
+				const sorted = sortBy(arr, (n) => n)
+				expect(sorted.length).toBe(arr.length)
+				expect([...sorted].sort((a, b) => a - b)).toEqual(sorted)
+				expect(unique(sorted).sort((a, b) => a - b)).toEqual(unique(arr).sort((a, b) => a - b))
 			})
 		)
 	})

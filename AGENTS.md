@@ -57,7 +57,7 @@ Import from `@rtorcato/js-common/<module>`.
 | Module | Exports |
 |---|---|
 | abortController | createAbortController, abortPromise, withAbort, abortAfter |
-| arrays | unique, chunk, compact, shuffle |
+| arrays | unique, chunk, compact, shuffle, partition, sortBy, zip |
 | boolean | toBoolean |
 | colors | randomColor, matchingTextColor, hexToRgb, rgbToHex, isValidHex, darken, lighten |
 | console | disableConsole, clearConsole |
