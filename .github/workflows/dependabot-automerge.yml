@@ -17,10 +17,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto-merge patch and minor updates
+      # Dev-only gate: this package is public and 11 runtime deps reach consumers,
+      # so a production bump must never land unattended (#255).
+      - name: Auto-merge dev-dependency patch and minor updates
         if: |
+          steps.metadata.outputs.dependency-type == 'direct:development' && (
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
-          steps.metadata.outputs.update-type == 'version-update:semver-minor'
+          steps.metadata.outputs.update-type == 'version-update:semver-minor')
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
