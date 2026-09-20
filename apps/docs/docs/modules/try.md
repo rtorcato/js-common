@@ -40,6 +40,7 @@ import { Failure, Result, Success } from '@rtorcato/js-common/try'
 | `Success` | Successful branch of a `Result` — carries the value and a `null` error. |
 | `isSuccess` | Type guard that narrows a `Result` to its `Success` branch when the error is `null`. |
 | `tryCatch` | Run an async function and capture any thrown error into a `Result`, eliminating try/catch at the call site. |
+| `tryCatchSync` | Synchronous counterpart to {@link tryCatch} — run a function and capture any thrown error into a `Result`, so `Result` is usable outside async boundaries. |
 
 <!-- /generated:exports -->
 

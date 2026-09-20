@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { Result } from '.'
-import { isSuccess, tryCatch } from '.'
+import { isSuccess, tryCatch, tryCatchSync } from '.'
 
 describe('tryCatch', () => {
 	it('should return Success when the function resolves', async () => {
@@ -32,5 +32,18 @@ describe('isSuccess', () => {
 	it('should return false for Failure result', () => {
 		const failureResult: Result<string> = { data: null, error: new Error('failure') }
 		expect(isSuccess(failureResult)).toBe(false)
+	})
+})
+
+describe('tryCatchSync', () => {
+	it('returns data and null error on success', () => {
+		const result = tryCatchSync(() => JSON.parse('{"a":1}'))
+		expect(result.data).toEqual({ a: 1 })
+		expect(result.error).toBeNull()
+	})
+	it('returns null data and the error on failure', () => {
+		const result = tryCatchSync(() => JSON.parse('nope'))
+		expect(result.data).toBeNull()
+		expect(result.error).toBeInstanceOf(SyntaxError)
 	})
 })
