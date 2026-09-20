@@ -1,5 +1,19 @@
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { normaliseBody, proseClaimErrors, splitParams } from './check-readme-exports.mjs'
+
+describe('root export', () => {
+	// #259: a root import used to resolve to an empty module and bind nothing,
+	// failing later at the call site instead of at the import. Dropping "." makes
+	// it fail loudly, at resolve time, instead.
+	it('package.json exports no "."', () => {
+		const pkgPath = fileURLToPath(new URL('../package.json', import.meta.url))
+		const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
+
+		expect(Object.keys(pkg.exports)).not.toContain('.')
+	})
+})
 
 describe('proseClaimErrors', () => {
 	const subpaths = ['arrays', 'objects']
