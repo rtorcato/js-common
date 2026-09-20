@@ -219,6 +219,20 @@ pair's ReDoS rationale (domain parts exclude `.` so the match stays linear on
 `'a@!.!.!.!.'`, CodeQL `js/polynomial-redos`) could have been lost from one copy
 without anything failing.
 
+## Queued for the next major
+
+Nothing here justifies a major on its own; all of it rides along with the next one
+that happens for a real reason.
+
+- **Drop `"."` from `exports`** ([#259](https://github.com/rtorcato/js-common/issues/259)).
+  The root resolves to an empty module today, so `import { chunk } from '@rtorcato/js-common'`
+  binds nothing and fails later at the call site. Removing the subpath makes it fail
+  loudly at resolve time (`ERR_PACKAGE_PATH_NOT_EXPORTED`) instead. Re-exporting every
+  module from the root was the alternative and is rejected: it hands root importers the
+  whole library and defeats the per-concern subpaths this file exists to protect.
+- **Delete the three deprecated aliases** — `validation.isEmail`, `validation.isUrl`,
+  `os.getOsPlatform` (see above).
+
 ## What this freezes
 
 Once this record lands, **module paths and export names are frozen**. Moving a
