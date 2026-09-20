@@ -13,6 +13,9 @@
  *  5. Every backticked name listed on a prose line that also names a subpath is
  *     really exported by it — the summary tables and "see also" bullets that
  *     check 3 is blind to because they carry no import sample.
+ *  6. The skill's "Module → exports" table (skills/js-common/SKILL.md), the
+ *     lookup an agent uses instead of grepping src/, names every subpath and
+ *     nothing else, and every identifier in it actually resolves — #260.
  *
  *   node scripts/check-readme-exports.mjs --check   # exit 1 on drift (used by CI)
  */
@@ -316,6 +319,58 @@ export function proseClaimErrors(text, subpaths, exportsBySubpath) {
 	return errs
 }
 
+/**
+ * Check 6. `skills/js-common/SKILL.md` carries its own "Module → exports" table
+ * — the lookup an agent consults instead of grepping src/. Unlike the README's
+ * prose (check 5), this table is meant to be exhaustive per module, so both
+ * directions are checked: every listed name must resolve, and every real
+ * export must be listed. #260: it had silently drifted from src/.
+ *
+ * `./types` is declaration-only (no runtime index.ts) and is skipped, same as
+ * every other check here.
+ */
+export function skillTableErrors(text, subpaths, exportsBySubpath) {
+	const errs = []
+	const start = text.indexOf('## Module → exports')
+	if (start === -1) return ['skills/js-common/SKILL.md has no "## Module → exports" section']
+	const rest = text.slice(start)
+	const end = rest.indexOf('\n## ')
+	const section = end === -1 ? rest : rest.slice(0, end)
+
+	const rows = [...section.matchAll(/^\| ([\w-]+) \| (.+) \|$/gm)].filter((m) => m[1] !== 'Module')
+	const seen = new Set()
+	for (const [, mod, cell] of rows) {
+		seen.add(mod)
+		if (!subpaths.includes(mod)) {
+			errs.push(`skill table names ./${mod}, which is not an exported subpath`)
+			continue
+		}
+		const available = exportsBySubpath.get(mod)
+		if (!available) continue // ./types: nothing to check against
+
+		const listed = new Set()
+		// splitParams (not a plain `,` split): a trailing note like "logger (pino
+		// instance — pretty in dev, JSON in prod)" has its own internal comma.
+		for (const raw of splitParams(cell)) {
+			// Trailing notes like "(pino instance …)" or "(types only)" describe the
+			// name, not a second one — strip before comparing.
+			const name = raw.trim().replace(/\s*\(.*\)$/, '')
+			if (!name) continue
+			listed.add(name)
+			if (!available.has(name))
+				errs.push(`skill table lists \`${name}\` under ./${mod}, which does not export it`)
+		}
+		for (const name of available) {
+			if (!listed.has(name))
+				errs.push(`\`${name}\` is exported from ./${mod} but missing from the skill table`)
+		}
+	}
+	for (const sub of subpaths) {
+		if (!seen.has(sub)) errs.push(`./${sub} is exported but missing from the skill table`)
+	}
+	return errs
+}
+
 for (const file of docFiles) {
 	const where = relative(root, file)
 	const raw = readFileSync(file, 'utf8')
@@ -361,6 +416,13 @@ for (const owners of byBody.values()) {
 	errors.push(`${owners.join(' and ')} have the same body — one of them is a near-duplicate`)
 }
 
+// 6. skills/js-common/SKILL.md's own module → exports table.
+const skillPath = join(root, 'skills', 'js-common', 'SKILL.md')
+const skillErrors = existsSync(skillPath)
+	? skillTableErrors(readFileSync(skillPath, 'utf8'), subpaths, exportsBySubpath)
+	: [`missing ${relative(root, skillPath)}`]
+for (const e of skillErrors) errors.push(`skills/js-common/SKILL.md: ${e}`)
+
 // Importable for tests; only the CLI invocation reports and sets the exit code.
 if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
 	if (errors.length) {
@@ -372,6 +434,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1
 		`README covers all ${subpaths.length} exported modules; ` +
 			`${homes.size} export names each have one home; ` +
 			`import samples in ${docFiles.length} files resolve; ` +
-			`no unlisted duplicate bodies (${accepted} accepted, see #239).`
+			`no unlisted duplicate bodies (${accepted} accepted, see #239); ` +
+			`the skill's module → exports table matches src/.`
 	)
 }
