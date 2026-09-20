@@ -5,16 +5,16 @@ description: Use when writing TypeScript/JavaScript that needs a general-purpose
 
 # Using @rtorcato/js-common
 
-`@rtorcato/js-common` is a tree-shakeable, ESM-only utility library for Node.js >= 22 (TypeScript-first, JSDoc on every public API). One subpath export per concern — 44 of them. The package root is intentionally empty.
+`@rtorcato/js-common` is a tree-shakeable, ESM-only utility library for Node.js >= 22 (TypeScript-first, JSDoc on every public API). One subpath export per concern — 44 of them. There is no package root export.
 
 ## Rules
 
-1. **Import from the subpath, never the package root.** The root export has no runtime code at all, so a root import gets you nothing.
+1. **Import from the subpath, never the package root.** The root has no `exports` entry at all, so a root import fails at resolve time (`ERR_PACKAGE_PATH_NOT_EXPORTED`) instead of silently binding nothing.
 
    ```ts
    // ✅ do
    import { slugify } from '@rtorcato/js-common/strings'
-   // ❌ don't — the root export is empty by design
+   // ❌ don't — there is no root export; this throws at resolve time
    import { slugify } from '@rtorcato/js-common'
    ```
 

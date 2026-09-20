@@ -1,10 +1,28 @@
 ---
 title: Migrating
-description: Upgrading from 1.x to 2.x, from 2.x to 3.x, and from 3.x to 4.x.
+description: Upgrading from 1.x to 2.x, from 2.x to 3.x, from 3.x to 4.x, and from 4.x to 5.x.
 sidebar_position: 3
 ---
 
 <!-- boundary-check: ignore — every table below names the API being migrated away from -->
+
+## 4.x → 5.x — root entry point removed
+
+**Pending — not yet released.** This section describes a change parked on an
+unreleased branch until the next major is cut ([#259](https://github.com/rtorcato/js-common/issues/259)).
+
+`exports["."]` is gone from `package.json`. Before this change, `@rtorcato/js-common`
+resolved from the root to an empty module — `import * as m from '@rtorcato/js-common'`
+succeeded and bound nothing, failing only later at the call site with a confusing
+`x is not a function`. Now the same import throws `ERR_PACKAGE_PATH_NOT_EXPORTED`
+immediately, at the import itself.
+
+The package was always subpath-only in practice; this just makes that enforced
+rather than half-present.
+
+| Was | Now |
+|---|---|
+| `import { x } from '@rtorcato/js-common'` | `import { x } from '@rtorcato/js-common/<module>'` — see [Available Modules](https://github.com/rtorcato/js-common#available-modules) for which one |
 
 ## 3.x → 4.x — what the platform already does
 

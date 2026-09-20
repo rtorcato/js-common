@@ -5,10 +5,10 @@ sidebar_position: 5
 ---
 
 `@rtorcato/js-common` is built to vanish from your bundle when you don't use it.
-Every module ships as its own subpath, the root entry point is **empty by
-design**, and the package is marked `"sideEffects": false`. Any modern bundler
-(esbuild, Rollup, Vite, Webpack 5+, Next.js, Astro, SvelteKit) will tree-shake
-unused exports automatically — but only if you import from the right place.
+Every module ships as its own subpath, **there is no package root export**, and
+the package is marked `"sideEffects": false`. Any modern bundler (esbuild,
+Rollup, Vite, Webpack 5+, Next.js, Astro, SvelteKit) will tree-shake unused
+exports automatically — but only if you import from the right place.
 
 ## Always import from a subpath
 
@@ -23,14 +23,14 @@ import { chunk } from '@rtorcato/js-common/arrays'
 ❌ **Won't work — root import:**
 
 ```ts
-// dist/index.js is intentionally empty. This import resolves to nothing.
+// There is no root export. This throws ERR_PACKAGE_PATH_NOT_EXPORTED at resolve time.
 import { slugify } from '@rtorcato/js-common'
 ```
 
-The root entry point is empty on purpose. There is no barrel re-export at the
-top level, because barrel files defeat tree-shaking in some bundler
-configurations and force every consumer to pull in metadata for every module.
-Subpaths give the bundler one clear answer: "load this file, nothing else."
+There is no root export, on purpose. There is no barrel re-export at the top
+level, because barrel files defeat tree-shaking in some bundler configurations
+and force every consumer to pull in metadata for every module. Subpaths give
+the bundler one clear answer: "load this file, nothing else."
 
 ## What "subpath" means
 

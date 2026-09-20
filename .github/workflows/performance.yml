@@ -46,11 +46,7 @@ jobs:
           echo "## 📦 Bundle Size Analysis" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # Main bundle size
-          MAIN_SIZE=$(stat -f%z dist/index.js 2>/dev/null || stat -c%s dist/index.js)
-          echo "**Main Bundle**: ${MAIN_SIZE} bytes" >> $GITHUB_STEP_SUMMARY
-
-          # Individual module sizes
+          # No root bundle — the package is subpath-only (#259). Individual module sizes
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Module Sizes" >> $GITHUB_STEP_SUMMARY
           echo "| Module | Size (bytes) |" >> $GITHUB_STEP_SUMMARY

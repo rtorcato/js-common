@@ -4,9 +4,6 @@
   "description": "JavaScript and TypeScript common code",
   "type": "module",
   "packageManager": "pnpm@11.17.0",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "bin": {
     "js-common": "dist/cli/index.mjs"
   },
@@ -58,10 +55,6 @@
     "README.md"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
     "./abortController": {
       "import": "./dist/abortController/index.js",
       "types": "./dist/abortController/index.d.ts"

@@ -16,8 +16,8 @@ import InstallTabs from '@site/src/components/InstallTabs'
 
 A focused set of TypeScript utilities for the everyday JavaScript/Node.js work almost every project repeats — date math, string formatting, array/object helpers, validation, UUIDs, retries, sleeps, currency, and so on. Each module ships as a separate subpath so your bundler only includes what you actually import.
 
-- **Ultra-lightweight** — main bundle ~277 B; individual modules ~50–200 B.
-- **Tree-shakeable** — named subpath exports; the root entry is intentionally empty.
+- **Ultra-lightweight** — individual modules ~50–200 B.
+- **Tree-shakeable** — named subpath exports; there is no package root export.
 - **TypeScript-first** — strict types, generics preserved, JSDoc-rich in your IDE.
 - **CLI included** — `npx @rtorcato/js-common@latest --help` for terminal use.
 
@@ -61,7 +61,7 @@ Always import from a subpath — never from the package root:
 // ✅ Adds ~50–200 bytes
 import { today } from '@rtorcato/js-common/date'
 
-// ❌ Root entry is empty by design — this resolves to nothing
+// ❌ No root export — throws ERR_PACKAGE_PATH_NOT_EXPORTED at resolve time
 import { today } from '@rtorcato/js-common'
 ```
 
