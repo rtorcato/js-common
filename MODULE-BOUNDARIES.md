@@ -225,9 +225,11 @@ Nothing here justifies a major on its own; all of it rides along with the next o
 that happens for a real reason.
 
 - **Drop `"."` from `exports`** ([#259](https://github.com/rtorcato/js-common/issues/259)).
-  The root resolves to an empty module today, so `import { chunk } from '@rtorcato/js-common'`
-  binds nothing and fails later at the call site. Removing the subpath makes it fail
-  loudly at resolve time (`ERR_PACKAGE_PATH_NOT_EXPORTED`) instead. Re-exporting every
+  The root resolves to an empty module today, so `import * as m from '@rtorcato/js-common'`
+  binds nothing and fails later at the call site, wherever `m.chunk(...)` is eventually
+  called. (A named `import { chunk }` does at least fail at import time.) Removing the
+  subpath makes both forms fail loudly at resolve time
+  (`ERR_PACKAGE_PATH_NOT_EXPORTED`) instead. Re-exporting every
   module from the root was the alternative and is rejected: it hands root importers the
   whole library and defeats the per-concern subpaths this file exists to protect.
 - **Delete the three deprecated aliases** — `validation.isEmail`, `validation.isUrl`,
