@@ -37,20 +37,56 @@ export function roundTo(value: number, decimals = 2): number {
 }
 
 /**
+ * Options for {@link formatPercent}.
+ */
+export interface FormatPercentOptions {
+	/** Number of decimal places (default: 0). */
+	fractionDigits?: number
+	/**
+	 * Force a leading `+` on positive values (e.g. `+2.14%`). Zero is never signed,
+	 * regardless of this option, since `+0%` / `-0%` reads as noise — this is decided
+	 * by the rounded, displayed value, so a value that rounds to zero at the given
+	 * `fractionDigits` is unsigned too. Default: false.
+	 */
+	signed?: boolean
+}
+
+/**
  * Formats a number as a percentage string.
+ *
+ * `value` is always treated as a fraction (0.25 → "25%"), matching the existing
+ * behaviour — it is not a pre-multiplied percentage (25 would format as "2500%").
  *
  * @example
  * ```typescript
  * formatPercent(0.25) // '25%'
  * formatPercent(0.1234, 1) // '12.3%'
+ * formatPercent(0.0214, { fractionDigits: 2, signed: true }) // '+2.14%'
+ * formatPercent(-0.0088, { fractionDigits: 2, signed: true }) // '-0.88%'
+ * formatPercent(0, { signed: true }) // '0%' (zero is never signed)
+ * formatPercent(0.00001, { fractionDigits: 2, signed: true }) // '0.00%' (rounds to zero)
  * ```
  *
- * @param value The value to format (e.g. 0.25 for 25%).
- * @param fractionDigits Number of decimal places (default: 0).
+ * @param value The value to format, as a fraction (e.g. 0.25 for 25%).
+ * @param fractionDigitsOrOptions Number of decimal places (default: 0), or an options object.
  * @returns The formatted percentage string.
  */
-export function formatPercent(value: number, fractionDigits = 0): string {
-	return `${(value * 100).toFixed(fractionDigits)}%`
+export function formatPercent(
+	value: number,
+	fractionDigitsOrOptions?: number | FormatPercentOptions
+): string {
+	const { fractionDigits = 0, signed = false } =
+		typeof fractionDigitsOrOptions === 'number'
+			? { fractionDigits: fractionDigitsOrOptions }
+			: (fractionDigitsOrOptions ?? {})
+
+	const formatted = (value * 100).toFixed(fractionDigits)
+	if (!signed) return `${formatted}%`
+	// The sign follows what is displayed, not the raw value: a tiny value that
+	// rounds away to zero is unsigned, so no '+0.00%' or '-0.00%'.
+	const rounded = Number(formatted)
+	if (rounded === 0) return `${formatted.replace('-', '')}%`
+	return `${rounded > 0 ? '+' : ''}${formatted}%`
 }
 
 /**
