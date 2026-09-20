@@ -15,6 +15,8 @@ average([10, 20, 30])     // 20
 roundTo(3.14159, 2)       // 3.14
 clamp(42, 0, 10)          // 10
 formatPercent(0.1234, 1)  // "12.3%"
+formatPercent(0.0214, { fractionDigits: 2, signed: true })  // "+2.14%"
+formatPercent(0, { signed: true })                          // "0%" — zero is never signed
 
 median([4, 1, 3, 2])      // 2.5
 percentile([1, 2, 3, 4], 25) // 1.75

@@ -37,20 +37,49 @@ export function roundTo(value: number, decimals = 2): number {
 }
 
 /**
+ * Options for {@link formatPercent}.
+ */
+export interface FormatPercentOptions {
+	/** Number of decimal places (default: 0). */
+	fractionDigits?: number
+	/**
+	 * Force a leading `+` on positive values (e.g. `+2.14%`). Zero is never signed,
+	 * regardless of this option, since `+0%` / `-0%` reads as noise. Default: false.
+	 */
+	signed?: boolean
+}
+
+/**
  * Formats a number as a percentage string.
+ *
+ * `value` is always treated as a fraction (0.25 → "25%"), matching the existing
+ * behaviour — it is not a pre-multiplied percentage (25 would format as "2500%").
  *
  * @example
  * ```typescript
  * formatPercent(0.25) // '25%'
  * formatPercent(0.1234, 1) // '12.3%'
+ * formatPercent(0.0214, { fractionDigits: 2, signed: true }) // '+2.14%'
+ * formatPercent(-0.0088, { fractionDigits: 2, signed: true }) // '-0.88%'
+ * formatPercent(0, { signed: true }) // '0%' (zero is never signed)
  * ```
  *
- * @param value The value to format (e.g. 0.25 for 25%).
- * @param fractionDigits Number of decimal places (default: 0).
+ * @param value The value to format, as a fraction (e.g. 0.25 for 25%).
+ * @param fractionDigitsOrOptions Number of decimal places (default: 0), or an options object.
  * @returns The formatted percentage string.
  */
-export function formatPercent(value: number, fractionDigits = 0): string {
-	return `${(value * 100).toFixed(fractionDigits)}%`
+export function formatPercent(
+	value: number,
+	fractionDigitsOrOptions?: number | FormatPercentOptions
+): string {
+	const { fractionDigits = 0, signed = false } =
+		typeof fractionDigitsOrOptions === 'number'
+			? { fractionDigits: fractionDigitsOrOptions }
+			: (fractionDigitsOrOptions ?? {})
+
+	const formatted = (value * 100).toFixed(fractionDigits)
+	const sign = signed && value > 0 ? '+' : ''
+	return `${sign}${formatted}%`
 }
 
 /**
