@@ -81,7 +81,7 @@ Import from `@rtorcato/js-common/<module>`.
 | maps | invertMap, mapValues, mergeMaps, objectToMap, mapToObject |
 | mime-types | lookup, types, extensions, mimeTypes |
 | node | nodeVersionCheck, getNodeMajorVersion, isNode, requireOptional |
-| numbers | clamp, roundTo, formatPercent, between, sum, average, mod |
+| numbers | clamp, roundTo, formatPercent, between, sum, average, mod, variance, stdDev, median, percentile |
 | objects | isPlainObject, deepMerge, omit, pick |
 | os | getOsPlatform, getOsRelease, getOsArch, getHomeDir, getTmpDir |
 | process | getProcessId, getProcessUptime, getCwd, getProcessPlatform, exitProcess, isCI |
