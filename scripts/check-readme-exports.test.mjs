@@ -1,7 +1,12 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { normaliseBody, proseClaimErrors, splitParams } from './check-readme-exports.mjs'
+import {
+	normaliseBody,
+	proseClaimErrors,
+	skillTableErrors,
+	splitParams,
+} from './check-readme-exports.mjs'
 
 describe('root export', () => {
 	// #259: a root import used to resolve to an empty module and bind nothing,
@@ -45,6 +50,46 @@ describe('proseClaimErrors', () => {
 
 	it('honours the per-file opt-out a migration guide needs', () => {
 		expect(check('<!-- boundary-check: ignore -->\n| Was | `arrays` | `groupBy` |')).toEqual([])
+	})
+})
+
+describe('skillTableErrors', () => {
+	// #260: the skill's own table silently drifted from src/ — these mirror how
+	// it went wrong.
+	const subpaths = ['arrays', 'logger']
+	const exportsBySubpath = new Map([
+		['arrays', new Set(['unique', 'chunk'])],
+		['logger', new Set(['logger'])],
+	])
+	const table = (rows) => `## Module → exports\n\n| Module | Exports |\n|---|---|\n${rows}\n`
+	const check = (text) => skillTableErrors(text, subpaths, exportsBySubpath)
+
+	it('accepts a table that matches src/ exactly', () => {
+		expect(check(table('| arrays | unique, chunk |\n| logger | logger |'))).toEqual([])
+	})
+
+	it('flags a name the row’s module does not export', () => {
+		expect(check(table('| arrays | unique, chunk, groupBy |\n| logger | logger |'))).toEqual([
+			'skill table lists `groupBy` under ./arrays, which does not export it',
+		])
+	})
+
+	it('flags a real export missing from its row', () => {
+		expect(check(table('| arrays | unique |\n| logger | logger |'))).toEqual([
+			'`chunk` is exported from ./arrays but missing from the skill table',
+		])
+	})
+
+	it('flags a module missing from the table entirely', () => {
+		expect(check(table('| arrays | unique, chunk |'))).toEqual([
+			'./logger is exported but missing from the skill table',
+		])
+	})
+
+	it('ignores a trailing parenthetical note, even one with its own comma', () => {
+		expect(
+			check(table('| arrays | unique, chunk |\n| logger | logger (pino instance, pretty) |'))
+		).toEqual([])
 	})
 })
 
