@@ -148,6 +148,7 @@ import { nowTime, parseTime, secondsBetween } from '@rtorcato/js-common/time'
 ### Numbers
 ```typescript
 import { sum, average, roundTo, clamp, formatPercent } from '@rtorcato/js-common/numbers'
+import { variance, stdDev, median, percentile } from '@rtorcato/js-common/numbers' // dispersion
 import { randomInt, randomFloat, randomBool, randomElement } from '@rtorcato/js-common/random'
 ```
 

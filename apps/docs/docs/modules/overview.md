@@ -11,7 +11,7 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Dates | `@rtorcato/js-common/date` | `today`, `formatDate`, `daysBetween`, `isLeapYear` |
 | Date-time | `@rtorcato/js-common/datetime` | `nowIso`, `formatDateTimeLocal`, `unixTimestamp` |
 | Time | `@rtorcato/js-common/time` | `nowTime`, `parseTime`, `secondsBetween` |
-| Numbers | `@rtorcato/js-common/numbers` | `sum`, `average`, `roundTo`, `clamp`, `formatPercent` |
+| Numbers | `@rtorcato/js-common/numbers` | `sum`, `average`, `median`, `stdDev`, `percentile`, `clamp` |
 | Random | `@rtorcato/js-common/random` | `randomInt`, `randomFloat`, `randomBool`, `randomString` |
 | Strings | `@rtorcato/js-common/strings` | `slugify`, `truncate`, `titleCase`, `capitalize` |
 | Arrays | `@rtorcato/js-common/arrays` | `unique`, `chunk`, `compact`, `shuffle` |
