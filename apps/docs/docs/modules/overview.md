@@ -14,7 +14,7 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Numbers | `@rtorcato/js-common/numbers` | `sum`, `average`, `roundTo`, `clamp`, `formatPercent` |
 | Random | `@rtorcato/js-common/random` | `randomInt`, `randomFloat`, `randomBool`, `randomString` |
 | Strings | `@rtorcato/js-common/strings` | `slugify`, `truncate`, `titleCase`, `capitalize` |
-| Arrays | `@rtorcato/js-common/arrays` | `unique`, `chunk`, `compact`, `shuffle` |
+| Arrays | `@rtorcato/js-common/arrays` | `unique`, `chunk`, `compact`, `shuffle`, `partition`, `sortBy`, `zip` |
 | Objects | `@rtorcato/js-common/objects` | `deepMerge`, `pick`, `omit`, `isPlainObject` |
 | JSON | `@rtorcato/js-common/json` | `safeJsonParse`, `safeJsonStringify` |
 | Emails | `@rtorcato/js-common/emails` | `isValidEmail`, `normalizeEmail`, `maskEmail` |

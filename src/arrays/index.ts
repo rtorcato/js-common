@@ -89,3 +89,88 @@ export function shuffle<T>(arr: T[]): T[] {
 	}
 	return a
 }
+
+/**
+ * Splits an array into two arrays: the elements that satisfy the predicate and
+ * the ones that do not. Order is preserved within each half.
+ *
+ * @example
+ * ```typescript
+ * partition([1, 2, 3, 4], (n) => n % 2 === 0) // [[2, 4], [1, 3]]
+ * partition(['a', 'bb'], (s) => s.length > 1) // [['bb'], ['a']]
+ * ```
+ *
+ * @param arr The array to split
+ * @param predicate Called with each element and its index; truthy sends the element to the first half
+ * @returns A `[pass, fail]` tuple of new arrays
+ * @category Array Utilities
+ */
+export function partition<T>(
+	arr: T[],
+	predicate: (value: T, index: number) => boolean
+): [T[], T[]] {
+	const pass: T[] = []
+	const fail: T[] = []
+	arr.forEach((value, index) => {
+		;(predicate(value, index) ? pass : fail).push(value)
+	})
+	return [pass, fail]
+}
+
+/**
+ * Sorts an array by a derived key, without mutating the input.
+ * Keys are compared with `<` / `>`, so strings sort lexicographically and
+ * numbers numerically — unlike `Array#sort`, which stringifies everything.
+ * The sort is stable, so equal keys keep their original order.
+ *
+ * @example
+ * ```typescript
+ * sortBy([{ n: 2 }, { n: 1 }], (o) => o.n) // [{ n: 1 }, { n: 2 }]
+ * sortBy([10, 9, 100], (n) => n) // [9, 10, 100] — not [10, 100, 9]
+ * sortBy(users, (u) => u.name, 'desc')
+ * ```
+ *
+ * @param arr The array to sort
+ * @param keyFn Maps an element to the value to sort by
+ * @param direction `'asc'` (default) or `'desc'`
+ * @returns A new sorted array
+ * @category Array Utilities
+ */
+export function sortBy<T>(
+	arr: T[],
+	keyFn: (value: T) => number | string | bigint | Date,
+	direction: 'asc' | 'desc' = 'asc'
+): T[] {
+	const sign = direction === 'desc' ? -1 : 1
+	// ponytail: decorate-sort-undecorate so keyFn runs once per element, not once per comparison
+	return arr
+		.map((value, index) => ({ value, index, key: keyFn(value) }))
+		.sort((a, b) => {
+			if (a.key < b.key) return -sign
+			if (a.key > b.key) return sign
+			return a.index - b.index
+		})
+		.map((entry) => entry.value)
+}
+
+/**
+ * Pairs up two arrays element by element. The result is as long as the shorter
+ * input — surplus elements are dropped.
+ *
+ * @example
+ * ```typescript
+ * zip([1, 2, 3], ['a', 'b', 'c']) // [[1, 'a'], [2, 'b'], [3, 'c']]
+ * zip([1, 2, 3], ['a']) // [[1, 'a']]
+ * ```
+ *
+ * @param a The first array
+ * @param b The second array
+ * @returns An array of `[a[i], b[i]]` pairs
+ * @category Array Utilities
+ */
+export function zip<A, B>(a: A[], b: B[]): [A, B][] {
+	const length = Math.min(a.length, b.length)
+	const result: [A, B][] = new Array(length)
+	for (let i = 0; i < length; i++) result[i] = [a[i] as A, b[i] as B]
+	return result
+}

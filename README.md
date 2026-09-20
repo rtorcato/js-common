@@ -170,7 +170,7 @@ import { toBoolean } from '@rtorcato/js-common/boolean'
 
 ### Data Structures
 ```typescript
-import { unique, chunk, compact, shuffle } from '@rtorcato/js-common/arrays'
+import { unique, chunk, compact, shuffle, partition, sortBy, zip } from '@rtorcato/js-common/arrays'
 import { deepMerge, pick, omit, isPlainObject } from '@rtorcato/js-common/objects'
 import { safeJsonParse, safeJsonStringify } from '@rtorcato/js-common/json'
 import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-common/maps'
