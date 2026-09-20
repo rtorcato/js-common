@@ -24,7 +24,7 @@
    | `try.tryCatch` vs `errors.tryWithFallback` | Result object vs swallow-and-fall-back — see rule 3 |
    | `date.formatDate` vs `datetime.formatDateTimeLocal` | a UTC calendar day vs a local instant |
 
-   Where two modules used to ship the same name, the loser was deleted rather than aliased — [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md) records which side won and why.
+   Where two modules used to ship the same name, the loser now delegates to the winner and is marked `@deprecated` (`validation.isEmail`, `validation.isUrl`, `os.getOsPlatform`) — prefer the winner in new code. [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md) records which side won and why.
 
 3. **Three different error idioms — don't mix them up.**
 
