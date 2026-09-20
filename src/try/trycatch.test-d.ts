@@ -1,5 +1,5 @@
 import { describe, expectTypeOf, it } from 'vitest'
-import { type Failure, type Result, type Success, isSuccess, tryCatch } from '.'
+import { type Failure, type Result, type Success, isSuccess, tryCatch, tryCatchSync } from '.'
 
 describe('try — types', () => {
 	it('Result<T,E> is the union of Success<T> and Failure<E>', () => {
@@ -24,5 +24,14 @@ describe('try — types', () => {
 
 		const explicit = tryCatch<string, TypeError>(async () => 'x')
 		expectTypeOf(explicit).toEqualTypeOf<Promise<Result<string, TypeError>>>()
+	})
+})
+
+describe('tryCatchSync — types', () => {
+	it('returns Result<T, E> directly, not a promise', () => {
+		expectTypeOf(tryCatchSync(() => 42)).toEqualTypeOf<Result<number, Error>>()
+		expectTypeOf(tryCatchSync<string, TypeError>(() => 'x')).toEqualTypeOf<
+			Result<string, TypeError>
+		>()
 	})
 })

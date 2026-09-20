@@ -96,7 +96,7 @@ Import from `@rtorcato/js-common/<module>`.
 | strings | titleCase, capitalize, camelCase, kebabCase, snakeCase, truncate, reverse, slugify, words, wordCount, pluralize, ordinalize, isBlank, mask, template |
 | system | isMacOs, isWindows, isLinux, isIOS, isAndroid, getPlatform, isTouchDevice |
 | time | nowTime, nowTimeShort, parseTime, formatTime, secondsBetween, pad2 |
-| try | tryCatch, isSuccess, Result, Success, Failure |
+| try | tryCatch, tryCatchSync, isSuccess, Result, Success, Failure |
 | types | Prettify, Merge (types only) |
 | url | isValidUrl, getQueryParams, setQueryParam, removeQueryParam, joinUrl, getHostname |
 | uuid | getUUIDv7, getShortUUID, toShortUUID, fromShortUUID, isUUID, isUUIDv4, isNilUUID, getUUIDVersion, getNilUUID, uuidToBytes, bytesToUUID |

@@ -57,3 +57,22 @@ export async function tryCatch<T, E = Error>(fn: () => Promise<T>): Promise<Resu
 		return { data: null, error: error as E }
 	}
 }
+
+/**
+ * Synchronous counterpart to {@link tryCatch} — run a function and capture any thrown
+ * error into a `Result`, so `Result` is usable outside async boundaries.
+ *
+ * @example
+ * ```typescript
+ * const { data, error } = tryCatchSync(() => JSON.parse(raw) as Config)
+ * if (error) return defaults
+ * console.log(data.port)
+ * ```
+ */
+export function tryCatchSync<T, E = Error>(fn: () => T): Result<T, E> {
+	try {
+		return { data: fn(), error: null }
+	} catch (error) {
+		return { data: null, error: error as E }
+	}
+}
