@@ -63,7 +63,7 @@ Import from `@rtorcato/js-common/<module>`.
 | console | disableConsole, clearConsole |
 | crypto | hashString, randomHex, hmacHash, base64Encode, base64Decode |
 | currency | getCurrencySymbol, getCurrencyName, getCurrencyLocale, formatPrice, formatPriceCompact, parsePrice, parseCurrencyString, convertCurrency, isValidCurrencyCode, isValidCurrency |
-| date | today, parseDate, formatDate, daysBetween, diffInHours, diffInMinutes, isLeapYear, addDays, subDays, addMonths, getDayOfWeek, startOfDay, endOfDay, isWeekend, isSameDay, isToday, formatRelative |
+| date | today, parseDate, formatDate, daysBetween, diffInHours, diffInMinutes, isLeapYear, addDays, subDays, addMonths, getDayOfWeek, startOfDay, endOfDay, isWeekend, isWeekday, isSameDay, isToday, formatRelative |
 | datetime | nowIso, parseIsoDateTime, formatDateTimeLocal, getTimezoneOffset, toUtcDate, unixTimestamp, unixMillis, getIsoWeek, getIsoWeekInfo |
 | emails | isValidEmail, normalizeEmail, maskEmail, getEmailDomain, isFreeEmailProvider |
 | env | getENV, isDev, isProd, isTest, getNodeEnv, checkEnv, RootApiEnvSchema |

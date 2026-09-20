@@ -12,6 +12,7 @@ import {
 	isLeapYear,
 	isSameDay,
 	isToday,
+	isWeekday,
 	isWeekend,
 	parseDate,
 	startOfDay,
@@ -109,6 +110,12 @@ describe('date module', () => {
 		expect(isWeekend('2023-06-03')).toBe(true)
 		expect(isWeekend('2023-05-28')).toBe(true)
 		expect(isWeekend('2023-05-29')).toBe(false)
+	})
+
+	it('isWeekday is the inverse of isWeekend', () => {
+		expect(isWeekday('2023-05-29')).toBe(true)
+		expect(isWeekday('2023-06-03')).toBe(false)
+		expect(isWeekday('2023-05-28')).toBe(false)
 	})
 
 	it('isSameDay compares calendar day', () => {

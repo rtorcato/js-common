@@ -34,6 +34,7 @@ import {
   startOfDay,
   endOfDay,
   isWeekend,
+  isWeekday,
   isSameDay,
   isToday,
   formatRelative,
@@ -80,6 +81,7 @@ endOfDay(new Date())                    // 23:59:59.999 local time
 ```ts
 isLeapYear(2024)                        // true
 isWeekend('2026-06-13')                 // true (Saturday)
+isWeekday('2026-06-12')                 // true (Friday)
 isSameDay('2026-06-12', new Date())     // true if today is Jun 12
 isToday(new Date())                     // true
 getDayOfWeek('2026-06-12')              // 5 (Friday — 0=Sun, 6=Sat)

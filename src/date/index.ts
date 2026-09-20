@@ -124,11 +124,24 @@ export function endOfDay(date: string | Date): Date {
 }
 
 /**
- * Returns true if the date falls on Saturday or Sunday.
+ * Returns true if the date falls on Saturday or Sunday (local time).
  */
 export function isWeekend(date: string | Date): boolean {
 	const day = getDayOfWeek(date)
 	return day === 0 || day === 6
+}
+
+/**
+ * Returns true if the date falls on Monday through Friday (local time).
+ *
+ * @example
+ * ```typescript
+ * isWeekday('2026-06-12') // true (Friday)
+ * isWeekday('2026-06-13') // false (Saturday)
+ * ```
+ */
+export function isWeekday(date: string | Date): boolean {
+	return !isWeekend(date)
 }
 
 /**
