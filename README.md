@@ -181,7 +181,7 @@ import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-com
 
 ### Async & Control Flow
 ```typescript
-import { to, withTimeout } from '@rtorcato/js-common/promises'
+import { retry, to, withTimeout } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
 import { tryCatch } from '@rtorcato/js-common/try'
