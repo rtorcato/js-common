@@ -21,6 +21,10 @@ import {
 } from './index'
 
 describe('date module', () => {
+	// Local getters: the day-arithmetic helpers work in local time, formatDate in UTC.
+	const ymd = (d: Date) =>
+		`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
 	it('today returns today as YYYY-MM-DD', () => {
 		expect(today()).toBe(new Date().toISOString().slice(0, 10))
 	})
@@ -67,12 +71,12 @@ describe('date module', () => {
 	})
 
 	it('addDays adds days to a date', () => {
-		expect(formatDate(addDays('2023-01-01', 5))).toBe('2023-01-06')
-		expect(formatDate(addDays(new Date('2023-01-01'), -1))).toBe('2022-12-31')
+		expect(ymd(addDays('2023-01-01', 5))).toBe('2023-01-06')
+		expect(ymd(addDays(new Date(2023, 0, 1), -1))).toBe('2022-12-31')
 	})
 
 	it('subDays subtracts days from a date', () => {
-		expect(formatDate(subDays('2023-01-10', 5))).toBe('2023-01-05')
+		expect(ymd(subDays('2023-01-10', 5))).toBe('2023-01-05')
 	})
 
 	it('addMonths adds months to a date', () => {
@@ -85,9 +89,6 @@ describe('date module', () => {
 	})
 
 	it('addMonths clamps to the last day of the target month', () => {
-		// Local getters: addMonths works in local time, formatDate in UTC.
-		const ymd = (d: Date) =>
-			`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 		expect(ymd(addMonths('2026-01-31', 1))).toBe('2026-02-28')
 		expect(ymd(addMonths('2024-01-31', 1))).toBe('2024-02-29')
 		expect(ymd(addMonths('2024-02-29', 12))).toBe('2025-02-28')

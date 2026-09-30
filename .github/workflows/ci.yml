@@ -199,6 +199,12 @@ jobs:
             - name: 🧪 Run tests
               run: pnpm test
 
+            # UTC+12/13 surfaces local-vs-UTC mixups that UTC and US zones hide (#323).
+            - name: 🧪 Run date tests under Pacific/Auckland
+              run: pnpm vitest run src/date
+              env:
+                  TZ: Pacific/Auckland
+
     build:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]
