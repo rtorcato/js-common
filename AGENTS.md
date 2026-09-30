@@ -111,4 +111,4 @@ npx @rtorcato/js-common@latest text capitalize "hello world"
 
 See [CLI.md](https://github.com/rtorcato/js-common/blob/main/CLI.md) for the full command list.
 
-For full signatures and examples, see <https://rtorcato.github.io/js-common/>.
+For full signatures and examples, see <https://docs.torcato.dev/js-common/>.

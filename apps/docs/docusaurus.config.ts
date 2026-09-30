@@ -14,7 +14,7 @@ const config: Config = {
 	tagline: 'Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.',
 	favicon: 'img/favicon.svg',
 
-	url: 'https://rtorcato.github.io',
+	url: 'https://docs.torcato.dev',
 	baseUrl: '/js-common/',
 
 	organizationName: 'rtorcato',

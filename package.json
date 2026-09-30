@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/rtorcato/js-common/issues"
   },
-  "homepage": "https://github.com/rtorcato/js-common#readme",
+  "homepage": "https://docs.torcato.dev/js-common/",
   "sideEffects": false,
   "scripts": {
     "build-dev": "rimraf ./dist tsconfig.build.tsbuildinfo && cross-env NODE_ENV=development node build.mjs && tsc --emitDeclarationOnly --project tsconfig.build.json && node scripts/copy-types.mjs && npm run build-cli",
