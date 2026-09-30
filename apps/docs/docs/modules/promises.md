@@ -5,12 +5,12 @@ description: Utilities exported from @rtorcato/js-common/promises.
 
 **Runtime:** any — Node.js ≥ 22 or a modern browser
 
-Three adapters the platform does not ship: `withTimeout`, `to` and `mapLimit`. `mapLimit` is `Promise.all(items.map(fn))` with a concurrency cap: results in input order, and after the first rejection it starts nothing new. `to` returns an `[error, result]` tuple so a failure can be handled with an `if` instead of a `try`/`catch` block; `try`'s `Result` is the richer, type-narrowing version of the same idea. The pass-through wrappers over `Promise.all`/`allSettled`/`race`, and `delay`, were removed in 4.0 — call the statics directly, and use `sleep` for a plain wait. `withTimeout` is a `Promise.race`: it rejects on time but does not cancel, so the underlying work keeps running unless it honours an `AbortSignal`.
+Four helpers the platform does not ship: `withTimeout`, `to`, `mapLimit` and `retry`. `mapLimit` is `Promise.all(items.map(fn))` with a concurrency cap: results in input order, and after the first rejection it starts nothing new. `to` returns an `[error, result]` tuple so a failure can be handled with an `if` instead of a `try`/`catch` block; `try`'s `Result` is the richer, type-narrowing version of the same idea. The pass-through wrappers over `Promise.all`/`allSettled`/`race`, and `delay`, were removed in 4.0 — call the statics directly, and use `sleep` for a plain wait. `withTimeout` is a `Promise.race`: it rejects on time but does not cancel, so the underlying work keeps running unless it honours an `AbortSignal`. `retry` re-runs a failing operation with exponential backoff and full jitter, stops early when `shouldRetry` says an error won't recover, and aborts both the wait and further attempts when its `signal` fires.
 
 ## Example
 
 ```ts
-import { mapLimit, to, withTimeout } from '@rtorcato/js-common/promises'
+import { mapLimit, retry, to, withTimeout } from '@rtorcato/js-common/promises'
 
 // Error as a value: handle failure with an `if` instead of a try/catch block.
 const [err, user] = await to(getUser(id))
@@ -22,6 +22,11 @@ await withTimeout(getUser(id), 2_000, new Error('user service slow'))
 
 // At most 4 requests in flight; results come back in `ids` order.
 const users = await mapLimit(ids, 4, (id) => getUser(id))
+
+// Up to 4 attempts, waits capped at 100, 200, 400 ms (full jitter), cancellable.
+const res = await retry((attempt, signal) => fetch('/api/report', { signal }), {
+  signal: AbortSignal.timeout(10_000),
+})
 ```
 
 <!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
@@ -29,14 +34,16 @@ const users = await mapLimit(ids, 4, (id) => getUser(id))
 ## Import
 
 ```ts
-import { mapLimit, to, withTimeout } from '@rtorcato/js-common/promises'
+import { RetryOptions, mapLimit, retry } from '@rtorcato/js-common/promises'
 ```
 
 ## Exports
 
 | Name | Summary |
 | --- | --- |
+| `RetryOptions` | Options for `retry`. |
 | `mapLimit` | Maps `items` through an async `fn` with at most `limit` calls in flight, resolving to the results in input order. |
+| `retry` | Runs `fn` until it resolves, retrying rejections with exponential backoff and full jitter. |
 | `to` | Wraps a promise and returns a tuple [error, result]. |
 | `withTimeout` | Returns a promise that rejects after a timeout if the input promise does not resolve. |
 

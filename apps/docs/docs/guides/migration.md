@@ -24,6 +24,25 @@ rather than half-present.
 |---|---|
 | `import { x } from '@rtorcato/js-common'` | `import { x } from '@rtorcato/js-common/<module>'` — see [Available Modules](https://github.com/rtorcato/js-common#available-modules) for which one |
 
+### `zod`, `pino`, `uuid` and `short-uuid` are optional peers
+
+**Pending — not yet released** ([#308](https://github.com/rtorcato/js-common/issues/308)).
+
+These four were regular `dependencies`, so every consumer installed them even when
+it only imported `./arrays`. Each serves a single module, so they are now optional
+`peerDependencies`: installing `@rtorcato/js-common` no longer pulls them in, and
+the module that needs one fails at import with the missing package's name until you
+add it.
+
+| If you import | Add |
+|---|---|
+| `@rtorcato/js-common/env` | `pnpm add zod` |
+| `@rtorcato/js-common/logger` | `pnpm add pino` |
+| `@rtorcato/js-common/uuid` | `pnpm add uuid short-uuid` |
+
+Nothing else changes — the same version ranges apply (`zod@^4`, `pino@^10`,
+`uuid@^14`, `short-uuid@^6`), and modules that never used them need nothing.
+
 ### Deprecated aliases removed
 
 Three aliases deprecated since [#239](https://github.com/rtorcato/js-common/issues/239)
@@ -49,6 +68,28 @@ are affected.
 | `addMonths('2026-01-31', 1)` | 2026-03-03 | 2026-02-28 |
 | `addMonths('2024-01-31', 1)` | 2024-03-02 | 2024-02-29 |
 | `addMonths('2026-03-31', -1)` | 2026-03-03 | 2026-02-28 |
+
+## 4.x → 5.x — `./crypto` is Web Crypto, and async
+
+**Pending — not yet released** ([#309](https://github.com/rtorcato/js-common/issues/309)).
+
+`./crypto` no longer imports `node:crypto`; it uses Web Crypto (`globalThis.crypto`),
+so it now runs in browsers and on edge runtimes as well as Node. `crypto.subtle` is
+async, so the two digest helpers now return promises. `./security` lost its only
+`node:crypto` import too, and runs anywhere.
+
+| Was | Now |
+|---|---|
+| `hashString(s)` → `string` | `await hashString(s)` → `Promise<string>` |
+| `hmacHash(s, key)` → `string` | `await hmacHash(s, key)` → `Promise<string>` |
+| `hashString(s, 'md5')` | Unsupported — Web Crypto has no md5. Use `'sha256'`, or `createHash('md5')` from `node:crypto` if you need md5 for interop |
+| `hashString(s, 'sha3-256')` or any other `node:crypto` name | Only `'sha1'`, `'sha256'`, `'sha384'`, `'sha512'` are accepted |
+| `security.generateSecureToken()` | `randomHex(32)` from `@rtorcato/js-common/crypto` — pass `32` to keep the 64-char length; `randomHex()` defaults to 16 bytes |
+| `security.generateSecureToken(n)` | `randomHex(n)` from `@rtorcato/js-common/crypto` |
+
+`randomHex`, `base64Encode` and `base64Decode` keep their signatures. `base64Decode`
+now throws on input that is not standard base64 (for example the URL-safe `-`/`_`
+alphabet), where `Buffer` silently accepted it.
 
 ## 3.x → 4.x — what the platform already does
 

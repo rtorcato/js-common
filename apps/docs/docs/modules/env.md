@@ -5,6 +5,12 @@ description: Utilities exported from @rtorcato/js-common/env.
 
 **Runtime:** Node.js; needs `process` in browsers — reads `process.env`, so a browser bundle works only if the bundler defines it
 
+**Peer dependency:** `zod`, an optional peer since 5.0 — install it alongside this package:
+
+```bash
+pnpm add zod
+```
+
 Reading environment variables and validating them, with Zod schemas doing the validating. `getENV` throws when a variable is missing and no default was given — failing loudly at startup beats an `undefined` surfacing three layers deep in a request. `isDev`, `isProd` and `isTest` are plain `NODE_ENV` string comparisons, so they are cheap enough to call anywhere.
 
 ## Example

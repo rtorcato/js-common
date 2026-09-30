@@ -1,6 +1,5 @@
 import { createRequire } from 'node:module'
 import pino from 'pino'
-import { isDev } from '../env'
 
 // pino-pretty is an optionalDependency — present for the nice dev experience, but a
 // consumer that installed with --no-optional (or where the optional install failed)
@@ -30,7 +29,9 @@ function hasPinoPretty(): boolean {
  * ```
  */
 export const logger =
-	isDev() && hasPinoPretty()
+	// Inlined rather than importing `isDev` from '../env': that module imports zod,
+	// and `./logger` must need only its own optional peer, pino.
+	process.env.NODE_ENV === 'development' && hasPinoPretty()
 		? pino({
 				level: 'debug',
 				transport: {

@@ -29,13 +29,21 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
 - **Modular** — one module per concern, 42 subpaths
-- **Minimal runtime deps** — only `pino`, `uuid`, `short-uuid`, `zod`. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
+- **No required runtime deps** — `zod` (`./env`), `pino` (`./logger`) and `uuid` + `short-uuid` (`./uuid`) are optional peers: install one only if you import its module. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
 
 ## Installation
 
 ```bash
 npm install @rtorcato/js-common
 ```
+
+Three modules need an optional peer you install yourself:
+
+| Module | Peer |
+|---|---|
+| `./env` | `npm install zod` |
+| `./logger` | `npm install pino` |
+| `./uuid` | `npm install uuid short-uuid` |
 
 Pre-release builds are published to the `beta` dist-tag, so they never reach a plain `npm install`:
 
@@ -65,6 +73,8 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 `AGENTS.md` is generated from `SKILL.md` by `pnpm sync:agents`; CI fails if they drift. Edit `SKILL.md`, never `AGENTS.md`.
 
 ## Migrating
+
+**4.x → 5.x** — `zod`, `pino`, `uuid` and `short-uuid` moved from `dependencies` to optional `peerDependencies`. If you import `./env`, add `zod`; `./logger`, add `pino`; `./uuid`, add `uuid` and `short-uuid`. Every other module is unaffected. Details in the [migration guide](https://docs.torcato.dev/js-common/docs/guides/migration).
 
 **3.x → 4.x** — everything the runtime already does was removed. `./sets` and `./interval` are gone as modules, and the pass-through wrappers inside surviving modules went with them: `promises.all`/`allSettled`/`race`/`delay`, `boolean.and`/`or`/`not`/`xor`, `strings.padStart`/`padEnd`/`replaceString`, `arrays.first`/`last`/`flatten`/`groupBy`, `numbers.isInteger`/`isFiniteNumber`/`min`/`max`, `objects.deepClone`, `json.deepCloneJson` and `uuid.getUUID`. Nothing moved to another module — the replacement is a JavaScript built-in in every case, which the Node 22 floor guarantees. Two are **not** drop-ins: `Object.groupBy` returns a null-prototype object with optional values, and `structuredClone` keeps `Date`s where the JSON round trip flattened them. The full before/after table is in the [migration guide](https://docs.torcato.dev/js-common/docs/guides/migration).
 
@@ -164,7 +174,8 @@ import { detectLanguage, formatNumber, formatDateI18n, t } from '@rtorcato/js-co
 
 ### Security & Validation
 ```typescript
-import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/security'
+import { isStrongPassword, stripScriptish } from '@rtorcato/js-common/security'
+import { randomHex, hashString, hmacHash } from '@rtorcato/js-common/crypto'
 import { isValidEmail, maskEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
 import { isString, isNumber, isBoolean, isArray, isObject } from '@rtorcato/js-common/validation'
@@ -181,7 +192,7 @@ import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-com
 
 ### Async & Control Flow
 ```typescript
-import { to, withTimeout } from '@rtorcato/js-common/promises'
+import { retry, to, withTimeout } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
 import { tryCatch } from '@rtorcato/js-common/try'

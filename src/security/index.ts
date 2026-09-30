@@ -1,5 +1,3 @@
-import { randomBytes } from 'node:crypto'
-
 /**
  * Removes `<script>` blocks and inline `on*=` event-handler attributes from a string.
  *
@@ -103,20 +101,4 @@ export function isStrongPassword(password: string): boolean {
 	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(
 		password
 	)
-}
-
-/**
- * Generates a cryptographically secure random token (hex string).
- *
- * @example
- * ```typescript
- * generateSecureToken() // 64 hex chars (32 bytes)
- * generateSecureToken(8) // 'c1f0a4e29b73d518'
- * ```
- *
- * @param length The number of bytes (not hex chars).
- * @returns A random hex string.
- */
-export function generateSecureToken(length = 32): string {
-	return randomBytes(length).toString('hex')
 }

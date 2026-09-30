@@ -44,7 +44,7 @@
 
    `tryCatch` in `errors` was renamed to `tryWithFallback` in 2.0; `tryCatch` now means the Result helper in `try`.
 
-4. **Node-only modules.** `crypto`, `security`, and `file` import `node:crypto` / `node:fs`; `logger` uses pino. Don't ship these to a browser bundle. `events` wraps `EventTarget` / `CustomEvent`, which are globals in browsers and Node ≥ 22, so it runs in both. `os`, `process`, `node`, `system`, and `i18n` probe for `process` / `window` / `navigator` and degrade rather than throw. `console` and `env` read `process` unguarded, so a browser bundle needs the bundler to define it. Everything else runs anywhere. `src/runtime-boundaries.test.ts` enforces this paragraph and the `Runtime:` line on each docs module page.
+4. **Node-only modules.** `file` imports `node:fs`; `logger` uses pino. `crypto` is Web Crypto (`globalThis.crypto`), so it runs anywhere — `hashString` and `hmacHash` return promises. Don't ship `file` or `logger` to a browser bundle. `events` wraps `EventTarget` / `CustomEvent`, which are globals in browsers and Node ≥ 22, so it runs in both. `os`, `process`, `node`, `system`, and `i18n` probe for `process` / `window` / `navigator` and degrade rather than throw. `console` and `env` read `process` unguarded, so a browser bundle needs the bundler to define it. Everything else runs anywhere. `src/runtime-boundaries.test.ts` enforces this paragraph and the `Runtime:` line on each docs module page.
 
 5. **`./types` is types-only.** It has a `types` field and no `import` field on purpose — use it for `import type { Prettify, Merge } from '@rtorcato/js-common/types'` only.
 
@@ -85,10 +85,10 @@ Import from `@rtorcato/js-common/<module>`.
 | objects | isPlainObject, deepMerge, omit, pick |
 | os | getOsRelease, getOsArch, getHomeDir, getTmpDir |
 | process | getProcessId, getProcessUptime, getCwd, getProcessPlatform, exitProcess, isCI |
-| promises | to, withTimeout, mapLimit |
+| promises | to, withTimeout, mapLimit, retry, RetryOptions |
 | random | randomInt, randomFloat, randomBool, randomElement, randomString |
 | regex | escapeRegExp, testRegex, matchAll, replaceAllRegex, splitByRegex |
-| security | stripScriptish, isStrongPassword, generateSecureToken |
+| security | stripScriptish, isStrongPassword |
 | sleep | sleep, sleepSync, sleepRandom, sleepWithAbort |
 | strings | titleCase, capitalize, camelCase, kebabCase, snakeCase, truncate, reverse, slugify, words, wordCount, pluralize, ordinalize, isBlank, mask, template |
 | system | isMacOs, isWindows, isLinux, isIOS, isAndroid, getPlatform, isTouchDevice |

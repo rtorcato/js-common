@@ -129,8 +129,8 @@ of the table, not for weight.
 This one **deviates from the initial plan to fold `logger` into `logging`**, and
 the reason is a dependency boundary rather than a naming one:
 
-- `./logger` exports a configured **pino** instance. It pulls `pino` (a runtime
-  dependency) and probes for the optional `pino-pretty`.
+- `./logger` exports a configured **pino** instance. It pulls `pino` (an optional
+  peer dependency) and probes for the optional `pino-pretty`.
 - `./logging` is `console` helpers — `info`, `warn`, `error`, `logWithTimestamp`,
   `captureConsole` — with **zero runtime imports**.
 
@@ -225,12 +225,15 @@ rather than forcing one.
 **Done in 5.0** ([#307](https://github.com/rtorcato/js-common/issues/307)): the three
 aliases are deleted. Import the winner.
 
-**One pair is deliberately left alone.** `crypto.randomHex` (default 16 bytes) and
-`security.generateSecureToken` (default 32) have identical bodies but different
-defaults, so delegating either direction silently halves or doubles the token length
-its callers get. It stays on the `ACCEPTED_DUPLICATES` allowlist in
-`scripts/check-readme-exports.mjs` until someone picks a winner *and* accepts that
-behaviour change — a judgement call, not a mechanical one.
+**The fourth pair was removed in 5.0, not collapsed.** `crypto.randomHex` (default 16
+bytes) and `security.generateSecureToken` (default 32) had identical bodies but
+different defaults, so delegating either direction would have silently halved or
+doubled the token length its callers got. 5.0 was breaking anyway — `./crypto` moved
+to async Web Crypto ([#309](https://github.com/rtorcato/js-common/issues/309)) — so
+`crypto.randomHex` won and `generateSecureToken` was deleted: `./crypto` is the
+subject-matter home, and losing its only `node:crypto` import made `./security` run
+anywhere too. Callers migrate to `randomHex(32)` to keep their token length. The
+`ACCEPTED_DUPLICATES` allowlist in `scripts/check-readme-exports.mjs` is now empty.
 
 Why collapse rather than leave them duplicated: check 4 fires on *identical* bodies,
 so it never protected these. The moment someone "simplified" one copy the bodies
