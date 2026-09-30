@@ -15,11 +15,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.0.0-brightgreen.svg)](https://nodejs.org/)
 [![codecov](https://codecov.io/gh/rtorcato/js-common/branch/main/graph/badge.svg)](https://codecov.io/gh/rtorcato/js-common)
-[![Docs](https://img.shields.io/badge/docs-rtorcato.github.io%2Fjs--common-blue.svg)](https://rtorcato.github.io/js-common/)
+[![Docs](https://img.shields.io/badge/docs-docs.torcato.dev%2Fjs--common-blue.svg)](https://docs.torcato.dev/js-common/)
 
 A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
 
-📘 **Documentation:** <https://rtorcato.github.io/js-common/>
+📘 **Documentation:** <https://docs.torcato.dev/js-common/>
 
 ## Features
 
@@ -64,9 +64,9 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 
 ## Migrating
 
-**3.x → 4.x** — everything the runtime already does was removed. `./sets` and `./interval` are gone as modules, and the pass-through wrappers inside surviving modules went with them: `promises.all`/`allSettled`/`race`/`delay`, `boolean.and`/`or`/`not`/`xor`, `strings.padStart`/`padEnd`/`replaceString`, `arrays.first`/`last`/`flatten`/`groupBy`, `numbers.isInteger`/`isFiniteNumber`/`min`/`max`, `objects.deepClone`, `json.deepCloneJson` and `uuid.getUUID`. Nothing moved to another module — the replacement is a JavaScript built-in in every case, which the Node 22 floor guarantees. Two are **not** drop-ins: `Object.groupBy` returns a null-prototype object with optional values, and `structuredClone` keeps `Date`s where the JSON round trip flattened them. The full before/after table is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
+**3.x → 4.x** — everything the runtime already does was removed. `./sets` and `./interval` are gone as modules, and the pass-through wrappers inside surviving modules went with them: `promises.all`/`allSettled`/`race`/`delay`, `boolean.and`/`or`/`not`/`xor`, `strings.padStart`/`padEnd`/`replaceString`, `arrays.first`/`last`/`flatten`/`groupBy`, `numbers.isInteger`/`isFiniteNumber`/`min`/`max`, `objects.deepClone`, `json.deepCloneJson` and `uuid.getUUID`. Nothing moved to another module — the replacement is a JavaScript built-in in every case, which the Node 22 floor guarantees. Two are **not** drop-ins: `Object.groupBy` returns a null-prototype object with optional values, and `structuredClone` keeps `Date`s where the JSON round trip flattened them. The full before/after table is in the [migration guide](https://docs.torcato.dev/js-common/docs/guides/migration).
 
-**2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. One helper was also renamed rather than moved: `sanitizeString` is now `stripScriptish`, because the old name promised sanitising it never did — it removes `<script>` blocks and inline `on*` handlers and nothing else. The full before/after map is in the [migration guide](https://rtorcato.github.io/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
+**2.x → 3.x** — every helper now has exactly one home. `./formatting` and `./math` are gone, and where two modules shipped the same name the loser was deleted rather than aliased, so you get a build error naming the fix. One helper was also renamed rather than moved: `sanitizeString` is now `stripScriptish`, because the old name promised sanitising it never did — it removes `<script>` blocks and inline `on*` handlers and nothing else. The full before/after map is in the [migration guide](https://docs.torcato.dev/js-common/docs/guides/migration); the reasoning is in [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md).
 
 **1.x → 2.x** — the only breaking change in 2.0 is a rename in the `errors` module:
 
@@ -257,7 +257,7 @@ pnpm --filter @rtorcato/js-common-docs dev
 pnpm --filter @rtorcato/js-common-docs build
 ```
 
-Live site: <https://rtorcato.github.io/js-common/>
+Live site: <https://docs.torcato.dev/js-common/>
 
 ## Roadmap
 

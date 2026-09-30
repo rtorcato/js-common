@@ -12,7 +12,7 @@ We actively support the following versions of `@rtorcato/js-common`:
 Only the latest major gets fixes. 4.0 removed the exports that only wrapped a
 JavaScript built-in, including the `./sets` and `./interval` modules — see
 [MODULE-BOUNDARIES.md](MODULE-BOUNDARIES.md) and the
-[migration guide](https://rtorcato.github.io/js-common/docs/guides/migration).
+[migration guide](https://docs.torcato.dev/js-common/docs/guides/migration).
 
 ## Reporting a Vulnerability
 

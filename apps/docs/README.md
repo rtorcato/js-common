@@ -2,7 +2,7 @@
 
 [Astro Starlight](https://starlight.astro.build/) documentation site for [`@rtorcato/js-common`](https://www.npmjs.com/package/@rtorcato/js-common).
 
-Live site: <https://rtorcato.github.io/js-common/>
+Live site: <https://docs.torcato.dev/js-common/>
 
 ## Local development
 

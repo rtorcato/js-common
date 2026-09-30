@@ -25,7 +25,11 @@
       "commitLint": true,
       "semanticRelease": true,
       "securityAutomation": true,
-      "bundler": "esbuild"
+      "bundler": "esbuild",
+      "docs": {
+        "url": "https://docs.torcato.dev/js-common/",
+        "deploy": "cloudflare"
+      }
     },
     "writtenBy": "@rtorcato/repo-tooling@5.1.4",
     "writtenAt": "2026-09-30T16:52:24.332Z"
