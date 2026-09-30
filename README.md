@@ -164,7 +164,8 @@ import { detectLanguage, formatNumber, formatDateI18n, t } from '@rtorcato/js-co
 
 ### Security & Validation
 ```typescript
-import { isStrongPassword, generateSecureToken } from '@rtorcato/js-common/security'
+import { isStrongPassword, stripScriptish } from '@rtorcato/js-common/security'
+import { randomHex, hashString, hmacHash } from '@rtorcato/js-common/crypto'
 import { isValidEmail, maskEmail } from '@rtorcato/js-common/emails'
 import { isValidUrl } from '@rtorcato/js-common/url'
 import { isString, isNumber, isBoolean, isArray, isObject } from '@rtorcato/js-common/validation'

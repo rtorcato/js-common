@@ -126,7 +126,7 @@ describe('normaliseBody', () => {
 	})
 
 	it('reads through a default value to the parameter name', () => {
-		// crypto.randomHex(length = 16) vs security.generateSecureToken(length = 32):
+		// Two copies that differ only in a default (`length = 16` vs `length = 32`):
 		// the default lives in the signature, so the bodies must still match.
 		expect(normaliseBody(': string {\n\treturn hex(length)\n}', 'length = 16')).toBe(
 			normaliseBody(': string {\n\treturn hex(length)\n}', 'length = 32')

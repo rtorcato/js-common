@@ -24,6 +24,28 @@ rather than half-present.
 |---|---|
 | `import { x } from '@rtorcato/js-common'` | `import { x } from '@rtorcato/js-common/<module>'` — see [Available Modules](https://github.com/rtorcato/js-common#available-modules) for which one |
 
+## 4.x → 5.x — `./crypto` is Web Crypto, and async
+
+**Pending — not yet released** ([#309](https://github.com/rtorcato/js-common/issues/309)).
+
+`./crypto` no longer imports `node:crypto`; it uses Web Crypto (`globalThis.crypto`),
+so it now runs in browsers and on edge runtimes as well as Node. `crypto.subtle` is
+async, so the two digest helpers now return promises. `./security` lost its only
+`node:crypto` import too, and runs anywhere.
+
+| Was | Now |
+|---|---|
+| `hashString(s)` → `string` | `await hashString(s)` → `Promise<string>` |
+| `hmacHash(s, key)` → `string` | `await hmacHash(s, key)` → `Promise<string>` |
+| `hashString(s, 'md5')` | Unsupported — Web Crypto has no md5. Use `'sha256'`, or `createHash('md5')` from `node:crypto` if you need md5 for interop |
+| `hashString(s, 'sha3-256')` or any other `node:crypto` name | Only `'sha1'`, `'sha256'`, `'sha384'`, `'sha512'` are accepted |
+| `security.generateSecureToken()` | `randomHex(32)` from `@rtorcato/js-common/crypto` — pass `32` to keep the 64-char length; `randomHex()` defaults to 16 bytes |
+| `security.generateSecureToken(n)` | `randomHex(n)` from `@rtorcato/js-common/crypto` |
+
+`randomHex`, `base64Encode` and `base64Decode` keep their signatures. `base64Decode`
+now throws on input that is not standard base64 (for example the URL-safe `-`/`_`
+alphabet), where `Buffer` silently accepted it.
+
 ## 3.x → 4.x — what the platform already does
 
 4.0 removes wrappers whose replacement is the runtime itself, not another module

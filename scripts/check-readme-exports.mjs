@@ -162,13 +162,7 @@ function collectExportBodies(file) {
  * Listed as sorted `sub.name` pairs. Delete a line as its pair is resolved; do
  * not add one without an issue saying why the duplicate is allowed to stand.
  */
-const ACCEPTED_DUPLICATES = new Set([
-	// Same body, different defaults (16 vs 32 bytes), so the two are not
-	// interchangeable at their defaults — which is what makes it worth an issue.
-	// The only pair delegation cannot collapse: routing one to the other would
-	// silently change the token length its callers get.
-	'crypto.randomHex|security.generateSecureToken',
-])
+const ACCEPTED_DUPLICATES = new Set([])
 
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
 const subpaths = Object.keys(pkg.exports)
