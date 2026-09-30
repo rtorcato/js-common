@@ -35,8 +35,10 @@ long as it does real work in Node. `i18n.detectLanguage` reads `LANG` in Node
 and `navigator.language` in a browser, so it qualifies. A helper that always
 returns `false` outside a browser does not qualify.
 
-`system`'s user-agent branches (`isIOS`, `isAndroid`, `isTouchDevice`, and the
-UA fallback in `getPlatform`) are the one current exception. They are being
+`system`'s user-agent branches are the one current exception. `isIOS`,
+`isAndroid` and `isTouchDevice` are browser-only. `isMacOs`, `isWindows`,
+`isLinux` and `getPlatform` read `process.platform` in Node and fall back to the
+user agent in a browser; only that fallback goes. They are being
 deprecated in favour of browser-common's platform detection
 ([#294](https://github.com/rtorcato/js-common/issues/294)).
 
