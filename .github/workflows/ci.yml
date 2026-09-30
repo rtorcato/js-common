@@ -236,6 +236,51 @@ jobs:
                       README.md
                   retention-days: 7
 
+    # The test job only ever executes on Node. This imports every universal module
+    # (package.json#exports minus NODE_ONLY) from the built dist/ under Bun and Deno,
+    # so a "universal" label that only holds on Node fails here.
+    runtime-smoke:
+        runs-on: ubuntu-latest
+        needs: [dependencies, build, check-skip]
+        if: needs.check-skip.outputs.should-skip != 'true'
+        strategy:
+            fail-fast: false
+            matrix:
+                runtime: [bun, deno]
+        steps:
+            - name: 📦 Checkout repository
+              uses: actions/checkout@v7
+
+            # uuid, validation etc. import their npm dependencies at load time.
+            - name: 📦 Restore dependencies cache
+              uses: actions/cache@v6
+              with:
+                  path: |
+                      ~/.pnpm-store
+                      node_modules
+                  key: ${{ needs.dependencies.outputs.cache-key }}
+
+            - name: 📦 Download build artifacts
+              uses: actions/download-artifact@v8
+              with:
+                  name: build-artifacts
+
+            - name: 🥟 Setup Bun
+              if: matrix.runtime == 'bun'
+              uses: oven-sh/setup-bun@v2
+
+            - name: 🦕 Setup Deno
+              if: matrix.runtime == 'deno'
+              uses: denoland/setup-deno@v2
+
+            - name: 💨 Smoke-import universal modules (Bun)
+              if: matrix.runtime == 'bun'
+              run: bun scripts/smoke-import.mjs
+
+            - name: 💨 Smoke-import universal modules (Deno)
+              if: matrix.runtime == 'deno'
+              run: deno run --allow-read --allow-env --allow-sys scripts/smoke-import.mjs
+
     docs-build:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]
