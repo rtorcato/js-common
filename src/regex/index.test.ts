@@ -5,6 +5,25 @@ describe('escapeRegExp', () => {
 	it('escapes special regex characters', () => {
 		expect(escapeRegExp('a.b*c?')).toBe('a\\.b\\*c\\?')
 		expect(escapeRegExp('[test]')).toBe('\\[test\\]')
+		expect(escapeRegExp('a-z/b')).toBe('a\\x2dz\\/b')
+	})
+
+	const inputs = ['a-z', 'a/b', '.*+?^${}()|[]\\/-', 'plain']
+
+	it('matches itself literally with and without the u flag', () => {
+		for (const s of inputs) {
+			for (const flags of ['', 'u']) {
+				expect(new RegExp(`^${escapeRegExp(s)}$`, flags).test(s)).toBe(true)
+			}
+		}
+	})
+
+	it('is safe inside a character class', () => {
+		for (const flags of ['', 'u']) {
+			const re = new RegExp(`^[${escapeRegExp('a-z')}]+$`, flags)
+			expect(re.test('a-z')).toBe(true)
+			expect(re.test('b')).toBe(false)
+		}
 	})
 })
 
