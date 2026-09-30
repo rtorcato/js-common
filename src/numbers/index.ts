@@ -210,7 +210,7 @@ export function median(numbers: number[]): number {
  */
 export function percentile(numbers: number[], p: number): number {
 	if (numbers.length === 0) return 0
-	const sorted = [...numbers].sort((a, b) => a - b)
+	const sorted = numbers.toSorted((a, b) => a - b)
 	const rank = ((sorted.length - 1) * clamp(p, 0, 100)) / 100
 	const low = Math.floor(rank)
 	// rank is within [0, length - 1], so both lookups are in bounds

@@ -1,7 +1,7 @@
 {
   "extends": "@rtorcato/repo-tooling/typescript/base",
   "compilerOptions": {
-    "lib": ["ES2022", "DOM"],
+    "lib": ["ES2024", "DOM"],
     "rootDir": "./src",
     "paths": {
       "~/*": ["./src/*"]
