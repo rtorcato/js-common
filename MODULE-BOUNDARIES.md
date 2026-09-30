@@ -21,6 +21,27 @@ is how a "temporary" alias becomes permanent. Deleting now costs consumers one
 build error that names the fix; deleting after 1.0 costs them a major version.
 Beta is the only window where this is free.
 
+## Package boundary: browser APIs go to browser-common
+
+The rule above applies across the two packages as well. js-common is
+runtime-agnostic JavaScript plus Node.js. Anything that exists only to wrap a
+browser Web API (DOM, storage, clipboard, observers, `navigator` / user-agent
+detection) belongs in
+[`@rtorcato/browser-common`](https://github.com/rtorcato/browser-common), and the
+two packages must not export the same helper.
+
+A module that reads a browser global only to **degrade** in Node stays here, as
+long as it does real work in Node. `i18n.detectLanguage` reads `LANG` in Node
+and `navigator.language` in a browser, so it qualifies. A helper that always
+returns `false` outside a browser does not qualify.
+
+`system`'s user-agent branches are the one current exception. `isIOS`,
+`isAndroid` and `isTouchDevice` are browser-only. `isMacOs`, `isWindows`,
+`isLinux` and `getPlatform` read `process.platform` in Node and fall back to the
+user agent in a browser; only that fallback goes. They are being
+deprecated in favour of browser-common's platform detection
+([#294](https://github.com/rtorcato/js-common/issues/294)).
+
 ## Modules removed
 
 `./formatting` and `./math` are gone. The package goes from 46 subpath modules

@@ -19,6 +19,8 @@
 
 A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
 
+> **Browser APIs live in [`@rtorcato/browser-common`](https://github.com/rtorcato/browser-common).** js-common covers runtime-agnostic JavaScript and Node.js. Wrappers around browser Web APIs, such as clipboard, storage, observers, geolocation, the DOM and user-agent detection, belong to browser-common. The two packages don't overlap.
+
 📘 **Documentation:** <https://docs.torcato.dev/js-common/>
 
 ## Features
