@@ -43,6 +43,18 @@ add it.
 Nothing else changes — the same version ranges apply (`zod@^4`, `pino@^10`,
 `uuid@^14`, `short-uuid@^6`), and modules that never used them need nothing.
 
+### Deprecated aliases removed
+
+Three aliases deprecated since [#239](https://github.com/rtorcato/js-common/issues/239)
+are deleted ([#307](https://github.com/rtorcato/js-common/issues/307)). Each already
+delegated to its replacement, so this is an import swap with no behaviour change.
+
+| Was | Now |
+|---|---|
+| `validation.isEmail` | `isValidEmail` from `@rtorcato/js-common/emails` |
+| `validation.isUrl` | `isValidUrl` from `@rtorcato/js-common/url` |
+| `os.getOsPlatform` | `getProcessPlatform` from `@rtorcato/js-common/process` |
+
 ## 3.x → 4.x — what the platform already does
 
 4.0 removes wrappers whose replacement is the runtime itself, not another module

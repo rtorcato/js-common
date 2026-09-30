@@ -46,3 +46,46 @@ export function withTimeout<T>(
 ): Promise<T> {
 	return Promise.race([promise, new Promise<T>((_, reject) => setTimeout(() => reject(error), ms))])
 }
+
+/**
+ * Maps `items` through an async `fn` with at most `limit` calls in flight, resolving to the
+ * results in input order. On the first rejection no new calls are started and the returned
+ * promise rejects with that error, like `Promise.all`; calls already in flight are not cancelled.
+ *
+ * @example
+ * ```typescript
+ * const users = await mapLimit(ids, 4, (id) => getUser(id))
+ * ```
+ *
+ * @param items The values to map.
+ * @param limit Maximum number of concurrent calls — a positive integer.
+ * @param fn Async mapper, called with each item and its index.
+ * @returns {Promise<R[]>}
+ * @throws {RangeError} If `limit` is not a positive integer (the promise rejects).
+ */
+export async function mapLimit<T, R>(
+	items: Iterable<T>,
+	limit: number,
+	fn: (item: T, index: number) => Promise<R>
+): Promise<R[]> {
+	if (!Number.isInteger(limit) || limit < 1) {
+		throw new RangeError(`limit must be a positive integer, got ${limit}`)
+	}
+	const list = Array.from(items)
+	const results = new Array<R>(list.length)
+	let next = 0
+	let failed = false
+	async function worker() {
+		while (!failed && next < list.length) {
+			const i = next++
+			try {
+				results[i] = await fn(list[i] as T, i)
+			} catch (err) {
+				failed = true
+				throw err
+			}
+		}
+	}
+	await Promise.all(Array.from({ length: Math.min(limit, list.length) }, worker))
+	return results
+}
