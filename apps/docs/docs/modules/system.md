@@ -3,6 +3,8 @@ title: System
 description: Utilities exported from @rtorcato/js-common/system.
 ---
 
+**Runtime:** Node.js; degrades in browsers — probes for `process` / `window` / `navigator` and falls back instead of throwing
+
 Operating-system detection. In Node every helper reads `process.platform` and is the supported path.
 
 :::warning Browser detection is deprecated

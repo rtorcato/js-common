@@ -4,6 +4,8 @@ description: Thin native-Date helpers — formatting, math, comparisons, relativ
 sidebar_position: 2
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 A small set of native-`Date` helpers — no third-party date dependency, no parsing of arbitrary formats, no timezone math beyond what the platform already provides. Use these for everyday date work; reach for `date-fns`/`dayjs`/`luxon` if you need locale-aware formatting or rich timezone handling.
 
 :::note Intentionally minimal

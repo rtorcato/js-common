@@ -3,6 +3,8 @@ title: Regex
 description: Utilities exported from @rtorcato/js-common/regex.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 Regex conveniences — escape a string for literal use in a pattern, test, match all, split, replace all. `escapeRegExp` is the one that earns its place: interpolating user input into a `RegExp` without it gives you a broken pattern at best and catastrophic backtracking at worst. The rest are thin wrappers that add the `g` flag where it is needed and return plain arrays rather than iterators, so results are easy to destructure and inspect.
 
 ## Example

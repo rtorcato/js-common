@@ -3,6 +3,8 @@ title: Json
 description: Utilities exported from @rtorcato/js-common/json.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 Parse, stringify, validate and deep-clone through JSON, with every operation returning a fallback instead of throwing. Parsing untrusted JSON is the classic case where a `try`/`catch` is pure noise, so `safeJsonParse` takes the fallback as an argument. Cloning through JSON was removed in 4.0 along with its `objects` counterpart: `structuredClone` is a global on every supported runtime and keeps `Date`s, `Map`s, `Set`s and cycles intact.
 
 ## Example
