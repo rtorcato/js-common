@@ -30,9 +30,12 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^21.2.2
         version: 21.2.2
+      '@rtorcato/repo-ai':
+        specifier: ^3.1.2
+        version: 3.1.2(@types/node@26.5.1)
       '@rtorcato/repo-tooling':
-        specifier: ^3.35.0
-        version: 3.35.0(20be948a290bba21e1ccf26878348065)
+        specifier: ^5.1.4
+        version: 5.1.4(20be948a290bba21e1ccf26878348065)
       '@semantic-release/changelog':
         specifier: ^7.0.0
         version: 7.0.0(semantic-release@25.0.9(supports-color@8.1.1)(typescript@6.0.3))
@@ -162,8 +165,8 @@ importers:
         specifier: ^1.63.0
         version: 1.63.0
       '@rtorcato/shared-docs':
-        specifier: github:rtorcato/shared-docs
-        version: https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^1.13.0
+        version: 1.13.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.18
@@ -3016,8 +3019,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rtorcato/repo-tooling@3.35.0':
-    resolution: {integrity: sha512-7YHJt2JfbgFZjDK8TqoE8wc+lam7YvwIWyx676g8c7YuBcRuEVXRxwTgRj0tUhA4TAimsTaa17WotwEdtG2XIA==}
+  '@rtorcato/repo-ai@3.1.2':
+    resolution: {integrity: sha512-xrN2G0CUVvYRfUwIu2lfTX98MT4s+QLKgqAfnbud68i/lCM2H7NEED3lKTWj2+8u1TZ0Nzygfxo8Vy7khx2I6w==}
+    engines: {node: '>=22'}
+    hasBin: true
+
+  '@rtorcato/repo-tooling@5.1.4':
+    resolution: {integrity: sha512-nFlhyM+eoQCgHMiLDx5GZ8LvEWtqExlPRS9VrFC9U4tYoT07eKv207Vww2Eiom8fJeF7zDx+acy5AbDITOlE/Q==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -3131,13 +3139,18 @@ packages:
       vitest:
         optional: true
 
-  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d':
-    resolution: {gitHosted: true, integrity: sha512-SSZhfFdM+b3eTmyYfSMrAJM+/aMojHP6igyiWwPs5qTGGx79BhDbtaeQqiGJQLj9ge4ka9R81Ffn/hWhqVT1EA==, tarball: https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d}
-    version: 1.2.0
+  '@rtorcato/shared-docs@1.13.0':
+    resolution: {integrity: sha512-VNUL+E4HkJdCDQX3b/Qso+jnOUfU4m/DG9+iXLDr/2rOD2M2nAOKyT8SZWtCjZ8YAN356Jc5CKNxhzvy4EadnQ==}
     engines: {node: '>=22'}
+    hasBin: true
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -11510,7 +11523,7 @@ snapshots:
     dependencies:
       '@inquirer/ansi': 2.0.7
       '@inquirer/figures': 2.0.8
-      '@inquirer/type': 4.0.7(@types/node@26.5.1)
+      '@inquirer/type': 4.1.0(@types/node@26.5.1)
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
@@ -12377,7 +12390,16 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.1':
     optional: true
 
-  '@rtorcato/repo-tooling@3.35.0(20be948a290bba21e1ccf26878348065)':
+  '@rtorcato/repo-ai@3.1.2(@types/node@26.5.1)':
+    dependencies:
+      chalk: 6.0.0
+      commander: 15.0.0
+      fs-extra: 11.4.0
+      inquirer: 14.2.0(@types/node@26.5.1)
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@rtorcato/repo-tooling@5.1.4(20be948a290bba21e1ccf26878348065)':
     dependencies:
       chalk: 6.0.0
       commander: 15.0.0
@@ -12415,8 +12437,8 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/b9fa5cfc136a76359762b9dbcb072279fe14758d(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
-    dependencies:
+  '@rtorcato/shared-docs@1.13.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    optionalDependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
