@@ -48,19 +48,26 @@ export function sleepRandom(min: number, max: number): Promise<void> {
 }
 
 /**
- * Returns a promise that resolves after ms, or rejects if aborted via AbortSignal.
+ * Returns a promise that resolves after ms, or rejects with `signal.reason` if aborted.
+ * An already-aborted signal rejects immediately.
  * @param ms Milliseconds to sleep.
  * @param signal Optional AbortSignal to cancel the sleep.
- * @returns Promise that resolves after ms or rejects if aborted.
+ * @returns Promise that resolves after ms or rejects with `signal.reason` if aborted.
  */
 export function sleepWithAbort(ms: number, signal?: AbortSignal): Promise<void> {
 	return new Promise((resolve, reject) => {
-		const timer = setTimeout(resolve, ms)
-		if (signal) {
-			signal.addEventListener('abort', () => {
-				clearTimeout(timer)
-				reject(new Error('Sleep aborted'))
-			})
+		if (signal?.aborted) {
+			reject(signal.reason)
+			return
 		}
+		const onAbort = () => {
+			clearTimeout(timer)
+			reject(signal?.reason)
+		}
+		const timer = setTimeout(() => {
+			signal?.removeEventListener('abort', onAbort)
+			resolve()
+		}, ms)
+		signal?.addEventListener('abort', onAbort, { once: true })
 	})
 }

@@ -17,7 +17,7 @@ export function createAbortController() {
 }
 
 /**
- * Returns a promise that rejects when the given AbortSignal is aborted.
+ * Returns a promise that rejects with `signal.reason` when the given AbortSignal is aborted.
  *
  * @example
  * ```typescript
@@ -32,22 +32,14 @@ export function createAbortController() {
  */
 export function abortPromise(signal: AbortSignal): Promise<never> {
 	return new Promise((_, reject) => {
-		if (signal.aborted) {
-			reject(new DOMException('Aborted', 'AbortError'))
-		} else {
-			signal.addEventListener(
-				'abort',
-				() => {
-					reject(new DOMException('Aborted', 'AbortError'))
-				},
-				{ once: true }
-			)
-		}
+		if (signal.aborted) reject(signal.reason)
+		else signal.addEventListener('abort', () => reject(signal.reason), { once: true })
 	})
 }
 
 /**
- * Wraps a promise and rejects it if the signal is aborted.
+ * Wraps a promise and rejects it with `signal.reason` if the signal is aborted.
+ * The abort listener is removed once the promise settles.
  *
  * @example
  * ```typescript
@@ -65,7 +57,22 @@ export function abortPromise(signal: AbortSignal): Promise<never> {
  * @returns {Promise<T>}
  */
 export function withAbort<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {
-	return Promise.race([promise, abortPromise(signal)])
+	if (signal.aborted) return Promise.reject(signal.reason)
+	return new Promise<T>((resolve, reject) => {
+		const onAbort = () => reject(signal.reason)
+		signal.addEventListener('abort', onAbort, { once: true })
+		const cleanup = () => signal.removeEventListener('abort', onAbort)
+		promise.then(
+			(value) => {
+				cleanup()
+				resolve(value)
+			},
+			(error) => {
+				cleanup()
+				reject(error)
+			}
+		)
+	})
 }
 
 /**
