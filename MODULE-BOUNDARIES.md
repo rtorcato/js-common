@@ -255,6 +255,11 @@ that happens for a real reason.
   whole library and defeats the per-concern subpaths this file exists to protect.
 - **Delete the three deprecated aliases** — `validation.isEmail`, `validation.isUrl`,
   `os.getOsPlatform` (see above).
+- **Drop browser detection from `./system`** ([#294](https://github.com/rtorcato/js-common/issues/294)).
+  Delete the deprecated `isIOS`, `isAndroid` and `isTouchDevice`, and the
+  `window.navigator.userAgent` branches of `isMacOs`, `isWindows`, `isLinux` and
+  `getPlatform`, which then read `process.platform` only. Browser detection lives in
+  `@rtorcato/browser-common`.
 
 ## What this freezes
 
