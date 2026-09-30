@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { sleep, sleepRandom, sleepSync, sleepWithAbort } from './index'
 
 describe('sleep', () => {
@@ -42,6 +42,20 @@ describe('sleepWithAbort', () => {
 	it('rejects if aborted before timeout', async () => {
 		const controller = new AbortController()
 		setTimeout(() => controller.abort(), 10)
-		await expect(sleepWithAbort(50, controller.signal)).rejects.toThrow('Sleep aborted')
+		await expect(sleepWithAbort(50, controller.signal)).rejects.toMatchObject({
+			name: 'AbortError',
+		})
+	})
+	it('rejects immediately with signal.reason if already aborted', async () => {
+		const reason = new Error('custom')
+		const start = Date.now()
+		await expect(sleepWithAbort(1000, AbortSignal.abort(reason))).rejects.toBe(reason)
+		expect(Date.now() - start).toBeLessThan(100)
+	})
+	it('removes its abort listener after resolving', async () => {
+		const controller = new AbortController()
+		const remove = vi.spyOn(controller.signal, 'removeEventListener')
+		await sleepWithAbort(5, controller.signal)
+		expect(remove).toHaveBeenCalledWith('abort', expect.any(Function))
 	})
 })
