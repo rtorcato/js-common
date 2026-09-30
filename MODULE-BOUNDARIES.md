@@ -222,9 +222,8 @@ callers migrate on their own schedule. **Deleting the three aliases is still the
 state** — it just rides along with whatever major happens next for a real reason,
 rather than forcing one.
 
-The build hoists a delegated body into a shared chunk rather than copying it, so an
-alias costs nothing at consumer bundle size: `validation` and `emails` share
-`chunk-BTQDSDRX`, `os` and `process` share `chunk-HFYUD75W`.
+**Done in 5.0** ([#307](https://github.com/rtorcato/js-common/issues/307)): the three
+aliases are deleted. Import the winner.
 
 **One pair is deliberately left alone.** `crypto.randomHex` (default 16 bytes) and
 `security.generateSecureToken` (default 32) have identical bodies but different
@@ -253,8 +252,6 @@ that happens for a real reason.
   (`ERR_PACKAGE_PATH_NOT_EXPORTED`) instead. Re-exporting every
   module from the root was the alternative and is rejected: it hands root importers the
   whole library and defeats the per-concern subpaths this file exists to protect.
-- **Delete the three deprecated aliases** — `validation.isEmail`, `validation.isUrl`,
-  `os.getOsPlatform` (see above).
 - **Drop browser detection from `./system`** ([#294](https://github.com/rtorcato/js-common/issues/294)).
   Delete the deprecated `isIOS`, `isAndroid` and `isTouchDevice`, and the
   `window.navigator.userAgent` branches of `isMacOs`, `isWindows`, `isLinux` and

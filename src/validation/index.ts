@@ -1,6 +1,3 @@
-import { isValidEmail } from '../emails'
-import { isValidUrl } from '../url'
-
 /**
  * Checks if a value is defined (not null or undefined).
  *
@@ -83,28 +80,4 @@ export function isArray(value: unknown): value is unknown[] {
 
 export function isObject(value: unknown): value is object {
 	return typeof value === 'object' && value !== null && !Array.isArray(value)
-}
-
-/**
- * Checks if a string is a valid email address (simple regex).
- *
- * @deprecated Use `isValidEmail` from `@rtorcato/js-common/emails` — `./emails` is
- * the subject-matter home for this. Kept as a delegating alias; see #239.
- * @param str The string to check.
- * @returns {boolean}
- */
-export function isEmail(str: string): boolean {
-	return isValidEmail(str)
-}
-
-/**
- * Checks if a string is a valid URL.
- *
- * @deprecated Use `isValidUrl` from `@rtorcato/js-common/url` — `./url` owns this.
- * Kept as a delegating alias; see #239.
- * @param str The string to check.
- * @returns {boolean}
- */
-export function isUrl(str: string): boolean {
-	return isValidUrl(str)
 }

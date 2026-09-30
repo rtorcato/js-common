@@ -1,15 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { getHomeDir, getOsArch, getOsPlatform, getOsRelease, getTmpDir } from './index'
+import { getHomeDir, getOsArch, getOsRelease, getTmpDir } from './index'
 
 describe('os utils', () => {
-	it('getOsPlatform returns process.platform or undefined', () => {
-		if (typeof process !== 'undefined') {
-			expect(getOsPlatform()).toBe(process.platform)
-		} else {
-			expect(getOsPlatform()).toBeUndefined()
-		}
-	})
-
 	it('getOsRelease returns process.release.name or undefined', () => {
 		if (typeof process !== 'undefined' && process.release && process.release.name) {
 			expect(getOsRelease()).toBe(process.release.name)
