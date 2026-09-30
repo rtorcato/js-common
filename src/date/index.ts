@@ -94,10 +94,24 @@ export function subDays(date: string | Date, days: number): Date {
 
 /**
  * Adds months to a date and returns a new Date object.
+ *
+ * When the source day does not exist in the target month, the result clamps to that
+ * month's last day (as Temporal and date-fns do) instead of rolling into the next month.
+ *
+ * @example
+ * ```typescript
+ * addMonths('2026-01-31', 1) // Date — Feb 28, not Mar 3
+ * addMonths('2024-01-31', 1) // Date — Feb 29 (leap year)
+ * ```
  */
 export function addMonths(date: string | Date, months: number): Date {
 	const d = toDate(date)
+	const day = d.getDate()
+	d.setDate(1)
 	d.setMonth(d.getMonth() + months)
+	// Day 0 of the following month is the last day of the target month.
+	const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate()
+	d.setDate(Math.min(day, lastDay))
 	return d
 }
 

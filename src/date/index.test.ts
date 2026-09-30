@@ -84,6 +84,20 @@ describe('date module', () => {
 		expect(wrapped.getMonth()).toBe(1)
 	})
 
+	it('addMonths clamps to the last day of the target month', () => {
+		// Local getters: addMonths works in local time, formatDate in UTC.
+		const ymd = (d: Date) =>
+			`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+		expect(ymd(addMonths('2026-01-31', 1))).toBe('2026-02-28')
+		expect(ymd(addMonths('2024-01-31', 1))).toBe('2024-02-29')
+		expect(ymd(addMonths('2024-02-29', 12))).toBe('2025-02-28')
+		expect(ymd(addMonths('2024-02-29', -12))).toBe('2023-02-28')
+		expect(ymd(addMonths('2026-03-31', -1))).toBe('2026-02-28')
+		expect(ymd(addMonths('2024-03-31', -1))).toBe('2024-02-29')
+		expect(ymd(addMonths('2026-05-31', -13))).toBe('2025-04-30')
+		expect(ymd(addMonths('2026-01-15', -1))).toBe('2025-12-15')
+	})
+
 	it('getDayOfWeek returns correct day index', () => {
 		expect(getDayOfWeek('2023-05-28')).toBe(0)
 		expect(getDayOfWeek('2023-05-29')).toBe(1)

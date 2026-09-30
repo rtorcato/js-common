@@ -59,6 +59,7 @@ formatDate(new Date())                  // "2026-06-12" (UTC YYYY-MM-DD)
 addDays('2026-01-01', 5)                // Date — Jan 6
 subDays('2026-01-10', 5)                // Date — Jan 5
 addMonths('2026-01-15', 2)              // Date — Mar 15
+addMonths('2026-01-31', 1)              // Date — Feb 28 (clamps to month end)
 ```
 
 ## Differences

@@ -36,6 +36,20 @@ delegated to its replacement, so this is an import swap with no behaviour change
 | `validation.isUrl` | `isValidUrl` from `@rtorcato/js-common/url` |
 | `os.getOsPlatform` | `getProcessPlatform` from `@rtorcato/js-common/process` |
 
+### `addMonths` clamps to month end
+
+`date.addMonths` used to roll over when the source day did not exist in the target
+month, so `addMonths('2026-01-31', 1)` returned **March 3**. It now clamps to the
+last day of the target month, as Temporal and date-fns do
+([#290](https://github.com/rtorcato/js-common/issues/290)). Only inputs on day 29–31
+are affected.
+
+| Call | Was | Now |
+|---|---|---|
+| `addMonths('2026-01-31', 1)` | 2026-03-03 | 2026-02-28 |
+| `addMonths('2024-01-31', 1)` | 2024-03-02 | 2024-02-29 |
+| `addMonths('2026-03-31', -1)` | 2026-03-03 | 2026-02-28 |
+
 ## 3.x → 4.x — what the platform already does
 
 4.0 removes wrappers whose replacement is the runtime itself, not another module
