@@ -3,6 +3,8 @@ title: Emails
 description: Utilities exported from @rtorcato/js-common/emails.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 Everyday address handling — validate, normalize, mask for display, extract the domain, flag free providers. Validation is a deliberately simple regex rather than RFC 5322: it catches typos and obvious junk, and the only real proof an address exists is delivering mail to it. `normalizeEmail` only trims and lowercases — it does not strip Gmail dots or `+` tags, because those rules are provider-specific and throw away information the user may have meant.
 
 ## Example

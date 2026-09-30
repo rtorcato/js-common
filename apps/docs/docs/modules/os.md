@@ -3,6 +3,8 @@ title: Os
 description: Utilities exported from @rtorcato/js-common/os.
 ---
 
+**Runtime:** Node.js; degrades in browsers — probes for `process` / `window` / `navigator` and falls back instead of throwing
+
 The handful of operating-system facts worth a named helper — platform, architecture, release, home and temp directories. Each one guards on `process` being present and returns `undefined` off Node rather than throwing, so a shared module can call them without a runtime check. They are passthroughs, so you get exactly what Node reports (`'darwin'`, not `'macOS'`); for browser-side platform sniffing use `system`.
 
 `getOsPlatform` is deprecated: use [`getProcessPlatform`](./process.md) instead. It stays as a delegating alias so nothing breaks today, but new code should not reach for it.

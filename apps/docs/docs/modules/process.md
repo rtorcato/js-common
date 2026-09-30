@@ -3,6 +3,8 @@ title: Process
 description: Utilities exported from @rtorcato/js-common/process.
 ---
 
+**Runtime:** Node.js; degrades in browsers — probes for `process` / `window` / `navigator` and falls back instead of throwing
+
 Process-scoped facts and actions — cwd, pid, platform, uptime, exit and CI detection. Every helper reads `process` at call time rather than at import, so tests can change the environment without module-cache tricks, and each returns `undefined` off Node instead of throwing. `isCI` checks the conventional variables (`CI`, `CONTINUOUS_INTEGRATION`, `BUILD_NUMBER`, `RUN_ID`) that providers set.
 
 ## Example

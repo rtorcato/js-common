@@ -3,6 +3,8 @@ title: Time
 description: Thin native-Date time helpers — HH:MM:SS formatting, parsing, and seconds-between.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 A minimal set of time-of-day helpers built on the native `Date`. No locale-aware formatting, no durations, no timezone math.
 
 :::note Intentionally minimal
