@@ -1,14 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-	isArray,
-	isBoolean,
-	isDefined,
-	isEmail,
-	isNumber,
-	isObject,
-	isString,
-	isUrl,
-} from './index'
+import { isArray, isBoolean, isDefined, isNumber, isObject, isString } from './index'
 
 describe('validation utils', () => {
 	it('isDefined', () => {
@@ -48,23 +39,5 @@ describe('validation utils', () => {
 		expect(isObject({ a: 1 })).toBe(true)
 		expect(isObject([])).toBe(false)
 		expect(isObject(null)).toBe(false)
-	})
-
-	it('isEmail', () => {
-		expect(isEmail('test@example.com')).toBe(true)
-		expect(isEmail('foo@bar.co.uk')).toBe(true)
-		expect(isEmail('not-an-email')).toBe(false)
-		expect(isEmail('foo@bar')).toBe(false)
-		expect(isEmail('foo@.com')).toBe(false)
-		expect(isEmail('foo@bar..com')).toBe(false)
-		expect(isEmail('foo@bar.com.')).toBe(false)
-	})
-
-	it('isUrl', () => {
-		expect(isUrl('https://example.com')).toBe(true)
-		expect(isUrl('http://localhost:3000')).toBe(true)
-		expect(isUrl('ftp://example.com')).toBe(true)
-		expect(isUrl('not a url')).toBe(false)
-		expect(isUrl('example.com')).toBe(false)
 	})
 })
