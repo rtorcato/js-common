@@ -39,6 +39,31 @@ describe('fetch module', () => {
 		)
 	})
 
+	it('fetchWithTimeout rejects with TimeoutError when the body read is slow', async () => {
+		mockFetch.mockImplementation(async (_url, options) => ({
+			json: () =>
+				new Promise((_resolve, reject) => {
+					options.signal.addEventListener('abort', () => reject(options.signal.reason))
+				}),
+		}))
+		await expect(fetchUtils.fetchWithTimeout('http://test', {}, 10)).rejects.toMatchObject({
+			name: 'TimeoutError',
+		})
+	})
+
+	it('fetchWithTimeout honours the caller signal', async () => {
+		mockFetch.mockImplementation(
+			(_url, options) =>
+				new Promise((_resolve, reject) => {
+					options.signal.addEventListener('abort', () => reject(options.signal.reason))
+				})
+		)
+		const controller = new AbortController()
+		const pending = fetchUtils.fetchWithTimeout('http://test', { signal: controller.signal }, 5000)
+		controller.abort()
+		await expect(pending).rejects.toMatchObject({ name: 'AbortError' })
+	})
+
 	it('postJson sends POST with JSON body and returns JSON', async () => {
 		const body = { foo: 'bar' }
 		mockFetch.mockResolvedValue({
