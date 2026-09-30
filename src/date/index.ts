@@ -45,10 +45,13 @@ export function formatDate(date: Date): string {
 }
 
 /**
- * Returns the difference in days between two dates (date2 - date1).
+ * Returns the difference in days between two dates (date2 - date1), measured in
+ * local wall-clock time so a DST change doesn't cost or gain a day.
  */
 export function daysBetween(date1: string | Date, date2: string | Date): number {
-	return Math.floor((toDate(date2).getTime() - toDate(date1).getTime()) / MS_PER_DAY)
+	// Shift each instant by its own UTC offset so a 23h/25h DST day still counts as one.
+	const wallClock = (d: Date) => d.getTime() - d.getTimezoneOffset() * MS_PER_MINUTE
+	return Math.floor((wallClock(toDate(date2)) - wallClock(toDate(date1))) / MS_PER_DAY)
 }
 
 /**
