@@ -27,7 +27,7 @@ description: Use when writing TypeScript/JavaScript that needs a general-purpose
    | `try.tryCatch` vs `errors.tryWithFallback` | Result object vs swallow-and-fall-back — see rule 3 |
    | `date.formatDate` vs `datetime.formatDateTimeLocal` | a UTC calendar day vs a local instant |
 
-   Where two modules used to ship the same name, the loser now delegates to the winner and is marked `@deprecated` (`validation.isEmail`, `validation.isUrl`, `os.getOsPlatform`) — prefer the winner in new code. [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md) records which side won and why.
+   Where two modules used to ship the same name, the loser was deleted — use `emails.isValidEmail`, `url.isValidUrl` and `process.getProcessPlatform` (not `validation.isEmail`, `validation.isUrl` or `os.getOsPlatform`). [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md) records which side won and why.
 
 3. **Three different error idioms — don't mix them up.**
 
@@ -47,7 +47,7 @@ description: Use when writing TypeScript/JavaScript that needs a general-purpose
 
    `tryCatch` in `errors` was renamed to `tryWithFallback` in 2.0; `tryCatch` now means the Result helper in `try`.
 
-4. **Node-only modules.** `file` imports `node:fs`; `logger` uses pino. `crypto` is Web Crypto (`globalThis.crypto`), so it runs anywhere — `hashString` and `hmacHash` return promises. Don't ship these to a browser bundle. `events` wraps `EventTarget` / `CustomEvent`, which are globals in browsers and Node ≥ 22, so it runs in both. `os`, `process`, `node`, `system`, and `i18n` probe for `process` / `window` / `navigator` and degrade rather than throw. `console` and `env` read `process` unguarded, so a browser bundle needs the bundler to define it. Everything else runs anywhere. `src/runtime-boundaries.test.ts` enforces this paragraph and the `Runtime:` line on each docs module page.
+4. **Node-only modules.** `file` imports `node:fs`; `logger` uses pino. `crypto` is Web Crypto (`globalThis.crypto`), so it runs anywhere — `hashString` and `hmacHash` return promises. Don't ship `file` or `logger` to a browser bundle. `events` wraps `EventTarget` / `CustomEvent`, which are globals in browsers and Node ≥ 22, so it runs in both. `os`, `process`, `node`, `system`, and `i18n` probe for `process` / `window` / `navigator` and degrade rather than throw. `console` and `env` read `process` unguarded, so a browser bundle needs the bundler to define it. Everything else runs anywhere. `src/runtime-boundaries.test.ts` enforces this paragraph and the `Runtime:` line on each docs module page.
 
 5. **`./types` is types-only.** It has a `types` field and no `import` field on purpose — use it for `import type { Prettify, Merge } from '@rtorcato/js-common/types'` only.
 
@@ -86,9 +86,9 @@ Import from `@rtorcato/js-common/<module>`.
 | node | nodeVersionCheck, getNodeMajorVersion, isNode, requireOptional |
 | numbers | clamp, roundTo, formatPercent, FormatPercentOptions, between, sum, average, mod, variance, stdDev, median, percentile |
 | objects | isPlainObject, deepMerge, omit, pick |
-| os | getOsPlatform, getOsRelease, getOsArch, getHomeDir, getTmpDir |
+| os | getOsRelease, getOsArch, getHomeDir, getTmpDir |
 | process | getProcessId, getProcessUptime, getCwd, getProcessPlatform, exitProcess, isCI |
-| promises | to, withTimeout |
+| promises | to, withTimeout, mapLimit |
 | random | randomInt, randomFloat, randomBool, randomElement, randomString |
 | regex | escapeRegExp, testRegex, matchAll, replaceAllRegex, splitByRegex |
 | security | stripScriptish, isStrongPassword |
@@ -100,7 +100,7 @@ Import from `@rtorcato/js-common/<module>`.
 | types | Prettify, Merge (types only) |
 | url | isValidUrl, getQueryParams, setQueryParam, removeQueryParam, joinUrl, getHostname |
 | uuid | getUUIDv7, getShortUUID, toShortUUID, fromShortUUID, isUUID, isUUIDv4, isNilUUID, getUUIDVersion, getNilUUID, uuidToBytes, bytesToUUID |
-| validation | isDefined, isString, isNumber, isBoolean, isArray, isObject, isEmail, isUrl |
+| validation | isDefined, isString, isNumber, isBoolean, isArray, isObject |
 
 ## CLI
 

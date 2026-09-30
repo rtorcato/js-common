@@ -22,7 +22,7 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | UUID | `@rtorcato/js-common/uuid` | any | `getUUIDv7`, `getShortUUID`, `isUUID` |
 | Security | `@rtorcato/js-common/security` | any | `isStrongPassword`, `stripScriptish` |
 | Validation | `@rtorcato/js-common/validation` | any | `isString`, `isNumber`, `isArray`, `isObject` |
-| Promises | `@rtorcato/js-common/promises` | any | `withTimeout`, `to` |
+| Promises | `@rtorcato/js-common/promises` | any | `withTimeout`, `to`, `mapLimit` |
 | Functions | `@rtorcato/js-common/functions` | any | `debounce`, `throttle`, `once` |
 | Sleep | `@rtorcato/js-common/sleep` | any | `sleep` |
 

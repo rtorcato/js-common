@@ -13,9 +13,12 @@ import preset from '@rtorcato/repo-tooling/semantic-release/github'
 // imply CHANGELOG.md was still maintained. See #211.
 //
 // The consequence, stated plainly because it is easy to miss: **CHANGELOG.md and
-// the `version` field in package.json are frozen on main** at whatever the last
-// release with the git plugin wrote (2.8.2). The tag, the npm publish and the
-// GitHub release are unaffected and remain the source of truth for what shipped.
+// the `version` field in package.json are never written back to main**. CHANGELOG.md
+// stops at the last release the git plugin wrote (2.8.2); `version` is the
+// `0.0.0-semantic-release` placeholder, which @semantic-release/npm overwrites in the
+// CI workspace before packing, so a local build's `--version` prints the placeholder
+// while the published tarball carries the real version (#303). The tag, the npm
+// publish and the GitHub release are unaffected and remain the source of truth for what shipped.
 // The docs changelog page is built from GitHub Releases for that reason —
 // see scripts/sync-changelog.mjs.
 //

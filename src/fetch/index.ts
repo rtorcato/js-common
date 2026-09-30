@@ -5,11 +5,14 @@
  * ```typescript
  * await fetchWithTimeout('https://api.example.com/health') // { status: 'ok' }
  * await fetchWithTimeout('https://slow.example.com', {}, 500)
- * // rejects with AbortError after 500ms
+ * // rejects with a TimeoutError DOMException after 500ms (covers the body read too)
+ * const controller = new AbortController()
+ * await fetchWithTimeout('https://api.example.com', { signal: controller.signal })
+ * // controller.abort() rejects with AbortError
  * ```
  *
  * @param url The URL to fetch.
- * @param options Fetch options.
+ * @param options Fetch options. A caller `signal` is honoured alongside the timeout.
  * @param timeout Timeout in milliseconds (default: 8000).
  * @returns The parsed JSON response.
  */
@@ -18,15 +21,10 @@ export async function fetchWithTimeout(
 	options: RequestInit = {},
 	timeout = 8000
 ): Promise<unknown> {
-	const controller = new AbortController()
-	const id = setTimeout(() => controller.abort(), timeout)
-	try {
-		const response = await fetch(url, { ...options, signal: controller.signal })
-		clearTimeout(id)
-		return await response.json()
-	} finally {
-		clearTimeout(id)
-	}
+	const timeoutSignal = AbortSignal.timeout(timeout)
+	const signal = options.signal ? AbortSignal.any([options.signal, timeoutSignal]) : timeoutSignal
+	const response = await fetch(url, { ...options, signal })
+	return await response.json()
 }
 
 /**
@@ -81,7 +79,7 @@ export async function getJson<T = unknown>(url: string, options: RequestInit = {
 /**
  * Fetches a resource and returns the response as text.
  * @param url The URL to fetch.
- * @param options Fetch options.
+ * @param options Fetch options. A caller `signal` is honoured alongside the timeout.
  * @returns The response as text.
  */
 export async function fetchText(url: string, options: RequestInit = {}): Promise<string> {

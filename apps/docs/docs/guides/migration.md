@@ -24,6 +24,18 @@ rather than half-present.
 |---|---|
 | `import { x } from '@rtorcato/js-common'` | `import { x } from '@rtorcato/js-common/<module>'` — see [Available Modules](https://github.com/rtorcato/js-common#available-modules) for which one |
 
+### Deprecated aliases removed
+
+Three aliases deprecated since [#239](https://github.com/rtorcato/js-common/issues/239)
+are deleted ([#307](https://github.com/rtorcato/js-common/issues/307)). Each already
+delegated to its replacement, so this is an import swap with no behaviour change.
+
+| Was | Now |
+|---|---|
+| `validation.isEmail` | `isValidEmail` from `@rtorcato/js-common/emails` |
+| `validation.isUrl` | `isValidUrl` from `@rtorcato/js-common/url` |
+| `os.getOsPlatform` | `getProcessPlatform` from `@rtorcato/js-common/process` |
+
 ## 4.x → 5.x — `./crypto` is Web Crypto, and async
 
 **Pending — not yet released** ([#309](https://github.com/rtorcato/js-common/issues/309)).
