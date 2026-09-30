@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 // It also checks the `**Runtime:**` line under the title of each apps/docs module page.
 // Update this file, SKILL.md and the docs pages together, then run `pnpm sync:agents`.
 
-const NODE_ONLY = ['crypto', 'file', 'logger', 'security']
+const NODE_ONLY = ['file', 'logger']
 const BROWSER_ONLY: string[] = []
 const DEGRADES = ['i18n', 'node', 'os', 'process', 'system']
 const NEEDS_PROCESS = ['console', 'env']

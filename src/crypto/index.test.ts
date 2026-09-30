@@ -2,37 +2,37 @@ import { describe, expect, it } from 'vitest'
 import { base64Decode, base64Encode, hashString, hmacHash, randomHex } from './index'
 
 describe('crypto module', () => {
-	it('hashString hashes a string with sha256 by default', () => {
-		const hash = hashString('hello')
-		expect(typeof hash).toBe('string')
-		expect(hash.length).toBe(64) // sha256 hex length
-		expect(hash).toMatch(/^[a-f0-9]+$/i)
+	it('hashString hashes a string with sha256 by default', async () => {
+		expect(await hashString('hello')).toBe(
+			'2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'
+		)
 	})
 
-	it('hashString supports other algorithms', () => {
-		const hash = hashString('hello', 'md5')
-		expect(hash.length).toBe(32) // md5 hex length
+	it('hashString supports other SHA algorithms', async () => {
+		expect(await hashString('hello', 'sha1')).toBe('aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d')
+		expect(await hashString('hello', 'sha512')).toHaveLength(128)
+	})
+
+	it('hashString rejects md5, which Web Crypto does not support', async () => {
+		await expect(hashString('hello', 'md5' as never)).rejects.toThrow()
 	})
 
 	it('randomHex returns a hex string of correct length', () => {
-		const hex = randomHex(8)
-		expect(typeof hex).toBe('string')
-		expect(hex.length).toBe(16) // 8 bytes = 16 hex chars
-		expect(hex).toMatch(/^[a-f0-9]+$/i)
+		expect(randomHex(8)).toMatch(/^[a-f0-9]{16}$/)
+		expect(randomHex()).toHaveLength(32)
 	})
 
-	it('hmacHash creates a valid HMAC', () => {
-		const hmac = hmacHash('data', 'secret')
-		expect(typeof hmac).toBe('string')
-		expect(hmac.length).toBe(64) // sha256 hex length
+	it('hmacHash matches the RFC 4231 test case 2 vector', async () => {
+		expect(await hmacHash('what do ya want for nothing?', 'Jefe')).toBe(
+			'5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843'
+		)
 	})
 
-	it('base64Encode/base64Decode roundtrip', () => {
-		const str = 'hello world!'
-		const b64 = base64Encode(str)
-		expect(typeof b64).toBe('string')
-		const decoded = base64Decode(b64)
-		expect(decoded).toBe(str)
+	it('base64Encode/base64Decode roundtrip, including non-ASCII', () => {
+		for (const str of ['hello world!', 'héllo — 🌍']) {
+			expect(base64Decode(base64Encode(str))).toBe(str)
+		}
+		expect(base64Encode('héllo')).toBe('aMOpbGxv')
 	})
 
 	it('base64Decode decodes known base64', () => {
