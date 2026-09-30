@@ -85,7 +85,7 @@ Import from `@rtorcato/js-common/<module>`.
 | objects | isPlainObject, deepMerge, omit, pick |
 | os | getOsPlatform, getOsRelease, getOsArch, getHomeDir, getTmpDir |
 | process | getProcessId, getProcessUptime, getCwd, getProcessPlatform, exitProcess, isCI |
-| promises | to, withTimeout |
+| promises | to, withTimeout, mapLimit |
 | random | randomInt, randomFloat, randomBool, randomElement, randomString |
 | regex | escapeRegExp, testRegex, matchAll, replaceAllRegex, splitByRegex |
 | security | stripScriptish, isStrongPassword, generateSecureToken |
