@@ -24,6 +24,25 @@ rather than half-present.
 |---|---|
 | `import { x } from '@rtorcato/js-common'` | `import { x } from '@rtorcato/js-common/<module>'` — see [Available Modules](https://github.com/rtorcato/js-common#available-modules) for which one |
 
+### `zod`, `pino`, `uuid` and `short-uuid` are optional peers
+
+**Pending — not yet released** ([#308](https://github.com/rtorcato/js-common/issues/308)).
+
+These four were regular `dependencies`, so every consumer installed them even when
+it only imported `./arrays`. Each serves a single module, so they are now optional
+`peerDependencies`: installing `@rtorcato/js-common` no longer pulls them in, and
+the module that needs one fails at import with the missing package's name until you
+add it.
+
+| If you import | Add |
+|---|---|
+| `@rtorcato/js-common/env` | `pnpm add zod` |
+| `@rtorcato/js-common/logger` | `pnpm add pino` |
+| `@rtorcato/js-common/uuid` | `pnpm add uuid short-uuid` |
+
+Nothing else changes — the same version ranges apply (`zod@^4`, `pino@^10`,
+`uuid@^14`, `short-uuid@^6`), and modules that never used them need nothing.
+
 ## 3.x → 4.x — what the platform already does
 
 4.0 removes wrappers whose replacement is the runtime itself, not another module

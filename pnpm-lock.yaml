@@ -7,19 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      pino:
-        specifier: ^10.1.0
-        version: 10.3.1
-      short-uuid:
-        specifier: ^6.0.3
-        version: 6.0.3
-      uuid:
-        specifier: ^14.0.2
-        version: 14.0.2
-      zod:
-        specifier: ^4.1.12
-        version: 4.4.3
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.5.13
@@ -87,21 +74,33 @@ importers:
       knip:
         specifier: ^6.35.1
         version: 6.35.1
+      pino:
+        specifier: ^10.1.0
+        version: 10.3.1
       rimraf:
         specifier: ^6.0.1
         version: 6.1.3
       semantic-release:
         specifier: ^25.0.1
         version: 25.0.9(supports-color@8.1.1)(typescript@6.0.3)
+      short-uuid:
+        specifier: ^6.0.3
+        version: 6.0.3
       size-limit:
         specifier: ^13.1.1
         version: 13.1.1
       typescript:
         specifier: ^6.0.2
         version: 6.0.3
+      uuid:
+        specifier: ^14.0.2
+        version: 14.0.2
       vitest:
         specifier: ^4.0.17
         version: 4.1.10(@types/node@26.5.1)(@vitest/coverage-v8@4.1.10)(jsdom@30.0.1)(vite@7.3.3(@types/node@26.5.1)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.1))
+      zod:
+        specifier: ^4.1.12
+        version: 4.4.3
     optionalDependencies:
       '@inquirer/prompts':
         specifier: ^8.6.0

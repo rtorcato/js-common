@@ -129,8 +129,8 @@ of the table, not for weight.
 This one **deviates from the initial plan to fold `logger` into `logging`**, and
 the reason is a dependency boundary rather than a naming one:
 
-- `./logger` exports a configured **pino** instance. It pulls `pino` (a runtime
-  dependency) and probes for the optional `pino-pretty`.
+- `./logger` exports a configured **pino** instance. It pulls `pino` (an optional
+  peer dependency) and probes for the optional `pino-pretty`.
 - `./logging` is `console` helpers — `info`, `warn`, `error`, `logWithTimestamp`,
   `captureConsole` — with **zero runtime imports**.
 
