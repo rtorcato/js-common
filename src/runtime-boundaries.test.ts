@@ -5,10 +5,15 @@ import { describe, expect, it } from 'vitest'
 // Guards the runtime claim in skills/js-common/SKILL.md item 4 ("Node-only modules"), which
 // scripts/sync-agents.mjs mirrors into AGENTS.md. If a module starts importing node: builtins
 // or touching the DOM, the claim goes stale silently and consumers ship a bundle that crashes.
-// Update this file and SKILL.md together, then run `pnpm sync:agents`.
+// It also checks the `**Runtime:**` line under the title of each apps/docs module page.
+// Update this file, SKILL.md and the docs pages together, then run `pnpm sync:agents`.
 
 const NODE_ONLY = ['crypto', 'file', 'logger', 'security']
 const BROWSER_ONLY = ['events']
+const DEGRADES = ['i18n', 'node', 'os', 'process', 'system']
+const NEEDS_PROCESS = ['console', 'env']
+
+const DOCS = join(import.meta.dirname, '..', 'apps', 'docs', 'docs', 'modules')
 
 const SRC = join(import.meta.dirname, '.')
 
@@ -70,5 +75,43 @@ describe('runtime boundaries', () => {
 			browserOnly,
 			'A module gained an unguarded DOM reference. Guard it with `typeof window !== undefined`, or update BROWSER_ONLY above and SKILL.md item 4, then run `pnpm sync:agents`.'
 		).toEqual(BROWSER_ONLY)
+	})
+
+	it('only the documented modules probe for the runtime', () => {
+		const degrades = modules
+			.filter(({ code }) => /typeof (process|window|navigator) [!=]==/.test(code))
+			.map(({ name }) => name)
+			.sort()
+
+		expect(degrades, 'Update DEGRADES above and SKILL.md item 4.').toEqual(DEGRADES)
+	})
+
+	it('only the documented modules read `process` unguarded', () => {
+		const needsProcess = modules
+			.filter(({ name }) => !NODE_ONLY.includes(name) && !DEGRADES.includes(name))
+			.filter(({ code }) => /\bprocess\./.test(code))
+			.map(({ name }) => name)
+			.sort()
+
+		expect(needsProcess, 'Update NEEDS_PROCESS above and SKILL.md item 4.').toEqual(NEEDS_PROCESS)
+	})
+
+	it('each docs module page states the runtime that matches its source', () => {
+		const expected = (name: string) =>
+			NODE_ONLY.includes(name)
+				? 'Node.js only'
+				: BROWSER_ONLY.includes(name)
+					? 'browser only'
+					: DEGRADES.includes(name)
+						? 'Node.js; degrades in browsers'
+						: NEEDS_PROCESS.includes(name)
+							? 'Node.js; needs `process` in browsers'
+							: 'any'
+
+		for (const { name } of modules) {
+			const page = readFileSync(join(DOCS, `${name}.md`), 'utf8')
+			const runtime = page.match(/^\*\*Runtime:\*\* (.+)$/m)?.[1]
+			expect(runtime?.startsWith(`${expected(name)} —`), `${name}.md: ${runtime}`).toBe(true)
+		}
 	})
 })

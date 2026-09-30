@@ -3,6 +3,8 @@ title: Promises
 description: Utilities exported from @rtorcato/js-common/promises.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 Two adapters the platform does not ship: `withTimeout` and `to`. `to` returns an `[error, result]` tuple so a failure can be handled with an `if` instead of a `try`/`catch` block; `try`'s `Result` is the richer, type-narrowing version of the same idea. The pass-through wrappers over `Promise.all`/`allSettled`/`race`, and `delay`, were removed in 4.0 — call the statics directly, and use `sleep` for a plain wait. `withTimeout` is a `Promise.race`: it rejects on time but does not cancel, so the underlying work keeps running unless it honours an `AbortSignal`.
 
 ## Example

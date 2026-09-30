@@ -3,6 +3,8 @@ title: Node
 description: Utilities exported from @rtorcato/js-common/node.
 ---
 
+**Runtime:** Node.js; degrades in browsers — probes for `process` / `window` / `navigator` and falls back instead of throwing
+
 Runtime questions about Node itself — is this Node, which major version — plus `requireOptional` for modules that may not be installed. Process-level questions such as uptime, pid and cwd live in [process](./process.md). The version helpers are for guarding features that need a floor and failing with a clear message instead of a cryptic crash deeper in. `requireOptional` returns `undefined` rather than throwing, which is the behaviour you want around optional peer dependencies.
 
 ## Example

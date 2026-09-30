@@ -4,6 +4,8 @@ description: Numeric utilities — sum, average, median, standard deviation, cla
 sidebar_position: 3
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 Aggregates and range maths over plain numbers — sum, average, rounding to a fixed precision, clamping, percentage formatting, and dispersion (`variance`, `stdDev`, `median`, `percentile`). `roundTo` is the usual `Math.round(n * 10 ** d) / 10 ** d`, which is right for display but still bound by float representation, so keep money in integer minor units or a decimal library. Randomness lives in [random](./random.md), not here — and for anything an attacker should not be able to predict, use `crypto` or `security` instead.
 
 ```ts

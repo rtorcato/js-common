@@ -4,6 +4,8 @@ description: Generate and validate UUIDs.
 sidebar_position: 5
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 UUID generation, validation and conversion, wrapping the `uuid` and `short-uuid` packages rather than hand-rolling either. Generation draws from a CSPRNG and validation is version-aware, so a plausible-looking but malformed id is rejected instead of slipping through a loose regex. v7 is here for time-ordered ids that index well as database primary keys, and the short forms are the same value in a shorter alphabet, not a different id. For a plain v4 call the `crypto.randomUUID()` global — the `getUUID` wrapper over it was removed in 4.0.
 
 ```ts

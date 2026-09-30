@@ -3,6 +3,8 @@ title: Datetime
 description: Thin native-Date helpers for ISO datetimes, ISO weeks, timezone offsets, and Unix timestamps.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 A minimal set of combined date+time helpers built on the native `Date` — ISO formatting, ISO week numbers, timezone offset, Unix timestamps.
 
 :::note Intentionally minimal

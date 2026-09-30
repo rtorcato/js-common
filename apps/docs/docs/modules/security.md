@@ -3,6 +3,8 @@ title: Security
 description: Utilities exported from @rtorcato/js-common/security.
 ---
 
+**Runtime:** Node.js only — imports `node:crypto`
+
 A small set of security-adjacent helpers: password-strength checks, cryptographically secure tokens from `node:crypto`, and coarse script stripping. `generateSecureToken` uses `randomBytes` — the `Math.random` helpers in `random` are never an acceptable substitute here. `stripScriptish` (called `sanitizeString` before 3.0) removes only `<script>` blocks and inline `on*` handlers, so treat it as defence in depth: escape untrusted values with `html.escapeHtml`, or run a real sanitizer such as DOMPurify when markup must survive. It was renamed precisely because the old name promised a guarantee it never delivered.
 
 ## Example

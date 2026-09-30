@@ -3,6 +3,8 @@ title: Try
 description: Utilities exported from @rtorcato/js-common/try.
 ---
 
+**Runtime:** any — Node.js ≥ 22 or a modern browser
+
 Go-style `Result` values for async code: `tryCatch` runs a function and hands back a success or failure branch instead of throwing. The point is the type system — a `Result` cannot be read without acknowledging the error branch, whereas a `try`/`catch` binding is `unknown` and easy to ignore. Use it where failure is an expected outcome, and keep throwing for genuinely exceptional states that no caller can sensibly handle.
 
 ## Example
