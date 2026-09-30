@@ -95,18 +95,27 @@ export function snakeCase(str: string): string {
 		.toLowerCase()
 }
 
-/**
- * Truncates a string to a maximum length, adding ellipsis if needed.
- * @param str The string to truncate.
- * @param maxLength The maximum length.
- * @returns The truncated string.
- */
-export function truncate(str: string, maxLength: number): string {
-	return str.length > maxLength ? `${str.slice(0, maxLength - 1)}…` : str
+const graphemeSegmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' })
+
+function graphemes(str: string): string[] {
+	return Array.from(graphemeSegmenter.segment(str), (s) => s.segment)
 }
 
 /**
- * Reverses a string.
+ * Truncates a string to a maximum length, adding ellipsis if needed.
+ * Length is counted in graphemes, so emoji and combining marks are never split.
+ * @param str The string to truncate.
+ * @param maxLength The maximum length in graphemes, ellipsis included. `<= 0` returns `''`.
+ * @returns The truncated string.
+ */
+export function truncate(str: string, maxLength: number): string {
+	if (maxLength <= 0) return ''
+	const parts = graphemes(str)
+	return parts.length > maxLength ? `${parts.slice(0, maxLength - 1).join('')}…` : str
+}
+
+/**
+ * Reverses a string by grapheme, so emoji sequences, flags and combining marks stay intact.
  *
  * @example
  * ```typescript
@@ -118,7 +127,7 @@ export function truncate(str: string, maxLength: number): string {
  * @returns The reversed string
  */
 export function reverse(str: string): string {
-	return [...str].reverse().join('')
+	return graphemes(str).reverse().join('')
 }
 
 /**

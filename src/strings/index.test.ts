@@ -57,6 +57,24 @@ describe('truncate', () => {
 		expect(truncate('hello world', 5)).toBe('hell…')
 		expect(truncate('hi', 5)).toBe('hi')
 	})
+
+	it('returns an empty string for maxLength <= 0', () => {
+		expect(truncate('abc', 0)).toBe('')
+		expect(truncate('abc', -1)).toBe('')
+	})
+
+	it('returns only the ellipsis for maxLength 1', () => {
+		expect(truncate('abc', 1)).toBe('…')
+		expect(truncate('a', 1)).toBe('a')
+	})
+
+	it('counts and cuts by grapheme', () => {
+		const family = '👨‍👩‍👧‍👦'
+		expect(truncate(`${family}${family}x`, 3)).toBe(`${family}${family}x`)
+		expect(truncate(`${family}${family}xy`, 3)).toBe(`${family}${family}…`)
+		expect(truncate('🇨🇦🇫🇷🇯🇵', 2)).toBe('🇨🇦…')
+		expect(truncate('e\u0301e\u0301e\u0301', 2)).toBe('e\u0301…')
+	})
 })
 
 describe('reverse', () => {
@@ -64,6 +82,12 @@ describe('reverse', () => {
 		expect(reverse('hello')).toBe('olleh')
 		expect(reverse('abc123')).toBe('321cba')
 		expect(reverse('')).toBe('')
+	})
+
+	it('keeps graphemes intact', () => {
+		expect(reverse('a👨‍👩‍👧‍👦b')).toBe('b👨‍👩‍👧‍👦a')
+		expect(reverse('🇨🇦🇫🇷')).toBe('🇫🇷🇨🇦')
+		expect(reverse('ae\u0301')).toBe('e\u0301a')
 	})
 })
 
