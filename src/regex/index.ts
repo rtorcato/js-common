@@ -1,6 +1,13 @@
 /**
  * Escapes special regex characters in a string so it can be used in a RegExp.
  *
+ * The output is safe with or without the `u` flag, inside a character class, and
+ * inside a regex literal: `/` is escaped, and `-` becomes `\x2d` because `\-` is a
+ * syntax error outside a class in `u` mode.
+ *
+ * Native `RegExp.escape` (Node 24+) is the eventual replacement once the engine
+ * floor reaches it.
+ *
  * @example
  * ```typescript
  * escapeRegExp('1 + 1 = 2?') // '1 \\+ 1 = 2\\?'
@@ -12,7 +19,7 @@
  * @returns The escaped string.
  */
 export function escapeRegExp(str: string): string {
-	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+	return str.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&').replace(/-/g, '\\x2d')
 }
 
 /**
