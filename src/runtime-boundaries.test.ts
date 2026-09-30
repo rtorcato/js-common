@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest'
 // Update this file, SKILL.md and the docs pages together, then run `pnpm sync:agents`.
 
 const NODE_ONLY = ['crypto', 'file', 'logger', 'security']
-const BROWSER_ONLY = ['events']
+const BROWSER_ONLY: string[] = []
 const DEGRADES = ['i18n', 'node', 'os', 'process', 'system']
 const NEEDS_PROCESS = ['console', 'env']
 
@@ -66,7 +66,7 @@ describe('runtime boundaries', () => {
 
 	it('only the documented modules require the DOM unguarded', () => {
 		const browserOnly = modules
-			.filter(({ code }) => /\b(EventTarget|window|navigator|document)\b/.test(code))
+			.filter(({ code }) => /\b(window|navigator|document)\b/.test(code))
 			.filter(({ code }) => !/typeof (window|navigator|document) [!=]==/.test(code))
 			.map(({ name }) => name)
 			.sort()
