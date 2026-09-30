@@ -219,6 +219,15 @@ pair's ReDoS rationale (domain parts exclude `.` so the match stays linear on
 `'a@!.!.!.!.'`, CodeQL `js/polynomial-redos`) could have been lost from one copy
 without anything failing.
 
+## Browser code lives in `@rtorcato/browser-common`
+
+js-common is runtime-agnostic helpers; anything that needs `window`, `document`,
+`navigator` or another browser Web API belongs in
+[`@rtorcato/browser-common`](https://github.com/rtorcato/browser-common). The two
+packages **do not overlap**: a helper lives in one or the other, never both. The
+last browser-only code here (the user-agent branches of `./system`) is deprecated
+and queued below.
+
 ## Queued for the next major
 
 Nothing here justifies a major on its own; all of it rides along with the next one
@@ -234,6 +243,11 @@ that happens for a real reason.
   whole library and defeats the per-concern subpaths this file exists to protect.
 - **Delete the three deprecated aliases** — `validation.isEmail`, `validation.isUrl`,
   `os.getOsPlatform` (see above).
+- **Drop browser detection from `./system`** ([#294](https://github.com/rtorcato/js-common/issues/294)).
+  Delete the deprecated `isIOS`, `isAndroid` and `isTouchDevice`, and the
+  `window.navigator.userAgent` branches of `isMacOs`, `isWindows`, `isLinux` and
+  `getPlatform`, which then read `process.platform` only. Browser detection lives in
+  `@rtorcato/browser-common` (see below).
 
 ## What this freezes
 

@@ -27,3 +27,5 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Sleep | `@rtorcato/js-common/sleep` | `sleep` |
 
 The full list of subpaths is in the package's [`exports`](https://github.com/rtorcato/js-common/blob/main/package.json) field. Which module owns a given helper — and why no name is exported from two of them — is recorded in [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md).
+
+js-common has no browser-only code. Anything that needs `window`, `document` or a browser Web API lives in [`@rtorcato/browser-common`](https://github.com/rtorcato/browser-common); the two packages do not overlap.

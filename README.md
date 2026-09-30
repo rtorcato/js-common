@@ -275,7 +275,7 @@ Contributions are welcome! Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md) for 
 
 ## Related packages
 
-- [@rtorcato/browser-common](https://github.com/rtorcato/browser-common) — Browser Web API wrappers (clipboard, observers, storage, etc.)
+- [@rtorcato/browser-common](https://github.com/rtorcato/browser-common) — Browser Web API wrappers (clipboard, observers, storage, etc.). Browser-only code lives there, not here — the two packages do not overlap.
 - [@rtorcato/repo-tooling](https://github.com/rtorcato/repo-tooling) — Project scaffolding for TypeScript libraries (Biome, Vitest, Husky, semantic-release)
 
 ## License

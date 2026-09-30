@@ -1,5 +1,11 @@
+const IOS_UA = /iPad|iPhone|iPod/
+
 /**
  * Checks if the current OS is macOS.
+ *
+ * The user-agent branch is deprecated — browser detection belongs to
+ * `@rtorcato/browser-common` and will be removed in the next major. In Node this
+ * reads `process.platform` and stays.
  *
  * @example
  * ```typescript
@@ -10,7 +16,9 @@
  */
 export function isMacOs(): boolean {
 	if (typeof window !== 'undefined') {
-		return window.navigator.userAgent.includes('Mac')
+		const ua = window.navigator.userAgent
+		// ponytail: iPadOS 13+ sends a desktop Mac UA and still reads as macOS; browser-common handles that
+		return ua.includes('Mac') && !IOS_UA.test(ua)
 	}
 	if (typeof process !== 'undefined' && process.platform) {
 		return process.platform === 'darwin'
@@ -20,6 +28,10 @@ export function isMacOs(): boolean {
 
 /**
  * Checks if the current OS is Windows.
+ *
+ * The user-agent branch is deprecated — browser detection belongs to
+ * `@rtorcato/browser-common` and will be removed in the next major. In Node this
+ * reads `process.platform` and stays.
  *
  * @example
  * ```typescript
@@ -41,6 +53,10 @@ export function isWindows(): boolean {
 /**
  * Checks if the current OS is Linux.
  *
+ * The user-agent branch is deprecated — browser detection belongs to
+ * `@rtorcato/browser-common` and will be removed in the next major. In Node this
+ * reads `process.platform` and stays.
+ *
  * @example
  * ```typescript
  * isLinux() // true when process.platform === 'linux'
@@ -50,7 +66,8 @@ export function isWindows(): boolean {
  */
 export function isLinux(): boolean {
 	if (typeof window !== 'undefined') {
-		return window.navigator.userAgent.includes('Linux')
+		const ua = window.navigator.userAgent
+		return ua.includes('Linux') && !ua.includes('Android')
 	}
 	if (typeof process !== 'undefined' && process.platform) {
 		return process.platform === 'linux'
@@ -59,18 +76,20 @@ export function isLinux(): boolean {
 }
 
 /**
- * Checks if the device is running iOS.
+ * Checks if the device is running iOS. Always `false` in Node.
+ * @deprecated Browser detection belongs to `@rtorcato/browser-common`; removed in the next major.
  * @returns {boolean} True if iOS, false otherwise.
  */
 export function isIOS(): boolean {
 	if (typeof window !== 'undefined') {
-		return /iPad|iPhone|iPod/.test(window.navigator.userAgent) && !(window as any).MSStream
+		return IOS_UA.test(window.navigator.userAgent) && !(window as any).MSStream
 	}
 	return false
 }
 
 /**
- * Checks if the device is running Android.
+ * Checks if the device is running Android. Always `false` in Node.
+ * @deprecated Browser detection belongs to `@rtorcato/browser-common`; removed in the next major.
  * @returns {boolean} True if Android, false otherwise.
  */
 export function isAndroid(): boolean {
@@ -82,19 +101,25 @@ export function isAndroid(): boolean {
 
 /**
  * Returns a string representing the detected platform.
+ *
+ * The user-agent branch is deprecated — browser detection belongs to
+ * `@rtorcato/browser-common` and will be removed in the next major. In Node this
+ * reads `process.platform` and stays.
  * @returns {string} The platform name (e.g., 'macos', 'windows', 'linux', 'ios', 'android', or 'unknown').
  */
 export function getPlatform(): string {
+	// iOS and Android UAs also contain 'Mac' / 'Linux', so they must be checked first.
+	if (isIOS()) return 'ios'
+	if (isAndroid()) return 'android'
 	if (isMacOs()) return 'macos'
 	if (isWindows()) return 'windows'
 	if (isLinux()) return 'linux'
-	if (isIOS()) return 'ios'
-	if (isAndroid()) return 'android'
 	return 'unknown'
 }
 
 /**
- * Checks if the device supports touch events.
+ * Checks if the device supports touch events. Always `false` in Node.
+ * @deprecated Browser detection belongs to `@rtorcato/browser-common`; removed in the next major.
  * @returns {boolean} True if touch is supported, false otherwise.
  */
 export function isTouchDevice(): boolean {
