@@ -277,7 +277,7 @@
     }
   },
   "optionalDependencies": {
-    "@inquirer/prompts": "^8.6.0",
+    "@inquirer/prompts": "^8.7.2",
     "chalk": "^6.0.0",
     "chalk-animation": "^2.0.3",
     "commander": "^15.0.0",
