@@ -14,7 +14,7 @@
   {
     "name": "promises",
     "path": "dist/promises/index.js",
-    "limit": "600 B",
+    "limit": "650 B",
     "gzip": true
   },
   {
