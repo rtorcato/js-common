@@ -18,11 +18,6 @@ updates:
     commit-message:
       prefix: chore
       include: scope
-    # typedoc peers cap at TypeScript 6.0.x, so TS 7 breaks the docs API
-    # reference build. Drop this once typedoc 1.0 ships with TS 7 support.
-    ignore:
-      - dependency-name: "typescript"
-        versions: [">=7"]
     groups:
       # Safe tier: runtime + dev minor/patch auto-merge on green (see the
       # dependabot-automerge workflow). Grouped so react/react-dom move together.
