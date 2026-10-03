@@ -7,7 +7,7 @@
     "declarationMap": true, // Generate sourcemaps for .d.ts files
     "outDir": "dist", // Output directory for build
     // Disable incremental for one-shot builds. The base tsconfig enables it,
-    // but `build-prod` only `rimraf`s ./dist — leaving the tsbuildinfo behind.
+    // but `build.mjs` only used to clean ./dist — leaving the tsbuildinfo behind.
     // When prepublishOnly re-runs build-prod, tsc sees the stale buildinfo and
     // emits zero .d.ts files, producing a typeless tarball. See #53.
     "incremental": false
