@@ -34,8 +34,8 @@ The `./types` subpath is intentionally types-only — it has no `import` field, 
 
 - Conventional commits are **required**. Run `pnpm commit` for a guided prompt (commitizen).
 - PRs must be **squash-merged** — never rebase-merge or merge-commit.
-- `semantic-release` auto-publishes from `main` using commit messages. **Never bump the version manually** in `package.json`.
-- Pushing to a `beta` branch publishes a pre-release under the `beta` dist-tag; `latest` is untouched.
+- `semantic-release` derives the version from commit messages when `release.yml` runs. **Never bump the version manually** in `package.json`.
+- Dispatching `release.yml` on a `beta` branch publishes a pre-release under the `beta` dist-tag; `latest` is untouched.
 
 ## Pre-commit Hooks
 
@@ -45,5 +45,5 @@ Husky runs `pnpm typecheck` and `pnpm check` on every commit. This can be slow �
 
 - The CLI (`src/cli/`) is built by `build-cli`, which runs `tsc` with `--ignoreConfig` and every flag inline — there is no CLI `tsconfig`, only `tsconfig.json` and `tsconfig.build.json`. Do not include the CLI in the main library build.
 - The CLI is a shop window, not a port of the library. `src/cli/catalog.ts` may only advertise verbs that `src/cli/cli.ts` actually registers; `catalog.test.ts` enforces both that and the `exportName`s being real.
-- Required env vars for CI releases: `GITHUB_TOKEN`, `NPM_TOKEN` (GitHub Actions).
-- Releases are gated on the `release` GitHub environment and need a manual approval — a merge to `main` leaves the pipeline `waiting`, it does not publish on its own.
+- Releases authenticate to npm via OIDC trusted publishing and to GitHub via the job's automatic `GITHUB_TOKEN`; no repository secrets are needed.
+- Merging to `main` (or pushing `beta`) does not release. A release runs only when `release.yml` is dispatched or a milestone is closed, and then waits on the `release` GitHub environment for a manual approval.
