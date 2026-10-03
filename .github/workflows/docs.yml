@@ -23,7 +23,7 @@ jobs:
     cloudflare:
         permissions:
             contents: read
-        uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@v5.1.4
+        uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@v5.5.2
         with:
             build-filter: '@rtorcato/js-common-docs'
             worker-name: js-common-docs
