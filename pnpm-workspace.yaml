@@ -12,3 +12,21 @@ minimumReleaseAgeExclude:
 # Don't re-verify node_modules on every script run — the check costs a
 # second per invocation and CI installs with --frozen-lockfile anyway.
 verifyDepsBeforeRun: false
+
+# Dev/docs-only audit fixes (#343) — the package ships no dependencies, so none
+# of these reach consumers. Each override stays inside the major its parent
+# asks for. Drop an entry once the parent's own range resolves to the patch.
+# Not overridden: braces and http-cache-semantics (no patched release yet)
+# and serialize-javascript 6→7 and uuid 8→11 (major bumps under Docusaurus).
+overrides:
+  '@humanfs/node@<0.16.8': ^0.16.8
+  brace-expansion@<1.1.21: ^1.1.21
+  brace-expansion@>=4.0.0 <5.0.12: ^5.0.12
+  colord@<2.9.4: ^2.9.4
+  image-size@>=2.0.0 <2.0.3: ^2.0.3
+  joi@>=17.0.0 <17.13.7: ^17.13.7
+  js-yaml@>=4.0.0 <4.3.2: ^4.3.2
+  markdown-it@>=14.0.0 <14.3.1: ^14.3.1
+  qs@>=6.0.0 <6.16.0: ^6.16.0
+  svgo@>=3.0.0 <3.3.5: ^3.3.5
+  vite@>=7.0.0 <7.3.5: ^7.3.5
