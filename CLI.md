@@ -8,23 +8,26 @@ The `@rtorcato/js-common` package provides a beautiful, modern command-line inte
 - 🎮 **Interactive Mode** - Guided prompts with beautiful animations
 - 📋 **Function Listing** - Browse all available functions by category  
 - 🌈 **Colorful Output** - Enhanced visual experience with chalk colors
-- 🚀 **Fast & Lightweight** - No global installation required via npx
+- 🚀 **Fast & Lightweight** - No global installation required
 - 📚 **Comprehensive Help** - Detailed help at every level
 
 ## Installation
 
-The CLI is automatically available when you install the package. You can run it without global installation using `npx`:
+The `js-common` binary ships with the package, but its UI packages are optional peer dependencies, so a library-only install stays small. Install them alongside the package to use the CLI:
 
 ```bash
-npx @rtorcato/js-common <command>
+npm install -D @rtorcato/js-common @inquirer/prompts chalk chalk-animation commander figlet gradient-string
+npx js-common <command>
 ```
 
 Or install globally:
 
 ```bash
-npm install -g @rtorcato/js-common
+npm install -g @rtorcato/js-common @inquirer/prompts chalk chalk-animation commander figlet gradient-string
 js-common <command>
 ```
+
+If any of them is missing, the CLI prints one line naming the packages to install and exits with status 1.
 
 ## 🎮 Interactive Mode
 

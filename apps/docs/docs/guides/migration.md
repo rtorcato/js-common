@@ -1,10 +1,38 @@
 ---
 title: Migrating
-description: Upgrading from 1.x to 2.x, from 2.x to 3.x, from 3.x to 4.x, and from 4.x to 5.x.
+description: Upgrading from 1.x to 2.x, from 2.x to 3.x, from 3.x to 4.x, from 4.x to 5.x, and from 5.x to 6.x.
 sidebar_position: 3
 ---
 
 <!-- boundary-check: ignore — every table below names the API being migrated away from -->
+
+## 5.x → 6.x — Node 24 floor, CLI packages become optional peers
+
+**Pending — not yet released** ([#344](https://github.com/rtorcato/js-common/issues/344)).
+
+### Node.js 24 is the minimum
+
+`engines.node` is now `>=24` (Node 22 reaches end of life on 2027-04-30), and the
+TypeScript `lib` moved to `ES2025`. No export changed; if you run on Node 22, stay
+on 5.x or upgrade Node.
+
+### CLI packages and `pino-pretty` are optional peers
+
+`@inquirer/prompts`, `chalk`, `chalk-animation`, `commander`, `figlet`,
+`gradient-string` and `pino-pretty` were `optionalDependencies`, which npm and pnpm
+install by default, so every library consumer downloaded the CLI stack. They are now
+optional `peerDependencies`: a plain install no longer pulls them in.
+
+| If you use | Add |
+|---|---|
+| the `js-common` binary | `pnpm add -D @inquirer/prompts chalk chalk-animation commander figlet gradient-string` |
+| pretty `./logger` output in dev | `pnpm add -D pino-pretty` |
+
+Without the CLI packages the binary prints one line naming them and exits with
+status 1. Without `pino-pretty` the logger already fell back to plain JSON, and
+still does. `npx @rtorcato/js-common@latest` no longer works on its own, because
+npx does not install optional peers; install the package and its CLI peers, then
+run `js-common`.
 
 ## 4.x → 5.x — root entry point removed
 

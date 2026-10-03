@@ -23,20 +23,19 @@ js-common is runtime-agnostic JavaScript plus Node.js helpers. Wrappers around b
 - **Ultra-lightweight** — individual modules ~50–200 B.
 - **Tree-shakeable** — named subpath exports; there is no package root export.
 - **TypeScript-first** — strict types, generics preserved, JSDoc-rich in your IDE.
-- **CLI included** — `npx @rtorcato/js-common@latest --help` for terminal use.
+- **CLI included** — `js-common --help` for terminal use, once its optional peers are installed.
 
 ## Install
 
 <InstallTabs pkg="@rtorcato/js-common" />
 
-**Requirements:** Node.js ≥ 22. TypeScript ≥ 5.0 is optional but recommended — every public API ships with strict types and JSDoc.
+**Requirements:** Node.js ≥ 24. TypeScript ≥ 5.0 is optional but recommended — every public API ships with strict types and JSDoc.
 
 ### Use globally (CLI)
 
 ```bash
-npm install -g @rtorcato/js-common
-# or run ad-hoc without installing
-npx @rtorcato/js-common@latest --help
+npm install -g @rtorcato/js-common @inquirer/prompts chalk chalk-animation commander figlet gradient-string
+js-common --help
 ```
 
 See the [CLI guide](./guides/cli.md) for available commands.
@@ -76,7 +75,7 @@ See [Tree-shaking & imports](./guides/tree-shaking.md) for the full explanation.
 - **42 subpath modules**, one concern per module — see the [Module overview](./modules/overview.md).
 - **Strict TypeScript** — generics preserved end-to-end; `any` avoided in public APIs.
 - **JSDoc on every public function** — hover docs in VS Code, JetBrains, and Cursor.
-- **Minimal runtime deps** — only `pino`, `uuid`, `short-uuid`, `zod`. CLI-only packages live in `optionalDependencies`.
+- **Minimal runtime deps** — only `pino`, `uuid`, `short-uuid`, `zod`. all optional peers, as are the CLI-only packages.
 - **Tested** — Vitest with coverage; CI runs on every commit.
 
 ### Highlights

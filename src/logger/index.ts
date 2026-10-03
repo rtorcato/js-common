@@ -1,9 +1,8 @@
 import { createRequire } from 'node:module'
 import pino from 'pino'
 
-// pino-pretty is an optionalDependency — present for the nice dev experience, but a
-// consumer that installed with --no-optional (or where the optional install failed)
-// won't have it. Probe for it so the logger falls back to JSON instead of throwing
+// pino-pretty is an optional peer dependency — install it for the nice dev experience;
+// a consumer that didn't won't have it. Probe for it so the logger falls back to JSON instead of throwing
 // `Cannot find module 'pino-pretty'` at construction.
 function hasPinoPretty(): boolean {
 	try {

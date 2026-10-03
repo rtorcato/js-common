@@ -1,4 +1,4 @@
-// Web Crypto (`globalThis.crypto`) only, so this module runs in Node >= 22, browsers and
+// Web Crypto (`globalThis.crypto`) only, so this module runs in Node >= 24, browsers and
 // edge runtimes alike. `subtle` is async, which is why the digests return promises.
 
 function toHex(buffer: ArrayBuffer | Uint8Array): string {

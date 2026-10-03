@@ -1,6 +1,7 @@
 import { spawnSync } from 'node:child_process'
-import { existsSync, readFileSync } from 'node:fs'
-import { dirname, resolve } from 'node:path'
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
@@ -47,5 +48,30 @@ describeIfBuilt('cli binary', () => {
 		expect(result.status).toBe(0)
 		expect(result.stderr).toBe('')
 		expect(result.stdout.trim()).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+	})
+
+	it('prints one install line naming every CLI peer when they are missing, and exits 1', () => {
+		// A copy of the bin outside the repo has no node_modules to resolve from,
+		// which is exactly a library-only install without the CLI peers.
+		const dir = mkdtempSync(join(tmpdir(), 'js-common-cli-'))
+		try {
+			copyFileSync(binPath, join(dir, 'index.mjs'))
+			copyFileSync(resolve(binPath, '../cli.mjs'), join(dir, 'cli.mjs'))
+			const result = spawnSync(process.execPath, [join(dir, 'index.mjs'), '--help'], {
+				encoding: 'utf-8',
+				timeout: 10_000,
+			})
+
+			expect(result.status).toBe(1)
+			expect(result.stderr.trim().split('\n')).toHaveLength(1)
+			const cliSource = readFileSync(resolve(here, 'cli.ts'), 'utf-8')
+			const peers = [...cliSource.matchAll(/^import .* from '([^.][^']*)'$/gm)]
+				.map((m) => m[1])
+				.filter((name) => !name.startsWith('node:'))
+			expect(peers.length).toBeGreaterThan(0)
+			for (const peer of peers) expect(result.stderr).toContain(` ${peer}`)
+		} finally {
+			rmSync(dir, { recursive: true, force: true })
+		}
 	})
 })

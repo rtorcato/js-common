@@ -50,7 +50,7 @@ as if it were actionable now.
    - `https://github.com/tc39/proposals/blob/main/README.md` (Stage 3 — shipping soon)
    - MDN Baseline status for anything browser-facing
    - `https://node.green/` for Node support, against `engines.node` in `package.json`
-     (currently `>=22` — a feature that needs Node 24+ is a *future* item, not a now item)
+     (currently `>=24` — a feature that needs Node 26+ is a *future* item, not a now item)
 
 2. **Stage 3 or 4 only.** Anything Stage 2 or below is a moving API. Vendoring a polyfill for
    it ships churn to consumers. Signals is the standing example: Stage 1, zero engines, and
@@ -92,7 +92,7 @@ as if it were actionable now.
 ## js-common feature audit — YYYY-MM-DD
 
 ### Now native — candidates for a @deprecated tag
-| Export | Native equivalent | In Node >=22? | Passthrough, or still earns its place? |
+| Export | Native equivalent | In Node >=24? | Passthrough, or still earns its place? |
 
 None of these are removals. The action is a JSDoc tag; the implementation stays.
 
@@ -114,7 +114,7 @@ suggestions is how a library accretes helpers nobody asked for.
 
 - **Temporal is the live one.** Stage 4 (ES2027), shipping in Chrome 144 / Firefox 139 /
   Node 26, and it supersedes most of `date` (17 exports), `datetime` (9) and `time` (6). It
-  needs Node 26, above the current `engines.node` floor of `>=22`, so nothing is actionable
+  needs Node 26, above the current `engines.node` floor of `>=24`, so nothing is actionable
   until that floor rises — and even then the action is `@deprecated` tags, not deleting three
   modules. Those modules keep working on the old `Date` for as long as `Date` exists, which
   is forever.
