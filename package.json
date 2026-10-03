@@ -238,7 +238,7 @@
     "@size-limit/preset-small-lib": "^14.0.0",
     "@types/chalk-animation": "^1.6.3",
     "@types/figlet": "^1.7.0",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.3",
     "@vitest/coverage-v8": "^5.0.1",
     "esbuild": "^0.28.2",
     "fast-check": "^4.10.2",
