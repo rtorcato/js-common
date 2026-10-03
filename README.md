@@ -1,11 +1,11 @@
 # js-common
 
-<p align="center">
-  <picture>
-    <source media="(max-width: 600px)" srcset="./brand/banner-mobile.png">
-    <img src="./brand/banner.png" alt="js-common — Tree-shakeable TypeScript utilities: tiny bundles, full type safety, CLI included." width="100%">
-  </picture>
-</p>
+<!-- brand-kit:banner:start -->
+<picture>
+  <source media="(max-width: 640px)" srcset="./brand/banner-mobile.png">
+  <img src="./brand/banner.png" alt="js-common banner" width="1600">
+</picture>
+<!-- brand-kit:banner:end -->
 
 [![CI](https://github.com/rtorcato/js-common/actions/workflows/ci.yml/badge.svg)](https://github.com/rtorcato/js-common/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/%40rtorcato%2Fjs-common.svg)](https://badge.fury.io/js/%40rtorcato%2Fjs-common)
