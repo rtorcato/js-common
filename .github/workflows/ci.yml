@@ -196,8 +196,16 @@ jobs:
             - name: 📦 Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: 🧪 Run tests
-              run: pnpm test
+            # Coverage is the test run itself, so a separate coverage job would only repeat it.
+            - name: 🧪 Run tests with coverage
+              run: pnpm run coverage
+
+            - name: 📊 Upload coverage to Codecov
+              if: matrix.node-version == '24'
+              uses: codecov/codecov-action@v7
+              with:
+                  files: ./coverage/lcov.info
+                  fail_ci_if_error: false
 
             # UTC+12/13 surfaces local-vs-UTC mixups that UTC and US zones hide (#323).
             - name: 🧪 Run date tests under Pacific/Auckland
@@ -231,6 +239,9 @@ jobs:
 
             - name: 🏗️ Build project
               run: pnpm run build-prod
+
+            - name: 📏 Per-subpath size budgets (size-limit)
+              run: pnpm size
 
             - name: 📦 Upload build artifacts
               uses: actions/upload-artifact@v7
