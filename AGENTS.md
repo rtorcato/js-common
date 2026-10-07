@@ -2,7 +2,7 @@
 
 # Using @rtorcato/js-common
 
-`@rtorcato/js-common` is a tree-shakeable, ESM-only utility library for Node.js >= 22 (TypeScript-first, JSDoc on every public API). One subpath export per concern — 42 of them. There is no package root export.
+`@rtorcato/js-common` is a tree-shakeable, ESM-only utility library for Node.js >= 24 (TypeScript-first, JSDoc on every public API). One subpath export per concern — 42 of them. There is no package root export.
 
 ## Rules
 
@@ -101,12 +101,13 @@ Import from `@rtorcato/js-common/<module>`.
 
 ## CLI
 
-The package also ships a binary for shell use:
+The package also ships a binary for shell use. Its UI packages are optional peers, so install them first
+(`npm install -g @rtorcato/js-common @inquirer/prompts chalk chalk-animation commander figlet gradient-string`):
 
 ```bash
-npx @rtorcato/js-common@latest date today
-npx @rtorcato/js-common@latest math sum 1 2 3
-npx @rtorcato/js-common@latest text capitalize "hello world"
+js-common date today
+js-common math sum 1 2 3
+js-common text capitalize "hello world"
 ```
 
 See [CLI.md](https://github.com/rtorcato/js-common/blob/main/CLI.md) for the full command list.

@@ -13,7 +13,7 @@
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/@rtorcato/js-common)](https://bundlephobia.com/package/@rtorcato/js-common)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org/)
 [![codecov](https://codecov.io/gh/rtorcato/js-common/branch/main/graph/badge.svg)](https://codecov.io/gh/rtorcato/js-common)
 [![Docs](https://img.shields.io/badge/docs-docs.torcato.dev%2Fjs--common-blue.svg)](https://docs.torcato.dev/js-common/)
 
@@ -29,7 +29,7 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
 - **Modular** — one module per concern, 42 subpaths
-- **No required runtime deps** — `zod` (`./env`), `pino` (`./logger`) and `uuid` + `short-uuid` (`./uuid`) are optional peers: install one only if you import its module. CLI packages (`chalk`, `commander`, `figlet`, …) are `optionalDependencies` and only needed for the CLI.
+- **No required runtime deps** — `zod` (`./env`), `pino` (`./logger`, plus `pino-pretty` for pretty dev logs) and `uuid` + `short-uuid` (`./uuid`) are optional peers: install one only if you import its module. The CLI packages (`chalk`, `commander`, `figlet`, …) are optional peers too, needed only to run the `js-common` binary — see [CLI.md](CLI.md).
 
 ## Installation
 
@@ -42,7 +42,7 @@ Three modules need an optional peer you install yourself:
 | Module | Peer |
 |---|---|
 | `./env` | `npm install zod` |
-| `./logger` | `npm install pino` |
+| `./logger` | `npm install pino` (add `pino-pretty` for pretty dev logs) |
 | `./uuid` | `npm install uuid short-uuid` |
 
 Pre-release builds are published to the `beta` dist-tag, so they never reach a plain `npm install`:
@@ -73,6 +73,8 @@ npx skills add https://github.com/rtorcato/js-common --skill js-common
 `AGENTS.md` is generated from `SKILL.md` by `pnpm sync:agents`; CI fails if they drift. Edit `SKILL.md`, never `AGENTS.md`.
 
 ## Migrating
+
+**5.x → 6.x** — the Node floor is now 24 (`engines.node >=24`). The CLI packages (`@inquirer/prompts`, `chalk`, `chalk-animation`, `commander`, `figlet`, `gradient-string`) and `pino-pretty` moved from `optionalDependencies` to optional `peerDependencies`, so a plain install no longer downloads them. To run the CLI, install them alongside the package; for pretty `./logger` output in dev, add `pino-pretty`. Details in the [migration guide](https://docs.torcato.dev/js-common/docs/guides/migration).
 
 **4.x → 5.x** — `zod`, `pino`, `uuid` and `short-uuid` moved from `dependencies` to optional `peerDependencies`. If you import `./env`, add `zod`; `./logger`, add `pino`; `./uuid`, add `uuid` and `short-uuid`. Every other module is unaffected. Details in the [migration guide](https://docs.torcato.dev/js-common/docs/guides/migration).
 
@@ -105,20 +107,18 @@ Prefer the Result-style `tryCatch` for new code; reserve `tryWithFallback` for c
 
 ## CLI Usage
 
-This package includes a command-line interface for many utilities:
+This package includes a command-line interface for many utilities. Its UI packages are optional peers, so install them alongside it:
 
 ```bash
 # Install globally to use the CLI
-npm install -g @rtorcato/js-common
-
-# Or use with npx
-npx @rtorcato/js-common@latest --help
+npm install -g @rtorcato/js-common @inquirer/prompts chalk chalk-animation commander figlet gradient-string
+js-common --help
 
 # Examples
-npx @rtorcato/js-common@latest date today
-npx @rtorcato/js-common@latest math sum 1 2 3 4 5
-npx @rtorcato/js-common@latest text capitalize "hello world"
-npx @rtorcato/js-common@latest system node-version
+js-common date today
+js-common math sum 1 2 3 4 5
+js-common text capitalize "hello world"
+js-common system node-version
 ```
 
 See [CLI.md](./CLI.md) for complete CLI documentation.
@@ -230,7 +230,7 @@ import { info, warn, error, captureConsole } from '@rtorcato/js-common/logging'
 
 ## Requirements
 
-- **Node.js** >= 22.0.0 (enforced via the `engines` field)
+- **Node.js** >= 24.0.0 (enforced via the `engines` field)
 - **TypeScript** >= 5.0.0 (for TypeScript projects)
 
 ## Development
