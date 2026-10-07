@@ -80,7 +80,7 @@ The package goes from 44 subpath modules to 42.
 - `./interval` was `runInterval` and `clearIntervalById`, which called
   `setInterval` and `clearInterval` with the same arguments and returned the
   same value.
-- `./sets` predated the ES2025 `Set` methods. `engines.node` is `>=22`, which
+- `./sets` predated the ES2025 `Set` methods. `engines.node` is `>=24`, which
   ships `union`, `intersection`, `difference`, `isSubsetOf` and `isSupersetOf`
   on `Set.prototype`; `setToArray` and `arrayToSet` are `[...set]` and
   `new Set(arr)`.
