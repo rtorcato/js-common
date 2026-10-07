@@ -176,6 +176,9 @@ jobs:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]
         if: needs.check-skip.outputs.should-skip != 'true'
+        # Runs third-party code (Codecov); don't hand it the workflow-level write scopes.
+        permissions:
+            contents: read
         strategy:
             fail-fast: false
             matrix:
