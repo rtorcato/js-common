@@ -176,7 +176,7 @@ jobs:
         runs-on: ubuntu-latest
         needs: [dependencies, check-skip]
         if: needs.check-skip.outputs.should-skip != 'true'
-        # Runs third-party code (Codecov); don't hand it the workflow-level write scopes.
+        # Tests only need to read the repo; don't hand them the workflow-level write scopes.
         permissions:
             contents: read
         strategy:
@@ -202,13 +202,6 @@ jobs:
             # Coverage is the test run itself, so a separate coverage job would only repeat it.
             - name: 🧪 Run tests with coverage
               run: pnpm run coverage
-
-            - name: 📊 Upload coverage to Codecov
-              if: matrix.node-version == '24'
-              uses: codecov/codecov-action@v7
-              with:
-                  files: ./coverage/lcov.info
-                  fail_ci_if_error: false
 
             # UTC+12/13 surfaces local-vs-UTC mixups that UTC and US zones hide (#323).
             - name: 🧪 Run date tests under Pacific/Auckland

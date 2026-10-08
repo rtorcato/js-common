@@ -14,7 +14,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org/)
-[![codecov](https://codecov.io/gh/rtorcato/js-common/branch/main/graph/badge.svg)](https://codecov.io/gh/rtorcato/js-common)
 [![Docs](https://img.shields.io/badge/docs-docs.torcato.dev%2Fjs--common-blue.svg)](https://docs.torcato.dev/js-common/)
 
 A comprehensive set of common JavaScript and TypeScript utilities for Node.js projects.
