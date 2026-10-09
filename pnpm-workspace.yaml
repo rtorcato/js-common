@@ -16,8 +16,11 @@ verifyDepsBeforeRun: false
 # Dev/docs-only audit fixes (#343) — the package ships no dependencies, so none
 # of these reach consumers. Each override stays inside the major its parent
 # asks for. Drop an entry once the parent's own range resolves to the patch.
-# Not overridden: braces and http-cache-semantics (no patched release yet)
-# and serialize-javascript 6→7 and uuid 8→11 (major bumps under Docusaurus).
+# Not overridden: braces and http-cache-semantics (no patched release yet).
+# The exception is the docs-only majors from #363: Docusaurus 3.10.2 (latest)
+# still pins tinypool 1, serialize-javascript 6, uuid 8 and, via cssnano,
+# postcss-selector-parser 6, and none of those lines has a patched release.
+# Drop each once Docusaurus moves to the fixed major.
 overrides:
   '@humanfs/node@<0.16.8': ^0.16.8
   brace-expansion@<1.1.21: ^1.1.21
@@ -27,6 +30,10 @@ overrides:
   joi@>=17.0.0 <17.13.7: ^17.13.7
   js-yaml@>=4.0.0 <4.3.2: ^4.3.2
   markdown-it@>=14.0.0 <14.3.1: ^14.3.1
+  postcss-selector-parser@<7.1.6: '>=7.1.6'
   qs@>=6.0.0 <6.16.0: ^6.16.0
+  serialize-javascript@<7.0.5: '>=7.0.5'
   svgo@>=3.0.0 <3.3.5: ^3.3.5
+  tinypool@<2.1.2: '>=2.1.2'
+  uuid@<11.1.1: '>=11.1.1'
   vite@>=7.0.0 <7.3.5: ^7.3.5
