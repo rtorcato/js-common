@@ -19,7 +19,7 @@ From top to bottom, centred:
    It's 52px on phones.
 2. **H1 wordmark.** `js-common`, with `common` in the accent colour. Geist 800,
    `clamp(44px, 8vw, 84px)`, letter-spacing −0.045em.
-3. **Tagline.** "Tree-shakeable TypeScript utilities: tiny bundles, full type
+3. **Tagline.** "Tree-shakeable TypeScript utilities — tiny bundles, full type
    safety, CLI included." 20px/500, or 17px on phones. Use the same line as the
    site description and OG text.
 4. **Sub-line.** "42 modules. One subpath each. Import only what you use." 16px, muted.
@@ -55,7 +55,7 @@ GitHub, as browser-common and brand-kit already do.
 | Token | Light | Dark | Use |
 |---|---|---|---|
 | Gold | `#f4ba2f` | `#f4ba2f` | Buttons, mark, active tab underline |
-| Accent text | `#9a6f00` (5:1 on white) | `#f4ba2f` | `common`, active tab label, links |
+| Accent text | `#8a6300` (5.4:1 on white, 5.0:1 on the code card) | `#f4ba2f` | `common`, active tab label, links |
 | On-gold | `#0a0e16` | `#0a0e16` | Text on gold |
 | Code background | `#f3f6f9` | `#0c111b` | Code card |
 
