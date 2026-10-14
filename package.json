@@ -228,7 +228,7 @@
     "@commitlint/config-conventional": "^21.2.3",
     "@inquirer/prompts": "^8.7.2",
     "@rtorcato/repo-ai": "^3.5.1",
-    "@rtorcato/repo-tooling": "^6.0.0",
+    "@rtorcato/repo-tooling": "^6.1.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/github": "^12.0.10",
     "@semantic-release/npm": "^13.2.0",
