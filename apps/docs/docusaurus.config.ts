@@ -131,14 +131,12 @@ const config: Config = {
 			respectPrefersColorScheme: true,
 		},
 		navbar: {
-			// The wordmark "js-common" with gold "common" is baked into the SVG logo
-			// (light + dark variants), so title stays empty to avoid a duplicate text label.
-			title: '',
+			title: 'js-common',
 			logo: {
 				alt: 'js-common',
 				src: 'img/logo.svg',
 				srcDark: 'img/logo-dark.svg',
-				width: 118,
+				width: 26,
 				height: 26,
 			},
 			items: [
@@ -154,6 +152,11 @@ const config: Config = {
 				{
 					href: 'https://github.com/rtorcato/js-common',
 					label: 'GitHub',
+					position: 'right',
+				},
+				{
+					href: 'https://www.npmjs.com/package/@rtorcato/js-common',
+					label: 'npm',
 					position: 'right',
 				},
 			],
