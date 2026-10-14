@@ -1,5 +1,9 @@
-<svg width="118" height="26" viewBox="0 0 118 26" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="js-common">
-  <text x="0" y="20" font-family="-apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, system-ui, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.8">
-    <tspan fill="#0A0E16">js-</tspan><tspan fill="#9A6700">common</tspan>
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="js-common">
+  <title>js-common</title>
+  <!-- lucide braces, ISC -->
+  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#9a6f00" fill-opacity=".10" stroke="#9a6f00" stroke-opacity=".40"/>
+  <svg x="6.72" y="6.72" width="18.56" height="18.56" viewBox="0 0 24 24" fill="none" stroke="#9a6f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/>
+    <path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/>
+  </svg>
 </svg>
