@@ -103,14 +103,6 @@
 .navbar__link--active {
 	color: var(--jc-heading);
 }
-/* The "js-common" wordmark is baked into the SVG logo. Hide any text title
-   Docusaurus may render next to it in the *top* navbar — but leave the title
-   inside the mobile drawer (.navbar-sidebar__brand) alone so the drawer's
-   brand row keeps its label. */
-.navbar > .navbar__inner .navbar__title,
-.navbar > .navbar__title {
-	display: none;
-}
 
 /* ---------- Mobile drawer: collapse primary/secondary into one menu ----------
    The primary→secondary "Back to main menu" UX is confusing here. We swizzle
