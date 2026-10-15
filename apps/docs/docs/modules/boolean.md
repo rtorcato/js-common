@@ -3,7 +3,7 @@ title: Boolean
 description: Utilities exported from @rtorcato/js-common/boolean.
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser
+**Runtime:** any — Node.js ≥ 24 or a modern browser
 
 One coercion helper. `toBoolean` understands the string forms `'true'`, `'false'`, `'1'` and `'0'` that `Boolean()` gets wrong for env vars and query params — `Boolean('false')` is `true`, which is almost never what a config parser wants.
 

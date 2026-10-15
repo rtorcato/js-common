@@ -3,7 +3,7 @@ title: Geometry
 description: Utilities exported from @rtorcato/js-common/geometry.
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser
+**Runtime:** any — Node.js ≥ 24 or a modern browser
 
 2D maths for points, rectangles and polygons — distance, angle, midpoint, area, and hit-testing. Coordinates are passed as plain numbers rather than `Point` or `Rect` objects, so nothing here needs a class, a canvas or an allocation per call, and it works equally for layout code, games and charts. Angles are radians to match `Math.atan2` and the Canvas API, and `distance2D` uses `Math.hypot`, which avoids overflow on large coordinates.
 

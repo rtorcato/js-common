@@ -3,7 +3,7 @@ title: Events
 description: Utilities exported from @rtorcato/js-common/events.
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser (`EventTarget` and `CustomEvent` are globals in both)
+**Runtime:** any — Node.js ≥ 24 or a modern browser (`EventTarget` and `CustomEvent` are globals in both)
 
 Thin wrappers over the `EventTarget` API — add a listener, dispatch a `CustomEvent`, await a single event as a promise. `on` returns its own removal function, so cleanup is a value you can store and call rather than a `removeEventListener` you must remember to mirror argument for argument. They work on any `EventTarget` — a DOM element in the browser, or a plain `new EventTarget()` in Node; Node's `EventEmitter` is a different API and is not covered here. The awaiter is `onceEvent`, not `once` — `functions.once` memoises a call, and the two were separated so neither name has to be read twice.
 

@@ -3,7 +3,7 @@ title: Arrays
 description: Utilities exported from @rtorcato/js-common/arrays.
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser
+**Runtime:** any — Node.js ≥ 24 or a modern browser
 
 Small, non-mutating helpers for everyday array work — chunking, deduping, compacting, shuffling, splitting, sorting and pairing. Every function returns a new array and leaves its input untouched, including `shuffle`, which copies before running its Fisher-Yates pass. `unique` dedupes through a `Set`, so equality is SameValueZero — primitives compare by value, objects by reference, and two structurally identical objects both survive.
 

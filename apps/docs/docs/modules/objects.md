@@ -3,7 +3,7 @@ title: Objects
 description: Utilities exported from @rtorcato/js-common/objects.
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser
+**Runtime:** any — Node.js ≥ 24 or a modern browser
 
 Plain-object helpers — `pick`, `omit`, `deepMerge` and a plain-object guard. `pick` and `omit` return shallow copies, and `deepMerge` recurses only into plain objects: arrays and class instances are replaced wholesale rather than merged.
 

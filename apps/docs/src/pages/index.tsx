@@ -190,7 +190,7 @@ function Hero(): ReactElement {
 				<div className={styles.bannerWrap}>
 					<img
 						src={banner}
-						alt="js-common — common JavaScript utilities"
+						alt="js-common: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included."
 						className={styles.banner}
 					/>
 				</div>
@@ -200,7 +200,7 @@ function Hero(): ReactElement {
 					<div className={styles.mobileBrandBand}>
 						<img
 							src={heroBrand}
-							alt="js-common — common JavaScript utilities and helpers for modern projects. Simple. Reusable. Reliable."
+							alt="js-common: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included."
 							className={styles.mobileBrand}
 						/>
 					</div>
@@ -250,7 +250,8 @@ function MigrationCallout(): ReactElement | null {
 	return (
 		<div className={styles.migration}>
 			<span>
-				Coming from 1.x? <Link to="/docs/guides/migration">Read the migration guide</Link>.
+				Upgrading from an older version?{' '}
+				<Link to="/docs/guides/migration">Read the migration guide</Link>.
 			</span>
 			<button
 				type="button"
@@ -310,7 +311,7 @@ function Categories(): ReactElement {
 				<div>
 					<h2 className={styles.h2}>Everything in one place</h2>
 					<p className={styles.sub}>
-						Nine focused categories. 44 modules. Import exactly what you need.
+						Nine focused categories. 42 modules. Import exactly what you need.
 					</p>
 				</div>
 				<Link className={styles.viewAll} to="/docs/modules/overview">

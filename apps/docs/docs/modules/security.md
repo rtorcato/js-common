@@ -3,7 +3,7 @@ title: Security
 description: Utilities exported from @rtorcato/js-common/security.
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser
+**Runtime:** any — Node.js ≥ 24 or a modern browser
 
 A small set of security-adjacent helpers: password-strength checks and coarse script stripping. For secure random tokens use `crypto.randomHex` (`generateSecureToken` lived here until 5.0) — the `Math.random` helpers in `random` are never an acceptable substitute. `stripScriptish` (called `sanitizeString` before 3.0) removes only `<script>` blocks and inline `on*` handlers, so treat it as defence in depth: escape untrusted values with `html.escapeHtml`, or run a real sanitizer such as DOMPurify when markup must survive. It was renamed precisely because the old name promised a guarantee it never delivered.
 
