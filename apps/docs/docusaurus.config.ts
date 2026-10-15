@@ -178,7 +178,7 @@ const config: Config = {
 					items: [
 						{ label: 'GitHub', href: 'https://github.com/rtorcato/js-common' },
 						{ label: 'npm', href: 'https://www.npmjs.com/package/@rtorcato/js-common' },
-						{ label: 'Migrating to 2.x', to: '/docs/guides/migration' },
+						{ label: 'Migrating', to: '/docs/guides/migration' },
 					],
 				},
 				{

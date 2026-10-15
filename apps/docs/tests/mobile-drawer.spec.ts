@@ -16,7 +16,7 @@ test.describe('mobile drawer', () => {
 	const EXPECTED_LINKS = [
 		'Get started',
 		'Tree-shaking & imports',
-		'Migrating to 2.x',
+		'Migrating',
 		'CLI',
 		'Modules',
 		'API reference',

@@ -36,7 +36,7 @@ type Item = {
 const ITEMS: Item[] = [
 	{ label: 'Get started', to: '/docs' },
 	{ label: 'Tree-shaking & imports', to: '/docs/guides/tree-shaking' },
-	{ label: 'Migrating to 2.x', to: '/docs/guides/migration' },
+	{ label: 'Migrating', to: '/docs/guides/migration' },
 	{ label: 'CLI', to: '/docs/guides/cli' },
 	{ label: 'Modules', to: '/docs/modules/overview' },
 	{ label: 'API reference', to: '/docs/api' },

@@ -3,7 +3,7 @@ title: Crypto
 description: Utilities exported from @rtorcato/js-common/crypto.
 ---
 
-**Runtime:** any — Web Crypto (`globalThis.crypto`), in Node.js ≥ 22, modern browsers and edge runtimes
+**Runtime:** any — Web Crypto (`globalThis.crypto`), in Node.js ≥ 24, modern browsers and edge runtimes
 
 Hashing, HMAC, base64 and random hex on top of Web Crypto, so it runs anywhere. `hashString` and `hmacHash` are async because `crypto.subtle` is, and they support SHA-1/256/384/512 only — Web Crypto has no md5. These are one-way digests and encodings, not encryption and not password storage: `hashString` with SHA-256 is the wrong tool for passwords (use argon2 or bcrypt). `randomHex` comes from `crypto.getRandomValues` — use it for tokens, session ids and reset links (`randomHex(32)` for 64 hex chars), unlike the `Math.random`-based helpers in `random`.
 

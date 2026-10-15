@@ -4,7 +4,7 @@ description: Generate and validate UUIDs.
 sidebar_position: 5
 ---
 
-**Runtime:** any — Node.js ≥ 22 or a modern browser
+**Runtime:** any — Node.js ≥ 24 or a modern browser
 
 **Peer dependency:** `uuid` and `short-uuid`, an optional peer since 5.0 — install it alongside this package:
 
