@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { sleep, sleepRandom, sleepSync, sleepWithAbort } from './index'
 
 describe('sleep', () => {
@@ -24,14 +24,26 @@ describe('sleepSync', () => {
 })
 
 describe('sleepRandom', () => {
-	it('resolves after a random delay between min and max', async () => {
-		const min = 10
-		const max = 30
-		const start = Date.now()
-		await sleepRandom(min, max)
-		const elapsed = Date.now() - start
-		expect(elapsed).toBeGreaterThanOrEqual(min)
-		expect(elapsed).toBeLessThanOrEqual(max + 10) // allow some timer drift
+	afterEach(() => {
+		vi.useRealTimers()
+		vi.restoreAllMocks()
+	})
+
+	// Fake timers: wall-clock checks flake, since a real timer can fire ~1ms early by Date.now()
+	it.each([
+		[0, 10],
+		[0.999, 30],
+	])('with Math.random() = %s resolves after exactly %sms', async (random, ms) => {
+		vi.useFakeTimers()
+		vi.spyOn(Math, 'random').mockReturnValue(random)
+		let done = false
+		sleepRandom(10, 30).then(() => {
+			done = true
+		})
+		await vi.advanceTimersByTimeAsync(ms - 1)
+		expect(done).toBe(false)
+		await vi.advanceTimersByTimeAsync(1)
+		expect(done).toBe(true)
 	})
 })
 
