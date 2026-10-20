@@ -31,13 +31,13 @@
 	--ifm-navbar-background-color: rgba(255, 255, 255, 0.8);
 	--ifm-heading-color: #0a0e16;
 	--ifm-font-color-base: #374253;
-	--ifm-link-color: #9a6f00;
+	--ifm-link-color: #8a6300;
 	--ifm-toc-border-color: rgba(12, 18, 28, 0.1);
 	--ifm-code-background: #f3f6f9;
 	--docusaurus-highlighted-code-line-bg: rgba(244, 186, 47, 0.14);
 
 	/* js-common custom tokens */
-	--jc-gold: #9a6f00;
+	--jc-gold: #8a6300;
 	--jc-gold-fill: #f4ba2f;
 	--jc-on-gold: #0a0e16;
 	--jc-bg: #ffffff;
@@ -384,6 +384,15 @@ article table td code {
 	padding: 0 !important;
 	font-size: 13px;
 }
+/* Phones: a wide table scrolls inside itself instead of widening the page. */
+@media (max-width: 996px) {
+	.markdown table,
+	.theme-doc-markdown table,
+	article table {
+		display: block;
+		overflow-x: auto;
+	}
+}
 /* 2nd column (Subpath) → gold mono */
 .markdown table td:nth-child(2) code,
 article table td:nth-child(2) code {
@@ -414,6 +423,13 @@ article table td:nth-child(3) code {
 	background: transparent;
 	border-color: var(--jc-border2);
 	color: var(--jc-heading);
+}
+
+/* shared-docs "Use with AI": its grid track is `auto`, so a long command row
+   stretched the card past 390px. A minmax(0) track lets the row scroll inside
+   its box instead. Module class names are hashed, hence the prefix match. */
+[class*="aiStack_"] {
+	grid-template-columns: minmax(0, 1fr);
 }
 
 ::selection {

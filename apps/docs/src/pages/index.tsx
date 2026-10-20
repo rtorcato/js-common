@@ -2,9 +2,11 @@ import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import { siblings } from '@rtorcato/shared-docs'
 import UseWithAI from '@rtorcato/shared-docs/components/UseWithAI'
+import CodeBlock from '@theme/CodeBlock'
 import Layout from '@theme/Layout'
+import ThemedImage from '@theme/ThemedImage'
 import clsx from 'clsx'
-import { type ReactElement, useEffect, useState } from 'react'
+import { type KeyboardEvent, type ReactElement, useEffect, useRef, useState } from 'react'
 import InstallTabs from '@site/src/components/InstallTabs'
 import styles from './index.module.css'
 
@@ -162,50 +164,80 @@ const CATEGORIES: Category[] = [
 	},
 ]
 
-const HERO_CODE = `import {
-  isEmpty,
-  toKebabCase,
-  sleep,
-  deepClone,
-} from '@rtorcato/js-common'
+const EXAMPLES: { module: string; code: string }[] = [
+	{
+		module: 'date',
+		code: `import { today, daysBetween }
+  from '@rtorcato/js-common/date'
 
-const data = { a: 1 }
-const copy = deepClone(data)
-await sleep(200)
-toKebabCase('Hello World')
-// 'hello-world'`
+// "2026-10-20"
+today()
+
+// 292
+daysBetween('2026-01-01', today())`,
+	},
+	{
+		module: 'arrays',
+		code: `import { unique, chunk }
+  from '@rtorcato/js-common/arrays'
+
+// [1, 2, 3]
+unique([1, 2, 2, 3, 1])
+
+// [[1, 2], [3, 4], [5]]
+chunk([1, 2, 3, 4, 5], 2)`,
+	},
+	{
+		module: 'strings',
+		code: `import { slugify, truncate }
+  from '@rtorcato/js-common/strings'
+
+// "cafe-resume"
+slugify('Café & Résumé')
+
+// "Tree-shak…"
+truncate('Tree-shakeable', 10)`,
+	},
+	{
+		module: 'uuid',
+		code: `import { getUUIDv7, isUUID }
+  from '@rtorcato/js-common/uuid'
+
+// "018e5e2c-7c0a-7000-8000-…"
+const id = getUUIDv7()
+
+// true
+isUUID(id)`,
+	},
+]
 
 /* ------------------------------------------------------------------ */
 /* Sections                                                            */
 /* ------------------------------------------------------------------ */
 
 function Hero(): ReactElement {
-	const banner = useBaseUrl('/img/banner.png')
-	const heroBrand = useBaseUrl('/img/hero-brand.png')
+	const mark = {
+		light: useBaseUrl('/img/logo.svg'),
+		dark: useBaseUrl('/img/logo-dark.svg'),
+	}
 	return (
 		<header className={styles.hero}>
 			<div className={styles.heroGlow} aria-hidden />
 			<div className={styles.heroInner}>
-				{/* Desktop / tablet: full banner */}
-				<div className={styles.bannerWrap}>
-					<img
-						src={banner}
-						alt="js-common: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included."
-						className={styles.banner}
-					/>
+				{/* Decorative: the H1 carries the name. The wrapper centres it, because
+				    Docusaurus sets display: initial on the themed img. */}
+				<div className={styles.heroMarkWrap} aria-hidden>
+					<ThemedImage className={styles.heroMark} alt="" sources={mark} />
 				</div>
+				<h1 className={styles.wordmark}>
+					js-<span className={styles.wordmarkAccent}>common</span>
+				</h1>
+				<p className={styles.tagline}>
+					Tree-shakeable TypeScript utilities: tiny bundles, full type safety, CLI included.
+				</p>
+				<p className={styles.heroSub}>42 modules. One subpath each. Import only what you use.</p>
 
-				{/* Mobile: composed hero */}
-				<div className={styles.mobileHero}>
-					<div className={styles.mobileBrandBand}>
-						<img
-							src={heroBrand}
-							alt="js-common: Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included."
-							className={styles.mobileBrand}
-						/>
-					</div>
-					<CodeWindow />
-				</div>
+				<CodeCard />
 
 				<div className={styles.heroActions}>
 					<div className={styles.heroButtons}>
@@ -213,7 +245,7 @@ function Hero(): ReactElement {
 							className={clsx('button button--primary button--lg', styles.cta)}
 							to="/docs#install"
 						>
-							Get Started →
+							Get started →
 						</Link>
 						<Link
 							className={clsx('button button--lg', styles.ctaSecondary)}
@@ -272,16 +304,55 @@ function MigrationCallout(): ReactElement | null {
 	)
 }
 
-function CodeWindow(): ReactElement {
+function CodeCard(): ReactElement {
+	const [active, setActive] = useState(0)
+	const tabs = useRef<(HTMLButtonElement | null)[]>([])
+
+	// Arrow keys move between tabs (WAI-ARIA tabs pattern, automatic activation).
+	function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+		const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key]
+		if (!step) return
+		e.preventDefault()
+		const next = (active + step + EXAMPLES.length) % EXAMPLES.length
+		setActive(next)
+		tabs.current[next]?.focus()
+	}
+
 	return (
-		<div className={styles.codeWindow}>
-			<div className={styles.codeBar}>
-				<span className={styles.dot} style={{ background: '#ff5f57' }} />
-				<span className={styles.dot} style={{ background: '#febc2e' }} />
-				<span className={styles.dot} style={{ background: '#28c840' }} />
-				<span className={styles.codeFile}>app.ts</span>
+		<div className={styles.codeCard}>
+			<div
+				className={styles.codeTabs}
+				role="tablist"
+				aria-label="Module examples"
+				onKeyDown={onKeyDown}
+			>
+				{EXAMPLES.map((ex, i) => (
+					<button
+						key={ex.module}
+						ref={(el) => {
+							tabs.current[i] = el
+						}}
+						type="button"
+						role="tab"
+						id={`hero-tab-${ex.module}`}
+						aria-selected={i === active}
+						aria-controls="hero-tabpanel"
+						tabIndex={i === active ? 0 : -1}
+						className={i === active ? styles.codeTabActive : styles.codeTab}
+						onClick={() => setActive(i)}
+					>
+						{ex.module}
+					</button>
+				))}
 			</div>
-			<pre className={styles.codePre}>{HERO_CODE}</pre>
+			<div
+				id="hero-tabpanel"
+				role="tabpanel"
+				aria-labelledby={`hero-tab-${EXAMPLES[active].module}`}
+				className={styles.codePanel}
+			>
+				<CodeBlock language="ts">{EXAMPLES[active].code}</CodeBlock>
+			</div>
 		</div>
 	)
 }

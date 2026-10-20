@@ -3,7 +3,7 @@
 .hero {
 	position: relative;
 	overflow: hidden;
-	padding: 64px 24px 40px;
+	padding: 72px 24px 40px;
 }
 .heroGlow {
 	position: absolute;
@@ -23,46 +23,113 @@
 	text-align: center;
 }
 
-/* Banner (desktop) vs composed hero (mobile) */
-.bannerWrap {
-	position: relative;
-	border-radius: 18px;
-	overflow: hidden;
-	border: 1px solid var(--jc-border2);
-	box-shadow: var(--jc-shadow);
-	background: #0b0f17;
-}
-.banner {
-	display: block;
-	width: 100%;
-	height: auto;
-}
-.mobileHero {
-	display: none;
-	padding-top: 4px;
-}
-/* Full-bleed dark brand band: breaks out of the hero's 24px side padding,
-   same in light & dark mode, with vertical padding and no rounded corners.
-   Background matches the brand image's edge color so it's seamless. */
-.mobileBrandBand {
-	margin: 0 -24px 24px;
-	padding: 34px 24px;
-	background: #010813;
+/* Family mark above the wordmark (shared-docs DESIGN.md "Family marks"). The
+   wrapper centres it: Docusaurus sets display: initial on the themed img, which
+   would beat a display: block here. */
+.heroMarkWrap {
 	display: flex;
 	justify-content: center;
+	margin-bottom: 22px;
 }
-.mobileBrand {
-	display: block;
-	width: 100%;
-	max-width: 440px;
-	height: auto;
+.heroMark {
+	width: 72px;
+	height: 72px;
+}
+:global(html[data-theme="dark"]) .heroMark {
+	filter: drop-shadow(0 0 28px rgba(244, 186, 47, 0.45));
+}
+
+.wordmark {
+	margin: 0 0 8px;
+	font-size: clamp(44px, 8vw, 84px);
+	line-height: 1;
+	letter-spacing: -0.045em;
+	font-weight: 800;
+	color: var(--jc-heading);
+}
+.wordmarkAccent {
+	color: var(--jc-gold);
+}
+.tagline {
+	margin: 16px auto 0;
+	max-width: 620px;
+	font-size: 20px;
+	font-weight: 500;
+	color: var(--jc-heading);
+}
+.heroSub {
+	margin: 6px auto 0;
+	font-size: 16px;
+	color: var(--jc-muted);
+}
+
+/* Code card: module tabs over a code block. Long lines scroll inside the card. */
+.codeCard {
+	max-width: 640px;
+	margin: 36px auto 0;
+	border: 1px solid var(--jc-border2);
+	border-radius: 14px;
+	background: var(--jc-code-bg);
+	box-shadow: var(--jc-shadow);
+	overflow: hidden;
+	text-align: left;
+}
+.codeTabs {
+	display: flex;
+	gap: 4px;
+	padding: 0 10px;
+	border-bottom: 1px solid var(--jc-border);
+	background: var(--jc-surface2);
+	overflow-x: auto;
+}
+.codeTab,
+.codeTabActive {
+	appearance: none;
+	min-height: 44px;
+	padding: 0 12px;
+	margin-bottom: -1px;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	background: transparent;
+	font: 500 13px var(--ifm-font-family-monospace);
+	color: var(--jc-muted);
+	white-space: nowrap;
+	cursor: pointer;
+}
+.codeTab:hover {
+	color: var(--jc-heading);
+}
+.codeTabActive {
+	font-weight: 600;
+	color: var(--jc-gold);
+	border-bottom-color: var(--jc-gold-fill);
+}
+.codeTab:focus-visible,
+.codeTabActive:focus-visible {
+	outline: 2px solid var(--jc-gold);
+	outline-offset: -4px;
+	border-radius: 6px;
+}
+/* The site-wide code block gets its own border, radius and margin; inside the
+   card it is just the panel. The doubled class outranks custom.css's
+   theme-scoped `[data-theme] div[class*=codeBlockContainer]` rule. */
+.codePanel.codePanel :global(.theme-code-block),
+.codePanel.codePanel pre {
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+.codePanel.codePanel pre {
+	font-size: 13.5px;
+	line-height: 1.7;
 }
 
 .heroActions {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 22px;
+	gap: 20px;
 	margin-top: 32px;
 }
 .heroButtons {
@@ -71,11 +138,17 @@
 	gap: 14px;
 	justify-content: center;
 }
-.cta {
-	border-radius: 11px;
+.cta,
+.ctaSecondary {
+	min-height: 48px;
+	border-radius: 10px;
+}
+.cta:focus-visible,
+.ctaSecondary:focus-visible {
+	outline: 3px solid var(--jc-gold);
+	outline-offset: 3px;
 }
 .ctaSecondary {
-	border-radius: 11px;
 	background: transparent;
 	border: 1px solid var(--jc-border2);
 	color: var(--jc-heading);
@@ -104,6 +177,7 @@
 	font-weight: 600;
 }
 .migrationDismiss {
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -119,44 +193,19 @@
 	line-height: 1;
 	cursor: pointer;
 }
+/* 44px touch target around the 26px button */
+.migrationDismiss::after {
+	content: "";
+	position: absolute;
+	inset: -9px;
+}
+.migrationDismiss:focus-visible {
+	outline: 2px solid var(--jc-gold);
+	outline-offset: 2px;
+}
 .migrationDismiss:hover {
 	background: var(--jc-surface);
 	color: var(--jc-heading);
-}
-
-/* Code window */
-.codeWindow {
-	border-radius: 14px;
-	overflow: hidden;
-	border: 1px solid var(--jc-border2);
-	background: var(--jc-code-bg);
-	box-shadow: var(--jc-shadow);
-	text-align: left;
-}
-.codeBar {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 11px 14px;
-	border-bottom: 1px solid var(--jc-border);
-}
-.dot {
-	width: 11px;
-	height: 11px;
-	border-radius: 50%;
-}
-.codeFile {
-	margin-left: 6px;
-	font: 500 12px var(--ifm-font-family-monospace);
-	color: var(--jc-faint);
-}
-.codePre {
-	margin: 0;
-	padding: 16px;
-	font: 500 12.5px / 1.8 var(--ifm-font-family-monospace);
-	color: var(--jc-text);
-	overflow: auto;
-	background: transparent;
 }
 
 /* Sections */
@@ -322,12 +371,6 @@
 	}
 }
 @media (max-width: 760px) {
-	.bannerWrap {
-		display: none;
-	}
-	.mobileHero {
-		display: block;
-	}
 	.heroButtons {
 		flex-direction: column;
 		width: 100%;
@@ -338,6 +381,18 @@
 	}
 }
 @media (max-width: 560px) {
+	.hero {
+		padding: 40px 16px 24px;
+	}
+	.tagline {
+		font-size: 17px;
+	}
+	.codeCard {
+		margin-top: 28px;
+	}
+	.codePanel.codePanel pre {
+		font-size: 12.5px;
+	}
 	.pillarGrid,
 	.catGrid,
 	.siblingGrid {
