@@ -22,7 +22,8 @@
 	border: none;
 	background: transparent;
 	cursor: pointer;
-	padding: 13px 16px;
+	min-height: 44px;
+	padding: 0 16px;
 	margin-bottom: -1px;
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-size: 13px;
@@ -36,7 +37,14 @@
 }
 .tabActive {
 	color: var(--jc-gold, #f4ba2f);
-	border-bottom-color: var(--jc-gold, #f4ba2f);
+	border-bottom-color: var(--jc-gold-fill, #f4ba2f);
+}
+.tab:focus-visible,
+.tabActive:focus-visible,
+.copy:focus-visible {
+	outline: 2px solid var(--jc-gold, #f4ba2f);
+	outline-offset: -4px;
+	border-radius: 6px;
 }
 
 .cmdRow {
@@ -67,6 +75,7 @@
 	display: none;
 }
 .copy {
+	position: relative;
 	display: grid;
 	place-items: center;
 	flex: none;
@@ -80,6 +89,12 @@
 	transition:
 		border-color 0.15s,
 		color 0.15s;
+}
+/* 44px touch target around the 34px button */
+.copy::after {
+	content: "";
+	position: absolute;
+	inset: -5px;
 }
 .copy:hover {
 	border-color: var(--jc-gold-border, rgba(244, 186, 47, 0.4));
