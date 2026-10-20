@@ -41,6 +41,7 @@ describe('fetch module', () => {
 
 	it('fetchWithTimeout rejects with TimeoutError when the body read is slow', async () => {
 		mockFetch.mockImplementation(async (_url, options) => ({
+			ok: true,
 			json: () =>
 				new Promise((_resolve, reject) => {
 					options.signal.addEventListener('abort', () => reject(options.signal.reason))
@@ -76,10 +77,66 @@ describe('fetch module', () => {
 			'http://test',
 			expect.objectContaining({
 				method: 'POST',
-				headers: expect.objectContaining({ 'Content-Type': 'application/json' }),
 				body: JSON.stringify(body),
 			})
 		)
+		expect(mockFetch.mock.calls[0][1].headers.get('Content-Type')).toBe('application/json')
+	})
+
+	it('postJson keeps Content-Type when the caller passes headers', async () => {
+		mockFetch.mockResolvedValue({ json: async () => ({}), ok: true })
+		await fetchUtils.postJson('http://test', {}, { headers: { Authorization: 'Bearer x' } })
+		const { headers } = mockFetch.mock.calls[0][1]
+		expect(headers.get('Content-Type')).toBe('application/json')
+		expect(headers.get('Authorization')).toBe('Bearer x')
+	})
+
+	it('postJson lets the caller override Content-Type', async () => {
+		mockFetch.mockResolvedValue({ json: async () => ({}), ok: true })
+		await fetchUtils.postJson('http://test', {}, { headers: { 'content-type': 'text/plain' } })
+		expect(mockFetch.mock.calls[0][1].headers.get('Content-Type')).toBe('text/plain')
+	})
+
+	describe('non-2xx responses throw HttpError', () => {
+		const errorResponse = () => ({
+			ok: false,
+			status: 404,
+			statusText: 'Not Found',
+			url: 'http://test/missing',
+			text: async () => '{"error":"missing"}',
+			json: async () => ({ error: 'missing' }),
+		})
+
+		it.each([
+			['fetchWithTimeout', () => fetchUtils.fetchWithTimeout('http://test/missing')],
+			['postJson', () => fetchUtils.postJson('http://test/missing', {})],
+			['getJson', () => fetchUtils.getJson('http://test/missing')],
+			['fetchText', () => fetchUtils.fetchText('http://test/missing')],
+		])('%s', async (_name, call) => {
+			mockFetch.mockResolvedValue(errorResponse())
+			const error = await call().catch((e) => e)
+			expect(error).toBeInstanceOf(fetchUtils.HttpError)
+			expect(error).toMatchObject({
+				name: 'HttpError',
+				status: 404,
+				statusText: 'Not Found',
+				url: 'http://test/missing',
+				body: '{"error":"missing"}',
+				message: 'HTTP 404 Not Found (http://test/missing)',
+			})
+		})
+
+		it('leaves body undefined when it cannot be read', async () => {
+			mockFetch.mockResolvedValue({
+				...errorResponse(),
+				url: '',
+				text: async () => {
+					throw new Error('stream locked')
+				},
+			})
+			const error = await fetchUtils.getJson('http://test/fallback').catch((e) => e)
+			expect(error).toMatchObject({ status: 404, url: 'http://test/fallback', body: undefined })
+		})
 	})
 
 	it('getJson sends GET and returns JSON', async () => {

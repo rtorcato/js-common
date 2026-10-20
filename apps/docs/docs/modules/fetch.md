@@ -19,21 +19,35 @@ const created = await postJson<NewUser, User>('/api/users', { name: 'Ada' })
 const report = await fetchWithTimeout('/api/report', {}, 2_000)
 ```
 
-None of these check `response.ok` — a 500 with a JSON body resolves. Use `fetch` directly when
-the status code matters.
+Every helper checks `response.ok`: a non-2xx response throws an `HttpError` carrying `status`,
+`statusText`, `url` and the response `body` text.
+
+```ts
+import { getJson, HttpError } from '@rtorcato/js-common/fetch'
+
+async function findUser(id: string) {
+	try {
+		return await getJson<User>(`/api/users/${id}`)
+	} catch (e) {
+		if (e instanceof HttpError && e.status === 404) return null
+		throw e
+	}
+}
+```
 
 <!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
 
 ## Import
 
 ```ts
-import { fetchText, fetchWithTimeout, getJson } from '@rtorcato/js-common/fetch'
+import { HttpError, fetchText, fetchWithTimeout } from '@rtorcato/js-common/fetch'
 ```
 
 ## Exports
 
 | Name | Summary |
 | --- | --- |
+| `HttpError` | Thrown by the fetch helpers when the response status is not 2xx. |
 | `fetchText` | Fetches a resource and returns the response as text. |
 | `fetchWithTimeout` | Fetches a resource with a timeout. |
 | `getJson` | Sends a GET request and returns JSON. |

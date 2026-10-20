@@ -1,4 +1,42 @@
 /**
+ * Thrown by the fetch helpers when the response status is not 2xx.
+ *
+ * @example
+ * ```typescript
+ * try {
+ * 	await getJson('https://api.example.com/missing')
+ * } catch (e) {
+ * 	if (e instanceof HttpError) e.status // 404
+ * }
+ * ```
+ */
+export class HttpError extends Error {
+	/** The HTTP status code, e.g. `404`. */
+	readonly status: number
+	/** The HTTP status text, e.g. `'Not Found'`. */
+	readonly statusText: string
+	/** The response URL. */
+	readonly url: string
+	/** The response body as text, or `undefined` when it could not be read. */
+	readonly body: string | undefined
+
+	constructor(status: number, statusText: string, url: string, body?: string) {
+		super(`HTTP ${status}${statusText ? ` ${statusText}` : ''}${url ? ` (${url})` : ''}`)
+		this.name = 'HttpError'
+		this.status = status
+		this.statusText = statusText
+		this.url = url
+		this.body = body
+	}
+}
+
+async function ensureOk(response: Response, url: string): Promise<Response> {
+	if (response.ok) return response
+	const body = await response.text().catch(() => undefined)
+	throw new HttpError(response.status, response.statusText, response.url || url, body)
+}
+
+/**
  * Fetches a resource with a timeout.
  *
  * @example
@@ -15,6 +53,7 @@
  * @param options Fetch options. A caller `signal` is honoured alongside the timeout.
  * @param timeout Timeout in milliseconds (default: 8000).
  * @returns The parsed JSON response.
+ * @throws {HttpError} When the response status is not 2xx.
  */
 export async function fetchWithTimeout(
 	url: string,
@@ -23,7 +62,7 @@ export async function fetchWithTimeout(
 ): Promise<unknown> {
 	const timeoutSignal = AbortSignal.timeout(timeout)
 	const signal = options.signal ? AbortSignal.any([options.signal, timeoutSignal]) : timeoutSignal
-	const response = await fetch(url, { ...options, signal })
+	const response = await ensureOk(await fetch(url, { ...options, signal }), url)
 	return await response.json()
 }
 
@@ -41,21 +80,25 @@ export async function fetchWithTimeout(
  *
  * @param url The URL to post to.
  * @param body The body to send.
- * @param options Additional fetch options.
+ * @param options Additional fetch options. Caller headers are merged; `Content-Type` defaults to
+ * `application/json` unless the caller sets it.
  * @returns The parsed JSON response.
+ * @throws {HttpError} When the response status is not 2xx.
  */
 export async function postJson<T = unknown, R = unknown>(
 	url: string,
 	body: T,
 	options: RequestInit = {}
 ): Promise<R> {
+	const headers = new Headers(options.headers)
+	if (!headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
 	const response = await fetch(url, {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
-		body: JSON.stringify(body),
 		...options,
+		method: 'POST',
+		headers,
+		body: JSON.stringify(body),
 	})
-	return await response.json()
+	return await (await ensureOk(response, url)).json()
 }
 
 /**
@@ -70,20 +113,22 @@ export async function postJson<T = unknown, R = unknown>(
  * @param url The URL to fetch.
  * @param options Additional fetch options.
  * @returns The parsed JSON response.
+ * @throws {HttpError} When the response status is not 2xx.
  */
 export async function getJson<T = unknown>(url: string, options: RequestInit = {}): Promise<T> {
-	const response = await fetch(url, { ...options, method: 'GET' })
+	const response = await ensureOk(await fetch(url, { ...options, method: 'GET' }), url)
 	return await response.json()
 }
 
 /**
  * Fetches a resource and returns the response as text.
  * @param url The URL to fetch.
- * @param options Fetch options. A caller `signal` is honoured alongside the timeout.
+ * @param options Fetch options.
  * @returns The response as text.
+ * @throws {HttpError} When the response status is not 2xx.
  */
 export async function fetchText(url: string, options: RequestInit = {}): Promise<string> {
-	const response = await fetch(url, options)
+	const response = await ensureOk(await fetch(url, options), url)
 	return await response.text()
 }
 

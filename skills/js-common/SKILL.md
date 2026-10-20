@@ -72,7 +72,7 @@ Import from `@rtorcato/js-common/<module>`.
 | env | getENV, isDev, isProd, isTest, getNodeEnv, checkEnv, RootApiEnvSchema |
 | errors | createCustomError, isErrorName, getErrorMessage, assert, tryWithFallback |
 | events | on, emit, onceEvent, preventDefault, stopPropagation |
-| fetch | fetchWithTimeout, postJson, getJson, fetchText, handleApiError |
+| fetch | HttpError, fetchWithTimeout, postJson, getJson, fetchText, handleApiError |
 | file | readFileAsString, writeFileAsString, fileExists, deleteFile, getFileExtension |
 | functions | once, debounce, throttle, compose, pipe |
 | geometry | distance2D, midpoint2D, angle2D, pointInRect, rectsOverlap, polygonArea |
