@@ -1,14 +1,74 @@
 ---
 title: Migrating
-description: Upgrading from 1.x to 2.x, from 2.x to 3.x, from 3.x to 4.x, from 4.x to 5.x, and from 5.x to 6.x.
+description: Upgrading from 1.x to 2.x, from 2.x to 3.x, from 3.x to 4.x, from 4.x to 5.x, from 5.x to 6.x, and from 6.0.0 to 6.0.1.
 sidebar_position: 3
 ---
 
 <!-- boundary-check: ignore — every table below names the API being migrated away from -->
 
+## 6.0.0 → 6.0.1 — fetch helpers throw `HttpError` on non-2xx
+
+`fetchWithTimeout`, `getJson`, `postJson` and `fetchText` now check `response.ok`
+([#391](https://github.com/rtorcato/js-common/pull/391)). On 6.0.0 a 4xx or 5xx
+response resolved like a success, so the error body came back typed as the
+success shape. On 6.0.1 the same response rejects with an `HttpError`.
+
+6.0.1 also sends `postJson` as POST even when you pass another `method`, such as
+PUT. 6.0.2 fixes that ([#394](https://github.com/rtorcato/js-common/issues/394)).
+
+Since 6.0.1, `postJson` always sends its `body` argument and ignores a `body` in
+options. 6.0.0 let options override it. That change is intentional and stays.
+
+| Call that gets a 404 | 6.0.0 | 6.0.1 |
+|---|---|---|
+| `getJson<User>(url)` | resolves with the parsed error body, e.g. `{ error: 'missing' }`, typed as `User` | rejects with `HttpError` |
+| `getJson(url)` when the error page is HTML | rejects with a `SyntaxError` from `response.json()` | rejects with `HttpError`, page text in `body` |
+| `fetchText(url)` | resolves with the error page text | rejects with `HttpError` |
+
+Code that already wrapped these calls in `try`/`catch` keeps working, but it now
+catches an `HttpError` where it used to catch a `SyntaxError` or nothing at all.
+Code that looked for an error field on the resolved value has to move that check
+into a `catch`.
+
+### Catching `HttpError`
+
+`HttpError` is exported from `@rtorcato/js-common/fetch` and carries `status`,
+`statusText`, `url` and `body`. `body` is the response text, or `undefined` if it
+could not be read. If the API sends JSON errors, parse `body` yourself.
+
+```ts
+- const user = await getJson<User>(`/api/users/${id}`)
+- if ('error' in user) return null
++ import { getJson, HttpError } from '@rtorcato/js-common/fetch'
++
++ try {
++ 	return await getJson<User>(`/api/users/${id}`)
++ } catch (e) {
++ 	if (e instanceof HttpError && e.status === 404) return null
++ 	throw e
++ }
+```
+
+Timeouts and network failures are unchanged. They still reject with the
+platform's `TimeoutError`, `AbortError` or `TypeError`, not `HttpError`.
+
+### Falling back with `handleApiError`
+
+If any failure should give you a default value, `handleApiError` already does
+that. It catches every rejection, `HttpError` included, and returns the fallback:
+
+```ts
+import { getJson, handleApiError } from '@rtorcato/js-common/fetch'
+
+const posts = await handleApiError(getJson<Post[]>('/api/posts'), [])
+```
+
+Without a fallback it rethrows, so the `HttpError` reaches your own `catch`. It
+can't tell a 404 from a timeout, so use `try`/`catch` when the status matters.
+
 ## 5.x → 6.x — Node 24 floor, CLI packages become optional peers
 
-**Pending — not yet released** ([#344](https://github.com/rtorcato/js-common/issues/344)).
+**Released in 6.0.0** ([#344](https://github.com/rtorcato/js-common/issues/344)).
 
 ### Node.js 24 is the minimum
 
@@ -36,8 +96,7 @@ run `js-common`.
 
 ## 4.x → 5.x — root entry point removed
 
-**Pending — not yet released.** This section describes a change parked on an
-unreleased branch until the next major is cut ([#259](https://github.com/rtorcato/js-common/issues/259)).
+**Released in 5.0.0** ([#259](https://github.com/rtorcato/js-common/issues/259)).
 
 `exports["."]` is gone from `package.json`. Before this change, `@rtorcato/js-common`
 resolved from the root to an empty module — `import * as m from '@rtorcato/js-common'`
@@ -54,7 +113,7 @@ rather than half-present.
 
 ### `zod`, `pino`, `uuid` and `short-uuid` are optional peers
 
-**Pending — not yet released** ([#308](https://github.com/rtorcato/js-common/issues/308)).
+**Released in 5.0.0** ([#308](https://github.com/rtorcato/js-common/issues/308)).
 
 These four were regular `dependencies`, so every consumer installed them even when
 it only imported `./arrays`. Each serves a single module, so they are now optional
@@ -99,7 +158,7 @@ are affected.
 
 ## 4.x → 5.x — `./crypto` is Web Crypto, and async
 
-**Pending — not yet released** ([#309](https://github.com/rtorcato/js-common/issues/309)).
+**Released in 5.0.0** ([#309](https://github.com/rtorcato/js-common/issues/309)).
 
 `./crypto` no longer imports `node:crypto`; it uses Web Crypto (`globalThis.crypto`),
 so it now runs in browsers and on edge runtimes as well as Node. `crypto.subtle` is
