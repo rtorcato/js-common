@@ -13,6 +13,9 @@ sidebar_position: 3
 response resolved like a success, so the error body came back typed as the
 success shape. On 6.0.1 the same response rejects with an `HttpError`.
 
+6.0.1 also sends `postJson` as POST even when you pass another `method`, such as
+PUT. 6.0.2 fixes that ([#394](https://github.com/rtorcato/js-common/issues/394)).
+
 | Call that gets a 404 | 6.0.0 | 6.0.1 |
 |---|---|---|
 | `getJson<User>(url)` | resolves with the parsed error body, e.g. `{ error: 'missing' }`, typed as `User` | rejects with `HttpError` |
@@ -62,7 +65,7 @@ can't tell a 404 from a timeout, so use `try`/`catch` when the status matters.
 
 ## 5.x → 6.x — Node 24 floor, CLI packages become optional peers
 
-**Pending — not yet released** ([#344](https://github.com/rtorcato/js-common/issues/344)).
+**Released in 6.0.0** ([#344](https://github.com/rtorcato/js-common/issues/344)).
 
 ### Node.js 24 is the minimum
 
@@ -90,8 +93,7 @@ run `js-common`.
 
 ## 4.x → 5.x — root entry point removed
 
-**Pending — not yet released.** This section describes a change parked on an
-unreleased branch until the next major is cut ([#259](https://github.com/rtorcato/js-common/issues/259)).
+**Released in 5.0.0** ([#259](https://github.com/rtorcato/js-common/issues/259)).
 
 `exports["."]` is gone from `package.json`. Before this change, `@rtorcato/js-common`
 resolved from the root to an empty module — `import * as m from '@rtorcato/js-common'`
@@ -108,7 +110,7 @@ rather than half-present.
 
 ### `zod`, `pino`, `uuid` and `short-uuid` are optional peers
 
-**Pending — not yet released** ([#308](https://github.com/rtorcato/js-common/issues/308)).
+**Released in 5.0.0** ([#308](https://github.com/rtorcato/js-common/issues/308)).
 
 These four were regular `dependencies`, so every consumer installed them even when
 it only imported `./arrays`. Each serves a single module, so they are now optional
@@ -153,7 +155,7 @@ are affected.
 
 ## 4.x → 5.x — `./crypto` is Web Crypto, and async
 
-**Pending — not yet released** ([#309](https://github.com/rtorcato/js-common/issues/309)).
+**Released in 5.0.0** ([#309](https://github.com/rtorcato/js-common/issues/309)).
 
 `./crypto` no longer imports `node:crypto`; it uses Web Crypto (`globalThis.crypto`),
 so it now runs in browsers and on edge runtimes as well as Node. `crypto.subtle` is
