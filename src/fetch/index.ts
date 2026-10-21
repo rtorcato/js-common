@@ -80,7 +80,8 @@ export async function fetchWithTimeout(
  *
  * @param url The URL to post to.
  * @param body The body to send.
- * @param options Additional fetch options. Caller headers are merged; `Content-Type` defaults to
+ * @param options Additional fetch options. `method` defaults to `POST`; pass e.g. `'PUT'` or
+ * `'PATCH'` to override it. Caller headers are merged; `Content-Type` defaults to
  * `application/json` unless the caller sets it.
  * @returns The parsed JSON response.
  * @throws {HttpError} When the response status is not 2xx.
@@ -94,7 +95,7 @@ export async function postJson<T = unknown, R = unknown>(
 	if (!headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
 	const response = await fetch(url, {
 		...options,
-		method: 'POST',
+		method: options.method ?? 'POST',
 		headers,
 		body: JSON.stringify(body),
 	})

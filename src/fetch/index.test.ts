@@ -91,6 +91,12 @@ describe('fetch module', () => {
 		expect(headers.get('Authorization')).toBe('Bearer x')
 	})
 
+	it('postJson lets the caller override the method', async () => {
+		mockFetch.mockResolvedValue({ json: async () => ({}), ok: true })
+		await fetchUtils.postJson('http://test', { a: 1 }, { method: 'PUT' })
+		expect(mockFetch.mock.calls[0][1]).toMatchObject({ method: 'PUT', body: '{"a":1}' })
+	})
+
 	it('postJson lets the caller override Content-Type', async () => {
 		mockFetch.mockResolvedValue({ json: async () => ({}), ok: true })
 		await fetchUtils.postJson('http://test', {}, { headers: { 'content-type': 'text/plain' } })
