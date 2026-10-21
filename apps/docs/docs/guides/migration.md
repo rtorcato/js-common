@@ -16,6 +16,9 @@ success shape. On 6.0.1 the same response rejects with an `HttpError`.
 6.0.1 also sends `postJson` as POST even when you pass another `method`, such as
 PUT. 6.0.2 fixes that ([#394](https://github.com/rtorcato/js-common/issues/394)).
 
+Since 6.0.1, `postJson` always sends its `body` argument and ignores a `body` in
+options. 6.0.0 let options override it. That change is intentional and stays.
+
 | Call that gets a 404 | 6.0.0 | 6.0.1 |
 |---|---|---|
 | `getJson<User>(url)` | resolves with the parsed error body, e.g. `{ error: 'missing' }`, typed as `User` | rejects with `HttpError` |
