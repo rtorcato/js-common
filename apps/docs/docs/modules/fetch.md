@@ -19,6 +19,9 @@ const created = await postJson<NewUser, User>('/api/users', { name: 'Ada' })
 const report = await fetchWithTimeout('/api/report', {}, 2_000)
 ```
 
+`postJson` sends `POST` by default. Pass `{ method: 'PUT' }` (or `'PATCH'`) in its options to
+send the same JSON body with another method.
+
 Every helper checks `response.ok`: a non-2xx response throws an `HttpError` carrying `status`,
 `statusText`, `url` and the response `body` text.
 
