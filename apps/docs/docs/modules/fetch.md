@@ -23,7 +23,9 @@ const report = await fetchWithTimeout('/api/report', {}, 2_000)
 send the same JSON body with another method.
 
 Every helper checks `response.ok`: a non-2xx response throws an `HttpError` carrying `status`,
-`statusText`, `url` and the response `body` text.
+`statusText`, `url` and the response `body` text. The error `message` drops the URL's userinfo,
+query and fragment, so it is safe to log. The `url` property keeps the URL as received and can
+hold credentials, so don't log it. `body` is truncated to the first 4 KB.
 
 ```ts
 import { getJson, HttpError } from '@rtorcato/js-common/fetch'

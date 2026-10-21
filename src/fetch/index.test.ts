@@ -145,6 +145,59 @@ describe('fetch module', () => {
 		})
 	})
 
+	describe('HttpError hygiene', () => {
+		it('keeps userinfo, query and fragment out of the message but not the url property', async () => {
+			const url = 'https://user:pw@api.test/v1/items?token=secret&api_key=k#frag'
+			mockFetch.mockResolvedValue({
+				ok: false,
+				status: 401,
+				statusText: 'Unauthorized',
+				url,
+				text: async () => '',
+			})
+			const error = await fetchUtils.getJson(url).catch((e) => e)
+			expect(error.message).toBe('HTTP 401 Unauthorized (https://api.test/v1/items)')
+			expect(error.url).toBe(url)
+		})
+
+		it('redacts relative URLs too', () => {
+			const error = new fetchUtils.HttpError(500, '', '/path?token=secret#x')
+			expect(error.message).toBe('HTTP 500 (/path)')
+		})
+
+		it('caps the stored body at 4 KB and stops reading the stream', async () => {
+			let pulled = 0
+			const stream = new ReadableStream<Uint8Array>({
+				pull(controller) {
+					pulled++
+					controller.enqueue(new Uint8Array(1024).fill(97))
+				},
+			})
+			mockFetch.mockResolvedValue({
+				ok: false,
+				status: 500,
+				statusText: 'Server Error',
+				url: 'http://test/big',
+				body: stream,
+			})
+			const error = await fetchUtils.getJson('http://test/big').catch((e) => e)
+			expect(error.body).toHaveLength(4096)
+			expect(pulled).toBeLessThan(10)
+		})
+
+		it('truncates text() fallbacks without a stream', async () => {
+			mockFetch.mockResolvedValue({
+				ok: false,
+				status: 500,
+				statusText: '',
+				url: 'http://test/big',
+				text: async () => 'x'.repeat(10_000),
+			})
+			const error = await fetchUtils.getJson('http://test/big').catch((e) => e)
+			expect(error.body).toHaveLength(4096)
+		})
+	})
+
 	it('getJson sends GET and returns JSON', async () => {
 		mockFetch.mockResolvedValue({
 			json: async () => ({ data: 123 }),

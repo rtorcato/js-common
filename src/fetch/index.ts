@@ -15,13 +15,20 @@ export class HttpError extends Error {
 	readonly status: number
 	/** The HTTP status text, e.g. `'Not Found'`. */
 	readonly statusText: string
-	/** The response URL. */
+	/**
+	 * The response URL as received. Sensitive: it can carry credentials in the query string or
+	 * userinfo, so don't log it. `message` uses a redacted form instead.
+	 */
 	readonly url: string
-	/** The response body as text, or `undefined` when it could not be read. */
+	/**
+	 * The response body as text, truncated to the first 4 KB, or `undefined` when it could not be
+	 * read.
+	 */
 	readonly body: string | undefined
 
 	constructor(status: number, statusText: string, url: string, body?: string) {
-		super(`HTTP ${status}${statusText ? ` ${statusText}` : ''}${url ? ` (${url})` : ''}`)
+		const safeUrl = redactUrl(url)
+		super(`HTTP ${status}${statusText ? ` ${statusText}` : ''}${safeUrl ? ` (${safeUrl})` : ''}`)
 		this.name = 'HttpError'
 		this.status = status
 		this.statusText = statusText
@@ -30,9 +37,38 @@ export class HttpError extends Error {
 	}
 }
 
+const MAX_ERROR_BODY_BYTES = 4096
+
+/** Drops userinfo, query and fragment so the URL is safe to put in a message. */
+function redactUrl(url: string): string {
+	try {
+		const u = new URL(url)
+		return u.origin + u.pathname
+	} catch {
+		// Not an absolute URL: cut at the first `?` or `#`.
+		return url.split(/[?#]/, 1)[0] ?? ''
+	}
+}
+
+/** Reads at most `MAX_ERROR_BODY_BYTES` of the body, then cancels the rest of the stream. */
+async function readCappedText(response: Response): Promise<string> {
+	const reader = response.body?.getReader()
+	if (!reader) return (await response.text()).slice(0, MAX_ERROR_BODY_BYTES)
+	const chunks: Uint8Array<ArrayBuffer>[] = []
+	let size = 0
+	while (size < MAX_ERROR_BODY_BYTES) {
+		const { done, value } = await reader.read()
+		if (done) break
+		chunks.push(value)
+		size += value.byteLength
+	}
+	await reader.cancel().catch(() => undefined)
+	return new Blob(chunks).slice(0, MAX_ERROR_BODY_BYTES).text()
+}
+
 async function ensureOk(response: Response, url: string): Promise<Response> {
 	if (response.ok) return response
-	const body = await response.text().catch(() => undefined)
+	const body = await readCappedText(response).catch(() => undefined)
 	throw new HttpError(response.status, response.statusText, response.url || url, body)
 }
 

@@ -13,6 +13,7 @@ const OVERRIDES = {
 	'./currency': '1450 B',
 	'./strings': '950 B',
 	'./date': '800 B',
+	'./fetch': '800 B',
 	'./promises': '700 B',
 	'./numbers': '600 B',
 	'./datetime': '600 B',
