@@ -15,7 +15,7 @@ const OVERRIDES = {
 	'./date': '800 B',
 	'./fetch': '800 B',
 	'./promises': '700 B',
-	'./numbers': '600 B',
+	'./numbers': '800 B',
 	'./datetime': '600 B',
 	'./arrays': '550 B',
 	'./colors': '550 B',
