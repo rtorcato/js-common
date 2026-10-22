@@ -29,7 +29,7 @@ A comprehensive set of common JavaScript and TypeScript utilities for Node.js pr
 - **Tree-shakeable** — import only what you need via subpath exports
 - **TypeScript** — full type definitions, JSDoc on every public API
 - **CLI included** — optional binary for use in scripts and terminals
-- **Modular** — one module per concern, 42 subpaths
+- **Modular** — one module per concern, 43 subpaths
 - **No required runtime deps** — `zod` (`./env`), `pino` (`./logger`, plus `pino-pretty` for pretty dev logs) and `uuid` + `short-uuid` (`./uuid`) are optional peers: install one only if you import its module. The CLI packages (`chalk`, `commander`, `figlet`, …) are optional peers too, needed only to run the `js-common` binary — see [CLI.md](CLI.md).
 
 ## Installation
@@ -196,6 +196,7 @@ import { invertMap, mapValues, objectToMap, mapToObject } from '@rtorcato/js-com
 import { retry, to, withTimeout } from '@rtorcato/js-common/promises'
 import { debounce, throttle, once } from '@rtorcato/js-common/functions'
 import { sleep } from '@rtorcato/js-common/sleep'
+import { createTtlCache } from '@rtorcato/js-common/cache'
 import { tryCatch } from '@rtorcato/js-common/try'
 import { createAbortController, withAbort, abortAfter } from '@rtorcato/js-common/abortController'
 import { createCustomError, getErrorMessage, assert } from '@rtorcato/js-common/errors'

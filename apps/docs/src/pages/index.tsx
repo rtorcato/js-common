@@ -235,7 +235,7 @@ function Hero(): ReactElement {
 				<p className={styles.tagline}>
 					Tree-shakeable TypeScript utilities: tiny bundles, full type safety, CLI included.
 				</p>
-				<p className={styles.heroSub}>42 modules. One subpath each. Import only what you use.</p>
+				<p className={styles.heroSub}>43 modules. One subpath each. Import only what you use.</p>
 
 				<CodeCard />
 
@@ -382,7 +382,7 @@ function Categories(): ReactElement {
 				<div>
 					<h2 className={styles.h2}>Everything in one place</h2>
 					<p className={styles.sub}>
-						Nine focused categories. 42 modules. Import exactly what you need.
+						Nine focused categories. 43 modules. Import exactly what you need.
 					</p>
 				</div>
 				<Link className={styles.viewAll} to="/docs/modules/overview">

@@ -25,6 +25,7 @@ Every module is exported under its own subpath so bundlers can tree-shake unused
 | Promises | `@rtorcato/js-common/promises` | any | `withTimeout`, `to`, `mapLimit` |
 | Functions | `@rtorcato/js-common/functions` | any | `debounce`, `throttle`, `once` |
 | Sleep | `@rtorcato/js-common/sleep` | any | `sleep` |
+| Cache | `@rtorcato/js-common/cache` | any | `createTtlCache` |
 
 The full list of subpaths is in the package's [`exports`](https://github.com/rtorcato/js-common/blob/main/package.json) field. Which module owns a given helper — and why no name is exported from two of them — is recorded in [MODULE-BOUNDARIES.md](https://github.com/rtorcato/js-common/blob/main/MODULE-BOUNDARIES.md).
 
