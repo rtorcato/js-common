@@ -5,7 +5,7 @@ description: Use when writing TypeScript/JavaScript that needs a general-purpose
 
 # Using @rtorcato/js-common
 
-`@rtorcato/js-common` is a tree-shakeable, ESM-only utility library for Node.js >= 24 (TypeScript-first, JSDoc on every public API). One subpath export per concern — 42 of them. There is no package root export.
+`@rtorcato/js-common` is a tree-shakeable, ESM-only utility library for Node.js >= 24 (TypeScript-first, JSDoc on every public API). One subpath export per concern — 43 of them. There is no package root export.
 
 ## Rules
 
@@ -62,6 +62,7 @@ Import from `@rtorcato/js-common/<module>`.
 | abortController | createAbortController, abortPromise, withAbort, abortAfter |
 | arrays | unique, chunk, compact, shuffle, partition, sortBy, zip |
 | boolean | toBoolean |
+| cache | createTtlCache, TtlCache, TtlCacheOptions |
 | colors | randomColor, matchingTextColor, hexToRgb, rgbToHex, isValidHex, darken, lighten |
 | console | disableConsole, clearConsole |
 | crypto | hashString, randomHex, hmacHash, base64Encode, base64Decode |
