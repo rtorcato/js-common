@@ -89,6 +89,47 @@ export function formatPercent(
 	return `${rounded > 0 ? '+' : ''}${formatted}%`
 }
 
+const BYTE_UNITS = ['B', 'KB', 'MB', 'GB'] as const
+
+/**
+ * Options for {@link formatBytes}.
+ */
+export interface FormatBytesOptions {
+	/** Maximum number of decimal places (default: 2). Trailing zeros are dropped. */
+	decimals?: number
+}
+
+/**
+ * Formats a byte count as a human-readable size using binary units (1 KB = 1024 B).
+ * Values above a GB stay in GB, so the unit never runs past `GB`.
+ *
+ * @example
+ * ```typescript
+ * formatBytes(0) // '0 B'
+ * formatBytes(1536) // '1.5 KB'
+ * formatBytes(1048576, { decimals: 0 }) // '1 MB'
+ * ```
+ *
+ * @param bytes The byte count. Must be finite and non-negative.
+ * @param opts `decimals` caps the decimal places (default: 2).
+ * @returns The formatted size, e.g. `'1.5 KB'`.
+ * @throws {RangeError} If `bytes` is negative, NaN, or infinite.
+ */
+export function formatBytes(bytes: number, opts: FormatBytesOptions = {}): string {
+	if (!Number.isFinite(bytes) || bytes < 0) {
+		throw new RangeError(`formatBytes: expected a finite, non-negative byte count, got ${bytes}`)
+	}
+	const { decimals = 2 } = opts
+	// ponytail: unit is picked before rounding, so 1048575 shows as '1024 KB'. Round first if that matters.
+	let unit = 0
+	let value = bytes
+	while (value >= 1024 && unit < BYTE_UNITS.length - 1) {
+		value /= 1024
+		unit++
+	}
+	return `${Number(value.toFixed(decimals))} ${BYTE_UNITS[unit]}`
+}
+
 /**
  * Checks if a number is between two values.
  * @param value The number to check.

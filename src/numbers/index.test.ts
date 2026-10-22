@@ -3,6 +3,7 @@ import {
 	average,
 	between,
 	clamp,
+	formatBytes,
 	formatPercent,
 	median,
 	mod,
@@ -40,6 +41,31 @@ describe('formatPercent', () => {
 	})
 	it('is unsigned by default', () => {
 		expect(formatPercent(0.0214, { fractionDigits: 2 })).toBe('2.14%')
+	})
+})
+
+describe('formatBytes', () => {
+	it('formats bytes below 1 KB without a fraction', () => {
+		expect(formatBytes(0)).toBe('0 B')
+		expect(formatBytes(512)).toBe('512 B')
+	})
+	it('uses binary (1024-based) units', () => {
+		expect(formatBytes(1024)).toBe('1 KB')
+		expect(formatBytes(1536)).toBe('1.5 KB')
+		expect(formatBytes(1048576)).toBe('1 MB')
+		expect(formatBytes(1073741824)).toBe('1 GB')
+	})
+	it('caps the unit at GB', () => {
+		expect(formatBytes(1024 ** 4)).toBe('1024 GB')
+	})
+	it('respects the decimals option', () => {
+		expect(formatBytes(1536, { decimals: 0 })).toBe('2 KB')
+		expect(formatBytes(1536, { decimals: 3 })).toBe('1.5 KB')
+	})
+	it('throws a RangeError for negative, NaN or infinite input', () => {
+		expect(() => formatBytes(-1)).toThrow(RangeError)
+		expect(() => formatBytes(Number.NaN)).toThrow(RangeError)
+		expect(() => formatBytes(Number.POSITIVE_INFINITY)).toThrow(RangeError)
 	})
 })
 

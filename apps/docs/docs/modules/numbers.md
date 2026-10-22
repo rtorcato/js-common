@@ -9,7 +9,7 @@ sidebar_position: 3
 Aggregates and range maths over plain numbers — sum, average, rounding to a fixed precision, clamping, percentage formatting, and dispersion (`variance`, `stdDev`, `median`, `percentile`). `roundTo` is the usual `Math.round(n * 10 ** d) / 10 ** d`, which is right for display but still bound by float representation, so keep money in integer minor units or a decimal library. Randomness lives in [random](./random.md), not here — and for anything an attacker should not be able to predict, use `crypto` or `security` instead.
 
 ```ts
-import { sum, average, roundTo, clamp, formatPercent } from '@rtorcato/js-common/numbers'
+import { sum, average, roundTo, clamp, formatPercent, formatBytes } from '@rtorcato/js-common/numbers'
 import { variance, stdDev, median, percentile } from '@rtorcato/js-common/numbers'
 
 sum([1, 2, 3, 4, 5])      // 15
@@ -19,6 +19,8 @@ clamp(42, 0, 10)          // 10
 formatPercent(0.1234, 1)  // "12.3%"
 formatPercent(0.0214, { fractionDigits: 2, signed: true })  // "+2.14%"
 formatPercent(0, { signed: true })                          // "0%" — zero is never signed
+formatBytes(1536)         // "1.5 KB" — binary units, capped at GB
+formatBytes(1536, { decimals: 0 }) // "2 KB"
 
 median([4, 1, 3, 2])      // 2.5
 percentile([1, 2, 3, 4], 25) // 1.75
