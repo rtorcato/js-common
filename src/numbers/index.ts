@@ -120,14 +120,19 @@ export function formatBytes(bytes: number, opts: FormatBytesOptions = {}): strin
 		throw new RangeError(`formatBytes: expected a finite, non-negative byte count, got ${bytes}`)
 	}
 	const { decimals = 2 } = opts
-	// ponytail: unit is picked before rounding, so 1048575 shows as '1024 KB'. Round first if that matters.
 	let unit = 0
 	let value = bytes
 	while (value >= 1024 && unit < BYTE_UNITS.length - 1) {
 		value /= 1024
 		unit++
 	}
-	return `${Number(value.toFixed(decimals))} ${BYTE_UNITS[unit]}`
+	// Round before the bump check, so 1048575 reads '1 MB' rather than '1024 KB'.
+	let rounded = Number(value.toFixed(decimals))
+	if (rounded >= 1024 && unit < BYTE_UNITS.length - 1) {
+		rounded = Number((rounded / 1024).toFixed(decimals))
+		unit++
+	}
+	return `${rounded} ${BYTE_UNITS[unit]}`
 }
 
 /**

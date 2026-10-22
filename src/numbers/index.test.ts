@@ -58,6 +58,10 @@ describe('formatBytes', () => {
 	it('caps the unit at GB', () => {
 		expect(formatBytes(1024 ** 4)).toBe('1024 GB')
 	})
+	it('rounds before picking the unit, so it never reads 1024 of the unit below', () => {
+		expect(formatBytes(1048575)).toBe('1 MB')
+		expect(formatBytes(1023.999)).toBe('1 KB')
+	})
 	it('respects the decimals option', () => {
 		expect(formatBytes(1536, { decimals: 0 })).toBe('2 KB')
 		expect(formatBytes(1536, { decimals: 3 })).toBe('1.5 KB')
