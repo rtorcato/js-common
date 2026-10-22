@@ -90,6 +90,7 @@ async function ensureOk(response: Response, url: string): Promise<Response> {
  * @param timeout Timeout in milliseconds (default: 8000).
  * @returns The parsed JSON response.
  * @throws {HttpError} When the response status is not 2xx.
+ * @throws {SyntaxError} When a 2xx body is empty (e.g. `204`) or is not valid JSON.
  */
 export async function fetchWithTimeout(
 	url: string,
@@ -121,6 +122,7 @@ export async function fetchWithTimeout(
  * `application/json` unless the caller sets it.
  * @returns The parsed JSON response.
  * @throws {HttpError} When the response status is not 2xx.
+ * @throws {SyntaxError} When a 2xx body is empty (e.g. `204`) or is not valid JSON.
  */
 export async function postJson<T = unknown, R = unknown>(
 	url: string,
@@ -151,6 +153,7 @@ export async function postJson<T = unknown, R = unknown>(
  * @param options Additional fetch options.
  * @returns The parsed JSON response.
  * @throws {HttpError} When the response status is not 2xx.
+ * @throws {SyntaxError} When a 2xx body is empty (e.g. `204`) or is not valid JSON.
  */
 export async function getJson<T = unknown>(url: string, options: RequestInit = {}): Promise<T> {
 	const response = await ensureOk(await fetch(url, { ...options, method: 'GET' }), url)

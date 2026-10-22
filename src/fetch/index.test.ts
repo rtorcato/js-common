@@ -198,6 +198,21 @@ describe('fetch module', () => {
 		})
 	})
 
+	describe('2xx without a JSON body', () => {
+		it.each([
+			['fetchWithTimeout', () => fetchUtils.fetchWithTimeout('http://test/empty')],
+			['postJson', () => fetchUtils.postJson('http://test/empty', {})],
+			['getJson', () => fetchUtils.getJson('http://test/empty')],
+		])('%s rejects with the SyntaxError from json(), not HttpError', async (_name, call) => {
+			for (const response of [new Response(null, { status: 204 }), new Response('<html>')]) {
+				mockFetch.mockResolvedValue(response)
+				const error = await call().catch((e) => e)
+				expect(error).toBeInstanceOf(SyntaxError)
+				expect(error).not.toBeInstanceOf(fetchUtils.HttpError)
+			}
+		})
+	})
+
 	it('getJson sends GET and returns JSON', async () => {
 		mockFetch.mockResolvedValue({
 			json: async () => ({ data: 123 }),

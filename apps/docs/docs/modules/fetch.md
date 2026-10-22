@@ -40,6 +40,11 @@ async function findUser(id: string) {
 }
 ```
 
+A 2xx response is not checked for a JSON body. If a `fetchWithTimeout`, `getJson` or `postJson`
+call gets an empty body (a `204`, say) or one that isn't JSON, it rejects with the `SyntaxError`
+from `response.json()`, not an `HttpError`. For an endpoint that can return no content, call
+`fetchText` and parse the result yourself.
+
 <!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
 
 ## Import
