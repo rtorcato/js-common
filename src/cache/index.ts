@@ -1,5 +1,8 @@
 export interface TtlCacheOptions {
-	/** How long a loaded value counts as fresh, in milliseconds. */
+	/**
+	 * How long a loaded value counts as fresh, in milliseconds. `0` never caches (every `get` calls
+	 * `load`); `Infinity` never expires. Throws `RangeError` if `NaN` or negative.
+	 */
 	ttlMs: number
 	/** When a refresh throws, serve the last good value instead of rethrowing. Default `false`. */
 	staleOnError?: boolean
@@ -31,8 +34,12 @@ export interface TtlCache<V> {
  *
  * @param options Freshness window and error behaviour.
  * @returns {TtlCache}
+ * @throws {RangeError} If `ttlMs` is `NaN` or negative.
  */
 export function createTtlCache<V>({ ttlMs, staleOnError = false }: TtlCacheOptions): TtlCache<V> {
+	if (Number.isNaN(ttlMs) || ttlMs < 0) {
+		throw new RangeError(`createTtlCache: ttlMs must be a non-negative number, got ${ttlMs}`)
+	}
 	const entries = new Map<string, { value: V; at: number }>()
 	const inflight = new Map<string, Promise<V>>()
 
@@ -42,7 +49,8 @@ export function createTtlCache<V>({ ttlMs, staleOnError = false }: TtlCacheOptio
 			if (hit && Date.now() - hit.at < ttlMs) return Promise.resolve(hit.value)
 			let pending = inflight.get(key)
 			if (!pending) {
-				pending = load()
+				// A sync throw from `load` becomes a rejection, so it takes the staleOnError path.
+				pending = new Promise<V>((resolve) => resolve(load()))
 					.then((value) => {
 						entries.set(key, { value, at: Date.now() })
 						return value

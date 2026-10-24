@@ -22,6 +22,31 @@ describe('createTtlCache', () => {
 		expect(await cache.get('a', load)).toBe(2)
 	})
 
+	it('rejects a NaN ttlMs', () => {
+		expect(() => createTtlCache<number>({ ttlMs: Number.NaN })).toThrow(RangeError)
+	})
+
+	it('rejects a negative ttlMs', () => {
+		expect(() => createTtlCache<number>({ ttlMs: -1 })).toThrow(RangeError)
+	})
+
+	it('reloads on every get when ttlMs is 0', async () => {
+		const cache = createTtlCache<number>({ ttlMs: 0 })
+		const load = vi.fn().mockResolvedValue(1)
+		await cache.get('a', load)
+		await cache.get('a', load)
+		expect(load).toHaveBeenCalledTimes(2)
+	})
+
+	it('never expires an entry when ttlMs is Infinity', async () => {
+		const cache = createTtlCache<number>({ ttlMs: Number.POSITIVE_INFINITY })
+		const load = vi.fn().mockResolvedValue(1)
+		await cache.get('a', load)
+		vi.advanceTimersByTime(365 * 24 * 60 * 60 * 1000)
+		await cache.get('a', load)
+		expect(load).toHaveBeenCalledTimes(1)
+	})
+
 	it('keeps keys apart', async () => {
 		const cache = createTtlCache<string>({ ttlMs: 1000 })
 		await cache.get('a', async () => 'A')
@@ -48,6 +73,17 @@ describe('createTtlCache', () => {
 		vi.advanceTimersByTime(1000)
 		expect(await cache.get('a', () => Promise.reject(new Error('boom')))).toBe(1)
 		expect(await cache.get('a', async () => 2)).toBe(2)
+	})
+
+	it('serves the last good value when load throws synchronously with staleOnError', async () => {
+		const cache = createTtlCache<number>({ ttlMs: 1000, staleOnError: true })
+		await cache.get('a', async () => 1)
+		vi.advanceTimersByTime(1000)
+		expect(
+			await cache.get('a', () => {
+				throw new Error('boom')
+			})
+		).toBe(1)
 	})
 
 	it('rethrows with staleOnError when there is no good value yet', async () => {
