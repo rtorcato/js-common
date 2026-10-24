@@ -42,7 +42,8 @@ export function createTtlCache<V>({ ttlMs, staleOnError = false }: TtlCacheOptio
 			if (hit && Date.now() - hit.at < ttlMs) return Promise.resolve(hit.value)
 			let pending = inflight.get(key)
 			if (!pending) {
-				pending = load()
+				// A sync throw from `load` becomes a rejection, so it takes the staleOnError path.
+				pending = new Promise<V>((resolve) => resolve(load()))
 					.then((value) => {
 						entries.set(key, { value, at: Date.now() })
 						return value

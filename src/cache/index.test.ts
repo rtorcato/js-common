@@ -50,6 +50,17 @@ describe('createTtlCache', () => {
 		expect(await cache.get('a', async () => 2)).toBe(2)
 	})
 
+	it('serves the last good value when load throws synchronously with staleOnError', async () => {
+		const cache = createTtlCache<number>({ ttlMs: 1000, staleOnError: true })
+		await cache.get('a', async () => 1)
+		vi.advanceTimersByTime(1000)
+		expect(
+			await cache.get('a', () => {
+				throw new Error('boom')
+			})
+		).toBe(1)
+	})
+
 	it('rethrows with staleOnError when there is no good value yet', async () => {
 		const cache = createTtlCache<number>({ ttlMs: 1000, staleOnError: true })
 		await expect(cache.get('a', () => Promise.reject(new Error('boom')))).rejects.toThrow('boom')
