@@ -9,6 +9,8 @@ An in-memory TTL cache keyed by string. `createTtlCache` takes a freshness windo
 
 Set `staleOnError` for upstreams that fail now and then. When a refresh throws, the last good value is returned (however old) and kept, so the next `get` tries again. With no good value yet, or without `staleOnError`, the error is rethrown. Entries are replaced, never evicted by age, so bound the key space yourself or call `delete` / `clear`.
 
+`ttlMs` takes `0` to never cache (every `get` calls `load`) and `Infinity` for entries that never expire. A `NaN` or negative `ttlMs` throws a `RangeError` when the cache is created.
+
 ## Example
 
 ```ts
