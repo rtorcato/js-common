@@ -1,11 +1,11 @@
 ---
 title: Time
-description: Thin native-Date time helpers — HH:MM:SS formatting, parsing, and seconds-between.
+description: Thin native-Date time helpers — HH:MM:SS formatting, parsing, seconds-between, and compact elapsed labels.
 ---
 
 **Runtime:** any — Node.js ≥ 24 or a modern browser
 
-A minimal set of time-of-day helpers built on the native `Date`. No locale-aware formatting, no durations, no timezone math.
+A minimal set of time-of-day helpers built on the native `Date`. No locale-aware formatting, no duration arithmetic, no timezone math.
 
 :::note Intentionally minimal
 The `date`, `time`, and `datetime` modules cover everyday native-`Date` work and nothing more. If you need locale-aware formatting, parsing arbitrary formats, durations, calendars, or timezone math, use a dedicated library:
@@ -33,18 +33,33 @@ nowTime()                   // '14:22:07'
 
 `parseTime` puts the time on today's date, so comparisons are only meaningful within one day.
 
+## Elapsed time
+
+`formatElapsed` turns milliseconds into a short "how long ago" label, for example "last seen 5m ago":
+
+```ts
+import { formatElapsed } from '@rtorcato/js-common/time'
+
+formatElapsed(45_000)                    // '45s'
+formatElapsed((3 * 60 + 5) * 60_000)     // '3h 5m'
+formatElapsed(2 * 24 * 3600_000 + 5 * 3600_000) // '2d' — days drop the leftover hours
+```
+
+Under a minute it shows seconds, under an hour minutes, under a day hours (with leftover minutes, if any), then days. Negative input counts as 0.
+
 <!-- generated:exports — do not edit; `pnpm docs:generate` rewrites this block -->
 
 ## Import
 
 ```ts
-import { formatTime, nowTime, nowTimeShort } from '@rtorcato/js-common/time'
+import { formatElapsed, formatTime, nowTime } from '@rtorcato/js-common/time'
 ```
 
 ## Exports
 
 | Name | Summary |
 | --- | --- |
+| `formatElapsed` | Formats an elapsed time in milliseconds as a compact label: `45s`, `12m`, `3h 5m`, `2h`, `2d`. |
 | `formatTime` | Formats a Date object as `HH:MM:SS`. |
 | `nowTime` | Returns the current time as an `HH:MM:SS` string. |
 | `nowTimeShort` | Returns the current time as HH:MM string. |
