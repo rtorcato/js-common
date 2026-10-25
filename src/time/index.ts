@@ -76,3 +76,26 @@ export function nowTimeShort(): string {
 	const d = new Date()
 	return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`
 }
+
+/**
+ * Formats an elapsed time in milliseconds as a compact label: `45s`, `12m`, `3h 5m`, `2h`, `2d`.
+ * Negative input counts as 0. Days drop the leftover hours, so `2d 5h` reads `2d`.
+ *
+ * @example
+ * ```typescript
+ * formatElapsed(45_000) // '45s'
+ * formatElapsed((3 * 60 + 5) * 60_000) // '3h 5m'
+ * ```
+ *
+ * @param ms Elapsed time in milliseconds.
+ * @returns {string}
+ */
+export function formatElapsed(ms: number): string {
+	const s = Math.max(0, Math.floor(ms / 1000))
+	if (s < 60) return `${s}s`
+	const m = Math.floor(s / 60)
+	if (m < 60) return `${m}m`
+	const h = Math.floor(m / 60)
+	if (h < 24) return m % 60 ? `${h}h ${m % 60}m` : `${h}h`
+	return `${Math.floor(h / 24)}d`
+}

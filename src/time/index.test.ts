@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { formatTime, nowTime, nowTimeShort, pad2, parseTime, secondsBetween } from './index'
+import {
+	formatElapsed,
+	formatTime,
+	nowTime,
+	nowTimeShort,
+	pad2,
+	parseTime,
+	secondsBetween,
+} from './index'
 
 describe('nowTime', () => {
 	it('returns a string in HH:MM:SS format', () => {
@@ -54,5 +62,37 @@ describe('nowTimeShort', () => {
 	it('returns a string in HH:MM format', () => {
 		const t = nowTimeShort()
 		expect(t).toMatch(/^\d{2}:\d{2}$/)
+	})
+})
+
+describe('formatElapsed', () => {
+	const SEC = 1000
+	const MIN = 60 * SEC
+	const HOUR = 60 * MIN
+	const DAY = 24 * HOUR
+
+	it('formats seconds below a minute', () => {
+		expect(formatElapsed(45 * SEC)).toBe('45s')
+		expect(formatElapsed(0)).toBe('0s')
+		expect(formatElapsed(59 * SEC + 999)).toBe('59s')
+	})
+	it('formats minutes below an hour', () => {
+		expect(formatElapsed(MIN)).toBe('1m')
+		expect(formatElapsed(12 * MIN)).toBe('12m')
+		expect(formatElapsed(59 * MIN + 59 * SEC)).toBe('59m')
+	})
+	it('adds leftover minutes to hours and drops them when zero', () => {
+		expect(formatElapsed(HOUR)).toBe('1h')
+		expect(formatElapsed(3 * HOUR + 5 * MIN)).toBe('3h 5m')
+		expect(formatElapsed(23 * HOUR + 59 * MIN)).toBe('23h 59m')
+	})
+	it('formats days and drops leftover hours', () => {
+		expect(formatElapsed(DAY)).toBe('1d')
+		expect(formatElapsed(2 * DAY)).toBe('2d')
+		expect(formatElapsed(2 * DAY + 5 * HOUR)).toBe('2d')
+	})
+	it('floors partial seconds and treats negative input as zero', () => {
+		expect(formatElapsed(1999)).toBe('1s')
+		expect(formatElapsed(-5 * SEC)).toBe('0s')
 	})
 })
