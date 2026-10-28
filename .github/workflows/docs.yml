@@ -9,8 +9,8 @@ on:
             - 'pnpm-workspace.yaml'
     # A release must redeploy the site, or the changelog page — built from the
     # GitHub Releases API by scripts/sync-changelog.mjs — silently stops at
-    # whatever the last apps/docs change saw. That is done by the `release` job
-    # in ci.yml dispatching this workflow on `main`, NOT by subscribing to the
+    # whatever the last apps/docs change saw. That is done by the `publish` job
+    # in release.yml dispatching this workflow on `main`, NOT by subscribing to the
     # `release` event here: that event runs with `github.ref` set to the tag.
     workflow_dispatch:
 

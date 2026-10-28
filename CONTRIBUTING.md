@@ -26,7 +26,7 @@ pnpm install
    ```
    This runs typecheck, Biome, and the test suite. `pnpm check:fix` auto-formats.
 4. **Commit using Conventional Commits** (`pnpm commit` gives a guided prompt). Husky runs typecheck and Biome on every commit.
-5. **Open a PR against `main`.** The PR title must be a Conventional Commit: PRs are squash-merged, and the squash subject is what semantic-release reads to decide whether a release is cut.
+5. **Open a PR against `main`.** The PR title must be a Conventional Commit: PRs are squash-merged. If the PR changes `@rtorcato/js-common` for users, add a changeset (see Releases).
 
 ## Adding a new module
 
@@ -38,7 +38,11 @@ Tabs, single quotes, semicolons only as needed, 100-character lines. Enforced by
 
 ## Releases
 
-Releases are automated by semantic-release from `main` and need manual approval on the `release` GitHub environment. Never bump the version in `package.json` or tag by hand.
+Releases use [Changesets](https://github.com/changesets/changesets). Never bump the version in `package.json` or tag by hand.
+
+1. Add a changeset for any user-facing change: `pnpm changeset`. Pick the bump (patch/minor/major) and commit the file under `.changeset/` with your PR.
+2. Merging to `main` does not publish. Each push opens or updates a "Version Packages" PR that consumes the pending changesets, bumps the version and writes `CHANGELOG.md`.
+3. Merging the Version Packages PR is the release. Its `publish` job waits for one approval in the `release` GitHub environment, then publishes to npm, creates the GitHub Release and rebuilds the docs site.
 
 ## License
 
