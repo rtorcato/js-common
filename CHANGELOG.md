@@ -1,5 +1,11 @@
 # @rtorcato/js-common
 
+## 6.2.0
+
+### Minor Changes
+
+- 4501e47: Add `formatElapsed` to `time` for compact elapsed labels (#410). Fix `createTtlCache`: a `load` that throws synchronously now takes the `staleOnError` path, and a NaN or negative `ttlMs` throws a `RangeError` at creation instead of silently never caching (#409). Both merged after 6.1.0 under semantic-release and had not shipped yet.
+
 ## 6.1.0
 
 Releases 2.8.3 to 6.1.0 were cut by semantic-release, which no longer wrote this
