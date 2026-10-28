@@ -15,8 +15,7 @@ what to act on.
 
 ## Backwards compatibility is the default
 
-This package is published to npm and `semantic-release` cuts a major from a
-`BREAKING CHANGE:` footer. **Never recommend removing a public export as a standalone
+This package is published to npm, and a `major` changeset cuts a major version. **Never recommend removing a public export as a standalone
 action.** Removing one forces a major version on every consumer, and buys them nothing they
 asked for.
 

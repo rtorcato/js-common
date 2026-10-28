@@ -1,4 +1,7 @@
 packages:
+  # The published package is the workspace root. Changesets only sees listed
+  # packages, so without `.` every changeset fails with "not in the workspace".
+  - .
   - apps/*
 
 allowBuilds:
