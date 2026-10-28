@@ -1,5 +1,16 @@
 # @rtorcato/js-common
 
+## 6.2.0
+
+The last release cut by semantic-release, published just before the move to
+Changesets ([#413](https://github.com/rtorcato/js-common/pull/413)). It adds
+`formatElapsed` to `time` ([#410](https://github.com/rtorcato/js-common/pull/410))
+and fixes `createTtlCache` ([#409](https://github.com/rtorcato/js-common/pull/409));
+the full notes are on the
+[v6.2.0 GitHub Release](https://github.com/rtorcato/js-common/releases/tag/v6.2.0).
+From the next release on, Changesets writes each entry here, above this one,
+through the Version Packages PR.
+
 ## 6.1.0
 
 Releases 2.8.3 to 6.1.0 were cut by semantic-release, which no longer wrote this
@@ -7,9 +18,7 @@ file (its git plugin was dropped because the `code-scanning-main` ruleset reject
 a release commit pushed to `main`; see
 [#153](https://github.com/rtorcato/js-common/issues/153) and
 [#211](https://github.com/rtorcato/js-common/issues/211)). Their notes are on
-[GitHub Releases](https://github.com/rtorcato/js-common/releases). From the next
-release on, Changesets writes each entry here, above this one, through the
-Version Packages PR.
+[GitHub Releases](https://github.com/rtorcato/js-common/releases).
 
 The entries below, down to 2.8.2, are semantic-release's. GitHub Releases only
 go back to v1.2.0, so the hand-written `1.0.0` section at the bottom is the only
