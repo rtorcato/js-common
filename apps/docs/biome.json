@@ -2,6 +2,8 @@
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
   "root": false,
   "extends": ["@rtorcato/repo-tooling/biome"],
+  "markdown": { "formatter": { "enabled": false } },
+  "yaml": { "formatter": { "enabled": false } },
   "files": {
     "includes": [
       "!**/.docusaurus",
