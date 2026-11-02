@@ -244,7 +244,7 @@
     "chalk-animation": "^2.0.3",
     "commander": "^15.0.0",
     "esbuild": "^0.28.2",
-    "esbuild-node-externals": "^1.23.1",
+    "esbuild-node-externals": "^2.0.0",
     "fast-check": "^4.10.2",
     "figlet": "^1.12.0",
     "gradient-string": "^3.0.0",
