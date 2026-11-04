@@ -23,7 +23,7 @@ jobs:
     cloudflare:
         permissions:
             contents: read
-        uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@v6.1.1
+        uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@863492b9f3b85c60085a8435b372990ffc755b68 # v6.1.1
         with:
             build-filter: '@rtorcato/js-common-docs'
             worker-name: js-common-docs
@@ -64,7 +64,7 @@ jobs:
                   cp stub/index.html stub/404.html
 
             - name: 📤 Upload Pages artifact
-              uses: actions/upload-pages-artifact@v5
+              uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
               with:
                   path: stub
 
@@ -83,4 +83,4 @@ jobs:
         steps:
             - name: 🚀 Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v5
+              uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
