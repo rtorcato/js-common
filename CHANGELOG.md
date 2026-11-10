@@ -1,5 +1,11 @@
 # @rtorcato/js-common
 
+## 6.2.1
+
+### Patch Changes
+
+- 007360f: Raise the optional peer minimums to `@inquirer/prompts` `^8.7.4`, `uuid` `^14.0.3` and `zod` `^4.6.7`.
+
 ## 6.2.0
 
 The last release cut by semantic-release, published just before the move to
