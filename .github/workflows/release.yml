@@ -109,11 +109,14 @@ jobs:
             # The commit that triggered the run, not the tip: a changeset merged while
             # this waited for approval would otherwise make it update the Version
             # Packages PR instead of publishing.
+            # No token is left in .git/config: the install below runs dependency
+            # install scripts. The changesets step gets RELEASE_TOKEN through its
+            # own `github-token` input, which it uses for its pushes and releases.
             - name: 📦 Checkout repository
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
                   fetch-depth: 0
-                  token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+                  persist-credentials: false
 
             - name: 📦 Setup Node.js
               uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
